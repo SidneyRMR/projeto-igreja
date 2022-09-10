@@ -2,9 +2,10 @@
 export default function(props) {
 
     return(
-        <div>
+        <div className="borda">
             <a href="/cadastros/usuarios">Cadastrar Usuário</a>
-            <a href="/cadastros/produtos">Cadastrar Produto</a>
+            <a href="/cadastros/produtos">Cadastrar Produto</a><br />
+            <a href="/abertura-caixa">Voltar</a>
         </div>
     )
 }

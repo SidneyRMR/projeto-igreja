@@ -1,5 +1,11 @@
 .App {
   text-align: center;
+  min-width: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  
 }
 
 .App-header {
@@ -13,36 +19,69 @@
   color: white;
 }
 
-.title {
-  color: #C55A11;
-}
-
 a {
-  border: 0;
   padding: 10px;
   width: 100px;
   /* height: 30px; */
   display: inline-block;
-  margin: 10px;
   cursor: pointer;
-  border-radius: 20px;
+  border-radius: 3px;
   background-color: #C55A11;
   color: white;
-  border: px solid;
-  font-size: 1.4rem;
+  border: 1px solid;
+  /* font-size: 1.4rem; */
   text-decoration: none;
 }
 
-.aberturaCaixa{
-  width: 150px;
+a .vender {
+  font-size: 1.2rem;
+}
+
+.aberturaBotao{
+  width: 120px;
 }
 
 input{
   display: inline-block;
   padding: 5px;
-  margin: 10px;
-  font-size: large;
-  border-radius: 5px;
+  margin: 7px;
+  font-size: medium;
+  border-radius: 2px;
   color: #979696;
   border-color: #C55A11;
+}
+
+.abertura {
+  font-size: 1.2rem;
+  margin: 1px;
+  background-color: #F4B183;
+  border: 0px;
+}
+
+.borda {
+  border: 1px solid;
+  border-color: #C55A11;
+  background-color: #FBE5D6;
+  padding: 100px;
+  margin: 50px;
+  /* max-width: 600px; */
+}
+select {
+  background-color: white;
+  font-size: 1.2rem;
+  margin: 10px;
+}
+
+h1 {
+  color: #C55A11;
+  /* background-color: #C55A11; */
+  padding: 15px;
+  font-size: 20px;
+  margin: 1px;
+  border: 0px;
+}
+
+.title {
+  background-color: #C55A11;
+  color: white;
 }

@@ -14,7 +14,7 @@ export default function(props) {
                     <td>{produto.nome}</td>
                     <td>R${produto.preco}</td>
                     <td>{produto.tipo}</td>
-                    <td><button>Alterar</button></td>
+                    <td><button >Alterar</button></td>
                 </tr>
                   )
                 })
@@ -22,7 +22,8 @@ export default function(props) {
 
 
         return (
-            <Table striped bordered hover>
+            <div className='borda'>
+            <Table striped bordered hover >
                 <thead>
                     <tr>
                         <th>Posição</th>
@@ -35,5 +36,7 @@ export default function(props) {
                     {getProdutos()}
                 </tbody>
             </Table>
+
+            </div>
         )
     }
