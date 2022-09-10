@@ -1,16 +1,12 @@
 
-import Table from 'react-bootstrap/Table';
-import aProdutos from '../data/produtos';
-import aUsuarios from '../data/usuarios';
+import Table from 'react-bootstrap/table';
 import aCaixas from '../data/caixas';
 
-
 export default function (props) {
-
     function getCaixas() {
         return aCaixas.map((oCaixa, i) => {
             return (
-                <tr key={oCaixa.i}
+                <tr key={i}
                     className={i % 2 === 0 ? 'Par' : 'Impar'}>
                     <td>{oCaixa.caixa}</td>
                     <td>{oCaixa.abertura}</td>
@@ -21,11 +17,11 @@ export default function (props) {
                     <td>{oCaixa.pix}</td>
                     <td>{oCaixa.debito + oCaixa.credito + oCaixa.dinheiro + oCaixa.pix - oCaixa.abertura}</td>
                     <td>{oCaixa.debito + oCaixa.credito + oCaixa.dinheiro + oCaixa.pix - oCaixa.sangria}</td>
+                    <th><a href="/fechamento-geral">Detalhes</a></th>
                 </tr>
             )
         })
     }
-
 
     return (
         <div className='borda'>
@@ -47,7 +43,7 @@ export default function (props) {
                     {getCaixas()}
                 </tbody>
             </Table>
-
+            <th><a href="/vendas">Voltar</a></th>
         </div>
     )
 }
