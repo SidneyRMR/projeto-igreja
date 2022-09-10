@@ -26,11 +26,11 @@ export default function(props) {
             <table>
                 <thead>
                     <tr>
-                        <th className='pos'>Posição</th>
-                        <th className='des'>Descrição</th>
-                        <th className='val'>Valor R$</th>
-                        <th className='tip'>Tipo</th>
-                        <th className='alt'></th>
+                        <th>Posição</th>
+                        <th>Descrição</th>
+                        <th>Valor R$</th>
+                        <th>Tipo</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>

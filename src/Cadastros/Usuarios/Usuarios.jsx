@@ -1,5 +1,3 @@
-
-import Table from 'react-bootstrap/Table';
 import usuarios from '../../data/usuarios';
 
 
@@ -23,7 +21,7 @@ export default function(props) {
 
         return (
             <div className='tabela'>
-            <Table striped bordered hover >
+            <table>
                 <thead>
                     <tr>
                         <th>Nome</th>
@@ -36,7 +34,7 @@ export default function(props) {
                 <tbody>
                     {getUsuarios()}
                 </tbody>
-            </Table>
+            </table>
             <a className="voltar" href="/cadastros">Voltar</a>
 
             </div>
