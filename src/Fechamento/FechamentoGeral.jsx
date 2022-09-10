@@ -17,15 +17,15 @@ export default function (props) {
                     <td>{oCaixa.pix}</td>
                     <td>{oCaixa.debito + oCaixa.credito + oCaixa.dinheiro + oCaixa.pix - oCaixa.abertura}</td>
                     <td>{oCaixa.debito + oCaixa.credito + oCaixa.dinheiro + oCaixa.pix - oCaixa.sangria}</td>
-                    <th><a href="/fechamento-geral">Detalhes</a></th>
+                    <td><a href="/fechamento-geral">Detalhes</a></td>
                 </tr>
             )
         })
     }
 
     return (
-        <div className='borda'>
-            <Table striped bordered hover >
+        <div className='tabela'>
+            <table>
                 <thead>
                     <tr>
                         <th>Caixa</th>
@@ -37,12 +37,13 @@ export default function (props) {
                         <th>Pix R$</th>
                         <th>Total de venda</th>
                         <th>Total em caixa</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     {getCaixas()}
                 </tbody>
-            </Table>
+            </table>
             <th><a href="/vendas">Voltar</a></th>
         </div>
     )

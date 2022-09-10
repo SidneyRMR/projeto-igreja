@@ -13,7 +13,7 @@ export default function(props) {
                     <td >{usuario.nome}</td>
                     <td>{usuario.login}</td>
                     <td>{usuario.senha}</td>
-                    <td></td>
+                    <td>{usuario.adm}</td>
                     <td><button >Alterar</button></td>
                 </tr>
                   )
@@ -22,7 +22,7 @@ export default function(props) {
 
 
         return (
-            <div className='borda'>
+            <div className='tabela'>
             <Table striped bordered hover >
                 <thead>
                     <tr>
@@ -30,12 +30,14 @@ export default function(props) {
                         <th>Login</th>
                         <th>Senha</th>
                         <th>Administrador</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     {getUsuarios()}
                 </tbody>
             </Table>
+            <a className="voltar" href="/cadastros">Voltar</a>
 
             </div>
         )

@@ -12,7 +12,7 @@ export default function(props) {
                     className={i % 2 === 0 ? 'Par' : 'Impar'}>
                     <td >{produto.id}</td>
                     <td>{produto.nome}</td>
-                    <td>R${produto.preco}</td>
+                    <td>R${(produto.preco).toFixed(2)}</td>
                     <td>{produto.tipo}</td>
                     <td><button >Alterar</button></td>
                 </tr>
@@ -22,21 +22,22 @@ export default function(props) {
 
 
         return (
-            <div className='borda'>
-            <Table striped bordered hover >
+            <div className='tabela'>
+            <table>
                 <thead>
                     <tr>
-                        <th>Posição</th>
-                        <th>Descrição</th>
-                        <th>Valor R$</th>
-                        <th>Tipo</th>
+                        <th className='pos'>Posição</th>
+                        <th className='des'>Descrição</th>
+                        <th className='val'>Valor R$</th>
+                        <th className='tip'>Tipo</th>
+                        <th className='alt'></th>
                     </tr>
                 </thead>
                 <tbody>
                     {getProdutos()}
                 </tbody>
-            </Table>
-
+            </table>
+            <a className="voltar" href="/cadastros">Voltar</a>
             </div>
         )
     }
