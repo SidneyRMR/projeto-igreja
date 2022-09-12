@@ -1,6 +1,7 @@
 
 import Table from 'react-bootstrap/table';
 import aCaixas from '../data/caixas';
+import { useNavigate } from "react-router-dom";
 
 export default function (props) {
     function getCaixas() {
@@ -44,7 +45,7 @@ export default function (props) {
                     {getCaixas()}
                 </tbody>
             </table>
-            <th><a href="/vendas">Voltar</a></th>
+            <a href="/vendas">Voltar</a>
         </div>
     )
 }

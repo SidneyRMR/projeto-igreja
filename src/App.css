@@ -94,3 +94,14 @@ h1 {
 .tabela .Par {
   background-color: #FCECE8;
 }
+
+.produtosVenda {
+  background-color: #ED7D31;
+  color: white;
+  width: 150px;
+  height: 60px;
+  font-size: 15px;
+  display: inline-block;
+  border-color: white;
+
+}
