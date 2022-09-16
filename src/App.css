@@ -1,15 +1,24 @@
 .App {
   text-align: center;
-  min-width: 620px;
-  display: flex;
   align-items: center;
-  justify-content: center;
+  /* min-width: 620px; */
+  display: flex;
+  /* justify-content: center; */
   flex-direction: column;
+  overflow: hidden;
   
 }
 
+body {
+  background-image: url("./img/vinte-cinco-anos.png");
+  background-attachment:fixed;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  opacity: 90%;
+}
+
 .App-header {
-  background-color: #282c34;
+  /* background-color: #282c34; */
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -55,10 +64,12 @@ input{
 
 .borda {
   border: 1px solid;
+  border-radius: 10px;
+  box-shadow: #282c34 0px 3px 8px;
   border-color: #C55A11;
   background-color: #FBE5D6;
-  padding: 100px;
-  margin: 50px;
+  padding: 15px;
+  margin: 10%;
 }
 select {
   background-color: white;
@@ -105,3 +116,9 @@ h1 {
   border-color: white;
 
 }
+
+.fechCaixa {
+  width: 60px;
+  color: black;
+}
+

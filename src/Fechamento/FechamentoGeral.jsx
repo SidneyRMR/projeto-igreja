@@ -1,23 +1,25 @@
 
-import Table from 'react-bootstrap/table';
 import aCaixas from '../data/caixas';
 import { useNavigate } from "react-router-dom";
 
 export default function (props) {
     function getCaixas() {
+        
         return aCaixas.map((oCaixa, i) => {
+           let tvenda = oCaixa.debito + oCaixa.credito + oCaixa.dinheiro + oCaixa.pix - oCaixa.abertura
+           let tcaixa = oCaixa.debito + oCaixa.credito + oCaixa.dinheiro + oCaixa.pix - oCaixa.sangria
             return (
                 <tr key={i}
                     className={i % 2 === 0 ? 'Par' : 'Impar'}>
                     <td>{oCaixa.caixa}</td>
-                    <td>{oCaixa.abertura}</td>
-                    <td>{oCaixa.sangria}</td>
-                    <td>{oCaixa.debito}</td>
-                    <td>{oCaixa.credito}</td>
-                    <td>{oCaixa.dinheiro}</td>
-                    <td>{oCaixa.pix}</td>
-                    <td>{oCaixa.debito + oCaixa.credito + oCaixa.dinheiro + oCaixa.pix - oCaixa.abertura}</td>
-                    <td>{oCaixa.debito + oCaixa.credito + oCaixa.dinheiro + oCaixa.pix - oCaixa.sangria}</td>
+                    <td>{oCaixa.abertura.toFixed(2).replace('.',',')}</td>
+                    <td>{oCaixa.sangria.toFixed(2).replace('.',',')}</td>
+                    <td>{oCaixa.debito.toFixed(2).replace('.',',')}</td>
+                    <td>{oCaixa.credito.toFixed(2).replace('.',',')}</td>
+                    <td>{oCaixa.dinheiro.toFixed(2).replace('.',',')}</td>
+                    <td>{oCaixa.pix.toFixed(2).replace('.',',')}</td>
+                    <td>{tvenda.toFixed(2).replace('.',',')}</td>
+                    <td>{tcaixa.toFixed(2).replace('.',',')}</td>
                     <td><a href="/fechamento-geral">Detalhes</a></td>
                 </tr>
             )
@@ -30,14 +32,14 @@ export default function (props) {
                 <thead>
                     <tr>
                         <th>Caixa</th>
-                        <th>Abertura</th>
-                        <th>Sangria</th>
+                        <th>Abertura R$</th>
+                        <th>Sangria R$</th>
                         <th>Debito R$</th>
                         <th>Credito R$</th>
                         <th>Dinheiro R$</th>
                         <th>Pix R$</th>
-                        <th>Total de venda</th>
-                        <th>Total em caixa</th>
+                        <th>Total de venda R$</th>
+                        <th>Total em caixa R$</th>
                         <th></th>
                     </tr>
                 </thead>
