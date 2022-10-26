@@ -3,17 +3,20 @@ import React from 'react'
 
 import './App.css';
 import AberturaCaixa from './AberturaCaixa/AberturaCaixa'
-import Cadastros from './Cadastros/Cadastros'
-import CadastroProdutos from './Cadastros/Produtos/Produtos'
-import CadastroUsuarios from './Cadastros/Usuarios/Usuarios'
+import Produtos from './Cadastros/Produtos/Produtos'
+import CadastroProduto from './Cadastros/Produtos/CadProduto'
+import Usuarios from './Cadastros/Usuarios/Usuarios'
+import CadastroUsuario from './Cadastros/Usuarios/CadUsuario'
 import FechamentoCaixa from './Fechamento/FechamentoCaixa'
+import DetalheCaixa from './Fechamento/DetalheCaixa'
 import FechamentoGeral from './Fechamento/FechamentoGeral'
 import Login from './Login/Login'
 import Pagamento from './Pagamento/Pagamento'
 import Sangria from './Sangria/Sangria'
 import Vendas from './Vendas/Vender'
 
-export default () => {
+
+const App = () => {
   return (
     <div className="App">
       <BrowserRouter>
@@ -24,12 +27,16 @@ export default () => {
           <Route path="/" element={<Login />}/>
           <Route path="/fechamento-geral" element={<FechamentoGeral />}/>
           <Route path="/fechamento-caixa" element={<FechamentoCaixa />}/>
-          <Route path="/cadastros" element={<Cadastros />}/>
-          <Route path="/cadastros/usuarios" element={<CadastroUsuarios />}/>
-          <Route path="/cadastros/produtos" element={<CadastroProdutos />}/>
+          <Route path="/detalhe-caixa" element={<DetalheCaixa />}/>
+          <Route path="/cadastros/usuarios" element={<Usuarios />}/>
+          <Route path="/cadastros/cadusuario" element={<CadastroUsuario />}/>
+          <Route path="/cadastros/produtos" element={<Produtos />}/>
+          <Route path="/cadastros/cadproduto" element={<CadastroProduto />}/>
           <Route path="/abertura-caixa" element={<AberturaCaixa />}/>
         </Routes>
       </BrowserRouter>
     </div>
   );
 }
+
+export default App

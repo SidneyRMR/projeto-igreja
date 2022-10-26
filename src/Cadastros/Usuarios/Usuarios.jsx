@@ -1,7 +1,6 @@
 import usuarios from '../../data/usuarios';
 
-
-export default function(props) {
+const Usuarios = () => {
 
     function getUsuarios() {
         return usuarios.map((usuario, i) => {
@@ -10,7 +9,7 @@ export default function(props) {
                     className={i % 2 === 0 ? 'Par' : 'Impar'}>
                     <td >{usuario.nome}</td>
                     <td>{usuario.login}</td>
-                    <td>{usuario.senha}</td>
+                    {/* <td>{usuario.senha}</td> */}
                     <td>{usuario.adm}</td>
                     <td><button >Alterar</button></td>
                 </tr>
@@ -26,7 +25,7 @@ export default function(props) {
                     <tr>
                         <th>Nome</th>
                         <th>Login</th>
-                        <th>Senha</th>
+                        {/* <th>Senha</th> */}
                         <th>Administrador</th>
                         <th></th>
                     </tr>
@@ -35,8 +34,11 @@ export default function(props) {
                     {getUsuarios()}
                 </tbody>
             </table>
-            <a className="voltar" href="/cadastros">Voltar</a>
+            <a className="cadastrar" href="/cadastros/cadusuario">Cadastrar</a>
+            <a className="voltar" href="/abertura-caixa">Voltar</a>
 
             </div>
         )
     }
+
+    export default Usuarios

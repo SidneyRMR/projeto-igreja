@@ -1,7 +1,9 @@
 // import aCaixas from '../data/caixas';
 // import { useNavigate } from "react-router-dom";
 
-export default function (props) {
+const FechamentoCaixa = () => {
+
+    // const abertura = idAbertura
 
     return (
         <div className='tabela'>
@@ -22,14 +24,14 @@ export default function (props) {
                 <tbody>
                 <tr>
                     <td>{'Caixa 1'}</td> {/* este valor deve vir do login */}
-                    <td><input id='idAbertura' className='fechCaixa' type="text" /></td>
-                    <td><input id='idSangria' className='fechCaixa' type="text" /></td>
+                    <td><label id='idAbertura' className='fechCaixa' type="text" /></td>
+                    <td><label id='idSangria' className='fechCaixa' type="text" /></td>
                     <td><input id='idDebito' className='fechCaixa' type="text" /></td>
                     <td><input id='idCredito' className='fechCaixa' type="text" /></td>
                     <td><input id='idDinheiro' className='fechCaixa' type="text" /></td>
                     <td><input id='idPix' className='fechCaixa' type="text" /></td>
-                    <td><input id='idTotVenda' className='fechCaixa' type="text" /></td>
-                    <td><input id='idTotCaixa' className='fechCaixa' type="text" /></td> 
+                    <td><label id='idTotVenda' className='fechCaixa' type="text" /></td>
+                    <td><label id='idTotCaixa' className='fechCaixa' type="text" /></td> 
                 </tr>
                 </tbody>
             </table>
@@ -38,3 +40,5 @@ export default function (props) {
         </div>
     )
 }
+
+export default FechamentoCaixa

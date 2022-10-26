@@ -1,8 +1,7 @@
-
 import aCaixas from '../data/caixas';
-import { useNavigate } from "react-router-dom";
 
-export default function (props) {
+
+const FechamentoGeral = () => {
     function getCaixas() {
         
         return aCaixas.map((oCaixa, i) => {
@@ -20,7 +19,7 @@ export default function (props) {
                     <td>{oCaixa.pix.toFixed(2).replace('.',',')}</td>
                     <td>{tvenda.toFixed(2).replace('.',',')}</td>
                     <td>{tcaixa.toFixed(2).replace('.',',')}</td>
-                    <td><a href="/fechamento-geral">Detalhes</a></td>
+                    <td><a href="/detalhe-caixa">Detalhes</a></td>
                 </tr>
             )
         })
@@ -47,7 +46,9 @@ export default function (props) {
                     {getCaixas()}
                 </tbody>
             </table>
-            <a href="/vendas">Voltar</a>
+            <a href="/abertura-caixa">Voltar</a>
         </div>
     )
 }
+
+export default FechamentoGeral

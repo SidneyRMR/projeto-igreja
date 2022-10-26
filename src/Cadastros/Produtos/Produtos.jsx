@@ -1,9 +1,8 @@
 
-import Table from 'react-bootstrap/Table';
+// import Table from 'react-bootstrap/Table';
 import produtos from '../../data/produtos';
 
-
-export default function(props) {
+const Produtos = () => {
 
     function getProdutos() {
         return produtos.map((produto, i) => {
@@ -37,7 +36,10 @@ export default function(props) {
                     {getProdutos()}
                 </tbody>
             </table>
-            <a className="voltar" href="/cadastros">Voltar</a>
+            <a className="cadastrar" href="/cadastros/cadproduto">Cadastrar</a>
+            <a className="voltar" href="/vendas">Voltar</a>
             </div>
         )
     }
+
+export default Produtos

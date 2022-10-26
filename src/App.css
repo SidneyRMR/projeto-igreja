@@ -1,24 +1,17 @@
 .App {
   text-align: center;
   align-items: center;
-  /* min-width: 620px; */
   display: flex;
-  /* justify-content: center; */
   flex-direction: column;
   overflow: hidden;
-  
+}
+* {
+  margin: 2px;
+  padding: 2px;
 }
 
-body {
-  background-image: url("./img/vinte-cinco-anos.png");
-  background-attachment:fixed;
-  background-size: 100%;
-  background-repeat: no-repeat;
-  opacity: 90%;
-}
 
 .App-header {
-  /* background-color: #282c34; */
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -40,8 +33,23 @@ a {
   text-decoration: none;
 
 }
+.menu {
+  text-decoration: none;
+  padding: 0px;
+  width: 100px;
+  display: inline-block; 
+  cursor: pointer;
+  border-radius: 3px;
+  background-color: #C55A11;
+  color: white;
+  border: 1px solid;
+  position: absolute;
+  left: 0px;
+
+}
 
 .aberturaBotao{
+  display: inline;
   width: 120px;
 }
 
@@ -83,14 +91,18 @@ h1 {
   font-size: 20px;
   margin: 1px;
   border: 0px;
+  display: flexbox;
 }
 
 .title {
   background-color: #C55A11;
   color: white;
+  /* margin-left: 100px; */
+  font-size: 20px;
+  padding: 10px;
 }
 
-.tabela table {
+.tabela table {  
   width: 100%;
 }
 .tabela th {
@@ -122,3 +134,8 @@ h1 {
   color: black;
 }
 
+.vender {
+  position: absolute;
+  right: 0px;
+  
+}
