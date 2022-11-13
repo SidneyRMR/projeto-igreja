@@ -1,7 +1,6 @@
 // import diocese from "../img/diocese.png"
 import Dropdown from 'react-bootstrap/Dropdown';
 
-
 const AberturaCaixa = () => {
     return (
         <div className="borda">
@@ -31,8 +30,6 @@ const AberturaCaixa = () => {
                         <a className="aberturaBotao" href="/">Sair</a>
                     </Dropdown>
                 </div>
-
-
             </div>
         </div>
     )

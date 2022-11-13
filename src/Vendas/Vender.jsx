@@ -4,6 +4,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Table from 'react-bootstrap/Table';
 
 const Vender = () => {
 
@@ -20,23 +21,49 @@ const Vender = () => {
     }
 
     return (
-        <div>
+        
             <Container>
                 <Row>
                     <Col>
-                        <div>
-                            <DropdownButton className="menuPrincipal"  title="Menu" variant="warning" size="lg">
+                        
+                            <DropdownButton className="menuPrincipal" title="Menu" variant="warning" size="lg">
                                 <Dropdown.Item href="/sangria">Sangria</Dropdown.Item>
                                 <Dropdown.Item href="/cadastros/produtos">Ver Produtos</Dropdown.Item>
                                 <Dropdown.Item href="/fechamento-caixa">Fechar Caixa</Dropdown.Item>
                                 <Dropdown.Item href="/">Sair</Dropdown.Item>
                             </DropdownButton>
-                        </div>
+                        
                     </Col>
+                </Row>
+                <Row>
                     <Col xs={6}><div className="title">Produtos</div>
                         <div>
                             {getProdutos()}
                         </div>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <Table striped bordered hover size="sm">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Un</th>
+                                    <th>Descrição</th>
+                                    <th>Valor</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td></td>
+                                    <td>1</td>
+                                    <td>Pastel</td>
+                                    <td>10,00</td>
+                                    <td>10,00</td>
+                                </tr>
+                            </tbody>
+                        </Table>
                     </Col>
                     <Col>
                         <a className="vender" href="/vendas/pagamento">Pagamento</a>
@@ -44,7 +71,7 @@ const Vender = () => {
                 </Row>
 
             </Container>
-        </div>
+        
 
 
 

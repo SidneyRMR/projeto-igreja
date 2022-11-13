@@ -1,5 +1,6 @@
 import diocese from "../img/diocese.png"
-export default props => {
+import Button from 'react-bootstrap/Button';
+const Login = () => {
 
     return (
         <div className="borda">
@@ -8,8 +9,9 @@ export default props => {
             <h1 className="">Paróquia Santa Cruz</h1>
             <input className="user" type="text" placeholder="Usuário" /><br />
             <input className="password" type="password" placeholder="Senha" /><br />
-            <a href="/abertura-caixa">Entrar</a>
-            {/* <button onClick={e => abrirCaixa}>Entrar</button> */}
+            <Button href="/abertura-caixa">Entrar</Button>
         </div>
     )
 }
+
+export default Login
