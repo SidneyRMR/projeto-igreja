@@ -1,7 +1,11 @@
 import produtos from '../data/produtos'
+import produtosVenda from '../data/produtosVenda'
+import diocese from "../img/diocese.png"
+
 import Dropdown from 'react-bootstrap/Dropdown';
 import Col from 'react-bootstrap/Col';
 import Table from 'react-bootstrap/Table';
+import Button from 'react-bootstrap/Button';
 
 const Vender = () => {
 
@@ -14,10 +18,24 @@ const Vender = () => {
         return produtos.map((produto, i) => {
             return (
                 <button key={i}
-                    onClick={e => console.log(`Botão de ${produto.nome} funciona!`)}
                     className='produtosVenda'>{produto.nome}<br />
                     R$ {produto.preco.toFixed(2).replace('.', ',')}
                 </button>
+            )
+        })
+    }
+
+    function getVendido() {
+        return produtosVenda.map((produto, i) => {
+            return (
+                <tr key={i}
+                    className='produtosVenda'>
+                        <td><Button>Excluir</Button></td>
+                        <td>{produto.itens}</td>
+                        <td>{produto.nome}</td>
+                        <td>R$ {produto.preco.toFixed(2)}</td>
+                        <td>R$ {(produto.itens * produto.preco).toFixed(2)}</td>
+                </tr>
             )
         })
     }
@@ -31,29 +49,31 @@ const Vender = () => {
         <Table>
             <thead>
                 <tr>
-                    <th>Menu</th>
-                    <th>Vendas</th>
-                    <th>Pagamento</th>
+                    <th className='title'>Menu</th>
+                    <th className='title'>Produtos</th>
+                    <th className='title'>Pagamento</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td>
+                    <td className='tdVender'>
 
                         <Dropdown.Item href="/sangria">Sangria</Dropdown.Item>
                         <Dropdown.Item href="/cadastros/produtos">Ver Produtos</Dropdown.Item>
                         <Dropdown.Item href="/fechamento-caixa">Fechar Caixa</Dropdown.Item>
                         <Dropdown.Item href="/">Sair</Dropdown.Item>
 
+                        <img src={diocese} alt="" sizes="500x300" />
+
                     </td>
-                    <td>
-                        <Col xs={6}><div className="title">Produtos</div>
-                            <div>
+                    <td className='tdVender'>
+                        <Col xs={6}>
+                            <div >
                                 {getProdutos()}
                             </div>
                         </Col>
                     </td>
-                    <td>
+                    <td className='tdVenderScroll'>
                         <Table striped bordered hover size="sm">
                             <thead>
                                 <tr>
@@ -65,14 +85,8 @@ const Vender = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>#</td>
-                                    <td>1</td>
-                                    <td>Refri</td>
-                                    <td>8</td>
-                                    <td>8</td>
-                                 
-                                </tr>
+                                {getVendido()}
+
                             </tbody>
                         </Table>
                         <a className="vender" href="/vendas/pagamento">Pagamento</a>

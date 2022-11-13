@@ -1,4 +1,4 @@
-export default [
+export default  [
     {id:1, nome: "Pastel", preco: 8, tipo: "un"},
     {id:2, nome: "Cachorro Quente", preco: 8, tipo: "un"},
     {id:3, nome: "Milho", preco: 5, tipo: "un"},
@@ -17,22 +17,16 @@ export default [
     {id:16, nome: "Coca-cola", preco: 4, tipo: "un"},
     {id:17, nome: "Guaraná", preco: 4, tipo: "un"},
     {id:18, nome: "Cerveja", preco: 5, tipo: "un"},
-    {id:19, nome: "Pastel", preco: 8, tipo: "un"},
-    {id:20, nome: "Cachorro Quente", preco: 8, tipo: "un"},
-    {id:21, nome: "Milho", preco: 5, tipo: "un"},
-    {id:22, nome: "Pamonha", preco: 7, tipo: "un"},
-    {id:23, nome: "Lanche de Pernil", preco: 10, tipo: "un"},
-    {id:24, nome: "X-salada", preco: 10, tipo: "un"},
-    {id:25, nome: "Coca-cola", preco: 4, tipo: "un"},
-    {id:26, nome: "Guaraná", preco: 4, tipo: "un"},
-    {id:27, nome: "Cerveja", preco: 5, tipo: "un"},
-    {id:28, nome: "Pastel", preco: 8, tipo: "un"},
-    {id:29, nome: "Cachorro Quente", preco: 8, tipo: "un"},
-    {id:30, nome: "Milho", preco: 5, tipo: "un"},
-    {id:31, nome: "Pamonha", preco: 7, tipo: "un"},
-    {id:32, nome: "Lanche de Pernil", preco: 10, tipo: "un"},
-    {id:33, nome: "X-salada", preco: 10, tipo: "un"},
-    {id:34, nome: "Coca-cola", preco: 4, tipo: "un"},
-    {id:35, nome: "Guaraná", preco: 4, tipo: "un"},
-    {id:36, nome: "Cerveja", preco: 5, tipo: "un"}
+    {id:19, nome: "Cerveja", preco: 5, tipo: "un"},
+    {id:20, nome: "Pastel", preco: 8, tipo: "un"},
+    {id:21, nome: "Cachorro Quente", preco: 8, tipo: "un"},
+    {id:22, nome: "Milho", preco: 5, tipo: "un"},
+    {id:23, nome: "Pamonha", preco: 7, tipo: "un"},
+    {id:24, nome: "Lanche de Pernil", preco: 10, tipo: "un"},
+    {id:25, nome: "X-salada", preco: 10, tipo: "un"},
+    {id:26, nome: "Coca-cola", preco: 4, tipo: "un"},
+    {id:27, nome: "Guaraná", preco: 4, tipo: "un"},
+    {id:28, nome: "Cerveja", preco: 5, tipo: "un"},
+ 
+
 ]

@@ -1,12 +1,12 @@
-// import diocese from "../img/diocese.png"
+import diocese from "../img/diocese.png"
 import Dropdown from 'react-bootstrap/Dropdown';
 
 const AberturaCaixa = () => {
     return (
         <div className="borda">
-            {/* <img src={diocese} alt="" sizes="500x300" /> */}
-            {/* <br /> */}
-            {/* <h1 className="title">Paróquia Santa Cruz</h1> */}
+            <img src={diocese} alt="" sizes="500x300" />
+            <br />
+            <h1 className="title">Paróquia Santa Cruz</h1>
             <h1 className="title">Abertura de Caixa</h1>
             <div className="abertura" >Selecione um caixa disponível:
                 <select className="">
