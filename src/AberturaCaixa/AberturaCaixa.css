@@ -1,0 +1,29 @@
+#buttonAbertura {
+    width: 100%;
+    font-size: medium;
+}
+
+* {
+    align-content: center;
+    align-items: center;
+    padding: 1px;
+}
+
+.title {
+    display: inline-block;
+    padding: 10px 35px 10px 35px ;
+    background-color: #aa541b;
+    font-size: 25px;
+    color: white;
+  }
+
+  a {
+    width: 85%;
+  }
+  select {
+    width: 70px;
+  }
+
+  input {
+    width: 120px;
+  }

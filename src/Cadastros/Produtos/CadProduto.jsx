@@ -5,7 +5,7 @@ const CadProduto = () => {
     return (
         <div className="borda">
             <br />
-            <h1 className="">Cadastro de Produto</h1>
+            <h1 className="title">Cadastro de Produto</h1><br />
             <input className="descricaoProduto" type="text" placeholder="Descrição" /><br />
             <input className="valorProduto" type="text" placeholder="Valor" /><br />        
             <div className="tipoProduto" >Selecione o tipo:
@@ -14,7 +14,7 @@ const CadProduto = () => {
                     <option value="kg">Quilograma</option>
                 </select>
             </div>
-            <a href="/cadastros/produtos">Cadastrar</a>
+            <a id="cadastrar" href="/cadastros/produtos">Cadastrar</a>
             {/* <button onClick={e => abrirCaixa}>Entrar</button> */}
         </div>
     )

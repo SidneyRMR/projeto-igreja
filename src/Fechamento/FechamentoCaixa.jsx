@@ -26,12 +26,13 @@ const FechamentoCaixa = () => {
                     <td>{'Caixa 1'}</td> {/* este valor deve vir do login */}
                     <td><label id='idAbertura' className='fechCaixa' type="text" /></td>
                     <td><label id='idSangria' className='fechCaixa' type="text" /></td>
-                    <td><input id='idDebito' className='fechCaixa' type="text" /></td>
-                    <td><input id='idCredito' className='fechCaixa' type="text" /></td>
-                    <td><input id='idDinheiro' className='fechCaixa' type="text" /></td>
-                    <td><input id='idPix' className='fechCaixa' type="text" /></td>
+                    <td><label id='idDebito' className='fechCaixa' type="text" /></td>
+                    <td><label id='idCredito' className='fechCaixa' type="text" /></td>
+                    <td><label id='idDinheiro' className='fechCaixa' type="text" /></td>
+                    <td><label id='idPix' className='fechCaixa' type="text" /></td>
                     <td><label id='idTotVenda' className='fechCaixa' type="text" /></td>
                     <td><label id='idTotCaixa' className='fechCaixa' type="text" /></td> 
+                    <td><label id='idstatus' className='statusCaixa' type="text" /></td> 
                 </tr>
                 </tbody>
             </table>

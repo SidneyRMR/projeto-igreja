@@ -1,5 +1,6 @@
 import produtos from '../data/produtos'
 import produtosVenda from '../data/produtosVenda'
+import './Vender.css'
 import diocese from "../img/diocese.png"
 
 import Dropdown from 'react-bootstrap/Dropdown';
@@ -17,7 +18,7 @@ const Vender = () => {
     function getProdutos() {
         return produtos.map((produto, i) => {
             return (
-                <button key={i}
+                <button key={i} id='botaoProdutos'
                     className='produtosVenda'>{produto.nome}<br />
                     R$ {produto.preco.toFixed(2).replace('.', ',')}
                 </button>
@@ -40,18 +41,14 @@ const Vender = () => {
         })
     }
 
-
-
-
-
     return (
 
         <Table>
             <thead>
                 <tr>
-                    <th className='title'>Menu</th>
-                    <th className='title'>Produtos</th>
-                    <th className='title'>Pagamento</th>
+                    <th className='titleVendas'>Menu</th>
+                    <th className='titleVendas' >Produtos</th>
+                    <th className='titleVendas'>Pagamento</th>
                 </tr>
             </thead>
             <tbody>
@@ -74,7 +71,7 @@ const Vender = () => {
                         </Col>
                     </td>
                     <td className='tdVenderScroll'>
-                        <Table striped bordered hover size="sm">
+                        <Table >
                             <thead>
                                 <tr>
                                     <th>#</th>
@@ -86,6 +83,12 @@ const Vender = () => {
                             </thead>
                             <tbody>
                                 {getVendido()}
+                                <tr>
+                                    <td colSpan={2}>
+                                        Total do Pedido:
+                                    </td>
+                                    <td colSpan={2} align='right'>R$ 100.00</td>
+                                </tr>
 
                             </tbody>
                         </Table>

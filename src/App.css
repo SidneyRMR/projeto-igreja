@@ -3,7 +3,7 @@
 }
 
 
-a, Button{
+a, button {
   padding: 12px;
   width: 100px;
   display: inline-block;
@@ -15,12 +15,19 @@ a, Button{
   text-decoration: none;
 }
 
-.title {
+.buttonAbertura {
+  padding: 2px ;
+  width: 100px;
+}
+
+.titleVendas {
   padding: 10px;
-  background-color: #C55A11;
+  background-color: #813c0e;
   font-size: 30px;
   color: white;
 }
+
+
 
 .tabela .Inpar {
   background-color: #F8D7CD;
@@ -37,4 +44,22 @@ a, Button{
   margin: 0px;
   padding: 0px;
   min-height: 70px;
+}
+
+.bordaAbertura, tabela {
+  display: inline-block;
+  align-items: center;
+  border: 1px #813c0e;
+}
+
+
+
+Table {
+  text-align: center;
+}
+
+#tabelasCentralizadas {
+  display: inline-block;
+  align-items: center;
+  padding: 1px;
 }
