@@ -1,7 +1,6 @@
 // import diocese from "../img/diocese.png"
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
-import './AberturaCaixa.css'
 
 import Table from 'react-bootstrap/Table';
 
@@ -10,7 +9,7 @@ const AberturaCaixa = () => {
         <Table className="bordaAbertura">
 
 
-            <h1 className="titleAbertura">Abertura de Caixa</h1>
+            <h1 className="title">Abertura de Caixa</h1>
             <Table>
                 <tbody>
                     <tr>
@@ -18,7 +17,7 @@ const AberturaCaixa = () => {
                             Valor em caixa:
                         </td>
                         <td>
-                            <input type="text" />
+                            <input type="text" value='100,00' /><br />
                         </td>
                     </tr>
                     <tr>
@@ -36,10 +35,10 @@ const AberturaCaixa = () => {
 
                     <tr>
                         <td>
-                            <a className="" href="/vendas">Abrir caixa</a>
+                            <a href="/vendas">Abrir caixa</a>
                         </td>
                         <td>
-                            <a className="" href="/">Sair</a>
+                            <a href="/">Sair</a>
                         </td>
                     </tr>
                     <tr>

@@ -19,7 +19,7 @@ const Usuarios = () => {
 
 
         return (
-            <div className='tabela'>
+            <div className='tabela' id='tabelasCentralizadas'>
             <table>
                 <thead>
                     <tr>
@@ -34,8 +34,11 @@ const Usuarios = () => {
                     {getUsuarios()}
                 </tbody>
             </table>
-            <a className="cadastrar" href="/cadastros/cadusuario">Cadastrar</a>
-            <a className="voltar" href="/abertura-caixa">Voltar</a>
+            <div>
+            <a id="cadastrar" href="/cadastros/cadusuario">Cadastrar</a>
+            <a id="voltar" href="/abertura-caixa">Voltar</a>
+
+            </div>
 
             </div>
         )

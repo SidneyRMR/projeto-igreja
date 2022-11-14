@@ -1,6 +1,5 @@
 import produtos from '../data/produtos'
 import produtosVenda from '../data/produtosVenda'
-import './Vender.css'
 import diocese from "../img/diocese.png"
 
 import Dropdown from 'react-bootstrap/Dropdown';

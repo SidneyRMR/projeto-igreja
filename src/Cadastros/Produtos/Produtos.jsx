@@ -1,7 +1,6 @@
 
 // import Table from 'react-bootstrap/Table';
 import produtos from '../../data/produtos';
-import './Produtos.css'
 const Produtos = () => {
 
     function getProdutos() {
@@ -21,7 +20,7 @@ const Produtos = () => {
 
 
         return (
-            <div className='tabela' id='tabelaCentralizada'>
+            <div className='tabela' id='tabelasCentralizadas'>
             <table >
                 <thead>
                     <tr>

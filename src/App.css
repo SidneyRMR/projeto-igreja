@@ -59,7 +59,68 @@ Table {
 }
 
 #tabelasCentralizadas {
-  display: inline-block;
+  display: inline;
   align-items: center;
   padding: 1px;
+}
+
+#buttonAbertura {
+  width: 100%;
+  font-size: medium;
+}
+* {
+  align-content: center;
+  align-items: center;
+  padding: 1px;
+}
+
+.title {
+  display: inline-block;
+  padding: 10px 35px 10px 35px ;
+  background-color: #aa541b;
+  font-size: 25px;
+  color: white;
+}
+
+a {
+  width: 82%;
+}
+select {
+  width: 70px;
+}
+
+input {
+  width: 120px;
+}
+
+#cadastrar, #voltar, #fechar {
+  width: 100px;
+}
+
+#tabelasCentralizadas {
+  display: inline-block;
+  align-items: center;
+}
+
+#tabelaCentralizada th{
+  padding: 10px;
+}
+
+.titleLogin {
+  color: #C55A11;
+}
+
+#botaoLogin {
+  width: 100px;
+}
+
+.produtosVenda {
+  margin: 0px;
+  padding: 0px;
+  min-height: 70px;
+}
+
+#botaoProdutos {
+  margin: 0px;
+  
 }

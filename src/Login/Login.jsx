@@ -1,6 +1,5 @@
 import diocese from "../img/diocese.png"
 import Button from 'react-bootstrap/Button';
-import './Login.css'
 
 const Login = () => {
 

@@ -27,8 +27,8 @@ const FechamentoGeral = () => {
     }
 
     return (
-        <div className='tabelasCentralizadas'>
-            <Table>
+        <div id='tabelasCentralizadas' className='tabela'>
+            <table>
                 <thead>
                     <tr>
                         <th>Caixa</th>
@@ -47,8 +47,8 @@ const FechamentoGeral = () => {
                 <tbody>
                     {getCaixas()}
                 </tbody>
-            </Table>
-            <a href="/abertura-caixa">Voltar</a>
+            </table>
+            <a id='voltar' href="/abertura-caixa">Voltar</a>
         </div>
     )
 }

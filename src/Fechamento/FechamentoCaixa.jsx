@@ -6,7 +6,7 @@ const FechamentoCaixa = () => {
     // const abertura = idAbertura
 
     return (
-        <div className='tabela'>
+        <div id='tabelasCentralizadas'>
             <table>
                 <thead>
                     <tr>
@@ -36,8 +36,8 @@ const FechamentoCaixa = () => {
                 </tr>
                 </tbody>
             </table>
-            <a href="/">Lançar Fechamento</a>
-            <a href="/vendas">Voltar</a>
+            <a id='fechar' href="/">Fechar Cx</a>
+            <a id='voltar' href="/vendas">Voltar</a>
         </div>
     )
 }
