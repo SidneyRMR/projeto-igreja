@@ -18,7 +18,7 @@ const Vender = () => {
         return produtos.map((produto, i) => {
             return (
                 <button key={i} id='botaoProdutos'
-                    className='produtosVenda'>{produto.nome}<br />
+                    className='produtosVenda'>{produto.nome}<br /><br />
                     R$ {produto.preco.toFixed(2).replace('.', ',')}
                 </button>
             )
@@ -29,7 +29,7 @@ const Vender = () => {
         return produtosVenda.map((produto, i) => {
             return (
                 <tr key={i}
-                    className='produtosVenda'>
+                    className=''>
                         <td><Button>Excluir</Button></td>
                         <td>{produto.itens}</td>
                         <td>{produto.nome}</td>
@@ -58,15 +58,13 @@ const Vender = () => {
                         <Dropdown.Item href="/cadastros/produtos">Ver Produtos</Dropdown.Item>
                         <Dropdown.Item href="/fechamento-caixa">Fechar Caixa</Dropdown.Item>
                         <Dropdown.Item href="/">Sair</Dropdown.Item>
-
+                        <br /><br />
                         <img src={diocese} alt="" sizes="500x300" />
 
                     </td>
-                    <td className='tdVender'>
+                    <td className=''>
                         <Col xs={6}>
-                            <div >
                                 {getProdutos()}
-                            </div>
                         </Col>
                     </td>
                     <td className='tdVenderScroll'>

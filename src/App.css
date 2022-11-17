@@ -50,8 +50,8 @@ a, button {
   display: inline-block;
   align-items: center;
   border: 1px #813c0e;
+  padding-bottom: 10px;
 }
-
 
 
 Table {
@@ -61,7 +61,6 @@ Table {
 #tabelasCentralizadas {
   display: inline;
   align-items: center;
-  padding: 1px;
 }
 
 #buttonAbertura {
@@ -89,11 +88,15 @@ select {
   width: 70px;
 }
 
-input {
+input, textarea {
   width: 120px;
 }
 
-#cadastrar, #voltar, #fechar {
+textarea {
+  height: 100px;
+}
+
+#cadastrar, #voltar, #fechar, #sangria{
   width: 100px;
 }
 
@@ -106,21 +109,10 @@ input {
   padding: 10px;
 }
 
-.titleLogin {
+.titleLogin, .titlePgto {
   color: #C55A11;
 }
 
 #botaoLogin {
   width: 100px;
-}
-
-.produtosVenda {
-  margin: 0px;
-  padding: 0px;
-  min-height: 70px;
-}
-
-#botaoProdutos {
-  margin: 0px;
-  
 }

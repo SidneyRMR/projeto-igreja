@@ -7,8 +7,6 @@ import Table from 'react-bootstrap/Table';
 const AberturaCaixa = () => {
     return (
         <Table className="bordaAbertura">
-
-
             <h1 className="title">Abertura de Caixa</h1>
             <Table>
                 <tbody>
@@ -25,14 +23,13 @@ const AberturaCaixa = () => {
                             Selecione um caixa:
                         </td>
                         <td>
-                            <select id="buttonAbertura" title="Caixas" align="end">
+                            <select id="buttonAbertura" title="Caixas" >
                                 <option >Caixa 1</option>
                                 <option >Caixa 2</option>
                                 <option >Caixa 3</option>
                             </select >
                         </td>
                     </tr>
-
                     <tr>
                         <td>
                             <a href="/vendas">Abrir caixa</a>
@@ -43,7 +40,7 @@ const AberturaCaixa = () => {
                     </tr>
                     <tr>
                         <td colSpan={2}>
-                            <DropdownButton id="buttonAbertura" title="Administrativo" align="end">
+                            <DropdownButton id="buttonAbertura" title="Administrativo" >
                                 <Dropdown.Item href="/cadastros/produtos">Produtos</Dropdown.Item>
                                 <Dropdown.Item href="/cadastros/usuarios">Usuários</Dropdown.Item>
                                 <Dropdown.Item href="/fechamento-geral">Fech Geral</Dropdown.Item>
@@ -52,7 +49,6 @@ const AberturaCaixa = () => {
                     </tr>
                 </tbody>
             </Table>
-
         </Table >
     )
 }
