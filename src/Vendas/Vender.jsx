@@ -30,11 +30,11 @@ const Vender = () => {
             return (
                 <tr key={i}
                     className=''>
-                        <td><Button>Excluir</Button></td>
-                        <td>{produto.itens}</td>
-                        <td>{produto.nome}</td>
-                        <td>R$ {produto.preco.toFixed(2)}</td>
-                        <td>R$ {(produto.itens * produto.preco).toFixed(2)}</td>
+                    <td><Button>Excluir</Button></td>
+                    <td>{produto.itens}</td>
+                    <td>{produto.nome}</td>
+                    <td>R$ {produto.preco.toFixed(2)}</td>
+                    <td>R$ {(produto.itens * produto.preco).toFixed(2)}</td>
                 </tr>
             )
         })
@@ -64,7 +64,7 @@ const Vender = () => {
                     </td>
                     <td className=''>
                         <Col xs={6}>
-                                {getProdutos()}
+                            {getProdutos()}
                         </Col>
                     </td>
                     <td className='tdVenderScroll'>
@@ -80,11 +80,12 @@ const Vender = () => {
                             </thead>
                             <tbody>
                                 {getVendido()}
-                                <tr>
-                                    <td colSpan={2}>
+                                <tr id='pagamento'>
+                                    <td colSpan={2} ><b>
                                         Total do Pedido:
+                                    </b>
                                     </td>
-                                    <td colSpan={2} align='right'>R$ 100.00</td>
+                                    <td colSpan={3} ><b>R$ 100.00</b> </td>
                                 </tr>
 
                             </tbody>

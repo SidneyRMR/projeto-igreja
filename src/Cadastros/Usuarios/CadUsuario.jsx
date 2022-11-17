@@ -5,7 +5,7 @@ const CadUsuario = () => {
     return (
         <div className="borda">
             <br />
-            <h1 className="">Cadastro de Usuario</h1>
+            <h1 className='title'>Cadastro de Usuario</h1> <br />
             <input className="nomeUsuario" type="text" placeholder="Nome Completo" /><br />
             <input className="loginUsuario" type="text" placeholder="Usuário" /><br />
             <Form>

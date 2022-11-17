@@ -46,7 +46,7 @@ a, button {
   min-height: 70px;
 }
 
-.bordaAbertura, tabela {
+.bordaAbertura, tabela #titleUsuario{
   display: inline-block;
   align-items: center;
   border: 1px #813c0e;
@@ -115,4 +115,19 @@ textarea {
 
 #botaoLogin {
   width: 100px;
+}
+
+
+thead {
+  background-color: #813c0e;
+  width: 100px;
+  height: 50px;
+  color: white;
+}
+
+#pagamento {
+  background-color:#C55A11;
+  height: 50px;
+  color: white;
+  font-size: large;
 }
