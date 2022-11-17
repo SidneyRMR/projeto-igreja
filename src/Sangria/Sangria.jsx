@@ -3,7 +3,7 @@
 const Sangria = () => {
     
     return (
-        <div className="borda">
+        <div className="">
             <br />
             <h1 className="title">Sangria</h1><br />
             <input className="valorSangria" type="text" placeholder="Digite o valor" /><br />

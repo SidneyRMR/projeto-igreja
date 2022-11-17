@@ -21,11 +21,10 @@ const Pagamento = () => {
                         <td><input type="text" className="din" /></td>
                         <td><input type="text" className="pix" /></td>
                     </tr>
-                    <tr align={2}>
+                    <tr id="pagamento">
                         <td align={2}>Total Pago</td>
                         <td align={2}>{'R$ 50,00'}</td>
-                    </tr>
-                    <tr align={2}>
+                   
                         <td align={2}>Troco</td>
                         <td align={2}>{'R$ 5,00'}</td>
                     </tr>
