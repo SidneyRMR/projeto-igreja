@@ -36,7 +36,7 @@ const Produtos = () => {
                 </tbody>
             </table>
             <a id="cadastrar" href="/cadastros/cadproduto">Cadastrar</a>
-            <a id="voltar" href="/vendas">Voltar</a>
+            <a id="voltar" href="/abertura-caixa">Voltar</a>
             </div>
         )
     }

@@ -21,10 +21,10 @@ const App = () => {
     <div className="App">
       <BrowserRouter>
         <Routes>
+          <Route path="/" element={<Login />}/>
           <Route path="/vendas" element={<Vendas />}/>
           <Route path="/sangria" element={<Sangria />}/>
           <Route path="/vendas/pagamento" element={<Pagamento />}/>
-          <Route path="/" element={<Login />}/>
           <Route path="/fechamento-geral" element={<FechamentoGeral />}/>
           <Route path="/fechamento-caixa" element={<FechamentoCaixa />}/>
           <Route path="/detalhe-caixa" element={<DetalheCaixa />}/>
