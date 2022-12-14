@@ -54,10 +54,10 @@ const Vender = () => {
                 <tr>
                     <td className='tdVender'>
 
-                        <Dropdown.Item href="/sangria">Sangria</Dropdown.Item>
-                        {/* <Dropdown.Item href="/cadastros/produtos">Ver Produtos</Dropdown.Item> */}
-                        <Dropdown.Item href="/fechamento-caixa">Fechar Caixa</Dropdown.Item>
-                        <Dropdown.Item href="/">Sair</Dropdown.Item>
+                        <a href="/sangria">Sangria</a>
+                        {/* <a href="/cadastros/produtos">Ver Produtos</a> */}
+                        <a href="/fechamento-caixa">Fechar Caixa</a>
+                        <a href="/">Sair</a>
                         <br /><br />
                         <img src={diocese} alt="" sizes="500x300" />
 

@@ -15,19 +15,15 @@ const AberturaCaixa = () => {
                             Valor em caixa:
                         </td>
                         <td>
-                            <input type="text" value='100,00' /><br />
+                            <input type="text" placeholder='Digite o valor' /><br />
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            Selecione um caixa:
+                            Nome do caixa responsável:
                         </td>
                         <td>
-                            <select id="buttonAbertura" title="Caixas" >
-                                <option >Caixa 1</option>
-                                <option >Caixa 2</option>
-                                <option >Caixa 3</option>
-                            </select >
+                            <input type="text" placeholder='Digite o nome' /><br />
                         </td>
                     </tr>
                     <tr>
