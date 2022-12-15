@@ -35,8 +35,8 @@ const Login = () => {
             <img src={diocese} alt="" sizes="500x300" />
             <br />
             <h1 className="titleLogin">Paróquia Santa Cruz</h1>
-            <input id="user" className="user" type="text" placeholder="Usuário" onChange={handleUserChange} /><br />
-            <input id="password" className="password" type="password" placeholder="Senha" onChange={handlePasswordChange} /><br /><br />
+            <input className="user" type="text" placeholder="Usuário" onChange={handleUserChange} /><br />
+            <input className="password" type="password" placeholder="Senha" onChange={handlePasswordChange} /><br /><br />
             <Button id='botaoLogin' onClick={() => testLogin(user, password)}>Entrar</Button>
         </form>
     )

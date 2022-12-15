@@ -54,9 +54,6 @@ a, button {
 }
 
 
-Table {
-  text-align: center;
-}
 
 #tabelasCentralizadas {
   display: inline;
@@ -74,6 +71,7 @@ Table {
 } */
 
 .title {
+  width: flex;
   display: inline-block;
   padding: 10px 35px 10px 35px ;
   background-color: #aa541b;
@@ -88,8 +86,13 @@ select {
   width: 70px;
 }
 
-input, textarea {
-  width: 120px;
+input.CaixaNome, input.CaixaValorEntrada {
+  
+  float: right;
+}
+
+input {
+  width: flex;
 }
 
 textarea {
