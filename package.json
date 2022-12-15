@@ -2,7 +2,7 @@
   "name": "projeto-igreja",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://www.massimus.com.br/",
+  "homepage": "http://www.massimus.com.br/igreja",
   "dependencies": {
     "@material-ui/core": "^4.12.4",
     "@material-ui/lab": "^4.0.0-alpha.61",

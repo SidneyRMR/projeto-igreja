@@ -5,6 +5,9 @@ import DropdownButton from 'react-bootstrap/DropdownButton';
 import Table from 'react-bootstrap/Table';
 
 const AberturaCaixa = () => {
+
+
+
     return (
         <Table className="bordaAbertura">
             <h1 className="title">Abertura de Caixa</h1>
@@ -15,7 +18,7 @@ const AberturaCaixa = () => {
                             Valor em caixa:
                         </td>
                         <td>
-                            <input type="text" placeholder='Digite o valor' /><br />
+                            <input className='CaixaValorEntrada' type="text" placeholder='Digite o valor' /><br />
                         </td>
                     </tr>
                     <tr>
@@ -23,7 +26,7 @@ const AberturaCaixa = () => {
                             Nome do caixa responsável:
                         </td>
                         <td>
-                            <input type="text" placeholder='Digite o nome' /><br />
+                            <input className='CaixaNome' type="text" placeholder='Digite o nome' /><br />
                         </td>
                     </tr>
                     <tr>
