@@ -86,8 +86,7 @@ select {
   width: 70px;
 }
 
-input.CaixaNome, input.CaixaValorEntrada {
-  
+.caixaNome, .caixaValorEntrada {
   float: right;
 }
 

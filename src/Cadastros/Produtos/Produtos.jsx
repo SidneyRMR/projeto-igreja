@@ -1,23 +1,29 @@
 
-// import Table from 'react-bootstrap/Table';
+import { Button } from 'react-bootstrap';
 import produtos from '../../data/produtos';
 const Produtos = () => {
 
     function getProdutos() {
+
         return produtos.map((produto, i) => {
             return (
                 <tr key={produto.id}
-                    className={i % 2 === 0 ? 'Par' : 'Impar'}>
+                    className={i % 2 === 0 ? 'Par' : 'Impar'}
+                    product = {produto}>
                     <td >{produto.id}</td>
                     <td>{produto.nome}</td>
                     <td>R${(produto.preco).toFixed(2)}</td>
                     <td>{produto.tipo}</td>
-                    <td><button >Alterar</button></td>
+                    <td><Button onClick={() => alterar(produto)}>Alterar</Button></td>
                 </tr>
                   )
                 })
             }
-
+            
+            
+            function alterar(produto) {
+                window.location.href = `/cadastros/cadproduto`;
+              }
 
         return (
             <div className='tabela' id='tabelasCentralizadas'>

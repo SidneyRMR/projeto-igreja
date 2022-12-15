@@ -1,12 +1,14 @@
-import Dropdown from 'react-bootstrap/Dropdown';
-import DropdownButton from 'react-bootstrap/DropdownButton';
+import {Dropdown, DropdownButton} from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
 
+
+//falta passar os valores de entrada e nome do caixa para as proximas telas
 const AberturaCaixa = () => {
+    
     function testValores(valEntrada, nome) {
         // Verifica se o usuário e senha digitados estão presentes na lista de usuários
         const valorEncontrado = (valEntrada >= 0  &&  nome);
@@ -40,18 +42,18 @@ const AberturaCaixa = () => {
                     <Col>
                         <span>Valor em caixa:</span>
                         <input className='caixaValorEntrada' type="text" placeholder='Digite o valor' 
-                            onChange={handleCaixaValorEntradaChange}/><br />
+                            onChange={handleCaixaValorEntradaChange}/>
                     </Col>
-                    <br />
                     <Col>
                         <span>Nome do responsável:</span>
                         <input className='caixaNome' type="text" placeholder='Digite o nome' 
-                            onChange={handleCaixaNomeChange}/><br />
+                            onChange={handleCaixaNomeChange}/>
                     </Col>
                 </Row>
                 <Row>
                     <Col>
                         <Button onClick={() => testValores(caixaValorEntrada, caixaNome)}>Abrir caixa</Button>
+                        {'  '}
                         <Button onClick={() => window.location.href = '/'}>Sair</Button>
                     </Col>
                 </Row>

@@ -1,7 +1,9 @@
 
 
-const CadProduto = () => {
+const CadProduto = (props) => {
     
+    const produto = props.product;
+    console.log(produto)
     return (
         <div className="borda">
             <br />
