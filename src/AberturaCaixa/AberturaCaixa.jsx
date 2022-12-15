@@ -9,7 +9,7 @@ const AberturaCaixa = () => {
 
 
     return (
-        <Table className="bordaAbertura">
+        <div className="bordaAbertura">
             <h1 className="title">Abertura de Caixa</h1>
             <Table>
                 <tbody>
@@ -48,7 +48,7 @@ const AberturaCaixa = () => {
                     </tr>
                 </tbody>
             </Table>
-        </Table >
+        </div >
     )
 }
 

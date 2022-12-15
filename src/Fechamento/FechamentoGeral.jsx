@@ -1,5 +1,4 @@
 import aCaixas from '../data/caixas';
-import Table from 'react-bootstrap/Table';
 
 const FechamentoGeral = () => {
     function getCaixas() {

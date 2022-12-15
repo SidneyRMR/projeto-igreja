@@ -1,4 +1,4 @@
-export default  [
+const produtos =  [
     {id:1, nome: "Pastel", preco: 8, tipo: "un"},
     {id:2, nome: "Cachorro Quente", preco: 8, tipo: "un"},
     {id:3, nome: "Milho", preco: 5, tipo: "un"},
@@ -27,6 +27,6 @@ export default  [
     {id:26, nome: "Coca-cola", preco: 4, tipo: "un"},
     {id:27, nome: "Guaraná", preco: 4, tipo: "un"},
     {id:28, nome: "Cerveja", preco: 5, tipo: "un"},
- 
-
 ]
+
+export default produtos

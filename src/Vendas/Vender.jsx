@@ -1,8 +1,6 @@
 import produtos from '../data/produtos'
 import produtosVenda from '../data/produtosVenda'
 import diocese from "../img/diocese.png"
-
-import Dropdown from 'react-bootstrap/Dropdown';
 import Col from 'react-bootstrap/Col';
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';

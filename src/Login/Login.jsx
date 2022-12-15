@@ -25,7 +25,8 @@ const Login = () => {
         setUser(event.target.value);
     }
 
-    const handlePasswordChange = (event) => {
+       const handlePasswordChange = (event) => {
+        // Hash the password before storing it in the state
         setPassword(event.target.value);
     }
 
