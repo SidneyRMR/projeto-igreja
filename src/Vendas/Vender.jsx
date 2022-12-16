@@ -1,22 +1,20 @@
 import produtos from '../data/produtos'
 import produtosVenda from '../data/produtosVenda'
-import diocese from "../img/diocese.png"
-import Col from 'react-bootstrap/Col';
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
+import { useEffect, useState } from 'react';
 
 const Vender = () => {
 
-    // //Hook useState
-    // const produto = useState('')
-
-
+    // Recupera o valor 'nome' do url passado pela tela de abertura
+    const urlParams = new
+        URLSearchParams(window.location.search)
+    const nome = urlParams.get('nome')
 
     function getProdutos() {
         return produtos.map((produto, i) => {
             return (
-                <button key={i} id='botaoProdutos'
-                    className='produtosVenda'>{produto.nome}<br /><br />
+                <button key={i}>{produto.nome}<br /><br />
                     R$ {produto.preco.toFixed(2).replace('.', ',')}
                 </button>
             )
@@ -26,8 +24,7 @@ const Vender = () => {
     function getVendido() {
         return produtosVenda.map((produto, i) => {
             return (
-                <tr key={i}
-                    className=''>
+                <tr key={i}>
                     <td><Button>Excluir</Button></td>
                     <td>{produto.itens}</td>
                     <td>{produto.nome}</td>
@@ -38,32 +35,63 @@ const Vender = () => {
         })
     }
 
+
+
+    const [isOpen, setIsOpen] = useState(false);
+    // Adiciona um evento de clique fora do menu quando o componente é montado
+    useEffect(() => {
+        function handleClickOutside(event) {
+            // Verifica se o clique foi fora do menu e do botão
+            if (event.target.closest('.menu') || event.target.closest('button')) {
+                return;
+            }
+
+            // Fecha o menu
+            setIsOpen(false);
+        }
+
+        document.addEventListener('click', handleClickOutside);
+
+        // Remove o evento de clique quando o componente é desmontado
+        return () => {
+            document.removeEventListener('click', handleClickOutside);
+        };
+    }, []);
+
+
     return (
 
         <Table>
+
             <thead>
                 <tr>
-                    <th className='titleVendas'>Menu</th>
+             
                     <th className='titleVendas' >Produtos</th>
                     <th className='titleVendas'>Pagamento</th>
+                </tr>
+                <tr>
+                    <th>
+                        <span >Nome do Caixa: {nome}</span> {'                '}
+                        <span >
+                            {/* Exibe o botão de menu */}
+                            <button onClick={() => setIsOpen(!isOpen)}>Menu</button>
+                            {/* Exibe o menu se o estado isOpen for verdadeiro */}
+                            {isOpen && (
+                                <ul >
+                                    <a href="/sangria">Sangria</a>
+                                    <a href="/fechamento-caixa">Fechar Caixa</a>
+                                    <a href="/">Sair</a>
+                                </ul>
+                            )}
+                        </span>
+                    </th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td className='tdVender'>
-
-                        <a href="/sangria">Sangria</a>
-                        {/* <a href="/cadastros/produtos">Ver Produtos</a> */}
-                        <a href="/fechamento-caixa">Fechar Caixa</a>
-                        <a href="/">Sair</a>
-                        <br /><br />
-                        <img src={diocese} alt="" sizes="500x300" />
-
-                    </td>
-                    <td className=''>
-                        <Col xs={6}>
-                            {getProdutos()}
-                        </Col>
+                    <td>
+                        {getProdutos()}
                     </td>
                     <td className='tdVenderScroll'>
                         <Table >

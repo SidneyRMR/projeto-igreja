@@ -71,8 +71,8 @@ a, button {
 } */
 
 .title {
-  width: flex;
-  display: inline-block;
+  width: 100%;
+  display: block;
   padding: 10px 35px 10px 35px ;
   background-color: #aa541b;
   font-size: 25px;
