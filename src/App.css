@@ -27,48 +27,12 @@ a, button {
   color: white;
 }
 
-
-
 .tabela .Inpar {
   background-color: #F8D7CD;
 }
 .tabela .Par {
   background-color: #FCECE8;
 }
-
-.tdVenderScroll{
-  overflow-y: scroll;
-}
-
-.produtosVenda {
-  margin: 0px;
-  padding: 0px;
-  min-height: 70px;
-}
-
-.bordaAbertura, tabela #titleUsuario{
-  display: inline-block;
-  align-items: center;
-  border: 1px #813c0e;
-  padding-bottom: 10px;
-}
-
-
-
-#tabelasCentralizadas {
-  display: inline;
-  align-items: center;
-}
-
-#buttonAbertura {
-  width: 100%;
-  font-size: medium;
-}
-/* * {
-  align-content: center;
-  align-items: center;
-  padding: 1px;
-} */
 
 .title {
   width: 100%;
@@ -79,19 +43,8 @@ a, button {
   color: white;
 }
 
-a {
-  width: 82%;
-}
 select {
   width: 70px;
-}
-
-.caixaNome, .caixaValorEntrada {
-  float: right;
-}
-
-input {
-  width: flex;
 }
 
 textarea {

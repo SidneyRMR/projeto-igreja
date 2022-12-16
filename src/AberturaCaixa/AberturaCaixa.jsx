@@ -1,10 +1,8 @@
-import {Dropdown, DropdownButton} from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import React, { useState } from 'react';
-import { Button } from 'react-bootstrap';
-
+import { useEffect } from 'react';
 
 //falta passar os valores de entrada e nome do caixa para as proximas telas
 const AberturaCaixa = () => {
@@ -33,37 +31,63 @@ const AberturaCaixa = () => {
         setCaixaNome(event.target.value);
     }
 
+    // Adiciona um evento de clique fora do menu quando o componente é montado
+    const [isOpen, setIsOpen] = useState(false);
+    useEffect(() => {
+        function handleClickOutside(event) {
+            // Verifica se o clique foi fora do menu e do botão
+            if (event.target.closest('.menu') || event.target.closest('button')) {
+                return;
+            }
+            // Fecha o menu
+            setIsOpen(false);
+        }
+        document.addEventListener('click', handleClickOutside);
+
+        // Remove o evento de clique quando o componente é desmontado
+        return () => {
+            document.removeEventListener('click', handleClickOutside);
+        };
+    }, []);
+
     return (
         <div className="bordaAbertura">
-
             <h1 className="title">Abertura de Caixa</h1>
             <Container>
                 <Row>
                     <Col>
-                        <span>Valor em caixa:</span>
-                        <input className='caixaValorEntrada' type="text" placeholder='Digite o valor' 
-                            onChange={handleCaixaValorEntradaChange}/>
-                    </Col>
-                    <Col>
-                        <span>Nome do responsável:</span>
+                        <div>Nome do responsável:</div>
                         <input className='caixaNome' type="text" placeholder='Digite o nome' 
                             onChange={handleCaixaNomeChange}/>
                     </Col>
-                </Row>
-                <Row>
                     <Col>
-                        <Button onClick={() => TestValores(caixaValorEntrada, caixaNome)}>Abrir caixa</Button>
-                        {'  '}
-                        <Button onClick={() => window.location.href = '/'}>Sair</Button>
+                        <div>Valor em caixa:</div>
+                        <input className='caixaValorEntrada' type="text" placeholder='Digite o valor' 
+                            onChange={handleCaixaValorEntradaChange}/>
                     </Col>
                 </Row>
                 <Row>
                     <Col>
-                        <DropdownButton id="buttonAbertura" title="Administrativo" >
-                            <Dropdown.Item href="/cadastros/produtos">Produtos</Dropdown.Item>
-                            <Dropdown.Item href="/cadastros/usuarios">Usuários</Dropdown.Item>
-                            <Dropdown.Item href="/fechamento-geral">Fech Geral</Dropdown.Item>
-                        </DropdownButton >
+                        <button onClick={() => TestValores(caixaValorEntrada, caixaNome)}>Abrir caixa</button>
+                    </Col>
+                    <Col>
+                        <button onClick={() => window.location.href = '/'}>Sair</button>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <div >
+                            {/* Exibe o botão de menu */}
+                            <button onClick={() => setIsOpen(!isOpen)}>Administrativo</button>
+                            {/* Exibe o menu se o estado isOpen for verdadeiro */}
+                            {isOpen && (
+                                <div >
+                                    <button onClick={() => window.location.href="/cadastros/produtos"}>Produtos</button>
+                                    <button onClick={() => window.location.href="/cadastros/usuarios"}>Usuários</button>
+                                    <button onClick={() => window.location.href="/fechamento-geral"}>Fech Geral</button>
+                                </div>
+                            )}
+                        </div>
                     </Col>
                 </Row>
             </Container>

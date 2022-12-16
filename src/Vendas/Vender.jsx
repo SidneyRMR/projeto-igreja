@@ -1,7 +1,6 @@
 import produtos from '../data/produtos'
 import produtosVenda from '../data/produtosVenda'
 import Table from 'react-bootstrap/Table';
-import Button from 'react-bootstrap/Button';
 import { useEffect, useState } from 'react';
 
 const Vender = () => {
@@ -25,17 +24,15 @@ const Vender = () => {
         return produtosVenda.map((produto, i) => {
             return (
                 <tr key={i}>
-                    <td><Button>Excluir</Button></td>
+                    <td><button>Excluir</button></td>
                     <td>{produto.itens}</td>
                     <td>{produto.nome}</td>
-                    <td>R$ {produto.preco.toFixed(2)}</td>
-                    <td>R$ {(produto.itens * produto.preco).toFixed(2)}</td>
+                    <td>{produto.preco.toFixed(2)}</td>
+                    <td>{(produto.itens * produto.preco).toFixed(2)}</td>
                 </tr>
             )
         })
     }
-
-
 
     const [isOpen, setIsOpen] = useState(false);
     // Adiciona um evento de clique fora do menu quando o componente é montado
@@ -49,7 +46,6 @@ const Vender = () => {
             // Fecha o menu
             setIsOpen(false);
         }
-
         document.addEventListener('click', handleClickOutside);
 
         // Remove o evento de clique quando o componente é desmontado
@@ -71,19 +67,19 @@ const Vender = () => {
                 </tr>
                 <tr>
                     <th>
-                        <span >Nome do Caixa: {nome}</span> {'                '}
-                        <span >
+                        <div >Nome do Caixa: {nome}</div> {'                '}
+                        <div >
                             {/* Exibe o botão de menu */}
                             <button onClick={() => setIsOpen(!isOpen)}>Menu</button>
                             {/* Exibe o menu se o estado isOpen for verdadeiro */}
                             {isOpen && (
-                                <ul >
-                                    <a href="/sangria">Sangria</a>
-                                    <a href="/fechamento-caixa">Fechar Caixa</a>
-                                    <a href="/">Sair</a>
-                                </ul>
+                                <div >
+                                    <button onClick={() => window.location.href="/sangria"}>Sangria</button>
+                                    <button onClick={() => window.location.href="/fechamento-caixa"}>Fechar Caixa</button>
+                                    <button onClick={() => window.location.href="/"}>Sair</button>
+                                </div>
                             )}
-                        </span>
+                        </div>
                     </th>
                     <th></th>
                 </tr>
@@ -99,9 +95,9 @@ const Vender = () => {
                                 <tr>
                                     <th>#</th>
                                     <th>Un</th>
-                                    <th>Descrição</th>
-                                    <th>Valor</th>
-                                    <th>Total</th>
+                                    <th width={'80%'}>Descrição</th>
+                                    <th>Valor R$</th>
+                                    <th>Total R$</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -116,7 +112,7 @@ const Vender = () => {
 
                             </tbody>
                         </Table>
-                        <a className="vender" href="/vendas/pagamento">Pagamento</a>
+                        <button onClick={() => window.location.href="/vendas/pagamento"} className="vender" >Pagamento</button>
                     </td>
                 </tr>
             </tbody>
