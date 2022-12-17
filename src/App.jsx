@@ -29,9 +29,9 @@ const App = () => {
           <Route path="/fechamento-caixa" element={<FechamentoCaixa />}/>
           <Route path="/detalhe-caixa" element={<DetalheCaixa />}/>
           <Route path="/cadastros/usuarios" element={<Usuarios />}/>
-          <Route path="/cadastros/cadusuario" element={<CadastroUsuario />}/>
+          <Route path="/cadastros/usuarios/cadusuario" element={<CadastroUsuario />}/>
           <Route path="/cadastros/produtos" element={<Produtos />}/>
-          <Route path="/cadastros/cadproduto/" element={<CadastroProduto />}/>
+          <Route path="/cadastros/produtos/cadproduto" element={<CadastroProduto />}/>
           <Route path="/abertura-caixa" element={<AberturaCaixa />}/>
         </Routes>
       </BrowserRouter>

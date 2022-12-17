@@ -20,7 +20,7 @@ const Produtos = () => {
     }
 
     function alterar(produto) {
-        window.location.href = `/cadastros/cadproduto/?id=${produto.id}`;
+        window.location.href = `/cadastros/produtos/cadproduto/?id=${produto.id}`;
     }
 
     return (
@@ -39,7 +39,7 @@ const Produtos = () => {
                     {getProdutos()}
                 </tbody>
             </table>
-            <button className="cadastrar" onClick={() => window.location.href = "/cadastros/cadproduto"}>Cadastrar</button>
+            <button className="cadastrar" onClick={() => window.location.href = "/cadastros/produtos/cadproduto"}>Cadastrar</button>
             <button className="voltar" onClick={() => window.location.href = "/abertura-caixa"}>Voltar</button>
         </div>
     )
