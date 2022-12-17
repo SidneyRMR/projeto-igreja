@@ -3,14 +3,13 @@
 const Sangria = () => {
     
     return (
-        <div className="">
-            <br />
-            <h1 className="title">Sangria</h1><br />
-            <input className="valorSangria" type="text" placeholder="Digite o valor" /><br />
-            <textarea className="descricaoSangria" type="text" placeholder="Observação" /><br />        
+        <div >
+            <h1 className="title">Sangria</h1>
+            <input className="valorSangria" type="text" placeholder="Digite o valor" />
+            <textarea className="descricaoSangria" type="text" placeholder="Observação" />       
         
-            <a id="sangria" href="/vendas">Efetuar Sangria</a>
-            {/* <button onClick={e => abrirCaixa}>Entrar</button> */}
+            <button onClick={() => window.location.href="/vendas"}>Voltar</button>
+            <button id="sangria" onClick={() => window.location.href="/vendas"}>Efetuar Sangria</button>
         </div>
     )
 }

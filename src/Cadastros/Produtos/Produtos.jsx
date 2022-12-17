@@ -1,6 +1,5 @@
-
-import { Button } from 'react-bootstrap';
 import produtos from '../../data/produtos';
+
 const Produtos = () => {
 
     function getProdutos() {
@@ -9,25 +8,24 @@ const Produtos = () => {
             return (
                 <tr key={produto.id}
                     className={i % 2 === 0 ? 'Par' : 'Impar'}
-                    product = {produto}>
+                    product={produto}>
                     <td >{produto.id}</td>
                     <td>{produto.nome}</td>
                     <td>R${(produto.preco).toFixed(2)}</td>
                     <td>{produto.tipo}</td>
-                    <td><Button onClick={() => alterar(produto)}>Alterar</Button></td>
+                    <td><button onClick={() => alterar(produto)}>Alterar</button></td>
                 </tr>
-                  )
-                })
-            }
-            
-            
-            function alterar(produto) {
-                window.location.href = `/cadastros/cadproduto`;
-              }
+            )
+        })
+    }
 
-        return (
-            <div className='tabela' id='tabelasCentralizadas'>
-            <table >
+    function alterar(produto) {
+        window.location.href = `/cadastros/cadproduto/?id=${produto.id}`;
+    }
+
+    return (
+        <div  >
+            <table className='tabela'>
                 <thead>
                     <tr>
                         <th>Posição</th>
@@ -41,10 +39,10 @@ const Produtos = () => {
                     {getProdutos()}
                 </tbody>
             </table>
-            <a id="cadastrar" href="/cadastros/cadproduto">Cadastrar</a>
-            <a id="voltar" href="/abertura-caixa">Voltar</a>
-            </div>
-        )
-    }
+            <button className="cadastrar" onClick={() => window.location.href = "/cadastros/cadproduto"}>Cadastrar</button>
+            <button className="voltar" onClick={() => window.location.href = "/abertura-caixa"}>Voltar</button>
+        </div>
+    )
+}
 
 export default Produtos

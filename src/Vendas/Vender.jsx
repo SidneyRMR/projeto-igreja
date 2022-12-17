@@ -42,7 +42,6 @@ const Vender = () => {
             if (event.target.closest('.menu') || event.target.closest('button')) {
                 return;
             }
-
             // Fecha o menu
             setIsOpen(false);
         }
@@ -62,8 +61,8 @@ const Vender = () => {
             <thead>
                 <tr>
              
-                    <th className='titleVendas' >Produtos</th>
-                    <th className='titleVendas'>Pagamento</th>
+                    <th className='title' >Produtos</th>
+                    <th className='title'>Pagamento</th>
                 </tr>
                 <tr>
                     <th>

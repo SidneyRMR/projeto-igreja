@@ -2,8 +2,7 @@
   text-align: center;
 }
 
-
-a, button {
+button {
   padding: 12px;
   width: 100px;
   display: inline-block;
@@ -15,16 +14,8 @@ a, button {
   text-decoration: none;
 }
 
-.buttonAbertura {
-  padding: 2px ;
-  width: 100px;
-}
-
-.titleVendas {
-  padding: 10px;
-  background-color: #813c0e;
-  font-size: 30px;
-  color: white;
+.tabela {
+  width: 100%;
 }
 
 .tabela .Inpar {
@@ -36,53 +27,15 @@ a, button {
 
 .title {
   width: 100%;
-  display: block;
   padding: 10px 35px 10px 35px ;
   background-color: #aa541b;
   font-size: 25px;
   color: white;
 }
 
-select {
-  width: 70px;
-}
-
-textarea {
-  height: 100px;
-}
-
-#cadastrar, #voltar, #fechar, #sangria, #confirmar{
-  width: 100px;
-}
-
-#tabelasCentralizadas {
-  display: inline-block;
-  align-items: center;
-}
-
-#tabelaCentralizada th{
-  padding: 10px;
-}
-
-.titleLogin, .titlePgto {
-  color: #C55A11;
-}
-
-#botaoLogin {
-  width: 100px;
-}
-
-
 thead {
   background-color: #813c0e;
   width: 100px;
   height: 50px;
   color: white;
-}
-
-#pagamento {
-  background-color:#C55A11;
-  height: 35px;
-  color: white;
-  font-size: large;
 }

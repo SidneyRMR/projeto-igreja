@@ -3,9 +3,9 @@
 const Pagamento = () => {
 
     return (
-        <div className='tabela' id='tabelasCentralizadas'>
-            <h1 className="titlePgto">Opções de Pagamento</h1>
-            <table >
+        <div >
+            <h1 className="title">Opções de Pagamento</h1>
+            <table className="tabela">
                 <thead>
                     <tr>
                         <th>Crédito</th>
@@ -21,7 +21,7 @@ const Pagamento = () => {
                         <td><input type="text" className="din" /></td>
                         <td><input type="text" className="pix" /></td>
                     </tr>
-                    <tr id="pagamento">
+                    <tr>
                         <td align={2}>Total Pago</td>
                         <td align={2}>{'R$ 50,00'}</td>
                    
@@ -30,8 +30,8 @@ const Pagamento = () => {
                     </tr>
                 </tbody>
             </table>
-            <a id="confirmar" href="/vendas">Confirmar</a>
-            <a id="voltar" href="/vendas">Voltar</a>
+            <button onClick={() => window.location.href="/vendas"}>Confirmar</button>
+            <button onClick={() => window.location.href="/vendas"}>Voltar</button>
         </div>
     )
 }
