@@ -11,7 +11,7 @@ const Usuarios = () => {
                     <td>{usuario.login}</td>
                     <td>{usuario.senha}</td>
                     <td>{usuario.adm}</td>
-                    <button >Alterar</button>
+                    <button onClick={() => window.location.href=`/cadastros/usuarios/cadusuario/?id=${usuario.id}`}>Alterar</button>
                 </tr>
                   )
                 })
@@ -35,7 +35,7 @@ const Usuarios = () => {
                 </tbody>
             </table>
             <div>
-            <button id="cadastrar" onClick={() => window.location.href="/cadastros/cadusuario"}>Cadastrar</button>
+            <button id="cadastrar" onClick={() => window.location.href="/cadastros/usuarios/cadusuario"}>Cadastrar</button>
             <button id="voltar" onClick={() => window.location.href="/abertura-caixa"}>Voltar</button>
 
             </div>

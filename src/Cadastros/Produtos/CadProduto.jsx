@@ -4,26 +4,13 @@ import produtos from "../../data/produtos"
 
 const CadProduto = () => {
 
-
     const urlParams = new URLSearchParams(window.location.search)
     const id = +urlParams.get('id')
-
-    // const [nome, setNome] = useState('');
-    // const [preco, setPreco] = useState('');
-    // const [tipo, setTipo] = useState('');
-    // if(id ) {
     const produto = produtos.find((produto) => produto.id === id)
-
-    // setNome(produto.nome);
-    // setPreco((produto.preco).toFixed(2));
-    // setTipo(produto.tipo);
 
     const [nome, setNome] = useState(id ? produto.nome : '');
     const [preco, setPreco] = useState(id ? (produto.preco).toFixed(2) : '');
     const [tipo, setTipo] = useState(id ? produto.tipo : '');
-    //     }
-    //   }
-
 
     // Manipulador de evento para atualizar o estado da descrição quando o usuário alterar o valor do input
     const handleNomeChange = (event) => {
@@ -37,7 +24,7 @@ const CadProduto = () => {
     }
 
     // Função que altera o valor do objeto produto 
-    // function atualizarProduto(novoNome, novoPreco, novoTipo) {
+    // function salvaProduto(novoNome, novoPreco, novoTipo) {
     //     setNome(
     //         console.log(novoNome,novoPreco,novoTipo)
     //     //   nome: novoNome,
@@ -55,7 +42,7 @@ const CadProduto = () => {
             </Row>
             <Row>
                 <Col>
-                    <span>Digite o nome do produto:</span>
+                    <div>Digite o nome do produto:</div>
                 </Col>
                 <Col>
                     <input className="nomeProduto" type="text"
@@ -67,7 +54,7 @@ const CadProduto = () => {
             </Row>
             <Row>
                 <Col>
-                    <span>Digite o valor do produto:</span>
+                    <div>Digite o valor do produto:</div>
                 </Col>
                 <Col>
                     <input className="valorProduto" type="text"
@@ -79,7 +66,7 @@ const CadProduto = () => {
             </Row>
             <Row>
                 <Col>
-                    <span>Selecione o tipo:</span>
+                    <div>Selecione o tipo:</div>
                 </Col>
                 <Col>
                     <select
@@ -92,7 +79,7 @@ const CadProduto = () => {
                 </Col>
                 <Col>
                     <button onClick={() => {
-                        // atualizarProduto(nome, preco, tipo) 
+                        // salvaProduto(nome, preco, tipo) 
                         window.location.href = "/cadastros/produtos"
                     }}
                     >Salvar</button>
