@@ -21,8 +21,8 @@ const DetalheCaixa = () => {
     }
 
     return (
-        <div className='tabela' id='tabelasCetralizadas'>
-            <table>
+        <div >
+            <table className='tabela'>
                 <thead>
                     <tr>
                         <th>Descrição</th>

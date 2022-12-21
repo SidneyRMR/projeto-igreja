@@ -33,7 +33,7 @@ const FechamentoCaixa = () => {
                     </tr>
                 </tbody>
             </table>
-            <button onClick={() => window.location.href="/"}>Fechar Cx</button>
+            <button onClick={() => window.location.href="/abertura-caixa"}>Fechar Cx</button>
             <button onClick={() => window.location.href="/vendas"}>Voltar</button>
         </div>
     )

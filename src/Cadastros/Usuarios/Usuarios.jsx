@@ -9,9 +9,9 @@ const Usuarios = () => {
                     className={i % 2 === 0 ? 'Par' : 'Impar'}>
                     <td >{usuario.nome}</td>
                     <td>{usuario.login}</td>
-                    {/* <td>{usuario.senha}</td> */}
+                    <td>{usuario.senha}</td>
                     <td>{usuario.adm}</td>
-                    <td><button >Alterar</button></td>
+                    <button >Alterar</button>
                 </tr>
                   )
                 })
@@ -19,15 +19,15 @@ const Usuarios = () => {
 
 
         return (
-            <div className='tabela' id='tabelasCentralizadas'>
-            <table>
+            <div  >
+            <table className='tabela'>
                 <thead>
                     <tr>
                         <th>Nome</th>
                         <th>Login</th>
-                        {/* <th>Senha</th> */}
+                        <th>Senha</th>
                         <th>Administrador</th>
-                        <th></th>
+                        <th>Ação</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -35,8 +35,8 @@ const Usuarios = () => {
                 </tbody>
             </table>
             <div>
-            <a id="cadastrar" href="/cadastros/cadusuario">Cadastrar</a>
-            <a id="voltar" href="/abertura-caixa">Voltar</a>
+            <button id="cadastrar" onClick={() => window.location.href="/cadastros/cadusuario"}>Cadastrar</button>
+            <button id="voltar" onClick={() => window.location.href="/abertura-caixa"}>Voltar</button>
 
             </div>
 

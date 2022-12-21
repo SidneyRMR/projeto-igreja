@@ -26,8 +26,8 @@ const FechamentoGeral = () => {
     }
 
     return (
-        <div id='tabelasCentralizadas' className='tabela'>
-            <table>
+        <div >
+            <table className='tabela'>
                 <thead>
                     <tr>
                         <th>Caixa</th>

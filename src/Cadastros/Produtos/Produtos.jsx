@@ -12,7 +12,7 @@ const Produtos = () => {
                     <td >{produto.id}</td>
                     <td>{produto.nome}</td>
                     <td>R${(produto.preco).toFixed(2)}</td>
-                    <td>{produto.tipo}</td>
+                    <td>{produto.tipo.toUpperCase()}</td>
                     <td><button onClick={() => alterar(produto)}>Alterar</button></td>
                 </tr>
             )
@@ -32,14 +32,14 @@ const Produtos = () => {
                         <th>Descrição</th>
                         <th>Valor R$</th>
                         <th>Tipo</th>
-                        <th></th>
+                        <th>Ação</th>
                     </tr>
                 </thead>
                 <tbody>
                     {getProdutos()}
                 </tbody>
             </table>
-            <button className="cadastrar" onClick={() => window.location.href = "/cadastros/produtos/cadproduto"}>Cadastrar</button>
+            <button className="cadastrar" onClick={() => window.location.href = `/cadastros/produtos/cadproduto`}>Cadastrar</button>
             <button className="voltar" onClick={() => window.location.href = "/abertura-caixa"}>Voltar</button>
         </div>
     )

@@ -2,8 +2,9 @@
   text-align: center;
 }
 
-button {
+button , a{
   padding: 12px;
+  margin: 1px;
   width: 100px;
   display: inline-block;
   cursor: pointer;
@@ -14,10 +15,16 @@ button {
   text-decoration: none;
 }
 
+button .ehComida {
+  background-color: burlywood;
+}
+button .nEhComida {
+  background-color: chocolate;
+}
+
 .tabela {
   width: 100%;
 }
-
 .tabela .Inpar {
   background-color: #F8D7CD;
 }
@@ -38,4 +45,7 @@ thead {
   width: 100px;
   height: 50px;
   color: white;
+}
+input, select {
+  margin-bottom: 15px;
 }

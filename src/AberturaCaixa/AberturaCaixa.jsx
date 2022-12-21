@@ -8,12 +8,12 @@ import { useEffect } from 'react';
 const AberturaCaixa = () => {
     function TestValores(valEntrada, nome) {
         // Verifica se o usuário e senha digitados estão presentes na lista de usuários
-        const valorEncontrado = (valEntrada >= 0  &&  nome);
+        const valorEncontrado = (valEntrada >= 0 && nome);
 
         if (valorEncontrado) {
             // Se o usuário e senha forem válidos, redireciona para a página de abertura de caixa
             window.location.href = `/vendas/?nome=${nome}`;
- 
+
         } else {
             // Se o usuário e senha forem inválidos, exibe uma mensagem de erro
             alert('Preencha os campos acima para entrar!');
@@ -51,47 +51,42 @@ const AberturaCaixa = () => {
     }, []);
 
     return (
-        <div className="bordaAbertura">
+        <Container>
             <h1 className="title">Abertura de Caixa</h1>
-            <Container>
-                <Row>
-                    <Col>
-                        <div>Nome do responsável:</div>
-                        <input className='caixaNome' type="text" placeholder='Digite o nome' 
-                            onChange={handleCaixaNomeChange}/>
-                    </Col>
-                    <Col>
-                        <div>Valor em caixa:</div>
-                        <input className='caixaValorEntrada' type="text" placeholder='Digite o valor' 
-                            onChange={handleCaixaValorEntradaChange}/>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col>
-                        <button onClick={() => TestValores(caixaValorEntrada, caixaNome)}>Abrir caixa</button>
-                    </Col>
-                    <Col>
-                        <button onClick={() => window.location.href = '/'}>Sair</button>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col>
-                        <div >
-                            {/* Exibe o botão de menu */}
-                            <button onClick={() => setIsOpen(!isOpen)}>Administrativo</button>
-                            {/* Exibe o menu se o estado isOpen for verdadeiro */}
-                            {isOpen && (
-                                <div >
-                                    <button onClick={() => window.location.href="/cadastros/produtos"}>Produtos</button>
-                                    <button onClick={() => window.location.href="/cadastros/usuarios"}>Usuários</button>
-                                    <button onClick={() => window.location.href="/fechamento-geral"}>Fech Geral</button>
-                                </div>
-                            )}
-                        </div>
-                    </Col>
-                </Row>
-            </Container>
-        </div >
+            <Row>
+                <Col>
+                    <div>Nome do responsável:</div>
+                    <input className='caixaNome' type="text" placeholder='Digite o nome'
+                        onChange={handleCaixaNomeChange} />
+                </Col>
+                <Col>
+                    <div>Valor em caixa:</div>
+                    <input className='caixaValorEntrada' type="text" placeholder='Digite o valor'
+                        onChange={handleCaixaValorEntradaChange} />
+                </Col>
+            </Row>
+            <Row>
+                <Col>
+                    <button onClick={() => TestValores(caixaValorEntrada, caixaNome)}>Abrir caixa</button>
+
+                    <button onClick={() => window.location.href = '/'}>Sair</button>
+                </Col>
+            </Row>
+            <Row>
+                <Col>
+                        {/* Exibe o botão de menu */}
+                        <button onClick={() => setIsOpen(!isOpen)}>Administrativo</button>
+                        {/* Exibe o menu se o estado isOpen for verdadeiro */}
+                        {isOpen && (
+                            <div >
+                                <button onClick={() => window.location.href = "/cadastros/produtos"}>Produtos</button>
+                                <button onClick={() => window.location.href = "/cadastros/usuarios"}>Usuários</button>
+                                <button onClick={() => window.location.href = "/fechamento-geral"}>Fech Geral</button>
+                            </div>
+                        )}
+                </Col>
+            </Row>
+        </Container>
     )
 }
 

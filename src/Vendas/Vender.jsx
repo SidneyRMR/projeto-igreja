@@ -1,7 +1,10 @@
 import produtos from '../data/produtos'
 import produtosVenda from '../data/produtosVenda'
-import Table from 'react-bootstrap/Table';
 import { useEffect, useState } from 'react';
+
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 const Vender = () => {
 
@@ -13,7 +16,8 @@ const Vender = () => {
     function getProdutos() {
         return produtos.map((produto, i) => {
             return (
-                <button key={i}>{produto.nome}<br /><br />
+                <button className={produto.ehComida === true ? 'ehComida' : 'nEhComida'}
+                 key={i}>{produto.nome}<br />
                     R$ {produto.preco.toFixed(2).replace('.', ',')}
                 </button>
             )
@@ -23,13 +27,13 @@ const Vender = () => {
     function getVendido() {
         return produtosVenda.map((produto, i) => {
             return (
-                <tr key={i}>
-                    <td><button>Excluir</button></td>
-                    <td>{produto.itens}</td>
-                    <td>{produto.nome}</td>
-                    <td>{produto.preco.toFixed(2)}</td>
-                    <td>{(produto.itens * produto.preco).toFixed(2)}</td>
-                </tr>
+                <Col key={i}>
+                    <Row>{produto.itens}</Row>
+                    <Row>{produto.nome}</Row>
+                    <Row>{produto.preco.toFixed(2)}</Row>
+                    <Row>{(produto.itens * produto.preco).toFixed(2)}</Row>
+                    <Row><button>Excluir</button></Row>
+                </Col>
             )
         })
     }
@@ -56,7 +60,7 @@ const Vender = () => {
 
     return (
 
-        <Table>
+        <Container>
 
             <thead>
                 <tr>
@@ -74,7 +78,7 @@ const Vender = () => {
                             {isOpen && (
                                 <div >
                                     <button onClick={() => window.location.href="/sangria"}>Sangria</button>
-                                    <button onClick={() => window.location.href="/fechamento-caixa"}>Fechar Caixa</button>
+                                    <button onClick={() => window.location.href="/fechamento-caixa"}>Fech Caixa</button>
                                     <button onClick={() => window.location.href="/"}>Sair</button>
                                 </div>
                             )}
@@ -89,7 +93,7 @@ const Vender = () => {
                         {getProdutos()}
                     </td>
                     <td className='tdVenderScroll'>
-                        <Table >
+                        <Container >
                             <thead>
                                 <tr>
                                     <th>#</th>
@@ -110,12 +114,12 @@ const Vender = () => {
                                 </tr>
 
                             </tbody>
-                        </Table>
+                        </Container>
                         <button onClick={() => window.location.href="/vendas/pagamento"} className="vender" >Pagamento</button>
                     </td>
                 </tr>
             </tbody>
-        </Table>
+        </Container>
 
 
 
