@@ -4,7 +4,7 @@ const Pagamento = () => {
 
     return (
         <div >
-            <h1 className="title">Opções de Pagamento</h1>
+            <div className="title">Opções de Pagamento</div>
             <table className="tabela">
                 <thead>
                     <tr>

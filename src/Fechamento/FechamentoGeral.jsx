@@ -8,7 +8,7 @@ const FechamentoGeral = () => {
            let tcaixa = oCaixa.debito + oCaixa.credito + oCaixa.dinheiro + oCaixa.pix - oCaixa.sangria
             return (
                 <tr key={i}
-                    className={i % 2 === 0 ? 'Par' : 'Impar'} id=''>
+                    className={i % 2 === 0 ? 'Par' : 'Impar'}>
                     <td>{oCaixa.caixa}</td>
                     <td>{oCaixa.abertura.toFixed(2).replace('.',',')}</td>
                     <td>{oCaixa.sangria.toFixed(2).replace('.',',')}</td>
@@ -19,7 +19,7 @@ const FechamentoGeral = () => {
                     <td>{tvenda.toFixed(2).replace('.',',')}</td>
                     <td>{tcaixa.toFixed(2).replace('.',',')}</td>
                     <td>{oCaixa.status}</td>
-                    <button onClick={() => window.location.href="/detalhe-caixa"}>Detalhes</button>
+                    <td><button onClick={() => window.location.href="/detalhe-caixa"}>Detalhes</button></td>
                 </tr>
             )
         })

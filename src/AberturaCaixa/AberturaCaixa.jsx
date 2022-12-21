@@ -1,34 +1,31 @@
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import { Container, Row, Col } from 'react-bootstrap';
 import React, { useState } from 'react';
 import { useEffect } from 'react';
+// import usuarios from '../data/usuarios';
 
 //falta passar os valores de entrada e nome do caixa para as proximas telas
 const AberturaCaixa = () => {
-    function TestValores(valEntrada, nome) {
-        // Verifica se o usuário e senha digitados estão presentes na lista de usuários
-        const valorEncontrado = (valEntrada >= 0 && nome);
 
-        if (valorEncontrado) {
-            // Se o usuário e senha forem válidos, redireciona para a página de abertura de caixa
-            window.location.href = `/vendas/?nome=${nome}`;
+    // Recupera o valor do usuario da tela de login
+    const usuario = JSON.parse(sessionStorage.getItem('usuario'));
+
+
+    function TestValores(valEntrada) {
+        if (Number.isFinite(valEntrada)) {
+            // Se o valor for numérico, acessa a pagina de vendas e 
+            window.location.href = `/vendas/?id=${usuario.id}`;
 
         } else {
-            // Se o usuário e senha forem inválidos, exibe uma mensagem de erro
-            alert('Preencha os campos acima para entrar!');
+            // Se o valor for inválido, exibe uma mensagem de erro
+            alert('Digite o valor de abertura de caixa!');
         }
     }
 
     // Este trecho de codigo serve para verificar se os inputs possuem valores válidos
     const [caixaValorEntrada, setCaixaValorEntrada] = useState()
-    const [caixaNome, setCaixaNome] = useState()
 
     const handleCaixaValorEntradaChange = (event) => {
         setCaixaValorEntrada(event.target.value);
-    }
-    const handleCaixaNomeChange = (event) => {
-        setCaixaNome(event.target.value);
     }
 
     // Adiciona um evento de clique fora do menu quando o componente é montado
@@ -52,12 +49,11 @@ const AberturaCaixa = () => {
 
     return (
         <Container>
-            <h1 className="title">Abertura de Caixa</h1>
+            <div className="title">Abertura de Caixa</div>
             <Row>
                 <Col>
                     <div>Nome do responsável:</div>
-                    <input className='caixaNome' type="text" placeholder='Digite o nome'
-                        onChange={handleCaixaNomeChange} />
+                    <input className='caixaNome' readOnly={usuario.nome} type="text" value={usuario.nome} />
                 </Col>
                 <Col>
                     <div>Valor em caixa:</div>
@@ -67,23 +63,26 @@ const AberturaCaixa = () => {
             </Row>
             <Row>
                 <Col>
-                    <button onClick={() => TestValores(caixaValorEntrada, caixaNome)}>Abrir caixa</button>
+                    <button onClick={() => TestValores(+caixaValorEntrada)}>Abrir caixa</button>
 
-                    <button onClick={() => window.location.href = '/'}>Sair</button>
+                    <button onClick={() => {
+                        window.location.href = '/'
+                        sessionStorage.removeItem('usuario');
+                    }}>Sair</button>
                 </Col>
             </Row>
             <Row>
                 <Col>
-                        {/* Exibe o botão de menu */}
-                        <button onClick={() => setIsOpen(!isOpen)}>Administrativo</button>
-                        {/* Exibe o menu se o estado isOpen for verdadeiro */}
-                        {isOpen && (
-                            <div >
-                                <button onClick={() => window.location.href = "/cadastros/produtos"}>Produtos</button>
-                                <button onClick={() => window.location.href = "/cadastros/usuarios"}>Usuários</button>
-                                <button onClick={() => window.location.href = "/fechamento-geral"}>Fech Geral</button>
-                            </div>
-                        )}
+                    {/* Exibe o botão de menu */}
+                    <button onClick={() => setIsOpen(!isOpen)}>Administrativo</button>
+                    {/* Exibe o menu se o estado isOpen for verdadeiro */}
+                    {isOpen && (
+                        <div >
+                            <button onClick={() => window.location.href = `/cadastros/produtos`}>Produtos</button>
+                            <button onClick={() => window.location.href = `/cadastros/usuarios`}>Usuários</button>
+                            <button onClick={() => window.location.href = `/fechamento-geral`}>Fech Geral</button>
+                        </div>
+                    )}
                 </Col>
             </Row>
         </Container>

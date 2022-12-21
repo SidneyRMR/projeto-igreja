@@ -13,7 +13,9 @@ const Login = () => {
 
         if (usuarioEncontrado) {
             // Se o usuário e senha forem válidos, redireciona para a página de abertura de caixa
-            window.location.href = '/abertura-caixa'
+            window.location.href = `/abertura-caixa/?id=${usuarioEncontrado}`
+            sessionStorage.setItem('usuario', JSON.stringify(usuarioEncontrado));
+
         } else {
             // Se o usuário e senha forem inválidos, exibe uma mensagem de erro
             alert('Usuário ou senha inválidos')
@@ -36,12 +38,26 @@ const Login = () => {
         <Container>
             <Row>
                 <Col>
-                    <h1 className="title">Paróquia Santa Cruz</h1>
+                    <div className="title">Paróquia Santa Cruz</div>
+                </Col>
+            </Row>
+            <Row>
+                <Col>
+                    <div>Digite seu nome de usuário:</div>
                 </Col>
                 <Col>
-                    <input className="user" type="text" placeholder="Usuário" onChange={handleUserChange} /><br />
-                    <input className="password" type="password" placeholder="Senha" onChange={handlePasswordChange} /><br />
+                    <input className="user" type="text" placeholder="Login" onChange={handleUserChange} />
                 </Col>
+            </Row>
+            <Row>
+                <Col>
+                    <div>Digite sua senha:</div>
+                </Col>
+                <Col>
+                    <input className="password" type="password" placeholder="Senha" onChange={handlePasswordChange} />
+                </Col>
+            </Row>
+            <Row>
                 <Col>
                     <Button onClick={() => testLogin(user, password)}>Entrar</Button>
                 </Col>

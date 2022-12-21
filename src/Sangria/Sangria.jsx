@@ -8,7 +8,7 @@ const Sangria = () => {
         <Container >
             <Row>
                 <Col>
-                    <h1 className="title">Sangria</h1>
+                    <div className="title">Sangria</div>
                     <input className="valorSangria" type="text" placeholder="Digite o valor" />
                 </Col>
                 <Col>

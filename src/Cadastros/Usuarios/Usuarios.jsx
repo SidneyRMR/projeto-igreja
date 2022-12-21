@@ -10,7 +10,7 @@ const Usuarios = () => {
                     <td >{usuario.nome}</td>
                     <td>{usuario.login}</td>
                     <td>{usuario.senha}</td>
-                    <button onClick={() => window.location.href=`/cadastros/usuarios/cadusuario/?id=${usuario.id}`}>Alterar</button>
+                    <td><button onClick={() => window.location.href=`/cadastros/usuarios/cadusuario/?id=${usuario.id}`}>Alterar</button></td>
                 </tr>
                   )
                 })

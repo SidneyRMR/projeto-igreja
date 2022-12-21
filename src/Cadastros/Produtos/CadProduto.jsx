@@ -33,12 +33,12 @@ const CadProduto = () => {
     //     );
     //   }
 
-    //   atualizarProduto('Camisa vermelha', 39.99, 'Uma camisa vermelha básica');
+    //   salvarProduto('Camisa vermelha', 39.99, 'Uma camisa vermelha básica');
 
     return (
         <Container>
             <Row>
-                <h1 className="title">Cadastro de Produto</h1>
+                <div className="title">Cadastro de Produto</div>
             </Row>
             <Row>
                 <Col>

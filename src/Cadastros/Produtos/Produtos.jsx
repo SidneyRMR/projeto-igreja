@@ -40,7 +40,7 @@ const Produtos = () => {
                 </tbody>
             </table>
             <button className="cadastrar" onClick={() => window.location.href = `/cadastros/produtos/cadproduto`}>Cadastrar</button>
-            <button className="voltar" onClick={() => window.location.href = "/abertura-caixa"}>Voltar</button>
+            <button className="voltar" onClick={() => window.location.href = `/abertura-caixa`}>Voltar</button>
         </div>
     )
 }

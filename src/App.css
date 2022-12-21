@@ -2,7 +2,7 @@
   text-align: center;
 }
 
-button , a{
+button {
   padding: 12px;
   margin: 1px;
   width: 100px;
@@ -15,11 +15,11 @@ button , a{
   text-decoration: none;
 }
 
-button .ehComida {
-  background-color: burlywood;
+.ehComida {
+  background-color: #D2691E;
 }
-button .nEhComida {
-  background-color: chocolate;
+.nEhComida {
+  background-color: #FF6347;
 }
 
 .tabela {
@@ -35,12 +35,14 @@ button .nEhComida {
 .title {
   width: 100%;
   padding: 1% ;
+  margin-bottom: 2%;
   background-color: #aa541b;
   font-size: 25px;
+  font-weight: 800;
   color: white;
 }
 
-thead {
+thead, tfoot {
   background-color: #813c0e;
   width: 100px;
   height: 50px;

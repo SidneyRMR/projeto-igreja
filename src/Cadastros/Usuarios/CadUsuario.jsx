@@ -28,7 +28,7 @@ const CadUsuario = () => {
     return (
         <Container>
             <Row>
-                <h1 className='title'>Cadastro de Usuario</h1>
+                <div className='title'>Cadastro de Usuario</div>
             </Row>
             <Row>
                 <Col>
