@@ -1,18 +1,45 @@
-import { Container, Row, Col, Form } from 'react-bootstrap';
+import { useState } from 'react';
+import { Container, Row, Col } from 'react-bootstrap';
+import usuarios from '../../data/usuarios';
 
 const CadUsuario = () => {
+
+    const urlParams = new URLSearchParams(window.location.search)
+    const id = +urlParams.get('id')
+    const usuario = usuarios.find((usuario) => usuario.id === id)
+
+    const [nome, setNome] = useState(id ? usuario.nome : '');
+    const [login, setLogin] = useState(id ? usuario.login : '');
+    const [senha, setSenha] = useState(id ? usuario.senha : '');
+
+    // Manipulador de evento para atualizar o estado da descrição quando o usuário alterar o valor do input
+    const handleNomeChange = (event) => {
+        setNome(event.target.value);
+    };
+    const handleLoginChange = (event) => {
+        setLogin(event.target.value);
+    };
+    const handleSenhaChange = (event) => {
+        setSenha(event.target.value);
+    }
+
+
 
     return (
         <Container>
             <Row>
-                <h1 className='title'>Cadastro de Usuario</h1> <br />
+                <h1 className='title'>Cadastro de Usuario</h1>
             </Row>
             <Row>
                 <Col>
                     <div>Digite o nome do usuário:</div>
                 </Col>
                 <Col>
-                    <input className="nomeUsuario" type="text" placeholder="Insira seu nome completo" /><br />
+                    <input className="nomeUsuario" type="text" 
+                        placeholder="Insira seu nome completo" 
+                        onChange={handleNomeChange}
+                        value={nome}
+                    />
                 </Col>
             </Row>
             <Row>
@@ -20,7 +47,11 @@ const CadUsuario = () => {
                     <div>Digite o login do usuário:</div>
                 </Col>
                 <Col>
-                    <input className="loginUsuario" type="text" placeholder="Cadastre um login" /><br />
+                    <input className="loginUsuario" type="text" 
+                    placeholder="Cadastre um login" 
+                    onChange={handleLoginChange}
+                    value={login}   
+                />
                 </Col>
             </Row>
             <Row>
@@ -28,18 +59,11 @@ const CadUsuario = () => {
                     <div>Digite uma senha:</div>
                 </Col>
                 <Col>
-                    <input className="senhaUsuario" type="text" placeholder="Cadastre uma senha" /><br />
-                </Col>
-            </Row>
-            <Row>
-                <Col>
-                    <Form>
-                        <Form.Check
-                            type="switch"
-                            id="custom-switch"
-                            label="Administrador"
-                        />
-                    </Form>
+                    <input className="senhaUsuario" type="text" 
+                        placeholder="Cadastre uma senha" 
+                        onChange={handleSenhaChange}
+                        value={senha} 
+                    />
                 </Col>
             </Row>
             <Row>
@@ -47,7 +71,7 @@ const CadUsuario = () => {
                     <button id="cadastrar" onClick={() => {
                         // salvaUsuario()
                         window.location.href = "/cadastros/usuarios"
-                    }}>Cadastrar</button>
+                    }}>Salvar</button>
                     <button onClick={() => window.location.href = "/cadastros/usuarios"}>Voltar</button>
                 </Col>
             </Row>

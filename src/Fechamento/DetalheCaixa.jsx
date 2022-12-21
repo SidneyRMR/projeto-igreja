@@ -36,7 +36,7 @@ const DetalheCaixa = () => {
                     {getDetalhes()}
                 </tbody>
             </table>
-            <a id='voltar' href="/fechamento-geral">Voltar</a>
+            <button id='voltar' onClick={() => window.location.href="/fechamento-geral"}>Voltar</button>
         </div>
     )
 }

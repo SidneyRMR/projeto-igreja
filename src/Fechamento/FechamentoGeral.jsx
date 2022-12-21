@@ -19,7 +19,7 @@ const FechamentoGeral = () => {
                     <td>{tvenda.toFixed(2).replace('.',',')}</td>
                     <td>{tcaixa.toFixed(2).replace('.',',')}</td>
                     <td>{oCaixa.status}</td>
-                    <td><a href="/detalhe-caixa">Detalhes</a></td>
+                    <button onClick={() => window.location.href="/detalhe-caixa"}>Detalhes</button>
                 </tr>
             )
         })
@@ -40,14 +40,14 @@ const FechamentoGeral = () => {
                         <th>Total de venda R$</th>
                         <th>Total em caixa R$</th>
                         <th>Status</th>
-                        <th></th>
+                        <th>Ações</th>
                     </tr>
                 </thead>
                 <tbody>
                     {getCaixas()}
                 </tbody>
             </table>
-            <a id='voltar' href="/abertura-caixa">Voltar</a>
+            <button id='voltar' onClick={() => window.location.href="/abertura-caixa"}>Voltar</button>
         </div>
     )
 }
