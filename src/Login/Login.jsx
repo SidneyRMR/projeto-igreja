@@ -13,7 +13,7 @@ const Login = () => {
 
         if (usuarioEncontrado) {
             // Se o usuário e senha forem válidos, redireciona para a página de abertura de caixa
-            window.location.href = `/abertura-caixa/?id=${usuarioEncontrado}`
+            window.location.href = `/abertura-caixa`
             sessionStorage.setItem('usuario', JSON.stringify(usuarioEncontrado));
 
         } else {
@@ -41,30 +41,32 @@ const Login = () => {
                     <div className="title">Paróquia Santa Cruz</div>
                 </Col>
             </Row>
-            <Row>
-                <Col>
-                    <div>Digite seu nome de usuário:</div>
-                </Col>
-                <Col>
-                    <input className="user" type="text" placeholder="Login" onChange={handleUserChange} />
-                </Col>
-            </Row>
-            <Row>
-                <Col>
-                    <div>Digite sua senha:</div>
-                </Col>
-                <Col>
-                    <input className="password" type="password" placeholder="Senha" onChange={handlePasswordChange} />
-                </Col>
-            </Row>
-            <Row>
-                <Col>
-                    <Button onClick={() => testLogin(user, password)}>Entrar</Button>
-                </Col>
-                <Col>
-                    <img src={diocese} alt="" sizes="500x300" />
-                </Col>
-            </Row>
+            <Container>
+                <Row>
+                    <Col>
+                        <div>Digite seu nome de usuário:</div>
+                    </Col>
+                    <Col>
+                        <input className="user" type="text" placeholder="Login" onChange={handleUserChange} />
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <div>Digite sua senha:</div>
+                    </Col>
+                    <Col>
+                        <input className="password" type="password" placeholder="Senha" onChange={handlePasswordChange} />
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <Button onClick={() => testLogin(user, password)}>Entrar</Button>
+                    </Col>
+                    <Col>
+                        <img src={diocese} alt="" sizes="500x300" />
+                    </Col>
+                </Row>
+            </Container>
         </Container>
     )
 }

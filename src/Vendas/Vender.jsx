@@ -1,34 +1,30 @@
 import produtos from '../data/produtos'
-import produtosVenda from '../data/produtosVenda'
 import { useEffect, useState } from 'react';
 
 
 const Vender = () => {
 
+    const [produtosVenda, setProdutosVenda] = useState([]);
     // Recupera o valor do usuario da tela de login
     const usuario = JSON.parse(sessionStorage.getItem('usuario'));
+
+    function addProduto(produto) {
+        setProdutosVenda([...produtosVenda, produto]);
+    }
 
     function getProdutos() {
         return produtos.map((produto, i) => {
             return (
-                <button className={produto.ehComida === true ? 'ehComida' : 'nEhComida'}
-                    key={i}>{produto.nome} <hr />
-                    R$ {produto.preco.toFixed(2).replace('.', ',')}
+                <button
+                    key={i}
+                    onClick={() => addProduto(produto)}
+                    className={produto.ehComida === true ? 'ehComida' : 'nEhComida'}
+                >
+                    <div>
+                        {produto.nome} <hr />
+                        R$ {produto.preco.toFixed(2).replace('.', ',')}
+                    </div>
                 </button>
-            )
-        })
-    }
-
-    function getVendido() {
-        return produtosVenda.map((produto, i) => {
-            return (
-                <tr key={i} className={i % 2 === 0 ? 'Par' : 'Impar'}>
-                    <th>{produto.itens}</th>
-                    <th>{produto.nome}</th>
-                    <th>{produto.preco.toFixed(2)}</th>
-                    <th>{(produto.itens * produto.preco).toFixed(2)}</th>
-                    <th><button>Excluir</button></th>
-                </tr>
             )
         })
     }
@@ -41,15 +37,14 @@ const Vender = () => {
             if (event.target.closest('.menu') || event.target.closest('button')) {
                 return
             }// Fecha o menu
-            setIsOpen(false);
+            setIsOpen(false)
         }
         document.addEventListener('click', handleClickOutside);
         // Remove o evento de clique quando o componente é desmontado
         return () => {
             document.removeEventListener('click', handleClickOutside);
-        };
-    }, []);
-
+        }
+    }, [])
 
     return (
         <table>
@@ -57,7 +52,7 @@ const Vender = () => {
                 <tr>
                     <th>
                         Nome do Caixa: {usuario.nome}
-                    </th> 
+                    </th>
                     <th >
                         {/* Exibe o botão de menu */}
                         <button onClick={() => setIsOpen(!isOpen)}>Menu</button>
@@ -65,9 +60,7 @@ const Vender = () => {
                         {isOpen && (
                             <div >
                                 <button onClick={() => window.location.href = "/sangria"}>Sangria</button>
-                                <button onClick={() => {
-                                    window.location.href = "/fechamento-caixa"
-                                }}>Fech Caixa</button>
+                                <button onClick={() => { window.location.href = "/fechamento-caixa" }}>Fech Caixa</button>
                                 <button onClick={() => {
                                     window.location.href = "/"
                                     sessionStorage.removeItem('usuario');
@@ -76,9 +69,9 @@ const Vender = () => {
                         )}
                     </th>
                 </tr>
-                <tr className="justify-content-md-center">
+                <tr>
                     <th sm={7} className='title'>Produtos</th>
-                    <th sm={5} className='title'>Pagamento</th>
+                    <th sm={5} className='title'>Resumo Pedido</th>
                 </tr>
             </thead>
             <tbody>
@@ -90,23 +83,29 @@ const Vender = () => {
                         <table className='tabela'>
                             <thead>
                                 <tr>
-                                    <th> # </th>
-                                    <th>Un</th>
+                                    <th>Qnde</th>
                                     <th>Descrição</th>
                                     <th>Valor R$</th>
+                                    <th>Medida</th>
                                     <th>Total R$</th>
+                                    <th>Ações</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                {getVendido()}
+                            <tbody className='scrollable-tbody'>
+                                {produtosVenda.map((produto, i) => (
+                                    <tr key={i} className={i % 2 === 0 ? 'Par' : 'Impar'} >
+                                        <td>{produto.quantidade}</td>
+                                        <td>{produto.nome}</td>
+                                        <td>{produto.preco.toFixed(2)}</td>
+                                        <td>{produto.medida.toUpperCase()}</td>
+                                        <td>{(produto.quantidade * produto.preco).toFixed(2)}</td>
+                                        <td><button>Excluir</button></td>
+                                    </tr>))}
                             </tbody>
                             <tfoot>
-                                <tr id='pagamento'>
-                                    <td colSpan={2} ><b>
-                                        Total do Pedido:
-                                    </b>
-                                    </td>
-                                    <td colSpan={3} ><b>R$ 100.00</b> </td>
+                                <tr>
+                                    <td colSpan={3}>Total do Pedido:</td>
+                                    <td colSpan={2}>R$ 100.00 </td>
                                 </tr>
                             </tfoot>
                         </table>

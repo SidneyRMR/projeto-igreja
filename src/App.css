@@ -51,3 +51,8 @@ thead, tfoot {
 input, select {
   margin-bottom: 15px;
 }
+
+.scrollable-tbody {
+  overflow: scroll;
+  max-height: 50%;
+}

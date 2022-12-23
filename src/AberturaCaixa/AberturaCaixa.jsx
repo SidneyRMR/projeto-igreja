@@ -13,7 +13,7 @@ const AberturaCaixa = () => {
     function TestValores(valEntrada) {
         if (Number.isFinite(valEntrada)) {
             // Se o valor for numérico, acessa a pagina de vendas e 
-            window.location.href = `/vendas/?id=${usuario.id}`;
+            window.location.href = `/vendas`;
 
         } else {
             // Se o valor for inválido, exibe uma mensagem de erro
