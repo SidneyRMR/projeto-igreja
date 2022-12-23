@@ -9,7 +9,13 @@ const Vender = () => {
     const usuario = JSON.parse(sessionStorage.getItem('usuario'));
 
     function addProduto(produto) {
-        setProdutosVenda([...produtosVenda, produto]);
+        const produtoExistente = produtosVenda.find((p) => p.nome === produto.nome);
+        if (produtoExistente) {
+            produtoExistente.quantidade += produto.quantidade;
+            setProdutosVenda([...produtosVenda]);
+        } else {
+            setProdutosVenda([...produtosVenda, produto]);
+        }
     }
 
     function getProdutos() {
