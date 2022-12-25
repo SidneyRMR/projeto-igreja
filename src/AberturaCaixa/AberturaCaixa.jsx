@@ -8,11 +8,11 @@ const AberturaCaixa = () => {
 
     // Recupera o valor do usuario da tela de login
     const usuario = JSON.parse(sessionStorage.getItem('usuario'));
-
-
+    
     function TestValores(valEntrada) {
         if (Number.isFinite(valEntrada)) {
             // Se o valor for numérico, acessa a pagina de vendas e 
+            sessionStorage.setItem('valEntrada', JSON.stringify(valEntrada));
             window.location.href = `/vendas`;
 
         } else {

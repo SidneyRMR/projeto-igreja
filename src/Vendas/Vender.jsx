@@ -4,10 +4,12 @@ import { useEffect, useState } from 'react';
 
 const Vender = () => {
 
+    
+
       const [produtosVenda, setProdutosVenda] = useState([]);
       // Recupera o valor do usuario da tela de login
       const usuario = JSON.parse(sessionStorage.getItem('usuario'));
-      
+      const valEntrada = JSON.parse(sessionStorage.getItem('valEntrada'));
       
       let [quantidade, setQuantidade] = useState(1)
 
@@ -83,6 +85,9 @@ const Vender = () => {
                     <th>
                         Nome do Caixa: {usuario.nome}
                     </th>
+                    <th>
+                        Saldo do caixa: {valEntrada.toFixed(2)}
+                    </th>
                     <th >
                         <div style={{ position: 'fixed', top: '30px', left: '25px' }}>
                             {/* Exibe o botão de menu */}
@@ -96,6 +101,7 @@ const Vender = () => {
                                     <button onClick={() => {
                                         window.location.href = "/"
                                         sessionStorage.removeItem('usuario');
+                                        sessionStorage.removeItem('valEntrada');
                                     }}>Sair</button>
                                 </div>
                             )}

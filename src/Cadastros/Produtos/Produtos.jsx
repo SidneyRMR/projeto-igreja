@@ -12,7 +12,7 @@ const Produtos = () => {
                     <td >{produto.id}</td>
                     <td>{produto.nome}</td>
                     <td>R${(produto.preco).toFixed(2)}</td>
-                    <td>{produto.tipo.toUpperCase()}</td>
+                    <td>{produto.tipo}</td>
                     <td><button onClick={() => alterar(produto)}>Alterar</button></td>
                 </tr>
             )
