@@ -11,10 +11,11 @@ const Vender = () => {
 
     let [quantidade, setQuantidade] = useState(1)
     const [total, setTotal] = useState(0);
-    const [produtosVenda, setProdutosVenda] = useState(resumoProdutosVenda);
+    const [produtosVenda, setProdutosVenda] = useState(resumoProdutosVenda || []);
+
 
     function addProduto(prod) {
-        const produtoExistente = produtosVenda.find((p) => p.id === prod.id);
+        const produtoExistente = produtosVenda?.find((p) => p.id === prod.id);
         if (produtoExistente) {
             setQuantidade(quantidade += 1)
             setProdutosVenda([...produtosVenda])
