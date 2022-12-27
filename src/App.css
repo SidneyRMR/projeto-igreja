@@ -3,57 +3,66 @@
 }
 
 button {
-  padding: 12px;
+  padding: 8px;
   width: 100px;
-  /* border-radius: 3px; */
   background-color: #C55A11;
   color: white;
   border: 1px solid;
 }
 
-button .ehComida {
-  width: 160px;
-}
-
 .ehComida {
   background-color: #D2691E;
+  width: 150px;
 }
+
 .nEhComida {
   background-color: #FF6347;
+  width: 150px;
 }
 
 .tabela {
   width: 100%;
 }
+
 .tabela .Inpar {
   background-color: #F8D7CD;
 }
+
 .tabela .Par {
   background-color: #FCECE8;
 }
 
-
-
 .title {
   width: 100%;
-  padding: 1% ;
+  padding: 1%;
   background-color: #aa541b;
   font-size: 25px;
   font-weight: 700;
   color: white;
 }
 
-thead, tfoot {
+thead,
+tfoot {
   background-color: #813c0e;
   width: 100px;
   height: 50px;
   color: white;
 }
-input, select {
-  margin-bottom: 15px;
+
+input,
+select {
+  width: 200px;
+  height: 35px;
 }
 
-.scrollable-tbody {
-  overflow: scroll;
-  max-height: 50%;
+textarea {
+  width: 200px;
+  height: 100px;
+}
+
+.bg-orange {
+  align-items: center;
+  background-color:#aa541b;
+  color: white;
+  height: 40px;
 }

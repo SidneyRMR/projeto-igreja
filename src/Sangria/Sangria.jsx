@@ -5,19 +5,30 @@ import Col from 'react-bootstrap/Col';
 const Sangria = () => {
 
     return (
-        <Container >
+        <Container fluid='true'>
             <Row>
                 <Col>
                     <div className="title">Sangria</div>
-                    <input className="valorSangria" type="text" placeholder="Digite o valor" />
                 </Col>
+            </Row>
+            <br />
+            <Row>
                 <Col>
-                    <textarea className="descricaoSangria" type="text" placeholder="Observação" />
-
+                    <div>Digite o valor a ser retirado </div>
+                    <input className="valorSangria" type="text" placeholder="Valor à retirar" />
                 </Col>
+            </Row>
+            <br />
+            <Row>
                 <Col>
-
-                    <button id="sangria" onClick={() => {window.location.href = "/vendas"}}>Aceitar</button>
+                    <div>Motivo da retirada </div>
+                    <textarea md className="descricaoSangria" type="text" placeholder="Observação" />
+                </Col>
+            </Row>
+            <br />
+            <Row>
+                <Col>
+                    <button id="sangria" onClick={() => { window.location.href = "/vendas" }}>Aceitar</button>
                     <button onClick={() => window.location.href = "/vendas"}>Voltar</button>
                 </Col>
             </Row>

@@ -1,38 +1,91 @@
+import { useState } from "react"
 import { Col, Container, Row } from "react-bootstrap"
 
 
 const Pagamento = () => {
+    const atualizarValor = () => {
+        setTotal(Number(pix) + Number(din) + Number(cred) + Number(deb))
+    }
+    const [total, setTotal] = useState(0)
+    const [cred, setCred] = useState(0)
+    const [deb, setDeb] = useState(0)
+    const [din, setDin] = useState(0)
+    const [pix, setPix] = useState(0)
+
+    // function somaTotal(cr, de, di, pi) {
+    //     setTotal(cr + de + di + pi)
+    // }
 
     return (
-        <Container >
-            <div className="title">Opções de Pagamento</div>
-            <Container className="tabela">
+        <div>
+            <Container fluid='true'>
                 <Row>
-                    <Col md>Crédito: <input type="text" className="cred" /></Col>
-                </Row>
-                
-                    <Col>Débito: <input type="text" className="deb" /></Col>
-                    <Col>Dinheiro: <input type="text" className="din" /></Col>
-                    
-                    
-                    <Col>Pix</Col>
-                    
-                <Row> 
-                    <Col align='center'>
-                        <Col><input type="text" className="pix" /></Col>
-                    </Col>
                     <Col>
-                        <td align={2}>Total Pago</td>
-                        <td align={2}>{'R$ 50,00'}</td>
-                   
-                        <td align={2}>Troco</td>
-                        <td align={2}>{'R$ 5,00'}</td>
+                        <div className="title">Opções de Pagamento</div>
                     </Col>
                 </Row>
+                <br />
+                <Row>
+                    <Col>
+                        <div>Crédito</div>
+                        <input type="text" className="cred" onChange={e => {
+                            setCred(e.target.value)
+                            atualizarValor(Number(pix) + Number(din) + Number(cred) + Number(deb))
+                        }} />
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <div>Débito</div>
+                        <input type="text" className="deb" onChange={e => {
+                            setDeb(e.target.value)
+                            atualizarValor(Number(pix) + Number(din) + Number(cred) + Number(deb))
+                        }} />
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <div>Dinheiro</div>
+                        <input type="text" className="din" onChange={e => {
+                            setDin(e.target.value)
+                            atualizarValor(Number(pix) + Number(din) + Number(cred) + Number(deb))
+                        }} />
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <div>Pix</div>
+                        <input type="text" className="pix" onChange={e => {
+                            setPix(e.target.value)
+                            atualizarValor(Number(pix) + Number(din) + Number(cred) + Number(deb))
+                        }} />
+                    </Col>
+                </Row>
+                <br />
             </Container>
-            <button onClick={() => window.location.href="/vendas"}>Confirmar</button>
-            <button onClick={() => window.location.href="/vendas"}>Voltar</button>
-        </Container>
+            <Container >
+                <Row>
+                    <Col>
+                        <button style={{ width: '200px' }} onClick={atualizarValor}>Somar Pagamentos</button>
+                    </Col>
+                </Row>
+                <Row className="bg-orange">
+                    <Col >Total Pago</Col>
+                    <Col >R$ {total.toFixed(2).replace('.', ',')}</Col>
+                </Row>
+                <Row className="bg-orange">
+                    
+                    <Col >Troco</Col>
+                    <Col >{'R$ 5,00'}</Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <button onClick={() => window.location.href = "/vendas"}>Pagar</button>
+                        <button onClick={() => window.location.href = "/vendas"}>Voltar</button>
+                    </Col>
+                </Row>
+            </Container >
+        </div >
     )
 }
 

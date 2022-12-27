@@ -71,16 +71,16 @@ const Vender = () => {
     return (
         <div>
             {/* MENU SUSPENSO */}
-            <div style={{ position: 'fixed', top: '8px', left: '5px', zIndex: 1 }}>
+            <div style={{ position: 'fixed', top: '5px', left: '5px', zIndex: 1 }}>
                 {/* Exibe o botão de menu */}
                 <button onClick={() => setIsOpen(!isOpen)}>Menu</button>
                 {/* Exibe o menu se o estado isOpen for verdadeiro */}
                 {isOpen && (
-                    <div style={{ position: 'fixed', top: '8px', left: '5px' }}>
+                    <div style={{ position: 'fixed', top: '5px', left: '5px' }}>
                         <button onClick={() => setIsOpen(!isOpen)}>Menu</button>
-                        <button style={{ position: 'fixed', top: '50px', left: '5px' }} onClick={() => window.location.href = "/sangria"}>Sangria</button>
-                        <button style={{ position: 'fixed', top: '92px', left: '5px' }} onClick={() => { window.location.href = "/fechamento-caixa" }}>Fech Caixa</button>
-                        <button style={{ position: 'fixed', top: '134px', left: '5px' }} onClick={() => {
+                        <button style={{ position: 'fixed', top: '46px', left: '5px', width: '150px' }} onClick={() => window.location.href = "/sangria"}>Sangria</button>
+                        <button style={{ position: 'fixed', top: '86px', left: '5px', width: '150px' }} onClick={() => { window.location.href = "/fechamento-caixa" }}>Fechamento Caixa</button>
+                        <button style={{ position: 'fixed', top: '126px', left: '5px', width: '150px' }} onClick={() => {
                             window.location.href = "/"
                             sessionStorage.removeItem('usuario');
                             sessionStorage.removeItem('valEntrada');
@@ -102,7 +102,7 @@ const Vender = () => {
                         {' | '}
                         Saldo do caixa: {valEntrada.toFixed(2)}
                     </Col>
-                    
+
                 </Row>
             </Container>
 
@@ -110,67 +110,69 @@ const Vender = () => {
                 <Row>
                     <Col sm={7}>
                         <div className='title'>Produtos</div>
-                            {/* BOTÕES DE PRODUTOS */}
-                            {produtos.map((produto, i) => {
-                                return (
-                                    <button
+                        {/* BOTÕES DE PRODUTOS */}
+                        {produtos.map((produto, i) => {
+                            return (
+                                <button
                                     key={i}
                                     onClick={() => addProduto(produto)}
                                     className={
                                         produto.ehComida === true ? 'ehComida' : 'nEhComida'
                                     }
-                                    >
-                                        <div>
-                                            {produto.nome} <hr />
+                                >
+                                    <div>
+                                        {produto.nome} <br />
+                                        <div style={{fontSize:'20px'}}>
                                             R$ {produto.preco.toFixed(2).replace('.', ',')}
                                         </div>
-                                    </button>
-                                )
-                            })}
-                            {/* FIM BOTÕES DE PRODUTOS */}
-                        </Col>
-                    
-                        <Col sm={5}> 
-                            <div className='title'>Resumo Pedido</div>
-                            {/* RESUMO DO PEDIDO */}
-                            <Table className='tabela' bordered>
-                                <thead>
-                                    <tr>
-                                        <th width="2%">Qnde</th>
-                                        <th width="20%">Descrição</th>
-                                        <th width="10%">Valor</th>
-                                        <th width="5%">Medida</th>
-                                        <th width="10%">Total</th>
-                                        <th width="40%">Ações</th>
-                                    </tr>
-                                </thead>
-                                <tbody className='scrollable-tbody'>
-                                    {produtosVenda.map((produto, i) => (
-                                        <tr key={i} className={i % 2 === 0 ? 'Par' : 'Impar'} >
-                                            <td>{quantidade}</td>
-                                            <td>{produto.nome}</td>
-                                            <td>{produto.preco.toFixed(2)}</td>
-                                            <td>{produto.medida.toUpperCase()}</td>
-                                            <td>{(quantidade * produto.preco).toFixed(2)}</td>
-                                            <td><button onClick={() => removeProduto(produto)}>Excluir</button></td>
-                                        </tr>))}
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <td colSpan={3}>Total do Pedido:</td>
-                                        <td colSpan={3}>{ }</td>
-                                    </tr>
-                                    <tr>
-                                        <td colSpan={6} >
-                                            <button className={{ background: 'white', width: '100%' }} onClick={() => window.location.href = "/vendas/pagamento"} >Pagamento</button>
+                                    </div>
+                                </button>
+                            )
+                        })}
+                        {/* FIM BOTÕES DE PRODUTOS */}
+                    </Col>
 
-                                        </td>
-                                    </tr>
-                                </tfoot>
-                            </Table>
-                            {/* FIM DO RESUMO DO PEDIDO */}
-                        </Col>
-                    </Row>
+                    <Col sm={5}>
+                        <div className='title'>Resumo Pedido</div>
+                        {/* RESUMO DO PEDIDO */}
+                        <Table className='tabela' bordered>
+                            <thead>
+                                <tr>
+                                    <th width="2%">Qnde</th>
+                                    <th width="30%">Descrição</th>
+                                    <th width="15%">Valor</th>
+                                    <th width="05%">Medida</th>
+                                    <th width="15%">Total</th>
+                                    <th width="15%">Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody className='scrollable-tbody'>
+                                {produtosVenda.map((produto, i) => (
+                                    <tr key={i} className={i % 2 === 0 ? 'Par' : 'Impar'} >
+                                        <td>{produto.qnde = quantidade}</td>
+                                        <td>{produto.nome}</td>
+                                        <td>{produto.preco.toFixed(2)}</td>
+                                        <td>{produto.medida.toUpperCase()}</td>
+                                        <td>{(quantidade * produto.preco).toFixed(2)}</td>
+                                        <td><button onClick={() => removeProduto(produto)}>Excluir</button></td>
+                                    </tr>))}
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colSpan={3}>Total do Pedido:</td>
+                                    <td colSpan={3}>{ }</td>
+                                </tr>
+                                <tr>
+                                    <td colSpan={6} >
+                                        <button className={{ background: 'white', width: '100%' }} onClick={() => window.location.href = "/vendas/pagamento"} >Pagamento</button>
+
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </Table>
+                        {/* FIM DO RESUMO DO PEDIDO */}
+                    </Col>
+                </Row>
             </Container>
         </div>
     )

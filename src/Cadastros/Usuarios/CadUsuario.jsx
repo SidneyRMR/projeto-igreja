@@ -30,6 +30,7 @@ const CadUsuario = () => {
             <Row>
                 <div className='title'>Cadastro de Usuario</div>
             </Row>
+            <br />
             <Row>
                 <Col>
                     <div>Digite o nome do usuário:</div>

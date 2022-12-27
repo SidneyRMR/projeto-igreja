@@ -40,6 +40,7 @@ const CadProduto = () => {
             <Row>
                 <div className="title">Cadastro de Produto</div>
             </Row>
+            <br />
             <Row>
                 <Col>
                     <div>Digite o nome do produto:</div>

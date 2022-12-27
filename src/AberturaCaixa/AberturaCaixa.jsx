@@ -1,4 +1,4 @@
-import { Container, Row, Col, Dropdown } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import React, { useState } from 'react';
 import { useEffect } from 'react';
 // import usuarios from '../data/usuarios';
@@ -8,16 +8,17 @@ const AberturaCaixa = () => {
 
     // Recupera o valor do usuario da tela de login
     const usuario = JSON.parse(sessionStorage.getItem('usuario'));
-    
+
+    const inputRef = React.createRef();
     function TestValores(valEntrada) {
-        if (Number.isFinite(valEntrada)) {
-            // Se o valor for numérico, acessa a pagina de vendas e 
+        if (valEntrada > 0) {
+            // Se o valor for numérico, acessa a pagina de vendas e salva valor no storange
             sessionStorage.setItem('valEntrada', JSON.stringify(valEntrada));
             window.location.href = `/vendas`;
-
         } else {
             // Se o valor for inválido, exibe uma mensagem de erro
             alert('Digite o valor de abertura de caixa!');
+            inputRef.current.focus();
         }
     }
 
@@ -47,11 +48,12 @@ const AberturaCaixa = () => {
         };
     }, []);
 
+
     return (
         <Container fluid='true'>
             <Row>
                 <Col>
-            <div className="title">Abertura de Caixa</div>
+                    <div className="title">Abertura de Caixa</div>
                 </Col>
             </Row>
             <br />
@@ -66,7 +68,7 @@ const AberturaCaixa = () => {
             <Row>
                 <Col>
                     <div>Valor em caixa:</div>
-                    <input className='caixaValorEntrada' type="text" placeholder='Digite o valor'
+                    <input ref={inputRef} className='caixaValorEntrada' type="text" placeholder='Digite o valor'
                         onChange={handleCaixaValorEntradaChange} />
                 </Col>
             </Row>
@@ -83,9 +85,9 @@ const AberturaCaixa = () => {
             </Row>
             <Row>
                 <Col>
-               
+
                     {/* Exibe o botão de menu */}
-                    <button onClick={() => setIsOpen(!isOpen)}>Administrativo</button>
+                    <button style={{ width: '200px' }} onClick={() => setIsOpen(!isOpen)}>Administrativo</button>
                     {/* Exibe o menu se o estado isOpen for verdadeiro */}
                     {isOpen && (
                         <div >
