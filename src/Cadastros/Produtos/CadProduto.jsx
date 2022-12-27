@@ -36,7 +36,7 @@ const CadProduto = () => {
     //   salvarProduto('Camisa vermelha', 39.99, 'Uma camisa vermelha básica');
 
     return (
-        <Container>
+        <Container fluid='true'>
             <Row>
                 <div className="title">Cadastro de Produto</div>
             </Row>

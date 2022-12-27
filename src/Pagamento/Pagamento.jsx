@@ -70,13 +70,17 @@ const Pagamento = () => {
                     </Col>
                 </Row>
                 <Row className="bg-orange">
+                    <Col >Total à pagar</Col>
+                    <Col >R$ puxar da pagina anterior</Col>
+                </Row>
+                <Row className="bg-orange">
                     <Col >Total Pago</Col>
                     <Col >R$ {total.toFixed(2).replace('.', ',')}</Col>
                 </Row>
                 <Row className="bg-orange">
                     
                     <Col >Troco</Col>
-                    <Col >{'R$ 5,00'}</Col>
+                    <Col >{'aPagar - pago'}</Col>
                 </Row>
                 <Row>
                     <Col>

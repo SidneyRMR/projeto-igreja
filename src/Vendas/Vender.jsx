@@ -1,7 +1,7 @@
 import produtos from '../data/produtos'
 import { useEffect, useState } from 'react';
 import { Container, Row, Col, Table } from 'react-bootstrap';
-
+import Clock from '../Clock'; // Importar o componente Clock
 
 const Vender = () => {
 
@@ -98,6 +98,8 @@ const Vender = () => {
                     color: 'white', padding: '1px', zIndex: 1
                 }}>
                     <Col>
+                        {Clock()}
+                        {' | '}
                         Nome do Caixa: {usuario.nome}
                         {' | '}
                         Saldo do caixa: {valEntrada.toFixed(2)}
