@@ -1,8 +1,9 @@
 import { useState } from "react"
 import { Col, Container, Row } from "react-bootstrap"
-
+import InfUsuario from "../InfUsuario"
 
 const Pagamento = () => {
+
     const atualizarValor = () => {
         setTotal(Number(pix) + Number(din) + Number(cred) + Number(deb))
     }
@@ -18,6 +19,8 @@ const Pagamento = () => {
 
     return (
         <div>
+            {InfUsuario()}
+
             <Container fluid='true'>
                 <Row>
                     <Col>
@@ -78,7 +81,7 @@ const Pagamento = () => {
                     <Col >R$ {total.toFixed(2).replace('.', ',')}</Col>
                 </Row>
                 <Row className="bg-orange">
-                    
+
                     <Col >Troco</Col>
                     <Col >{'aPagar - pago'}</Col>
                 </Row>

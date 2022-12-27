@@ -10,7 +10,7 @@ import { useEffect, useState } from 'react';
           }, 1000);
           return () => clearInterval(interval);
         }, []);
-        return {time};
+        return <span>{time}</span>;
     }
 
     export default Clock

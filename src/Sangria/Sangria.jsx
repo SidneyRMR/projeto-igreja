@@ -1,11 +1,13 @@
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import { Col, Container, Row } from "react-bootstrap"
+
+import InfUsuario from '../InfUsuario'
 
 const Sangria = () => {
 
     return (
+        
         <Container fluid='true'>
+            {InfUsuario()}
             <Row>
                 <Col>
                     <div className="title">Sangria</div>

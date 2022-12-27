@@ -1,18 +1,17 @@
 import produtos from '../data/produtos'
 import { useEffect, useState } from 'react';
 import { Container, Row, Col, Table } from 'react-bootstrap';
-import Clock from '../Clock'; // Importar o componente Clock
+
+import InfUsuario from '../InfUsuario'
+// import InfVendaAtual from '../InfVendaAtual'
 
 const Vender = () => {
 
-
-
-    const [produtosVenda, setProdutosVenda] = useState([]);
-    // Recupera o valor do usuario da tela de login
-    const usuario = JSON.parse(sessionStorage.getItem('usuario'));
-    const valEntrada = JSON.parse(sessionStorage.getItem('valEntrada'));
+    const resumoProdutosVenda = JSON.parse(sessionStorage.getItem('resumoProdutosVenda'));
 
     let [quantidade, setQuantidade] = useState(1)
+    const [total, setTotal] = useState(0);
+    const [produtosVenda, setProdutosVenda] = useState(resumoProdutosVenda);
 
     function addProduto(prod) {
         const produtoExistente = produtosVenda.find((p) => p.id === prod.id);
@@ -23,13 +22,11 @@ const Vender = () => {
             setProdutosVenda([...produtosVenda, prod])
         }
     }
-
     function removeProduto(prod) {
         const produtoExistente = produtosVenda.find((p) => p.id === prod.id);
         if ((produtoExistente) && (quantidade > 0)) {
             setQuantidade(quantidade -= 1)
             setProdutosVenda([...produtosVenda]);
-
         }
         if ((quantidade < 1)) {
             setQuantidade(1)
@@ -57,10 +54,6 @@ const Vender = () => {
         }
     }, [])
 
-    // function somaTotal() {
-    //     return produtosVenda.reduce((acc, cur) => acc + cur.preco, 0)
-    // }
-
     // function addPeso() {
     //     alert(
     //         <div>Digite Peso</div>,
@@ -68,8 +61,19 @@ const Vender = () => {
     //     )
     // }
 
+    function salvaProdutosLocal() {
+        const resumoProdutosVenda = [...produtosVenda];
+        sessionStorage.setItem('resumoProdutosVenda', JSON.stringify(resumoProdutosVenda));
+        // console.log(resumoProdutosVenda.reduce((acc, prod) => acc +(prod.preco * quantidade), 0))
+        console.log(resumoProdutosVenda, resumoProdutosVenda.quantidade = quantidade)
+    }
+
     return (
         <div>
+            {/* Informações de caixa no rodapé */}
+            {InfUsuario()}
+            {/* {console.log(resumoProdutosVenda)} */}
+
             {/* MENU SUSPENSO */}
             <div style={{ position: 'fixed', top: '5px', left: '5px', zIndex: 1 }}>
                 {/* Exibe o botão de menu */}
@@ -89,24 +93,7 @@ const Vender = () => {
                 )}
             </div>
 
-            {/* Informações de caixa no rodapé */}
-            <Container >
-                <Row style={{
-                    fontSize: '15px',
-                    fontWeight: '200', position: 'fixed',
-                    left: '0px', bottom: '0px', backgroundColor: '#aa541b',
-                    color: 'white', padding: '1px', zIndex: 1
-                }}>
-                    <Col>
-                        {Clock()}
-                        {' | '}
-                        Nome do Caixa: {usuario.nome}
-                        {' | '}
-                        Saldo do caixa: {valEntrada.toFixed(2)}
-                    </Col>
 
-                </Row>
-            </Container>
 
             <Container fluid='true'>
                 <Row>
@@ -117,14 +104,18 @@ const Vender = () => {
                             return (
                                 <button
                                     key={i}
-                                    onClick={() => addProduto(produto)}
-                                    className={
-                                        produto.ehComida === true ? 'ehComida' : 'nEhComida'
+                                    onClick={() => {
+                                        addProduto(produto);
+                                        setTotal(produtosVenda.reduce((acc, prod) => acc +(prod.preco * quantidade), 0))
+                                        salvaProdutosLocal()
+                                      }}
+                                    className={produto.ehComida === true 
+                                        ? 'ehComida' : 'nEhComida' 
                                     }
                                 >
                                     <div>
                                         {produto.nome} <br />
-                                        <div style={{fontSize:'20px'}}>
+                                        <div style={{ fontSize: '20px' }}>
                                             R$ {produto.preco.toFixed(2).replace('.', ',')}
                                         </div>
                                     </div>
@@ -148,26 +139,39 @@ const Vender = () => {
                                     <th width="15%">Ações</th>
                                 </tr>
                             </thead>
-                            <tbody className='scrollable-tbody'>
-                                {produtosVenda.map((produto, i) => (
+                            <tbody >
+                                {produtosVenda &&
+                                produtosVenda.map((produto, i) => (
                                     <tr key={i} className={i % 2 === 0 ? 'Par' : 'Impar'} >
-                                        <td>{produto.qnde = quantidade}</td>
+                                        <td>{quantidade}</td>
                                         <td>{produto.nome}</td>
                                         <td>{produto.preco.toFixed(2)}</td>
                                         <td>{produto.medida.toUpperCase()}</td>
                                         <td>{(quantidade * produto.preco).toFixed(2)}</td>
-                                        <td><button onClick={() => removeProduto(produto)}>Excluir</button></td>
-                                    </tr>))}
+                                        <td><button onClick={() => {
+                                            removeProduto(produto)
+                                            setTotal(produtosVenda.reduce((acc, prod) => -acc +(prod.preco * quantidade), 0))
+                                            salvaProdutosLocal()
+                                        }}>Excluir</button></td>
+                                    </tr>))
+                                }
                             </tbody>
                             <tfoot>
                                 <tr>
                                     <td colSpan={3}>Total do Pedido:</td>
-                                    <td colSpan={3}>{ }</td>
+                                    <td colSpan={3}>R$ {total.toFixed(2)}</td>
                                 </tr>
                                 <tr>
                                     <td colSpan={6} >
-                                        <button className={{ background: 'white', width: '100%' }} onClick={() => window.location.href = "/vendas/pagamento"} >Pagamento</button>
-
+                                        <button
+                                            className="w-100"
+                                            onClick={() => {
+                                                window.location.href = "/vendas/pagamento";
+                                                salvaProdutosLocal()
+                                            }}
+                                        >
+                                            Pagamento
+                                        </button>
                                     </td>
                                 </tr>
                             </tfoot>
