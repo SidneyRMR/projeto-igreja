@@ -27,7 +27,7 @@ const Vender = () => {
     function removeProduto(prod) {
         const produtoExistente = produtosVenda.find((p) => p.id === prod.id);
         if ((produtoExistente) && (quantidade > 0)) {
-            setQuantidade(quantidade = quantidade - 1)
+            setQuantidade(quantidade -= 1)
             setProdutosVenda([...produtosVenda]);
 
         }
