@@ -1,4 +1,4 @@
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Dropdown } from 'react-bootstrap';
 import React, { useState } from 'react';
 import { useEffect } from 'react';
 // import usuarios from '../data/usuarios';
@@ -48,19 +48,29 @@ const AberturaCaixa = () => {
     }, []);
 
     return (
-        <Container>
+        <Container fluid='true'>
+            <Row>
+                <Col>
             <div className="title">Abertura de Caixa</div>
+                </Col>
+            </Row>
+            <br />
             <Row>
                 <Col>
                     <div>Nome do responsável:</div>
+
                     <input className='caixaNome' readOnly={usuario.nome} type="text" value={usuario.nome} />
                 </Col>
+            </Row>
+            <br />
+            <Row>
                 <Col>
                     <div>Valor em caixa:</div>
                     <input className='caixaValorEntrada' type="text" placeholder='Digite o valor'
                         onChange={handleCaixaValorEntradaChange} />
                 </Col>
             </Row>
+            <br />
             <Row>
                 <Col>
                     <button onClick={() => TestValores(+caixaValorEntrada)}>Abrir caixa</button>
@@ -73,6 +83,7 @@ const AberturaCaixa = () => {
             </Row>
             <Row>
                 <Col>
+               
                     {/* Exibe o botão de menu */}
                     <button onClick={() => setIsOpen(!isOpen)}>Administrativo</button>
                     {/* Exibe o menu se o estado isOpen for verdadeiro */}

@@ -1,4 +1,3 @@
-import Button from 'react-bootstrap/Button'
 import React, { useState } from 'react'
 
 import diocese from "../img/diocese.png"
@@ -35,39 +34,48 @@ const Login = () => {
     }
 
     return (
-        <Container>
+        <Container fluid='true'>
             <Row>
                 <Col>
                     <div className="title">Paróquia Santa Cruz</div>
                 </Col>
             </Row>
-            <Container>
-                <Row>
-                    <Col>
-                        <div>Digite seu nome de usuário:</div>
-                    </Col>
-                    <Col>
-                        <input className="user" type="text" placeholder="Login" onChange={handleUserChange} />
-                    </Col>
-                </Row>
-                <Row>
-                    <Col>
-                        <div>Digite sua senha:</div>
-                    </Col>
-                    <Col>
-                        <input className="password" type="password" placeholder="Senha" onChange={handlePasswordChange} />
-                    </Col>
-                </Row>
-                <Row>
-                    <Col>
-                        <Button onClick={() => testLogin(user, password)}>Entrar</Button>
-                    </Col>
-                    <Col>
-                        <img src={diocese} alt="" sizes="500x300" />
-                    </Col>
-                </Row>
-            </Container>
+            <br />
+            <Row>
+                <Col >
+                    <div>Digite seu nome de usuário:</div>
+                </Col>
+            </Row>
+            <Row>
+                <Col>
+                    <input className="user" type="text" placeholder="Login" onChange={handleUserChange} />
+                </Col>
+            </Row>
+            <br />
+            <Row>
+                <Col>
+                    <div>Digite sua senha:</div>
+                </Col>
+            </Row>
+            <Row>
+                <Col>
+                    <input className="password" type="password" placeholder="Senha" onChange={handlePasswordChange} />
+                </Col>
+            </Row>
+            <br />
+            <Row>
+                <Col>
+                    <button onClick={() => testLogin(user, password)}>Entrar</button>
+                </Col>
+            </Row>
+            <br />
+            <Row>
+                <Col>
+                    <img src={diocese} alt="" sizes="500x300" />
+                </Col>
+            </Row>
         </Container>
+
     )
 }
 

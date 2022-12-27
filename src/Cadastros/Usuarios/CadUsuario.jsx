@@ -33,8 +33,7 @@ const CadUsuario = () => {
             <Row>
                 <Col>
                     <div>Digite o nome do usuário:</div>
-                </Col>
-                <Col>
+                
                     <input className="nomeUsuario" type="text" 
                         placeholder="Insira seu nome completo" 
                         onChange={handleNomeChange}
@@ -42,11 +41,11 @@ const CadUsuario = () => {
                     />
                 </Col>
             </Row>
+            <br />
             <Row>
                 <Col>
                     <div>Digite o login do usuário:</div>
-                </Col>
-                <Col>
+                
                     <input className="loginUsuario" type="text" 
                     placeholder="Cadastre um login" 
                     onChange={handleLoginChange}
@@ -54,11 +53,11 @@ const CadUsuario = () => {
                 />
                 </Col>
             </Row>
+            <br />
             <Row>
                 <Col>
                     <div>Digite uma senha:</div>
-                </Col>
-                <Col>
+               
                     <input className="senhaUsuario" type="text" 
                         placeholder="Cadastre uma senha" 
                         onChange={handleSenhaChange}
@@ -66,11 +65,12 @@ const CadUsuario = () => {
                     />
                 </Col>
             </Row>
+            <br />
             <Row>
                 <Col>
                     <button id="cadastrar" onClick={() => {
                         // salvaUsuario()
-                        window.location.href = "/cadastros/usuarios"
+                        window.location.href = "/cadastros/usuarios" 
                     }}>Salvar</button>
                     <button onClick={() => window.location.href = "/cadastros/usuarios"}>Voltar</button>
                 </Col>

@@ -1,6 +1,6 @@
 import produtos from '../data/produtos'
 import { useEffect, useState } from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Table } from 'react-bootstrap';
 
 
 const Vender = () => {
@@ -61,37 +61,64 @@ const Vender = () => {
     //     return produtosVenda.reduce((acc, cur) => acc + cur.preco, 0)
     // }
 
-    return (
-        <>
+    // function addPeso() {
+    //     alert(
+    //         <div>Digite Peso</div>,
+    //         <input placeholder='Peso do produto'></input>
+    //     )
+    // }
 
-            <Container>
-                {/* MENU SUSPENSO */}
-                <div style={{ position: 'fixed', top: '0px', left: '0px', zIndex: 1 }}>
-                    {/* Exibe o botão de menu */}
-                    <button onClick={() => setIsOpen(!isOpen)}>Menu</button>
-                    {/* Exibe o menu se o estado isOpen for verdadeiro */}
-                    {isOpen && (
-                        <div style={{ position: 'fixed', top: '0px', left: '0px' }}>
-                            <button onClick={() => setIsOpen(!isOpen)}>Menu</button>
-                            <button style={{ position: 'fixed', top: '42px', left: '0px' }} onClick={() => window.location.href = "/sangria"}>Sangria</button>
-                            <button style={{ position: 'fixed', top: '84px', left: '0px' }} onClick={() => { window.location.href = "/fechamento-caixa" }}>Fech Caixa</button>
-                            <button style={{ position: 'fixed', top: '126px', left: '0px' }} onClick={() => {
-                                window.location.href = "/"
-                                sessionStorage.removeItem('usuario');
-                                sessionStorage.removeItem('valEntrada');
-                            }}>Sair</button>
-                        </div>
-                    )}
-                </div>
+    return (
+        <div>
+            {/* MENU SUSPENSO */}
+            <div style={{ position: 'fixed', top: '8px', left: '5px', zIndex: 1 }}>
+                {/* Exibe o botão de menu */}
+                <button onClick={() => setIsOpen(!isOpen)}>Menu</button>
+                {/* Exibe o menu se o estado isOpen for verdadeiro */}
+                {isOpen && (
+                    <div style={{ position: 'fixed', top: '8px', left: '5px' }}>
+                        <button onClick={() => setIsOpen(!isOpen)}>Menu</button>
+                        <button style={{ position: 'fixed', top: '50px', left: '5px' }} onClick={() => window.location.href = "/sangria"}>Sangria</button>
+                        <button style={{ position: 'fixed', top: '92px', left: '5px' }} onClick={() => { window.location.href = "/fechamento-caixa" }}>Fech Caixa</button>
+                        <button style={{ position: 'fixed', top: '134px', left: '5px' }} onClick={() => {
+                            window.location.href = "/"
+                            sessionStorage.removeItem('usuario');
+                            sessionStorage.removeItem('valEntrada');
+                        }}>Sair</button>
+                    </div>
+                )}
+            </div>
+
+            {/* Informações de caixa no rodapé */}
+            <Container >
+                <Row style={{
+                    fontSize: '15px',
+                    fontWeight: '200', position: 'fixed',
+                    left: '0px', bottom: '0px', backgroundColor: '#aa541b',
+                    color: 'white', padding: '1px', zIndex: 1
+                }}>
+                    <Col>
+                        Nome do Caixa: {usuario.nome}
+                        {' | '}
+                        Saldo do caixa: {valEntrada.toFixed(2)}
+                    </Col>
+                    
+                </Row>
+            </Container>
+
+            <Container fluid='true'>
                 <Row>
-                        <Col style={{ position: 'fixed', left: '0%', maxWidth: '130vh' }}>
-                            <div className='title'>Produtos</div>
+                    <Col sm={7}>
+                        <div className='title'>Produtos</div>
+                            {/* BOTÕES DE PRODUTOS */}
                             {produtos.map((produto, i) => {
                                 return (
                                     <button
-                                        key={i}
-                                        onClick={() => addProduto(produto)}
-                                        className={produto.ehComida === true ? 'ehComida' : 'nEhComida'}
+                                    key={i}
+                                    onClick={() => addProduto(produto)}
+                                    className={
+                                        produto.ehComida === true ? 'ehComida' : 'nEhComida'
+                                    }
                                     >
                                         <div>
                                             {produto.nome} <hr />
@@ -100,21 +127,21 @@ const Vender = () => {
                                     </button>
                                 )
                             })}
+                            {/* FIM BOTÕES DE PRODUTOS */}
                         </Col>
-                </Row>
-                <Row>
-                    <Col>
-                        <div style={{ position: 'fixed', right: '0%', minWidth: '90vh', maxWidth: '120vh' }}>
+                    
+                        <Col sm={5}> 
                             <div className='title'>Resumo Pedido</div>
-                            <table className='tabela'>
+                            {/* RESUMO DO PEDIDO */}
+                            <Table className='tabela' bordered>
                                 <thead>
                                     <tr>
-                                        <th>Qnde</th>
-                                        <th>Descrição</th>
-                                        <th>Valor R$</th>
-                                        <th>Medida</th>
-                                        <th>Total R$</th>
-                                        <th>Ações</th>
+                                        <th width="2%">Qnde</th>
+                                        <th width="20%">Descrição</th>
+                                        <th width="10%">Valor</th>
+                                        <th width="5%">Medida</th>
+                                        <th width="10%">Total</th>
+                                        <th width="40%">Ações</th>
                                     </tr>
                                 </thead>
                                 <tbody className='scrollable-tbody'>
@@ -133,30 +160,19 @@ const Vender = () => {
                                         <td colSpan={3}>Total do Pedido:</td>
                                         <td colSpan={3}>{ }</td>
                                     </tr>
+                                    <tr>
+                                        <td colSpan={6} >
+                                            <button className={{ background: 'white', width: '100%' }} onClick={() => window.location.href = "/vendas/pagamento"} >Pagamento</button>
+
+                                        </td>
+                                    </tr>
                                 </tfoot>
-                            </table>
-                            <button onClick={() => window.location.href = "/vendas/pagamento"} className="vender" >Pagamento</button>
-                        </div>
-                    </Col>
-                </Row>
-                <Row>
-
-                    <Col style={{
-                        fontSize: '15px',
-                        fontWeight: '200', position: 'fixed',
-                        bottom: '0px', backgroundColor: '#aa541b',
-                        color: 'white', padding: '5px'
-                    }}>
-                        Nome do Caixa: {usuario.nome}
-                        <br />
-                        Saldo do caixa: {valEntrada.toFixed(2)}
-                    </Col>
-                </Row>
+                            </Table>
+                            {/* FIM DO RESUMO DO PEDIDO */}
+                        </Col>
+                    </Row>
             </Container>
-
-
-        </>
-
+        </div>
     )
 }
 

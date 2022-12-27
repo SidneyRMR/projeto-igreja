@@ -4,15 +4,15 @@
 
 button {
   padding: 12px;
-  margin: 1px;
   width: 100px;
-  display: inline-block;
-  cursor: pointer;
-  border-radius: 3px;
+  /* border-radius: 3px; */
   background-color: #C55A11;
   color: white;
   border: 1px solid;
-  text-decoration: none;
+}
+
+button .ehComida {
+  width: 160px;
 }
 
 .ehComida {
@@ -32,10 +32,11 @@ button {
   background-color: #FCECE8;
 }
 
+
+
 .title {
   width: 100%;
   padding: 1% ;
-  margin-bottom: 2%;
   background-color: #aa541b;
   font-size: 25px;
   font-weight: 700;

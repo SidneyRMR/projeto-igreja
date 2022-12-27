@@ -43,8 +43,7 @@ const CadProduto = () => {
             <Row>
                 <Col>
                     <div>Digite o nome do produto:</div>
-                </Col>
-                <Col>
+            
                     <input className="nomeProduto" type="text"
                         placeholder="Nome do produto"
                         onChange={handleNomeChange}
@@ -52,11 +51,11 @@ const CadProduto = () => {
                     />
                 </Col>
             </Row>
+            <br />
             <Row>
                 <Col>
                     <div>Digite o valor do produto:</div>
-                </Col>
-                <Col>
+            
                     <input className="valorProduto" type="text"
                         placeholder="Valor do produto"
                         onChange={handlePrecoChange}
@@ -64,11 +63,11 @@ const CadProduto = () => {
                     />
                 </Col>
             </Row>
+            <br />
             <Row>
                 <Col>
                     <div>Selecione o tipo:</div>
-                </Col>
-                <Col>
+                
                     <select
                         onChange={handleTipoChange}
                         value={tipo}
@@ -77,6 +76,9 @@ const CadProduto = () => {
                         <option value="kg">Quilograma</option>
                     </select>
                 </Col>
+            </Row>
+            <br />  
+            <Row>
                 <Col>
                     <button onClick={() => {
                         // salvaProduto(nome, preco, tipo) 

@@ -1,9 +1,11 @@
+import { Table } from "react-bootstrap";
+
 const FechamentoCaixa = () => {
     // Recupera o valor do usuario da tela de login
     const usuario = JSON.parse(sessionStorage.getItem('usuario'));
     return (
         <div>
-            <table className="tabela">
+            <Table className="tabela">
                 <thead>
                     <tr>
                         <th>Usuário</th>
@@ -28,7 +30,7 @@ const FechamentoCaixa = () => {
                         <td>R$2900,00</td>
                     </tr>
                 </tbody>
-            </table>
+            </Table>
             <button onClick={() => {
                 window.location.href = "/"
                 sessionStorage.removeItem('usuario');
