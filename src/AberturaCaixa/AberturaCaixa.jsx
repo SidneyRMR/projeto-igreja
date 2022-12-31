@@ -61,7 +61,7 @@ const AberturaCaixa = () => {
                 <Col>
                     <div>Nome do responsável:</div>
 
-                    <input className='caixaNome' readOnly={usuario.nome} type="text" value={usuario.nome} />
+                    <input className='caixaNome' readOnly={usuario.nome_usuario} type="text" value={usuario.nome_usuario} />
                 </Col>
             </Row>
             <br />

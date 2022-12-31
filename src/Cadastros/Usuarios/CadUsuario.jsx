@@ -1,14 +1,33 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-import usuarios from '../../data/usuarios';
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const CadUsuario = () => {
 
     const urlParams = new URLSearchParams(window.location.search)
     const id = +urlParams.get('id')
-    const usuario = usuarios.find((usuario) => usuario.id === id)
+    const [usuario, setUsuario] = useState()
+    
 
-    const [nome, setNome] = useState(id ? usuario.nome : '');
+    const getUsuario = async (id) => {
+        try {
+          const res = await axios.get(`http://localhost:8800/usuarios/${id}`)
+          return res.data
+        } catch (error) {
+          console.log(error)
+        }
+      }
+      
+
+    useEffect(() => {
+        getUsuario()
+    }, [setUsuario])
+    
+    console.log(usuario) // logs the product data
+    
+    const [nome_usuario, setNome] = useState(id ? usuario.nome_usuario : '');
     const [login, setLogin] = useState(id ? usuario.login : '');
     const [senha, setSenha] = useState(id ? usuario.senha : '');
 
@@ -23,8 +42,6 @@ const CadUsuario = () => {
         setSenha(event.target.value);
     }
 
-
-
     return (
         <Container fluid='true'>
             <Row>
@@ -38,7 +55,7 @@ const CadUsuario = () => {
                     <input className="nomeUsuario" type="text" 
                         placeholder="Insira seu nome completo" 
                         onChange={handleNomeChange}
-                        value={nome}
+                        value={nome_usuario}
                     />
                 </Col>
             </Row>

@@ -1,37 +1,58 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { Col, Container, Row } from "react-bootstrap"
-import produtos from "../../data/produtos"
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const CadProduto = () => {
 
     const urlParams = new URLSearchParams(window.location.search)
     const id = +urlParams.get('id')
-    const produto = produtos.find((produto) => produto.id === id)
 
-    const [nome, setNome] = useState(id ? produto.nome : '');
-    const [preco, setPreco] = useState(id ? (produto.preco).toFixed(2) : '');
-    const [tipo, setTipo] = useState(id ? produto.tipo : '');
+    const [produtos, setProdutos] = useState([])
 
-    // Manipulador de evento para atualizar o estado da descrição quando o usuário alterar o valor do input
-    const handleNomeChange = (event) => {
-        setNome(event.target.value);
-    };
-    const handlePrecoChange = (event) => {
-        setPreco(event.target.value);
-    };
-    const handleTipoChange = (event) => {
-        setTipo(event.target.value);
+    const getprodutos = async () => {
+        try {
+            const res = await axios.get("http://localhost:8800/produtos")
+            setProdutos(res.data.sort((a, b) => (a.id > b.id ? 1 : -1)))
+        } catch (error) {
+            toast.error(error)
+        }
     }
 
+    useEffect(() => {
+        getprodutos()
+    }, [setProdutos])
+
+    // console.log(produtos)
+    // !!!!!!!!   erro esta aqui, nao esta setando a variavel 
+    const produto = produtos.find((produto) => produto.id === id)
+    console.log(id)
+
+    // const [nome, setNome] = useState(id ? produto.nome : '');
+    // const [preco, setPreco] = useState(id ? (produto.preco).toFixed(2) : '');
+    // const [tipo, setTipo] = useState(id ? produto.tipo : '');
+
+    // Manipulador de evento para atualizar o estado da descrição quando o usuário alterar o valor do input
+    // const handleNomeChange = (event) => {
+    //     setNome(event.target.value);
+    // };
+    // const handlePrecoChange = (event) => {
+    //     setPreco(event.target.value);
+    // };
+    // const handleTipoChange = (event) => {
+    //     setTipo(event.target.value);
+    // }
+
     // Função que altera o valor do objeto produto 
-    // function salvaProduto(novoNome, novoPreco, novoTipo) {
-    //     setNome(
-    //         console.log(novoNome,novoPreco,novoTipo)
-    //     //   nome: novoNome,
-    //     //   preco: novoPreco,
-    //     //   tipo: novoTipo,
-    //     );
-    //   }
+    // const salvaProduto = async (nome, preco, tipo) => {
+    //     try {
+    //         const res = await axios.post("http://localhost:8800/produtos", { nome, preco, tipo })
+    //         return res.data
+    //     } catch (error) {
+    //         toast.error(error)
+    //     }
+    // }
 
     //   salvarProduto('Camisa vermelha', 39.99, 'Uma camisa vermelha básica');
 
@@ -47,8 +68,8 @@ const CadProduto = () => {
             
                     <input className="nomeProduto" type="text"
                         placeholder="Nome do produto"
-                        onChange={handleNomeChange}
-                        value={nome}
+                        // onChange={handleNomeChange}
+                        // value={nome}
                     />
                 </Col>
             </Row>
@@ -59,8 +80,8 @@ const CadProduto = () => {
             
                     <input className="valorProduto" type="text"
                         placeholder="Valor do produto"
-                        onChange={handlePrecoChange}
-                        value={preco}
+                        // onChange={handlePrecoChange}
+                        // value={preco}
                     />
                 </Col>
             </Row>
@@ -70,8 +91,8 @@ const CadProduto = () => {
                     <div>Selecione o tipo:</div>
                 
                     <select
-                        onChange={handleTipoChange}
-                        value={tipo}
+                        // onChange={handleTipoChange}
+                        // value={tipo}
                     >
                         <option value="un">Unidade</option>
                         <option value="kg">Quilograma</option>

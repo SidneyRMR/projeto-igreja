@@ -1,13 +1,20 @@
-import { Col, Container, Row } from "react-bootstrap"
+import { Col, Container, Modal, Row } from "react-bootstrap"
 
-import InfUsuario from '../InfUsuario'
+// import InfUsuario from '../InfUsuario'
 
 const Sangria = () => {
 
     return (
-        
+        <Modal aria-labelledby="contained-modal-title-vcenter">
+            {/* {InfUsuario()} */}
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-vcenter">
+          <div className="title">Sangria</div>
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body className="show-grid">
+
         <Container fluid='true'>
-            {InfUsuario()}
             <Row>
                 <Col>
                     <div className="title">Sangria</div>
@@ -35,6 +42,8 @@ const Sangria = () => {
                 </Col>
             </Row>
         </Container>
+        </Modal.Body>
+        </Modal>
     )
 }
 

@@ -1,10 +1,27 @@
-import React, { useState } from 'react'
-
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useEffect, useState } from 'react';
 import diocese from "../img/diocese.png"
-import usuarios from "../data/usuarios"
 import { Container, Row, Col } from 'react-bootstrap'
 
 const Login = () => {
+
+    const [usuarios, setUsuarios] = useState([])
+    // const [onEdit, setonEdit] = useState(null)
+
+    const getusuarios = async () => {
+        try{
+            const res = await axios.get("http://localhost:8800/usuarios")
+            setUsuarios(res.data.sort((a,b) => (a.id > b.id ? 1 : -1)))
+        } catch (error) {
+            toast.error(error)
+        }
+    }
+
+    useEffect(() => {
+        getusuarios()
+    }, [setUsuarios])
 
     function testLogin(uss, pass) {
         // Verifica se o usuário e senha digitados estão presentes na lista de usuários
