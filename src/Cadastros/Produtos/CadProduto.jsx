@@ -26,6 +26,8 @@ const CadProduto = () => {
 
     // console.log(produtos)
     // !!!!!!!!   erro esta aqui, nao esta setando a variavel 
+    //esta com erro no CadUsuario e CadProduto devido, ele esta lendo o bd, o id do param, 
+    //mas quando passo pro get buscar no bd nao esta funcionando
     const produto = produtos.find((produto) => produto.id === id)
     console.log(id)
 

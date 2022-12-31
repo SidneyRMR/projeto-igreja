@@ -24,7 +24,8 @@ const CadUsuario = () => {
     useEffect(() => {
         getUsuario()
     }, [setUsuario])
-    
+    // esta com erro no CadUsuario e CadProduto devido, ele esta lendo o bd, o id do param
+    //, mas quando passo pro get buscar no bd nao esta funcionando
     console.log(usuario) // logs the product data
     
     const [nome_usuario, setNome] = useState(id ? usuario.nome_usuario : '');

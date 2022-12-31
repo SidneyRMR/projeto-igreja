@@ -16,6 +16,7 @@ const Usuarios = () => {
         }
     }
 
+
     useEffect(() => {
         getUsuarios()
     }, [setUsuarios])
