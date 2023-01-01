@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useEffect, useState } from 'react';
 
-const Produtos = () => {
+const Produtos = (props) => {
 
     const [produtos, setProdutos] = useState([])
 
@@ -21,20 +21,22 @@ const Produtos = () => {
     }, [setProdutos])
 
     function mapearProdutos() {
-
         return produtos.map((produto, i) => {
             return (
-                <tr key={produto.id}
-                    className={i % 2 === 0 ? 'Par' : 'Impar'}
-                    // produto={produto}
-                    >
+                <tr key={produto.id} className={i % 2 === 0 ? 'Par' : 'Impar'}>
                     <td >{produto.id}</td>
                     <td>{produto.nome}</td>
                     <td>R${(produto.preco).toFixed(2)}</td>
-                    <td>{produto.tipo}</td>
+                    <td>{produto.medida}</td>
                     <td>
-                        <button onClick={() => alterar(produto)}>Alterar</button>
-                        {/* <button onClick={() => handleDelete(produto.id)}>Excluir</button> */}
+                        <button 
+                            onClick={() => 
+                                alterar(produto)
+                            }
+                        >Alterar</button>
+                        <button 
+                            onClick={() => handleDelete(produto.id)}
+                        >Excluir</button>
                     </td>
                 </tr>
             )
@@ -42,21 +44,30 @@ const Produtos = () => {
     }
 
     function alterar(produto) {
-
-        window.location.href = `/cadastros/produtos/cadproduto/?id=${produto.id}`;
-        // console.log(produto)
+        window.location.href = `/cadastros/produtos/cadproduto/?id=${produto.id}&nome=${produto.nome}&preco=${produto.preco}&medida=${produto.medida}&ehComida=${produto.tipo}`
     }
 
+    // Esta funcionando
+    const handleDelete = async (id) => {
+        await axios
+            .delete('http://localhost:8800/produtos/' + id)
+            .then(({ data }) => {
+                const newArray = produtos.filter((produto) => produto.id_ !== id)
+                setProdutos(newArray)
+                toast.success(data)
+            })
+            .catch(({ data }) => toast.error(data))
+    }
     return (
         <div  >
             <table className='tabela'>
                 <thead>
-                    <tr>
+                    <tr >
                         <th>Id</th>
                         <th>Descrição</th>
                         <th>Valor R$</th>
                         <th>Tipo</th>
-                        <th>Ação</th>
+                        <th width='20%'>Ação</th>
                     </tr>
                 </thead>
                 <tbody>
