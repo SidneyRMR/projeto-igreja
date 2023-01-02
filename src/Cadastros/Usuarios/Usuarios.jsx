@@ -21,11 +21,11 @@ const Usuarios = () => {
         getUsuarios()
     }, [setUsuarios])
 
-    const handleDelete = async (id_usuario) => {
+    const handleDelete = async (id) => {
         await axios
-            .delete('http://localhost:8800/usuarios/' + id_usuario)
+            .delete('http://localhost:8800/usuarios/' + id)
             .then(({ data }) => {
-                const newArray = usuarios.filter((usuario) => usuario.id_usuario !== id_usuario)
+                const newArray = usuarios.filter((usuario) => usuario.id_usuario !== id)
 
                 setUsuarios(newArray)
                 toast.success(data)

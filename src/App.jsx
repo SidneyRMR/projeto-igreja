@@ -2,9 +2,8 @@ import { BrowserRouter, Routes, Route} from 'react-router-dom';
 import React from 'react'
 import './App.css';
 
-//importação do toast
-// import { ToastContainer, toast } from 'react-toastify';
-// import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import AberturaCaixa from './AberturaCaixa/AberturaCaixa'
 import Produtos from './Cadastros/Produtos/Produtos'

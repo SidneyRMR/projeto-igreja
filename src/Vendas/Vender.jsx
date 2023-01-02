@@ -118,7 +118,7 @@ const Vender = () => {
                                         setTotal(produtosVenda.reduce((acc, prod) => acc +(prod.preco * quantidade), 0))
                                         salvaProdutosLocal()
                                       }}
-                                    className={produto.ehComida === true 
+                                    className={produto.tipo === 'Comida' 
                                         ? 'ehComida' : 'nEhComida' 
                                     }
                                 >
