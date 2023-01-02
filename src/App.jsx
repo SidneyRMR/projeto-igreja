@@ -11,7 +11,7 @@ import FechamentoCaixa from './Fechamento/FechamentoCaixa'
 import DetalheCaixa from './Fechamento/DetalheCaixa'
 import FechamentoGeral from './Fechamento/FechamentoGeral'
 import Login from './Login/Login'
-import Pagamento from './Pagamento/Pagamento'
+// import Pagamento from './Pagamento/Pagamento'
 import Sangria from './Sangria/Sangria'
 import Vendas from './Vendas/Vender'
 
@@ -24,7 +24,7 @@ const App = () => {
           <Route path="/" element={<Login />}/>
           <Route path="/vendas" element={<Vendas />}/>
           <Route path="/sangria" element={<Sangria />}/>
-          <Route path="/vendas/pagamento" element={<Pagamento />}/>
+          {/* <Route path="/vendas/pagamento" element={<Pagamento />}/> */}
           <Route path="/fechamento-geral" element={<FechamentoGeral />}/>
           <Route path="/fechamento-caixa" element={<FechamentoCaixa />}/>
           <Route path="/detalhe-caixa" element={<DetalheCaixa />}/>

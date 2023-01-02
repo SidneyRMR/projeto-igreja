@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Container, Row, Col, Table } from 'react-bootstrap';
+import { Container, Row, Col, Table, Modal } from 'react-bootstrap';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -8,9 +8,28 @@ import InfUsuario from '../InfUsuario'
 
 const Vender = () => {
 
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const [precoTotal, setPrecoTotal] = useState(0)
     const [bebidas, setBebidas] = useState([])
     const [comidas, setComidas] = useState([])
+
+    const [showPixInput, setShowPixInput] = useState(false);
+    const [showDinheiroInput, setShowDinheiroInput] = useState(false);
+    const [showCreditoInput, setShowCreditoInput] = useState(false);
+    const [showDebitoInput, setShowDebitoInput] = useState(false);
+
+    function handlePaymentPix(event) {
+        setShowPixInput(event.target.value === 'Pix');
+    }
+    function handlePaymentDinheiro(event) {
+        setShowDinheiroInput(event.target.value === 'Dinheiro');
+    }
+    function handlePaymentCredito(event) {
+        setShowCreditoInput(event.target.value === 'Crédito');
+    }
+    function handlePaymentDebito(event) {
+        setShowDebitoInput(event.target.value === 'Débito');
+    }
 
     // Este trecho busca os produtos no BD e seta os valores na const produtos
     const [produtos, setProdutos] = useState([])
@@ -93,10 +112,10 @@ const Vender = () => {
     }
     // Atualiza o preço total do resumoPedido
     useEffect(() => {
-    const newPrecoTotal = resumoPedido.map((produto) => produto.preco*produto.qnde).reduce((acc, cur) => acc + cur, 0);
-    // Set the new precoTotal value
-    setPrecoTotal(newPrecoTotal)
-    }, [resumoPedido]); 
+        const newPrecoTotal = resumoPedido.map((produto) => produto.preco * produto.qnde).reduce((acc, cur) => acc + cur, 0);
+        // Set the new precoTotal value
+        setPrecoTotal(newPrecoTotal)
+    }, [resumoPedido]);
 
 
     const [isOpen, setIsOpen] = useState(false);
@@ -120,9 +139,9 @@ const Vender = () => {
     useEffect(() => {
         setBebidas(produtos.filter((produto) => produto.tipo === 'Bebida'))
         setComidas(produtos.filter((produto) => produto.tipo === 'Comida'))
-      }, [produtos])
-      
- 
+    }, [produtos])
+
+
 
     return (
         <div>
@@ -154,21 +173,22 @@ const Vender = () => {
                     <Col sm={7}>
                         {/* <div className='title'>Produtos</div> */}
                         {/* BOTÕES DE PRODUTOS */}
-                        
+
 
                         <div className='title'>Bebidas</div>
                         {bebidas && bebidas.map((produto, i) => {
                             return (
                                 <button
-                                key={i}
-                                onClick={() => {
-                                    addProduto(produto.nome, produto.preco, produto.medida)}}
-                                className={produto.tipo === 'Comida' ? 'ehComida' : 'nEhComida'
-                            }>
+                                    key={i}
+                                    onClick={() => {
+                                        addProduto(produto.nome, produto.preco, produto.medida)
+                                    }}
+                                    className={produto.tipo === 'Comida' ? 'ehComida' : 'nEhComida'
+                                    }>
                                     <div>
                                         {produto.nome} <br />
                                         <div style={{ fontSize: '20px' }}>
-                                            {produto.preco.toFixed(2).replace('.',',')}
+                                            {produto.preco.toFixed(2).replace('.', ',')}
                                         </div>
                                     </div>
                                 </button>
@@ -187,7 +207,7 @@ const Vender = () => {
                                     <div>
                                         {produto.nome} <br />
                                         <div style={{ fontSize: '20px' }}>
-                                            {produto.preco.toFixed(2).replace('.',',')}
+                                            {produto.preco.toFixed(2).replace('.', ',')}
                                         </div>
                                     </div>
                                 </button>
@@ -229,10 +249,10 @@ const Vender = () => {
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <td style={{fontSize: '30px'}} colSpan={3}>
+                                    <td style={{ fontSize: '30px' }} colSpan={3}>
                                         Total do Pedido:</td>
-                                    <td style={{fontSize: '30px'}} colSpan={3}>
-                                        R$ {typeof precoTotal === 'number' 
+                                    <td style={{ fontSize: '30px' }} colSpan={3}>
+                                        R$ {typeof precoTotal === 'number'
                                             ? (precoTotal.toFixed(2).replace('.', ',')) : ''}</td>
                                 </tr>
                                 <tr>
@@ -240,10 +260,7 @@ const Vender = () => {
                                         <button
                                             className="w-100"
                                             onClick={() => {
-                                                window.location.href = "/vendas/pagamento";
-                                            }}
-                                        >
-                                            Pagamento
+                                                setIsModalOpen(true)}}>Pagamento
                                         </button>
                                     </td>
                                 </tr>
@@ -253,6 +270,96 @@ const Vender = () => {
                     </Col>
                 </Row>
             </Container>
+            <Modal show={isModalOpen} onHide={() => setIsModalOpen(false)}>
+                                            <Modal.Header closeButton className="title">
+                                                <Modal.Title className="title">Selecione as opções de pagamento</Modal.Title>
+                                            </Modal.Header>
+                                            <Modal.Body>
+                                                <form >
+                                                    <div className="form-check">
+                                                        <input className="form-check-input" type="checkbox" name="payment" value="Pix"
+                                                            onChange={handlePaymentPix} />
+                                                        <label className="form-check-label" >
+                                                            Pix
+                                                        </label>
+                                                        {showPixInput && (
+                                                            <div className="form-group">
+                                                                <label htmlFor="pixAmount">Valor em Pix</label>
+                                                                <input type="text" className="form-control" />
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                    <div className="form-check">
+                                                        <input className="form-check-input" type="checkbox" name="payment" value="Dinheiro"
+                                                            onChange={handlePaymentDinheiro} />
+                                                        <label className="form-check-label" >
+                                                            Dinheiro
+                                                        </label>
+                                                        {showDinheiroInput && (
+                                                            <div className="form-group">
+                                                                <label htmlFor="pixAmount">Valor em Dinheiro</label>
+                                                                <input type="text" className="form-control" />
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                    <div className="form-check">
+                                                        <input className="form-check-input" type="checkbox" name="payment" value="Crédito"
+                                                            onChange={handlePaymentCredito} />
+                                                        <label className="form-check-label" >
+                                                            Crédito
+                                                        </label>
+                                                        {showCreditoInput && (
+                                                            <div className="form-group">
+                                                                <label htmlFor="pixAmount">Valor em Crédito</label>
+                                                                <input type="text" className="form-control" />
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                    <div className="form-check">
+                                                        <input className="form-check-input" type="checkbox" name="payment" value="Débito"
+                                                            onChange={handlePaymentDebito} />
+                                                        <label className="form-check-label">
+                                                            Débito
+                                                        </label>
+                                                        {showDebitoInput && (
+                                                            <div className="form-group">
+                                                                <label htmlFor="pixAmount">Valor em Débito</label>
+                                                                <input type="text" className="form-control" />
+                                                            </div>
+                                                        )}
+                                                    </div>
+
+                                                    <Container className='title text-center' style={{fontSize:'20px', fontWeight: '400'}}>
+                                                        <Row > 
+                                                            <Col>
+                                                                Total à pagar 
+                                                            </Col>
+                                                            <Col>
+                                                                R$ {typeof precoTotal === 'number'
+                                                                    ? (precoTotal.toFixed(2).replace('.', ',')) : ''}
+                                                            </Col>
+                                                        </Row>
+                                                        <Row > 
+                                                            <Col>
+                                                                Troco
+                                                            </Col>
+                                                            <Col>
+                                                                R$ {-precoTotal }
+                                                            </Col>
+                                                        </Row>
+                                                        <Row>
+                                                            <Col>
+                                                                <button className="w-100"> 
+                                                                    <div style={{fontSize:'25px'}}>
+                                                                        Confirmar Pagamento
+                                                                    </div>
+                                                                </button>
+                                                            </Col>
+                                                        </Row>
+                                                    </Container>
+                                                </form>
+                                            </Modal.Body>
+                                        </Modal>
         </div>
     )
 }
