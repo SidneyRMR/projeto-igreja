@@ -36,7 +36,7 @@ const CadProduto = () => {
     // Função que cria um novo produto 
     const novoProduto = async (nome, preco, medida, tipo) => {
         if (!nome || !preco || !medida || !tipo) {
-            toast.error('Todos os campos são obrigatórios!', {
+            toast.error('Todos os campos devem estar preenchidos!', {
                 position: toast.POSITION.TOP_CENTER,
             })
             return
@@ -154,7 +154,6 @@ const CadProduto = () => {
                     {!id && (
                         <button onClick={() => {
                             novoProduto(nome, preco, medida, tipo)
-                            // window.location.href = "/cadastros/produtos"
                             console.log('novo')
                         }}>
                             Salvar
@@ -163,7 +162,6 @@ const CadProduto = () => {
                     {id && (
                         <button onClick={() => {
                             alteraProduto(id, nome, preco, medida, tipo)
-                            // window.location.href = "/cadastros/produtos"
                             console.log('editado',id, nome, preco, medida, tipo)
                         }}>
                             Salvar

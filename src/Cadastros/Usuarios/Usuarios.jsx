@@ -7,9 +7,9 @@ const Usuarios = () => {
 
     const [usuarios, setUsuarios] = useState([])
     const getUsuarios = async () => {
-        try{
+        try {
             const res = await axios.get("http://localhost:8800/usuarios")
-            setUsuarios(res.data.sort((a,b) => (a.id > b.id ? 1 : -1)))
+            setUsuarios(res.data.sort((a, b) => (a.id > b.id ? 1 : -1)))
         } catch (error) {
             toast.error(error)
         }
@@ -17,6 +17,10 @@ const Usuarios = () => {
     useEffect(() => {
         getUsuarios()
     }, [setUsuarios])
+
+    function alterar(usuario) {
+        window.location.href = `/cadastros/usuarios/cadusuario/?id=${usuario.id_usuario}&nome=${usuario.nome_usuario}&login=${usuario.login}&tipo=${usuario.tipo}`
+    }
 
     const handleDelete = async (id) => {
         await axios
@@ -31,46 +35,43 @@ const Usuarios = () => {
     }
 
 
-    function mostrarUsuarios() {
-        return usuarios.map((usuario, i) => {
-            return (
-                <tr key={usuario.id_usuario}
-                    className={i % 2 === 0 ? 'Par' : 'Impar'}>
-                    <td >{usuario.id_usuario}</td>
-                    <td >{usuario.nome_usuario}</td>
-                    <td>{usuario.login}</td>
-                    <td>{usuario.senha}</td>
-                    <td>
-                        <button onClick={() => window.location.href=`/cadastros/usuarios/cadusuario/?id=${usuario.id_usuario}`}>Alterar</button>
-                        <button onClick={() => handleDelete(usuario.id_usuario)}>Excluir</button>
-                    </td>
-                </tr>
-                  )
-                })
-            }
-
 
         return (
             <div  >
-            <table className='tabela'>
-                <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Nome</th>
-                        <th>Login</th>
-                        <th>Senha</th>
-                        <th>Ações</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {mostrarUsuarios()}
-                </tbody>
-            </table>
-            <div>
-            <button id="cadastrar" onClick={() => window.location.href="/cadastros/usuarios/cadusuario"}>Cadastrar</button>
-            <button id="voltar" onClick={() => window.location.href="/abertura-caixa"}>Voltar</button>
+                <table className='tabela'>
+                    <thead>
+                        <tr>
+                            {/* <th>Id</th> */}
+                            <th>Nome</th>
+                            <th>Login</th>
+                            <th>Tipo</th>
+                            <th width='20%'>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {usuarios.map((usuario, i) => {
+                            return (
+                                <tr key={usuario.id_usuario}
+                                    className={i % 2 === 0 ? 'Par' : 'Impar'}>
+                                    {/* <td >{usuario.id_usuario}</td> */}
+                                    <td >{usuario.nome_usuario}</td>
+                                    <td>{usuario.login}</td>
+                                    <td>{usuario.tipo}</td>
+                                    <td>
+                                        <button onClick={() => alterar(usuario)}>Alterar</button>
+                                        <button onClick={() => handleDelete(usuario.id_usuario)}>Excluir</button>
+                                    </td>
+                                </tr>
+                            )
+                        })
+                        }
+                    </tbody>
+                </table>
+                <div>
+                    <button id="cadastrar" onClick={() => window.location.href = "/cadastros/usuarios/cadusuario"}>Cadastrar</button>
+                    <button id="voltar" onClick={() => window.location.href = "/abertura-caixa"}>Voltar</button>
 
-            </div>
+                </div>
 
             </div>
         )

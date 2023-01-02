@@ -45,7 +45,7 @@ const Produtos = () => {
             <table className='tabela'>
                 <thead>
                     <tr >
-                        <th>Id</th>
+                        {/* <th>Id</th> */}
                         <th>Descrição</th>
                         <th>Valor R$</th>
                         <th>Medida</th>
@@ -57,7 +57,7 @@ const Produtos = () => {
                     {produtos.map((produto, i) => {
             return (
                 <tr key={produto.id} className={i % 2 === 0 ? 'Par' : 'Impar'}>
-                    <td >{produto.id}</td>
+                    {/* <td >{produto.id}</td> */}
                     <td>{produto.nome}</td>
                     <td>R${(produto.preco).toFixed(2)}</td>
                     <td>{produto.medida}</td>
