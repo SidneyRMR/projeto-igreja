@@ -8,6 +8,7 @@ import InfUsuario from '../InfUsuario'
 
 const Vender = () => {
 
+    const [precoTotal, setPrecoTotal] = useState(0)
     // Este trecho busca os produtos no BD e seta os valores na const produtos
     const [produtos, setProdutos] = useState([])
     const getProdutos = async () => {
@@ -87,9 +88,14 @@ const Vender = () => {
         const filteredResumoPedido = updatedResumoPedido.filter((produto) => produto.qnde !== 0);
         setResumoPedido(filteredResumoPedido);
     }
+    // Atualiza o preço total do resumoPedido
+ useEffect(() => {
+  // Calculate the new precoTotal value
+  const newPrecoTotal = resumoPedido.map((produto) => produto.preco*produto.qnde).reduce((acc, cur) => acc + cur, 0);
 
-
-
+  // Set the new precoTotal value
+  setPrecoTotal(newPrecoTotal);
+}, [resumoPedido]); // The useEffect hook will be called whenever the resumoPedido state variable changes
 
 
 
@@ -184,7 +190,9 @@ const Vender = () => {
                                             <td>{produto.nome}</td>
                                             <td>{produto.preco}</td>
                                             <td>{produto.medida}</td>
-                                            <td>{(produto.qnde * produto.preco)}</td>
+                                            <td>{
+                                                typeof produto.qnde === 'number'
+                                                    ? (produto.qnde * produto.preco).toFixed(2).replace('.', ',') : ''}</td>
                                             <td><button onClick={() => {
                                                 removeProduto(produto)
                                             }}>Excluir</button></td>
@@ -193,8 +201,11 @@ const Vender = () => {
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <td colSpan={3}>Total do Pedido:</td>
-                                    <td colSpan={3}>R$ á fazer</td>
+                                    <td style={{fontSize: '30px'}} colSpan={3}>
+                                        Total do Pedido:</td>
+                                    <td style={{fontSize: '30px'}} colSpan={3}>
+                                        R$ {typeof precoTotal === 'number' 
+                                            ? (precoTotal.toFixed(2).replace('.', ',')) : ''}</td>
                                 </tr>
                                 <tr>
                                     <td colSpan={6} >
