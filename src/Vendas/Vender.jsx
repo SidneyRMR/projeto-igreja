@@ -9,6 +9,9 @@ import InfUsuario from '../InfUsuario'
 const Vender = () => {
 
     const [precoTotal, setPrecoTotal] = useState(0)
+    const [bebidas, setBebidas] = useState([])
+    const [comidas, setComidas] = useState([])
+
     // Este trecho busca os produtos no BD e seta os valores na const produtos
     const [produtos, setProdutos] = useState([])
     const getProdutos = async () => {
@@ -43,7 +46,7 @@ const Vender = () => {
     */
 
     // Declare a list of objects and a state for the form input values
-    const [resumoPedido, setResumoPedido] = useState([]);
+    const [resumoPedido, setResumoPedido] = useState([])
 
     const addProduto = (nomeProd, precoProd, medidaProd) => {
         // Read the values of the button's attributes
@@ -53,15 +56,15 @@ const Vender = () => {
 
         // Check if an object with the same values already exists in the list
         const existeProduto = resumoPedido.find((produto) => {
-            return produto.nome === nome && produto.preco === preco && produto.medida === medida;
-        });
+            return produto.nome === nome && produto.preco === preco && produto.medida === medida
+        })
 
         if (existeProduto) {
             // If the produto exists, increase the quantity by 1
             setResumoPedido(
                 resumoPedido.map((produto) => {
                     if (produto === existeProduto) {
-                        return { ...produto, qnde: produto.qnde + 1 };
+                        return { ...produto, qnde: produto.qnde + 1 }
                     }
                     return produto;
                 })
@@ -74,29 +77,26 @@ const Vender = () => {
                 preco: preco,
                 medida: medida
             };
-            setResumoPedido([...resumoPedido, novoProduto]);
+            setResumoPedido([...resumoPedido, novoProduto])
         }
     };
 
     function removeProduto(prod) {
         const updatedResumoPedido = resumoPedido.map((produto) => {
             if (produto === prod && produto.qnde >= 1) {
-                return { ...produto, qnde: produto.qnde - 1 };
+                return { ...produto, qnde: produto.qnde - 1 }
             }
             return produto;
         });
         const filteredResumoPedido = updatedResumoPedido.filter((produto) => produto.qnde !== 0);
-        setResumoPedido(filteredResumoPedido);
+        setResumoPedido(filteredResumoPedido)
     }
     // Atualiza o preço total do resumoPedido
- useEffect(() => {
-  // Calculate the new precoTotal value
-  const newPrecoTotal = resumoPedido.map((produto) => produto.preco*produto.qnde).reduce((acc, cur) => acc + cur, 0);
-
-  // Set the new precoTotal value
-  setPrecoTotal(newPrecoTotal);
-}, [resumoPedido]); // The useEffect hook will be called whenever the resumoPedido state variable changes
-
+    useEffect(() => {
+    const newPrecoTotal = resumoPedido.map((produto) => produto.preco*produto.qnde).reduce((acc, cur) => acc + cur, 0);
+    // Set the new precoTotal value
+    setPrecoTotal(newPrecoTotal)
+    }, [resumoPedido]); 
 
 
     const [isOpen, setIsOpen] = useState(false);
@@ -115,6 +115,14 @@ const Vender = () => {
             document.removeEventListener('click', handleClickOutside);
         }
     }, [])
+
+
+    useEffect(() => {
+        setBebidas(produtos.filter((produto) => produto.tipo === 'Bebida'))
+        setComidas(produtos.filter((produto) => produto.tipo === 'Comida'))
+      }, [produtos])
+      
+ 
 
     return (
         <div>
@@ -144,22 +152,42 @@ const Vender = () => {
             <Container fluid='true'>
                 <Row>
                     <Col sm={7}>
-                        <div className='title'>Produtos</div>
+                        {/* <div className='title'>Produtos</div> */}
                         {/* BOTÕES DE PRODUTOS */}
-                        {produtos.map((produto, i) => {
+                        
+
+                        <div className='title'>Bebidas</div>
+                        {bebidas && bebidas.map((produto, i) => {
+                            return (
+                                <button
+                                key={i}
+                                onClick={() => {
+                                    addProduto(produto.nome, produto.preco, produto.medida)}}
+                                className={produto.tipo === 'Comida' ? 'ehComida' : 'nEhComida'
+                            }>
+                                    <div>
+                                        {produto.nome} <br />
+                                        <div style={{ fontSize: '20px' }}>
+                                            {produto.preco.toFixed(2).replace('.',',')}
+                                        </div>
+                                    </div>
+                                </button>
+                            )
+                        })}
+                        <hr />
+                        <div className='title'>Comidas</div>
+                        {comidas && comidas.map((produto, i) => {
                             return (
                                 <button
                                     key={i}
                                     onClick={() => {
-                                        addProduto(produto.nome, produto.preco, produto.medida);
+                                        addProduto(produto.nome, produto.preco, produto.medida)
                                     }}
-                                    className={produto.tipo === 'Comida'
-                                        ? 'ehComida' : 'nEhComida'
-                                    }>
+                                    className={produto.tipo === 'Comida' ? 'ehComida' : 'nEhComida'}>
                                     <div>
                                         {produto.nome} <br />
                                         <div style={{ fontSize: '20px' }}>
-                                            R$ {produto.preco}
+                                            {produto.preco.toFixed(2).replace('.',',')}
                                         </div>
                                     </div>
                                 </button>
