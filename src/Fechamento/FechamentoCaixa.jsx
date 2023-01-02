@@ -20,7 +20,7 @@ const FechamentoCaixa = () => {
                 </thead>
                 <tbody>
                     <tr >
-                        <td>{usuario.login}</td> {/* este valor deve vir do login */}
+                        <td>{usuario.nome}</td> {/* este valor deve vir do login */}
                         <td>R$500,00</td>
                         <td>R$200,00</td>
                         <td>R$300,00</td>

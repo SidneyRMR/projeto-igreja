@@ -1,48 +1,95 @@
 import { useEffect, useState } from 'react';
 import { Container, Row, Col, Table } from 'react-bootstrap';
+import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import InfUsuario from '../InfUsuario'
-import produtos from '../data/produtos'
 // import InfVendaAtual from '../InfVendaAtual'
 
 const Vender = () => {
 
-    // const [produtoPedido,setProdutoPedido] = useState([{
-    //     id: produtoPedido.id,
-    //     nome: produtoPedido.nome,
-    //     preco: produtoPedido.preco,
-    //     medida: produtoPedido.medida,
-    //     ehComida: produtoPedido.tipo,
-    //     quantidade: quantidade[produtoPedido.id] += 1,
-    // }],[])
+    // Este trecho busca os produtos no BD e seta os valores na const produtos
+    const [produtos, setProdutos] = useState([])
+    const getProdutos = async () => {
+        try {
+            const res = await axios.get("http://localhost:8800/produtos")
+            setProdutos(res.data.sort((a, b) => (a.id > b.id ? 1 : -1)))
+        } catch (error) {
+            toast.error(error)
+        }
+    }
+    useEffect(() => {
+        getProdutos()
+    }, [setProdutos])
+    // fim do trecho 
 
-    const resumoProdutosVenda = JSON.parse(sessionStorage.getItem('resumoProdutosVenda'));
+    // aqui eu preciso trabalhar com 2 objetos que irao conversar entre si,
+    /*objeto caixa e objeto compras pedido,
+        no objeto caixa tenho:
+            id_caixa,
+            valorAbertura, 
+            sangria(acumulativo), 
+            dataHoraAbertura,
+            dataHoraFechamento,
+            id_compras, que tera:
+                id_compras,
+                id_compra,
+                dataHoraFechamentoCompra,
+                id_produto,
+                quantidade,
+                val_produto,
+                val_total(soma),
+    */
 
-    let [quantidade, setQuantidade] = useState(1)
-    const [total, setTotal] = useState(0);
-    const [produtosVenda, setProdutosVenda] = useState(resumoProdutosVenda || []);
+    // Declare a list of objects and a state for the form input values
+    const [resumoPedido, setResumoPedido] = useState([]);
 
+    const addProduto = (nomeProd, precoProd, medidaProd) => {
+        // Read the values of the button's attributes
+        const nome = nomeProd
+        const preco = precoProd
+        const medida = medidaProd
 
-    function addProduto(prod) {
-        const produtoExistente = produtosVenda?.find((p) => p.id === prod.id);
-        if (produtoExistente) {
-            setQuantidade(quantidade += 1)
-            setProdutosVenda([...produtosVenda])
+        // Check if an object with the same values already exists in the list
+        const existeProduto = resumoPedido.find((produto) => {
+            return produto.nome === nome && produto.preco === preco && produto.medida === medida;
+        });
+
+        if (existeProduto) {
+            // If the produto exists, increase the quantity by 1
+            setResumoPedido(
+                resumoPedido.map((produto) => {
+                    if (produto === existeProduto) {
+                        return { ...produto, qnde: produto.qnde + 1 };
+                    }
+                    return produto;
+                })
+            );
         } else {
-            setProdutosVenda([...produtosVenda, prod])
+            // If the object does not exist, create a new one and add it to the list
+            const novoProduto = {
+                qnde: 1,
+                nome: nome,
+                preco: preco,
+                medida: medida
+            };
+            setResumoPedido([...resumoPedido, novoProduto]);
         }
-    }
-    function removeProduto(prod) {
-        const produtoExistente = produtosVenda.find((p) => p.id === prod.id);
-        if ((produtoExistente) && (quantidade > 0)) {
-            setQuantidade(quantidade -= 1)
-            setProdutosVenda([...produtosVenda]);
-        }
-        if ((quantidade < 1)) {
-            setQuantidade(1)
-            setProdutosVenda([]);
-        }
+    };
 
+    function removeProduto(prod) {
+        const updatedResumoPedido = resumoPedido.map((produto) => {
+            if (produto === prod && produto.qnde >= 1) {
+                return { ...produto, qnde: produto.qnde - 1 };
+            }
+            return produto;
+        });
+        const filteredResumoPedido = updatedResumoPedido.filter((produto) => produto.qnde !== 0);
+        setResumoPedido(filteredResumoPedido);
     }
+
+
+
 
 
 
@@ -63,25 +110,11 @@ const Vender = () => {
         }
     }, [])
 
-    // function addPeso() {
-    //     alert(
-    //         <div>Digite Peso</div>,
-    //         <input placeholder='Peso do produto'></input>
-    //     )
-    // }
-
-    function salvaProdutosLocal() {
-        const resumoProdutosVenda = [...produtosVenda];
-        sessionStorage.setItem('resumoProdutosVenda', JSON.stringify(resumoProdutosVenda));
-        // console.log(resumoProdutosVenda.reduce((acc, prod) => acc +(prod.preco * quantidade), 0))
-        console.log(resumoProdutosVenda, resumoProdutosVenda.quantidade = quantidade)
-    }
-
     return (
         <div>
+            <ToastContainer />
             {/* Informações de caixa no rodapé */}
             {InfUsuario()}
-            {/* {console.log(resumoProdutosVenda)} */}
 
             {/* MENU SUSPENSO */}
             <div style={{ position: 'fixed', top: '5px', left: '5px', zIndex: 1 }}>
@@ -102,8 +135,6 @@ const Vender = () => {
                 )}
             </div>
 
-
-
             <Container fluid='true'>
                 <Row>
                     <Col sm={7}>
@@ -114,18 +145,15 @@ const Vender = () => {
                                 <button
                                     key={i}
                                     onClick={() => {
-                                        addProduto(produto);
-                                        setTotal(produtosVenda.reduce((acc, prod) => acc +(prod.preco * quantidade), 0))
-                                        salvaProdutosLocal()
-                                      }}
-                                    className={produto.tipo === 'Comida' 
-                                        ? 'ehComida' : 'nEhComida' 
-                                    }
-                                >
+                                        addProduto(produto.nome, produto.preco, produto.medida);
+                                    }}
+                                    className={produto.tipo === 'Comida'
+                                        ? 'ehComida' : 'nEhComida'
+                                    }>
                                     <div>
                                         {produto.nome} <br />
                                         <div style={{ fontSize: '20px' }}>
-                                            R$ {produto.preco.toFixed(2).replace('.', ',')}
+                                            R$ {produto.preco}
                                         </div>
                                     </div>
                                 </button>
@@ -142,33 +170,31 @@ const Vender = () => {
                                 <tr>
                                     <th width="2%">Qnde</th>
                                     <th width="30%">Descrição</th>
-                                    <th width="15%">Valor</th>
-                                    <th width="05%">Medida</th>
+                                    <th width="15%">Preço</th>
+                                    <th width="10%">Medida</th>
                                     <th width="15%">Total</th>
                                     <th width="15%">Ações</th>
                                 </tr>
                             </thead>
                             <tbody >
-                                {produtosVenda &&
-                                produtosVenda.map((produto, i) => (
-                                    <tr key={i} className={i % 2 === 0 ? 'Par' : 'Impar'} >
-                                        <td>{quantidade}</td>
-                                        <td>{produto.nome}</td>
-                                        <td>{produto.preco.toFixed(2)}</td>
-                                        <td>{produto.medida.toUpperCase()}</td>
-                                        <td>{(quantidade * produto.preco).toFixed(2)}</td>
-                                        <td><button onClick={() => {
-                                            removeProduto(produto)
-                                            setTotal(produtosVenda.reduce((acc, prod) => -acc +(prod.preco * quantidade), 0))
-                                            salvaProdutosLocal()
-                                        }}>Excluir</button></td>
-                                    </tr>))
+                                {resumoPedido &&
+                                    resumoPedido.map((produto, i) => (
+                                        <tr key={i} className={i % 2 === 0 ? 'Par' : 'Impar'} >
+                                            <td>{produto.qnde}</td>
+                                            <td>{produto.nome}</td>
+                                            <td>{produto.preco}</td>
+                                            <td>{produto.medida}</td>
+                                            <td>{(produto.qnde * produto.preco)}</td>
+                                            <td><button onClick={() => {
+                                                removeProduto(produto)
+                                            }}>Excluir</button></td>
+                                        </tr>))
                                 }
                             </tbody>
                             <tfoot>
                                 <tr>
                                     <td colSpan={3}>Total do Pedido:</td>
-                                    <td colSpan={3}>R$ {total.toFixed(2)}</td>
+                                    <td colSpan={3}>R$ á fazer</td>
                                 </tr>
                                 <tr>
                                     <td colSpan={6} >
@@ -176,7 +202,6 @@ const Vender = () => {
                                             className="w-100"
                                             onClick={() => {
                                                 window.location.href = "/vendas/pagamento";
-                                                salvaProdutosLocal()
                                             }}
                                         >
                                             Pagamento
