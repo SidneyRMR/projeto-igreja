@@ -45,7 +45,7 @@ const CadUsuario = () => {
             return
         }
         if (senha.length < 6) {
-                toast.error('A senha deve ter mais de seis caracteres!', {
+            toast.error('A senha deve ter mais de seis caracteres!', {
                 position: toast.POSITION.TOP_CENTER,
             })
             return
@@ -74,23 +74,9 @@ const CadUsuario = () => {
     }
     // Função que altera o usuario 
     /// !!!! esta com algum problema no back ou no front
-    const alteraUsuario = async (id, nome, login, senha, senha2, tipo) => {
-        if (!nome || !login || !senha || !senha2 || !tipo) {
+    const alteraUsuario = async (id, nome, login, tipo) => {
+        if (!nome || !login || !tipo) {
             toast.error('Todos os campos devem estar preenchidos!', {
-                position: toast.POSITION.TOP_CENTER,
-            })
-            return
-        }
-        if (senha.length < 6) {
-
-            toast.error('A senha deve ter mais de seis caracteres!', {
-                position: toast.POSITION.TOP_CENTER,
-            })
-            return
-        }
-        if (senha !== senha2) {
-            console.log(senha, senha2)
-            toast.error('As senhas devem ser iguais!', {
                 position: toast.POSITION.TOP_CENTER,
             })
             return
@@ -100,7 +86,6 @@ const CadUsuario = () => {
                 id,
                 nome,
                 login,
-                senha,
                 tipo,
             })
             toast.success(`${res.data} alterado com sucesso`, {
@@ -143,36 +128,43 @@ const CadUsuario = () => {
                 </Col>
             </Row>
             <br />
-            <Row>
-                <Col>
-                    <div>Digite a senha:</div>
+            {!id && (
+                <>
+                    <Row>
+                        <Col>
+                            <div>Digite a senha:</div>
+                            <input
+                                className="senhaUsuario"
+                                type="password"
+                                placeholder="Digite a senha"
+                                onChange={handleSenhaChange}
+                                value={senha}
+                            />
+                        </Col>
+                    </Row>
+                    <br />
+                    <Row>
+                        <Col>
+                            <div>Repita a senha:</div>
+                            <input
+                                className="senhaUsuario"
+                                type="password"
+                                placeholder="Repita a senha"
+                                onChange={handleSenha2Change}
+                                value={senha2}
+                            />
+                        </Col>
+                    </Row>
+                    <br />
+                </>
+            )}
 
-                    <input className="senhaUsuario" type="password"
-                        placeholder="Digite a senha"
-                        onChange={handleSenhaChange}
-                        value={senha}
-                    />
-                </Col>
-            </Row>
-            <br />
-            <Row>
-                <Col>
-                    <div>Repita a senha:</div>
-
-                    <input className="senhaUsuario" type="password"
-                        placeholder="Repita a senha"
-                        onChange={handleSenha2Change}
-                        value={senha2}
-                    />
-                </Col>
-            </Row>
-            <br />
             <Row>
                 <Col>
                     <div>Selecione o tipo de usuário:</div>
 
                     <select onChange={handleTipoChange} value={tipo}>
-                        <option defaultValue='Caixa' value="Unidade">Caixa</option>
+                        <option defaultValue='Caixa' value="Caixa">Caixa</option>
                         <option value="Administrativo">Administrativo</option>
                     </select>
                 </Col>
@@ -190,8 +182,8 @@ const CadUsuario = () => {
                     )}
                     {id && (
                         <button onClick={() => {
-                            alteraUsuario(id, nome, login, senha, senha2, tipo)
-                            console.log('editado', id, nome, login, senha, senha2, tipo)
+                            alteraUsuario(id, nome, login, tipo)
+                            console.log('editado', id, nome, login, tipo)
                         }}>
                             Salvar
                         </button>

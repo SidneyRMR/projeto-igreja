@@ -50,8 +50,8 @@ const AberturaCaixa = () => {
     // este trecho so mostrará o botão adm caso o usuario tiver for administativo
     const [isAdmin, setIsAdmin] = useState(false)
     useEffect(() => {
-        usuario.administrativo === 'S' ? setIsAdmin(true) : setIsAdmin(false);
-      }, [usuario.administrativo]);
+        usuario.tipo === 'Administrativo' ? setIsAdmin(true) : setIsAdmin(false);
+      }, [usuario.tipo]);
     
     
 
@@ -67,7 +67,7 @@ const AberturaCaixa = () => {
                 <Col>
                     <div>Nome do responsável:</div>
 
-                    <input className='caixaNome' readOnly={usuario.nome_usuario} type="text" value={usuario.nome_usuario} />
+                    <input className='caixaNome' readOnly={usuario.nome} type="text" value={usuario.nome} />
                 </Col>
             </Row>
             <br />

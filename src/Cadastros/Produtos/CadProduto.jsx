@@ -66,7 +66,7 @@ const CadProduto = () => {
     // Função que altera um produto existente
     const alteraProduto = async (id, nome, preco, medida, tipo) => {
         if (!nome || !preco || !medida || !tipo) {
-            toast.error('Todos os campos são obrigatórios!', {
+            toast.error('Todos os campos devem estar preenchidos!', {
                 position: toast.POSITION.TOP_CENTER,
             })
             return
