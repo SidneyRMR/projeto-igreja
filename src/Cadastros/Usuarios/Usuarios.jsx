@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useEffect, useState } from 'react';
 
@@ -22,22 +22,24 @@ const Usuarios = () => {
         window.location.href = `/cadastros/usuarios/cadusuario/?id=${usuario.id_usuario}&nome=${usuario.nome_usuario}&login=${usuario.login}&tipo=${usuario.tipo}`
     }
 
-    const handleDelete = async (id) => {
-        await axios
+    const handleDelete = async (id, nome) => {
+        console.log(id,nome)
+        if (window.confirm('Tem certeza de que deseja excluir este usuário?')) {
+          await axios
             .delete('http://localhost:8800/usuarios/' + id)
             .then(({ data }) => {
                 const newArray = usuarios.filter((usuario) => usuario.id_usuario !== id)
-
-                setUsuarios(newArray)
-                toast.success(data)
-            })
+              setUsuarios(newArray)
+              toast.success(`${nome} excluído com sucesso`, {
+                position: toast.POSITION.TOP_CENTER
+              })})
             .catch(({ data }) => toast.error(data))
-    }
-
-
+        }
+      }
 
         return (
             <div  >
+                <ToastContainer/>
                 <table className='tabela'>
                     <thead>
                         <tr>
@@ -59,7 +61,7 @@ const Usuarios = () => {
                                     <td>{usuario.tipo}</td>
                                     <td>
                                         <button onClick={() => alterar(usuario)}>Alterar</button>
-                                        <button onClick={() => handleDelete(usuario.id_usuario)}>Excluir</button>
+                                        <button onClick={() => handleDelete(usuario.id_usuario, usuario.nome_usuario)}>Excluir</button>
                                     </td>
                                 </tr>
                             )
