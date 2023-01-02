@@ -19,7 +19,7 @@ const Usuarios = () => {
     }, [setUsuarios])
 
     function alterar(usuario) {
-        window.location.href = `/cadastros/usuarios/cadusuario/?id=${usuario.id_usuario}&nome=${usuario.nome_usuario}&login=${usuario.login}&tipo=${usuario.tipo}`
+        window.location.href = `/cadastros/usuarios/cadusuario/?id=${usuario.id}&nome=${usuario.nome}&login=${usuario.login}&tipo=${usuario.tipo}`
     }
 
     const handleDelete = async (id, nome) => {
@@ -28,7 +28,7 @@ const Usuarios = () => {
           await axios
             .delete('http://localhost:8800/usuarios/' + id)
             .then(({ data }) => {
-                const newArray = usuarios.filter((usuario) => usuario.id_usuario !== id)
+                const newArray = usuarios.filter((usuario) => usuario.id !== id)
               setUsuarios(newArray)
               toast.success(`${nome} excluído com sucesso`, {
                 position: toast.POSITION.TOP_CENTER
@@ -53,15 +53,15 @@ const Usuarios = () => {
                     <tbody>
                         {usuarios.map((usuario, i) => {
                             return (
-                                <tr key={usuario.id_usuario}
+                                <tr key={usuario.id}
                                     className={i % 2 === 0 ? 'Par' : 'Impar'}>
-                                    {/* <td >{usuario.id_usuario}</td> */}
-                                    <td >{usuario.nome_usuario}</td>
+                                    {/* <td >{usuario.id}</td> */}
+                                    <td >{usuario.nome}</td>
                                     <td>{usuario.login}</td>
                                     <td>{usuario.tipo}</td>
                                     <td>
                                         <button onClick={() => alterar(usuario)}>Alterar</button>
-                                        <button onClick={() => handleDelete(usuario.id_usuario, usuario.nome_usuario)}>Excluir</button>
+                                        <button onClick={() => handleDelete(usuario.id, usuario.nome)}>Excluir</button>
                                     </td>
                                 </tr>
                             )
