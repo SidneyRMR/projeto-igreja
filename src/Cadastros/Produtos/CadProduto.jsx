@@ -15,20 +15,9 @@ const CadProduto = () => {
     const paramTipo = urlParams.get('tipo')
 
     const [nome, setNome] = useState(id ? paramNome : '');
-    const [preco, setPreco] = useState(id ? paramPreco.toFixed(2).replace('.', ',') : '');
+    const [preco, setPreco] = useState(id ? paramPreco.toFixed(2) : '');
     const [medida, setMedida] = useState(id ? paramMedida : 'Unidade');
     const [tipo, setTipo] = useState(id ? paramTipo : 'Comida');
-
-
-
-    // !!!!!!!!   erro esta aqui, nao esta setando a variavel 
-    //esta com erro no CadUsuario e CadProduto devido, ele esta lendo o bd, o id do param, 
-    //mas quando passo pro get buscar no bd nao esta funcionando
-    // const produto = props.produto
-    // produtos.find((produto) => produto.id === id)
-    // console.log(produto)
-
-
 
     // Manipulador de evento para atualizar o estado da descrição quando o usuário alterar o valor do input
     const handleNomeChange = (event) => {
@@ -47,13 +36,13 @@ const CadProduto = () => {
     // Função que cria um novo produto 
     const novoProduto = async (nome, preco, medida, tipo) => {
         if (!nome || !preco || !medida || !tipo) {
-            toast.error('Todos os campos são obrigatórios', {
+            toast.error('Todos os campos são obrigatórios!', {
                 position: toast.POSITION.TOP_CENTER,
             })
             return
         }
         if (isNaN(preco)) {
-            toast.error('O preço deve ser um número', {
+            toast.error('O preço deve ser um número!', {
                 position: toast.POSITION.TOP_CENTER,
             })
             return
@@ -73,6 +62,38 @@ const CadProduto = () => {
             toast.error(error)
         }
     }
+
+    // Função que altera um produto existente
+    const alteraProduto = async (id, nome, preco, medida, tipo) => {
+        if (!nome || !preco || !medida || !tipo) {
+            toast.error('Todos os campos são obrigatórios!', {
+                position: toast.POSITION.TOP_CENTER,
+            })
+            return
+        }
+        if (isNaN(preco)) {
+            toast.error('O preço deve ser um número!', {
+                position: toast.POSITION.TOP_CENTER,
+            })
+            return
+        }
+        try {
+            const res = await axios.put(`http://localhost:8800/produtos/${id}`, {
+                id,
+                nome,
+                preco,
+                medida,
+                tipo,
+            })
+            toast.success(`${res.data} alterado com sucesso`, {
+                position: toast.POSITION.TOP_CENTER,
+            })
+            return (res.data, (window.location.href = '/cadastros/produtos'))
+        } catch (error) {
+            toast.error(error)
+        }
+    }
+
 
 
     return (
@@ -111,7 +132,7 @@ const CadProduto = () => {
                     <div>Selecione a unidade de medida:</div>
 
                     <select onChange={handleMedidaChange} value={medida}>
-                        <option selected value="Unidade">Unidade</option>
+                        <option defaultValue='Unidade' value="Unidade">Unidade</option>
                         <option value="Quilograma">Quilograma</option>
                     </select>
                 </Col>
@@ -122,7 +143,7 @@ const CadProduto = () => {
                     <div>Selecione o tipo:</div>
 
                     <select onChange={handleTipoChange} value={tipo}>
-                        <option selected value='Comida'>Comida</option>
+                        <option defaultValue='Comida' value='Comida'>Comida</option>
                         <option value='Bebida'>Bebida</option>
                     </select>
                 </Col>
@@ -141,9 +162,9 @@ const CadProduto = () => {
                     )}
                     {id && (
                         <button onClick={() => {
-                            // editaProduto(nome, preco, medida, tipo)
+                            alteraProduto(id, nome, preco, medida, tipo)
                             // window.location.href = "/cadastros/produtos"
-                            console.log('editado')
+                            console.log('editado',id, nome, preco, medida, tipo)
                         }}>
                             Salvar
                         </button>

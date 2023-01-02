@@ -1,18 +1,18 @@
-import produtos from '../data/produtos'
 import { useEffect, useState } from 'react';
 import { Container, Row, Col, Table } from 'react-bootstrap';
 import InfUsuario from '../InfUsuario'
+import produtos from '../data/produtos'
 // import InfVendaAtual from '../InfVendaAtual'
 
 const Vender = () => {
 
-    // const [produto,setPedido] = useState([{
-    //     id: produto.id,
-    //     nome: produto.nome,
-    //     preco: produto.preco,
-    //     medida: produto.medida,
-    //     ehComida: produto.ehComida,
-    //     quantidade: produto.quantidade,
+    // const [produtoPedido,setProdutoPedido] = useState([{
+    //     id: produtoPedido.id,
+    //     nome: produtoPedido.nome,
+    //     preco: produtoPedido.preco,
+    //     medida: produtoPedido.medida,
+    //     ehComida: produtoPedido.tipo,
+    //     quantidade: quantidade[produtoPedido.id] += 1,
     // }],[])
 
     const resumoProdutosVenda = JSON.parse(sessionStorage.getItem('resumoProdutosVenda'));

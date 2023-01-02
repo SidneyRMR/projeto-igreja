@@ -20,24 +20,6 @@ const Produtos = () => {
     }, [setProdutos])
     // fim do trecho 
 
-    function mapearProdutos() {
-        return produtos.map((produto, i) => {
-            return (
-                <tr key={produto.id} className={i % 2 === 0 ? 'Par' : 'Impar'}>
-                    <td >{produto.id}</td>
-                    <td>{produto.nome}</td>
-                    <td>R${(produto.preco).toFixed(2)}</td>
-                    <td>{produto.medida}</td>
-                    <td>{produto.tipo}</td>
-                    <td>
-                        <button onClick={() => alterar(produto)}>Alterar</button>
-                        <button onClick={() => handleDelete(produto.id, produto.nome)}>Excluir</button>
-                    </td>
-                </tr>
-            )
-        })
-    }
-
     function alterar(produto) {
         window.location.href = `/cadastros/produtos/cadproduto/?id=${produto.id}&nome=${produto.nome}&preco=${produto.preco}&medida=${produto.medida}&tipo=${produto.tipo}`
     }
@@ -72,7 +54,21 @@ const Produtos = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {mapearProdutos()}
+                    {produtos.map((produto, i) => {
+            return (
+                <tr key={produto.id} className={i % 2 === 0 ? 'Par' : 'Impar'}>
+                    <td >{produto.id}</td>
+                    <td>{produto.nome}</td>
+                    <td>R${(produto.preco).toFixed(2)}</td>
+                    <td>{produto.medida}</td>
+                    <td>{produto.tipo}</td>
+                    <td>
+                        <button onClick={() => alterar(produto)}>Alterar</button>
+                        <button onClick={() => handleDelete(produto.id, produto.nome)}>Excluir</button>
+                    </td>
+                </tr>
+            )
+        })}
                 </tbody>
             </table>
             <button className="cadastrar" onClick={() => window.location.href = `/cadastros/produtos/cadproduto`}>Cadastrar</button>
@@ -82,3 +78,17 @@ const Produtos = () => {
 }
 
 export default Produtos
+
+
+// criação de tabela de produtos
+/* CREATE TABLE tb_produtos (
+    id INT(11) NOT NULL AUTO_INCREMENT,
+    nome VARCHAR(255) NOT NULL,
+    preco DECIMAL(10,2) NOT NULL,
+    medida VARCHAR(255) NOT NULL,
+    tipo VARCHAR(255) NOT NULL,
+    tipo VARCHAR(255) NOT NULL,
+    id_festa INTEGER NOT NULL
+    PRIMARY KEY (id)
+  ); */
+  

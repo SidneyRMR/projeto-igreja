@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import axios from 'axios';
-import { toast } from 'react-toastify';
+// import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const CadUsuario = () => {

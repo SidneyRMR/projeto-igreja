@@ -6,7 +6,6 @@ import { useEffect, useState } from 'react';
 const Usuarios = () => {
 
     const [usuarios, setUsuarios] = useState([])
-
     const getUsuarios = async () => {
         try{
             const res = await axios.get("http://localhost:8800/usuarios")
@@ -15,8 +14,6 @@ const Usuarios = () => {
             toast.error(error)
         }
     }
-
-
     useEffect(() => {
         getUsuarios()
     }, [setUsuarios])

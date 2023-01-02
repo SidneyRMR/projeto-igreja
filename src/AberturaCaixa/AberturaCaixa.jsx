@@ -24,7 +24,6 @@ const AberturaCaixa = () => {
 
     // Este trecho de codigo serve para verificar se os inputs possuem valores válidos
     const [caixaValorEntrada, setCaixaValorEntrada] = useState()
-
     const handleCaixaValorEntradaChange = (event) => {
         setCaixaValorEntrada(event.target.value);
     }
@@ -48,6 +47,13 @@ const AberturaCaixa = () => {
         };
     }, []);
 
+    // este trecho so mostrará o botão adm caso o usuario tiver for administativo
+    const [isAdmin, setIsAdmin] = useState(false)
+    useEffect(() => {
+        usuario.administrativo === 'S' ? setIsAdmin(true) : setIsAdmin(false);
+      }, [usuario.administrativo]);
+    
+    
 
     return (
         <Container fluid='true'>
@@ -86,8 +92,12 @@ const AberturaCaixa = () => {
             <Row>
                 <Col>
 
-                    {/* Exibe o botão de menu */}
-                    <button style={{ width: '200px' }} onClick={() => setIsOpen(!isOpen)}>Administrativo</button>
+                    {/* Exibe o botão de menu */}   
+                    {isAdmin && (
+                        <button style={{ width: '200px' }} onClick={() => setIsOpen(!isOpen)}>
+                            Administrativo
+                        </button>
+                    )}
                     {/* Exibe o menu se o estado isOpen for verdadeiro */}
                     {isOpen && (
                         <div >
