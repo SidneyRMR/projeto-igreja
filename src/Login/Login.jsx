@@ -60,7 +60,7 @@ const Login = () => {
             <br />
             <Row>
                 <Col >
-                    <div>Digite seu nome de usuário:</div>
+                    <div>Insira seu login:</div>
                 </Col>
             </Row>
             <Row>
@@ -71,7 +71,7 @@ const Login = () => {
             <br />
             <Row>
                 <Col>
-                    <div>Digite sua senha:</div>
+                    <div>Insira sua senha:</div>
                 </Col>
             </Row>
             <Row>

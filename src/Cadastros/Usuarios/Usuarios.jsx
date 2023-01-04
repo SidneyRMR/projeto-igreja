@@ -40,6 +40,11 @@ const Usuarios = () => {
         return (
             <div  >
                 <ToastContainer/>
+                <div className='title d-flex justify-content-between align-center p-1' >
+                    <button className='botaoTitle' onClick={() => window.location.href = "/abertura-caixa"}>Voltar</button>
+                    Lista de Usuários
+                    <button className="botaoTitle" onClick={() => window.location.href = "/cadastros/usuarios/cadusuario"}>Novo</button>
+                </div>
                 <table className='tabela'>
                     <thead>
                         <tr>
@@ -69,11 +74,7 @@ const Usuarios = () => {
                         }
                     </tbody>
                 </table>
-                <div>
-                    <button id="cadastrar" onClick={() => window.location.href = "/cadastros/usuarios/cadusuario"}>Cadastrar</button>
-                    <button id="voltar" onClick={() => window.location.href = "/abertura-caixa"}>Voltar</button>
 
-                </div>
 
             </div>
         )

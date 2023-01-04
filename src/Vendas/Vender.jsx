@@ -4,14 +4,17 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import InfUsuario from '../InfUsuario'
-// import InfVendaAtual from '../InfVendaAtual'
 
 const Vender = () => {
 
-    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const [isModalPgtoOpen, setIsModalPgtoOpen] = useState(false);
+    const [isModalSangriaOpen, setIsModalSangriaOpen] = useState(false);
     const [precoTotal, setPrecoTotal] = useState(0)
     const [bebidas, setBebidas] = useState([])
     const [comidas, setComidas] = useState([])
+    
+    const [caixa, setCaixa] = useState([])
 
     const [showPixInput, setShowPixInput] = useState(false);
     const [showDinheiroInput, setShowDinheiroInput] = useState(false);
@@ -31,20 +34,70 @@ const Vender = () => {
         setShowDebitoInput(event.target.value === 'Débito');
     }
 
-    // Este trecho busca os produtos no BD e seta os valores na const produtos
-    const [produtos, setProdutos] = useState([])
-    const getProdutos = async () => {
-        try {
-            const res = await axios.get("http://localhost:8800/produtos")
-            setProdutos(res.data.sort((a, b) => (a.id > b.id ? 1 : -1)))
-        } catch (error) {
-            toast.error(error)
+ // Função que altera um caixa existente
+ const alteraCaixa = async (id, nome, preco, medida, tipo) => {
+    if (!nome || !preco || !medida || !tipo) {
+        toast.error('Todos os campos devem estar preenchidos!', {
+            position: toast.POSITION.TOP_CENTER,
+        })
+        return
+    }
+    if (isNaN(preco)) {
+        toast.error('O preço deve ser um número!', {
+            position: toast.POSITION.TOP_CENTER,
+        })
+        return
+    }
+    try {
+        const res = await axios.put(`http://localhost:8800/caixas/${id}`, {
+            id,
+            nome,
+            preco,
+            medida,
+            tipo,
+        })
+        toast.success(`${res.data} alterado com sucesso`, {
+            position: toast.POSITION.TOP_CENTER,
+        })
+        return (res.data, (window.location.href = '/cadastros/caixas'))
+    } catch (error) {
+        toast.error(error)
+    }
+}
+
+    function salvaSangria() {
+        const valSangria = document.querySelector('.valSangria').value;
+        const descSangria = document.querySelector('.descSangria').value;
+        console.log(valSangria)
+        if (valSangria > 0) {
+            setCaixa({
+                ...caixa,
+                valSangria: valSangria,
+                descSangria: descSangria
+            });
+        } else {
+            toast.error('Digite um valor válido')
+            setIsModalSangriaOpen(true)
         }
     }
-    useEffect(() => {
-        getProdutos()
-    }, [setProdutos])
-    // fim do trecho 
+
+    // Este trecho busca os produtos no BD e seta os valores na const produtos
+
+
+        // Este trecho busca os produtos no BD e seta os valores na const produtos
+        const [produtos, setProdutos] = useState([])
+        const getProdutos = async () => {
+            try {
+                const res = await axios.get("http://localhost:8800/produtos")
+                setProdutos(res.data.sort((a, b) => (a.id > b.id ? 1 : -1)))
+            } catch (error) {
+                toast.error(error)
+            }
+        }
+        useEffect(() => {
+            getProdutos()
+        }, [setProdutos])
+        // fim do trecho 
 
     // aqui eu preciso trabalhar com 2 objetos que irao conversar entre si,
     /*objeto caixa e objeto compras pedido,
@@ -55,13 +108,9 @@ const Vender = () => {
             dataHoraAbertura,
             dataHoraFechamento,
             id_compras, que tera:
-                id_compras,
                 id_compra,
-                dataHoraFechamentoCompra,
                 id_produto,
                 quantidade,
-                val_produto,
-                val_total(soma),
     */
 
     // Declare a list of objects and a state for the form input values
@@ -150,15 +199,17 @@ const Vender = () => {
             {InfUsuario()}
 
             {/* MENU SUSPENSO */}
-            <div style={{ position: 'fixed', top: '5px', left: '5px', zIndex: 1 }}>
+            <div style={{ position: 'fixed', top: '1.5px', left: '5px', zIndex: 1 }}>
                 {/* Exibe o botão de menu */}
                 <button onClick={() => setIsOpen(!isOpen)}>Menu</button>
                 {/* Exibe o menu se o estado isOpen for verdadeiro */}
                 {isOpen && (
-                    <div style={{ position: 'fixed', top: '5px', left: '5px' }}>
+                    <div style={{ position: 'fixed', top: '1.5px', left: '5px' }}>
                         <button onClick={() => setIsOpen(!isOpen)}>Menu</button>
-                        <button style={{ position: 'fixed', top: '46px', left: '5px', width: '150px' }} onClick={() => window.location.href = "/sangria"}>Sangria</button>
-                        <button style={{ position: 'fixed', top: '86px', left: '5px', width: '150px' }} onClick={() => { window.location.href = "/fechamento-caixa" }}>Fechamento Caixa</button>
+                        <button style={{ position: 'fixed', top: '46px', left: '5px', width: '150px' }} onClick={() => { setIsModalSangriaOpen(true) }}>Sangria</button>
+                        <button style={{ position: 'fixed', top: '86px', left: '5px', width: '150px' }} onClick={() => { 
+                            // setCaixa
+                            window.location.href = "/fechamento-caixa" }}>Fechamento Caixa</button>
                         <button style={{ position: 'fixed', top: '126px', left: '5px', width: '150px' }} onClick={() => {
                             window.location.href = "/"
                             sessionStorage.removeItem('usuario');
@@ -168,57 +219,59 @@ const Vender = () => {
                 )}
             </div>
 
-            <Container fluid='true'>
+            <Container fluid='true' >
                 <Row>
-                    <Col sm={7}>
-                        {/* <div className='title'>Produtos</div> */}
-                        {/* BOTÕES DE PRODUTOS */}
-
-
-                        <div className='title'>Bebidas</div>
-                        {bebidas && bebidas.map((produto, i) => {
-                            return (
-                                <button
-                                    key={i}
-                                    onClick={() => {
+                    <Col  sm={8}  xs={5}>
+                    {/* BOTÕES DE PRODUTOS */}
+                    <div>
+                            <div className='title'>Bebidas</div>
+                            {bebidas && bebidas.map((produto, i) => {
+                                return (
+                                    <button
+                                        key={i}
+                                        onClick={() => {
                                         addProduto(produto.nome, produto.preco, produto.medida)
                                     }}
-                                    className={produto.tipo === 'Comida' ? 'ehComida' : 'nEhComida'
-                                    }>
-                                    <div>
-                                        {produto.nome} <br />
-                                        <div style={{ fontSize: '20px' }}>
-                                            {produto.preco.toFixed(2).replace('.', ',')}
+                                        className={produto.tipo === 'Comida' ? 'ehComida' : 'nEhComida'
+                                        }>
+                                        <div>
+                                            <div style={{ fontSize: '12px' }}>
+                                                {produto.nome}
+                                            </div>
+                                            <div style={{ fontSize: '18px' }}>
+                                                {produto.preco.toFixed(2).replace('.', ',')}
+                                            </div>
                                         </div>
-                                    </div>
-                                </button>
-                            )
-                        })}
-                        <hr />
-                        <div className='title'>Comidas</div>
-                        {comidas && comidas.map((produto, i) => {
-                            return (
-                                <button
-                                    key={i}
-                                    onClick={() => {
-                                        addProduto(produto.nome, produto.preco, produto.medida)
-                                    }}
-                                    className={produto.tipo === 'Comida' ? 'ehComida' : 'nEhComida'}>
-                                    <div>
-                                        {produto.nome} <br />
-                                        <div style={{ fontSize: '20px' }}>
-                                            {produto.preco.toFixed(2).replace('.', ',')}
+                                    </button>
+                                )
+                            })}
+                            <div className='title'>Comidas</div>
+                            {comidas && comidas.map((produto, i) => {
+                                return (
+                                    <button
+                                        key={i}
+                                        onClick={() => {
+                                            addProduto(produto.nome, produto.preco, produto.medida)
+                                        }}
+                                        className={produto.tipo === 'Comida' ? 'ehComida' : 'nEhComida'}>
+                                        <div>
+                                            <div style={{ fontSize: '12px' }}>
+                                                {produto.nome}
+                                            </div>
+                                            <div style={{ fontSize: '20px' }}>
+                                                {produto.preco.toFixed(2).replace('.', ',')}
+                                            </div>
                                         </div>
-                                    </div>
-                                </button>
-                            )
-                        })}
+                                    </button>
+                                )
+                            })}
+                        </div>
                         {/* FIM BOTÕES DE PRODUTOS */}
                     </Col>
 
-                    <Col sm={5}>
-                        <div className='title'>Resumo Pedido</div>
                         {/* RESUMO DO PEDIDO */}
+                    <Col sm={4} xs={5}>
+                        <div className='title'>Resumo Pedido</div>
                         <Table className='tabela' bordered>
                             <thead>
                                 <tr>
@@ -249,9 +302,9 @@ const Vender = () => {
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <td style={{ fontSize: '30px' }} colSpan={3}>
+                                    <td style={{ fontSize: '18px' }} colSpan={3}>
                                         Total do Pedido:</td>
-                                    <td style={{ fontSize: '30px' }} colSpan={3}>
+                                    <td style={{ fontSize: '18px' }} colSpan={3}>
                                         R$ {typeof precoTotal === 'number'
                                             ? (precoTotal.toFixed(2).replace('.', ',')) : ''}</td>
                                 </tr>
@@ -259,8 +312,7 @@ const Vender = () => {
                                     <td colSpan={6} >
                                         <button
                                             className="w-100"
-                                            onClick={() => {
-                                                setIsModalOpen(true)}}>Pagamento
+                                            onClick={() => { setIsModalPgtoOpen(true) }}>Pagamento
                                         </button>
                                     </td>
                                 </tr>
@@ -270,96 +322,138 @@ const Vender = () => {
                     </Col>
                 </Row>
             </Container>
-            <Modal show={isModalOpen} onHide={() => setIsModalOpen(false)}>
-                                            <Modal.Header closeButton className="title">
-                                                <Modal.Title className="title">Selecione as opções de pagamento</Modal.Title>
-                                            </Modal.Header>
-                                            <Modal.Body>
-                                                <form >
-                                                    <div className="form-check">
-                                                        <input className="form-check-input" type="checkbox" name="payment" value="Pix"
-                                                            onChange={handlePaymentPix} />
-                                                        <label className="form-check-label" >
-                                                            Pix
-                                                        </label>
-                                                        {showPixInput && (
-                                                            <div className="form-group">
-                                                                <label htmlFor="pixAmount">Valor em Pix</label>
-                                                                <input type="text" className="form-control" />
-                                                            </div>
-                                                        )}
-                                                    </div>
-                                                    <div className="form-check">
-                                                        <input className="form-check-input" type="checkbox" name="payment" value="Dinheiro"
-                                                            onChange={handlePaymentDinheiro} />
-                                                        <label className="form-check-label" >
-                                                            Dinheiro
-                                                        </label>
-                                                        {showDinheiroInput && (
-                                                            <div className="form-group">
-                                                                <label htmlFor="pixAmount">Valor em Dinheiro</label>
-                                                                <input type="text" className="form-control" />
-                                                            </div>
-                                                        )}
-                                                    </div>
-                                                    <div className="form-check">
-                                                        <input className="form-check-input" type="checkbox" name="payment" value="Crédito"
-                                                            onChange={handlePaymentCredito} />
-                                                        <label className="form-check-label" >
-                                                            Crédito
-                                                        </label>
-                                                        {showCreditoInput && (
-                                                            <div className="form-group">
-                                                                <label htmlFor="pixAmount">Valor em Crédito</label>
-                                                                <input type="text" className="form-control" />
-                                                            </div>
-                                                        )}
-                                                    </div>
-                                                    <div className="form-check">
-                                                        <input className="form-check-input" type="checkbox" name="payment" value="Débito"
-                                                            onChange={handlePaymentDebito} />
-                                                        <label className="form-check-label">
-                                                            Débito
-                                                        </label>
-                                                        {showDebitoInput && (
-                                                            <div className="form-group">
-                                                                <label htmlFor="pixAmount">Valor em Débito</label>
-                                                                <input type="text" className="form-control" />
-                                                            </div>
-                                                        )}
-                                                    </div>
 
-                                                    <Container className='title text-center' style={{fontSize:'20px', fontWeight: '400'}}>
-                                                        <Row > 
-                                                            <Col>
-                                                                Total à pagar 
-                                                            </Col>
-                                                            <Col>
-                                                                R$ {typeof precoTotal === 'number'
-                                                                    ? (precoTotal.toFixed(2).replace('.', ',')) : ''}
-                                                            </Col>
-                                                        </Row>
-                                                        <Row > 
-                                                            <Col>
-                                                                Troco
-                                                            </Col>
-                                                            <Col>
-                                                                R$ {-precoTotal }
-                                                            </Col>
-                                                        </Row>
-                                                        <Row>
-                                                            <Col>
-                                                                <button className="w-100"> 
-                                                                    <div style={{fontSize:'25px'}}>
-                                                                        Confirmar Pagamento
-                                                                    </div>
-                                                                </button>
-                                                            </Col>
-                                                        </Row>
-                                                    </Container>
-                                                </form>
-                                            </Modal.Body>
-                                        </Modal>
+            {/* Modal de pagamento */}
+            <Modal show={isModalPgtoOpen} onHide={() => setIsModalPgtoOpen(false)}>
+                <Modal.Header closeButton className="title">
+                    <Modal.Title className="title">Formas de pagamento</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <form >
+                        <div className="form-check">
+                            <input className="form-check-input" type="checkbox" name="payment" value="Pix"
+                                onChange={handlePaymentPix} />
+                            <label className="form-check-label" >
+                                Pix
+                            </label>
+                            {showPixInput && (
+                                <div className="form-group">
+                                    <label htmlFor="pixAmount">Valor em Pix</label>
+                                    <input type="text" className="form-control" />
+                                </div>
+                            )}
+                        </div>
+                        <div className="form-check">
+                            <input className="form-check-input" type="checkbox" name="payment" value="Dinheiro"
+                                onChange={handlePaymentDinheiro} />
+                            <label className="form-check-label" >
+                                Dinheiro
+                            </label>
+                            {showDinheiroInput && (
+                                <div className="form-group">
+                                    <label htmlFor="pixAmount">Valor em Dinheiro</label>
+                                    <input type="text" className="form-control" />
+                                </div>
+                            )}
+                        </div>
+                        <div className="form-check">
+                            <input className="form-check-input" type="checkbox" name="payment" value="Crédito"
+                                onChange={handlePaymentCredito} />
+                            <label className="form-check-label" >
+                                Crédito
+                            </label>
+                            {showCreditoInput && (
+                                <div className="form-group">
+                                    <label htmlFor="pixAmount">Valor em Crédito</label>
+                                    <input type="text" className="form-control" />
+                                </div>
+                            )}
+                        </div>
+                        <div className="form-check">
+                            <input className="form-check-input" type="checkbox" name="payment" value="Débito"
+                                onChange={handlePaymentDebito} />
+                            <label className="form-check-label">
+                                Débito
+                            </label>
+                            {showDebitoInput && (
+                                <div className="form-group">
+                                    <label htmlFor="pixAmount">Valor em Débito</label>
+                                    <input type="text" className="form-control" />
+                                </div>
+                            )}
+                        </div>
+
+                        <Container className='title text-center' style={{ fontSize: '20px', fontWeight: '400' }}>
+                            <Row >
+                                <Col>
+                                    Total à pagar
+                                </Col>
+                                <Col>
+                                    R$ {typeof precoTotal === 'number'
+                                        ? (precoTotal.toFixed(2).replace('.', ',')) : ''}
+                                </Col>
+                            </Row>
+                            <Row >
+                                <Col>
+                                    Troco
+                                </Col>
+                                <Col>
+                                    R$ {-precoTotal}
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col>
+                                    <button className="w-100">
+                                        <div style={{ fontSize: '25px' }}>
+                                            Confirmar Pagamento
+                                        </div>
+                                    </button>
+                                </Col>
+                            </Row>
+                        </Container>
+                    </form>
+                </Modal.Body>
+            </Modal>
+
+            {/* Modal de sangria */}
+            <Modal show={isModalSangriaOpen} onHide={() => { setIsModalSangriaOpen(false) }}>
+                <Modal.Header closeButton className="title">
+                    <Modal.Title className="title">Sangria</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <form >
+                        <div>
+                            <div className="form-group">
+                                <div className="form-group">
+                                    <label>Valor da sangria</label><br />
+                                    <input type="number" className="valSangria form-control" />
+                                </div>
+                                <br />
+                                <div className="form-group ">
+                                    <label>Motivo da sangria</label><br />
+                                    <textarea type="text" className="descSangria form-control" />
+                                </div>
+                                <br />
+                                <button className="w-100 " onClick={() => {
+                                    const valor = document.querySelector('.valSangria').value;
+                                    // Verifica se o valor é válido
+                                    if (valor > 0) {
+                                        // Se o valor for válido, chama a função
+                                        salvaSangria()
+                                    } else {
+                                        // Se o valor não for válido, exibe uma mensagem de err
+                                        alert('Por favor, insira um valor válido.')
+                                    }
+                                }}>
+                                    <div style={{ fontSize: '25px' }}>
+                                        Efetura Sangria
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </Modal.Body>
+            </Modal>
         </div>
     )
 }

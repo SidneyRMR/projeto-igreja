@@ -42,7 +42,12 @@ const Produtos = () => {
     return (
         <div  >
             <ToastContainer/>
-            <table className='tabela'>
+            <div className='title d-flex justify-content-between p-1' >
+                <button className="botaoTitle " onClick={() => window.location.href = `/abertura-caixa`}>Voltar</button>
+                Lista de Produtos
+                <button className="botaoTitle" onClick={() => window.location.href = `/cadastros/produtos/cadproduto`}>Novo</button>
+            </div>
+            <table className='tabela p-100' >
                 <thead>
                     <tr >
                         {/* <th>Id</th> */}
@@ -71,8 +76,7 @@ const Produtos = () => {
         })}
                 </tbody>
             </table>
-            <button className="cadastrar" onClick={() => window.location.href = `/cadastros/produtos/cadproduto`}>Cadastrar</button>
-            <button className="voltar" onClick={() => window.location.href = `/abertura-caixa`}>Voltar</button>
+
         </div>
     )
 }

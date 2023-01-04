@@ -1,5 +1,7 @@
 .App {
   text-align: center;
+  
+  font-size: 13px;
 }
 
 button {
@@ -8,23 +10,31 @@ button {
   background-color: #C55A11;
   color: white;
   border: 1px solid;
+  border-radius: 20px;
+}
+button:hover {
+  background-color: #aa541b;
 }
 
 .ehComida {
   background-color: #D2691E;
-  width: 150px;
+  width: 120px;
 }
 
 .nEhComida {
   background-color: #FF6347;
-  width: 150px;
+  width: 120px;
+}
+.nEhComida:hover {
+  background-color: #f04628;
 }
 
 .tabela {
   width: 100%;
 }
 
-.tabela .Inpar {
+
+.tabela .Impar {
   background-color: #F8D7CD;
 }
 
@@ -36,10 +46,17 @@ button {
   width: 100%;
   padding: 1%;
   background-color: #aa541b;
-  font-size: 25px;
-  font-weight: 700;
+  font-size: 22px;
+  font-weight: 600;
   color: white;
 }
+.botaoTitle {
+  font-size: 12px;
+}
+.containerProdutos {
+  width: 100%;
+}
+
 
 thead,
 tfoot {
