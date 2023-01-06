@@ -43,7 +43,7 @@ const Produtos = () => {
         <div  >
             <ToastContainer/>
             <div className='title d-flex justify-content-between p-1' >
-                <button className="botaoTitle " onClick={() => window.location.href = `/abertura-caixa`}>Voltar</button>
+                <button className="botaoTitle" onClick={() => window.location.href = `/abertura-caixa`}>Voltar</button>
                 Lista de Produtos
                 <button className="botaoTitle" onClick={() => window.location.href = `/cadastros/produtos/cadproduto`}>Novo</button>
             </div>

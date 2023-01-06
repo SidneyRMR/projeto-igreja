@@ -34,36 +34,23 @@ const Vender = () => {
         setShowDebitoInput(event.target.value === 'Débito');
     }
 
- // Função que altera um caixa existente
- const alteraCaixa = async (id, nome, preco, medida, tipo) => {
-    if (!nome || !preco || !medida || !tipo) {
-        toast.error('Todos os campos devem estar preenchidos!', {
-            position: toast.POSITION.TOP_CENTER,
-        })
-        return
-    }
-    if (isNaN(preco)) {
-        toast.error('O preço deve ser um número!', {
-            position: toast.POSITION.TOP_CENTER,
-        })
-        return
-    }
-    try {
-        const res = await axios.put(`http://localhost:8800/caixas/${id}`, {
-            id,
-            nome,
-            preco,
-            medida,
-            tipo,
-        })
-        toast.success(`${res.data} alterado com sucesso`, {
-            position: toast.POSITION.TOP_CENTER,
-        })
-        return (res.data, (window.location.href = '/cadastros/caixas'))
-    } catch (error) {
-        toast.error(error)
-    }
-}
+//  // Função que altera um caixa existente
+//  const alteraCaixa = async (id, status) => {
+
+//     try {
+//         const res = await axios.put(`http://localhost:8800/caixas/${id}`, {
+//             id,
+//             status
+
+//         })
+//         toast.success(`${res.data} alterado com sucesso`, {
+//             position: toast.POSITION.TOP_CENTER,
+//         })
+//         return (res.data, (window.location.href = '/cadastros/caixas'))
+//     } catch (error) {
+//         toast.error(error)
+//     }
+// }
 
     function salvaSangria() {
         const valSangria = document.querySelector('.valSangria').value;
@@ -199,12 +186,12 @@ const Vender = () => {
             {InfUsuario()}
 
             {/* MENU SUSPENSO */}
-            <div style={{ position: 'fixed', top: '1.5px', left: '5px', zIndex: 1 }}>
+            <div style={{ position: 'fixed', top: '2.5px', left: '5px', zIndex: 1 }}>
                 {/* Exibe o botão de menu */}
                 <button onClick={() => setIsOpen(!isOpen)}>Menu</button>
                 {/* Exibe o menu se o estado isOpen for verdadeiro */}
                 {isOpen && (
-                    <div style={{ position: 'fixed', top: '1.5px', left: '5px' }}>
+                    <div style={{ position: 'fixed', top: '2.5px', left: '5px' }}>
                         <button onClick={() => setIsOpen(!isOpen)}>Menu</button>
                         <button style={{ position: 'fixed', top: '46px', left: '5px', width: '150px' }} onClick={() => { setIsModalSangriaOpen(true) }}>Sangria</button>
                         <button style={{ position: 'fixed', top: '86px', left: '5px', width: '150px' }} onClick={() => { 

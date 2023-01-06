@@ -35,11 +35,11 @@ const FechamentoCaixa = () => {
                         <th>Sangria</th>
                         <th>Data Abertura</th>
                         <th>Data Fechamento</th>
-                        {/* <th>Debito</th>
+                        <th>Debito</th>
                         <th>Credito</th>
                         <th>Dinheiro</th>
-                        <th>Pix</th> */}
-                        {/* <th>Total de venda</th> */}
+                        <th>Pix</th>
+                        <th>Total de venda</th>
                         <th>Status</th>
                     </tr>
                 </thead>
@@ -51,8 +51,12 @@ const FechamentoCaixa = () => {
                             <td>{caixa.valorSangria}</td>
                             <td>{caixa.dataHoraAbertura}</td>
                             <td>{caixa.dataHoraFechamento}</td>
-                            <td>{caixa.id_festa}</td>
-                            <td>{caixa.id_usuario}</td>
+                            <td>{caixa.pgDebito}</td>
+                            <td>{caixa.pgCredito}</td>
+                            <td>{caixa.pgDinheiro}</td>
+                            <td>{caixa.pgPix}</td>
+                            {/* <td>{caixa.id_festa}</td> */}
+                            <td>{caixa.pgDebito+caixa.pgCredito+caixa.pgDinheiro+caixa.pgPix}</td>
                             <td>{caixa.status}</td>
                         </tr>
                         ))}

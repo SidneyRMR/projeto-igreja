@@ -3,27 +3,12 @@ import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
 import axios from 'axios';
 
 //falta passar os valores de entrada e nome do caixa para as proximas telas
 const AberturaCaixa = () => {
-
-
     // Recupera o valor do usuario da tela de login
     const usuario = JSON.parse(sessionStorage.getItem('usuario'));
-
-    const inputRef = React.createRef();
-    function TestValores(valEntrada) {
-        if (valEntrada > 0) {
-            // Se o valor for numérico, acessa a pagina de vendas e salva valor no storange
-            novoCaixa(valEntrada)
-        } else {
-            // Se o valor for inválido, exibe uma mensagem de erro
-            alert('Digite o valor de abertura de caixa!');
-            inputRef.current.focus();
-        }
-    }
 
     // Este trecho de codigo serve para verificar se os inputs possuem valores válidos
     const [caixaValorEntrada, setCaixaValorEntrada] = useState()
@@ -56,33 +41,61 @@ const AberturaCaixa = () => {
         usuario.tipo === 'Administrativo' ? setIsAdmin(true) : setIsAdmin(false);
     }, [usuario.tipo]);
 
-    const [caixas, setCaixas] = useState({})
-    const novoCaixa = async (valorAbertura, valorSangria = 0, dataHoraAbertura, dataHoraFechamento, status = 'Aberto', id_festa= 1, id_usuario) => {
+    // const [caixas, setCaixas] = useState({})
+    const novoCaixa = async (
+      valorAbertura, 
+      valorSangria = 0, 
+      dataHoraAbertura, 
+      dataHoraFechamento, 
+      pgDebito = 0,
+      pgCredito = 0,
+      pgDinheiro = 0,
+      pgPix = 0,
+      status = 'Aberto', 
+      id_festa= 1, 
+      id_usuario
+      ) => {
         const res = await axios.get('http://localhost:8800/caixas');
-        const caixasAbertos = res.data.filter(caixa => caixa.status === 'Aberto' && caixa.id_usuario === usuario.id);
+        const caixasAbertosDesteUsuario = res.data.filter(caixa => caixa.status === 'Aberto' && caixa.id_usuario === usuario.id);
+        
+        id_usuario = usuario.id
+
+        //data 
+        const dataAtual = new Date().toISOString().substring(0, 10)
+        let horaAtual = new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit', second: '2-digit' })
+        if (horaAtual.charAt(0) === '0') {
+          horaAtual = horaAtual.replace('0', '00')
+        }
+        const dataHoraAtual = `${dataAtual} ${horaAtual}`
+        dataHoraAbertura = dataHoraAtual
       
-        if (caixasAbertos.length > 0) {
-          const acessarCaixaAberto = window.confirm(`Tem ${caixasAbertos.length} caixa${caixasAbertos.length > 1 ? 's' : ''} aberto${caixasAbertos.length > 1 ? 's' : ''}. Acessar caixa aberto ou abrir novo caixa?`);
+        if (caixasAbertosDesteUsuario.length > 0) {
+          const acessarCaixaAberto = window.confirm
+            (`Acessar caixa aberto ou abrir novo caixa?`);
           if (!acessarCaixaAberto) {
             // Code to redirect the user to the open caixa object
           } else {
-            const id_usuario = usuario.id
-            const agora = new Date();
-            dataHoraAbertura = agora.toISOString().slice(0, -5);
       
             if (!valorAbertura) {
-              toast.error('Valor da abertura não disponível', {
+              toast.error('Digite um valor para abrir o caixa', {
                 position: toast.POSITION.TOP_CENTER,
               });
               return;
             }
             try {
               const res = await axios.post('http://localhost:8800/caixas', {
-                valorAbertura, valorSangria, dataHoraAbertura, dataHoraFechamento, status, id_festa, id_usuario
-              });
-              toast.success(`${res.data} salvo com sucesso`, {
-                position: toast.POSITION.TOP_CENTER,
-              });
+                valorAbertura, 
+                valorSangria, 
+                dataHoraAbertura, 
+                dataHoraFechamento, 
+                pgDebito, 
+                pgCredito, 
+                pgDinheiro,
+                pgPix,
+                status, 
+                id_festa, 
+                id_usuario
+              })
               return (
                 res.data,
                 window.location.href = `/vendas`
@@ -104,8 +117,18 @@ const AberturaCaixa = () => {
           }
           try {
             const res = await axios.post('http://localhost:8800/caixas', {
-              valorAbertura, valorSangria, dataHoraAbertura, dataHoraFechamento, status, id_festa, id_usuario
-            });
+              valorAbertura, 
+              valorSangria, 
+              dataHoraAbertura, 
+              dataHoraFechamento, 
+              pgDebito, 
+              pgCredito, 
+              pgDinheiro,
+              pgPix,
+              status, 
+              id_festa, 
+              id_usuario
+            })
             return (
               res.data,
               window.location.href = `/vendas`
@@ -116,9 +139,9 @@ const AberturaCaixa = () => {
         }
       }
       
-    useEffect(() => {
-        novoCaixa()
-    }, [setCaixas])
+    // useEffect(() => {
+    //     novoCaixa()
+    // }, [setCaixas])
     
     return (
         <Container fluid='true'>
@@ -140,14 +163,15 @@ const AberturaCaixa = () => {
             <Row>
                 <Col>
                     <div>Valor em caixa:</div>
-                    <input ref={inputRef} className='caixaValorEntrada' type="number" placeholder='Digite o valor'
-                        onChange={handleCaixaValorEntradaChange} />
+                    <input  className='caixaValorEntrada' type="number" placeholder='Digite o valor'
+                        onChange={handleCaixaValorEntradaChange} 
+                        />
                 </Col>
             </Row>
             <br />
             <Row>
                 <Col>
-                    <button onClick={() => TestValores(+caixaValorEntrada)}>Abrir caixa</button>
+                    <button onClick={() => novoCaixa(+caixaValorEntrada)}>Abrir caixa</button>
                     {/* <Vendas  caixa={caixa}/> */}
                     <button onClick={() => {
                         window.location.href = '/'
