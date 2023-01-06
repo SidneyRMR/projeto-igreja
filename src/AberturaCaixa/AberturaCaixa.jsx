@@ -8,10 +8,13 @@ const AberturaCaixa = () => {
   // Recupera o valor do usuario da tela de login
   const usuario = JSON.parse(sessionStorage.getItem('usuario'));
 
+  // const [caixas, setCaixas] = useState([])
+
   let valorAbertura = '';
   let valorSangria = '';
   let dataHoraAbertura = '';
   let dataHoraFechamento = '';
+  // let id_caixa = '';
   let id_compra = '';
   let id_festa = '';
   let id_usuario = ''
@@ -49,13 +52,54 @@ const AberturaCaixa = () => {
   }, [usuario.tipo]);
 
 
+  // excluir caixa caso nao tiver nenhuma compra ainda
+  // const excluiCaixa = async (id_caixa) => {
+  //   if (id_caixa) {
+  //     await axios
+  //       .delete('http://localhost:8800/caixas/' + id_caixa)
+  //       .then(({ data }) => {
+  //         const newArray = caixas.filter((caixa) => caixa.id_caixa !== id_caixa)
+  //         setCaixas(newArray)
+  //         console.log(`${nome} excluído com sucesso`)
+  //       })
+  //       .catch(({ data }) => console.log(data))
+  //   }
+  // }
 
 
 
-  // const [caixas, setCaixas] = useState({})
+
+  const fechaCaixa = async (id_caixa) => {
+    if (!id_caixa) {
+      console.error('Não tem este caixa no registro.');
+      return;
+    }
+    status_caixa = 'Fechado'
+    try {
+      const res = await axios.put(`http://localhost:8800/caixas/${id_caixa}`, {
+        id_caixa, 
+        valorAbertura, 
+        valorSangria, 
+        dataHoraAbertura, 
+        dataHoraFechamento, 
+        id_compra ,
+        id_festa , 
+        id_usuario,
+        status_caixa,
+      });
+      console.log(`Caixa ${id_caixa} atualizado para  ${status_caixa}.'`);
+      return res.data;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  
+
+
+
   const abrirCaixa = async () => {
     // Verifica se o valor de abertura foi digitado
-    if (!caixaValorEntrada) {
+    if (isNaN(caixaValorEntrada) || caixaValorEntrada <= 0) {
       window.confirm('Digite um valor para abrir o caixa.');
       
     } else {
@@ -63,34 +107,38 @@ const AberturaCaixa = () => {
     // Obtém a lista de caixas abertos do usuário atual
     const res = await axios.get('http://localhost:8800/caixas');
     const caixasAbertosDesteUsuario = res.data.filter(caixa => caixa.status_caixa === 'Aberto' && caixa.id_usuario === usuario.id);
-    console.log(caixasAbertosDesteUsuario)
-
+    
     if (caixasAbertosDesteUsuario.length === 0) {
       novoCaixa()
-    } else
+      
+      
+    } else if (caixasAbertosDesteUsuario.length > 0) {
 
-    // Verifica se o usuário já possui um caixa aberto
-    if (caixasAbertosDesteUsuario.length > 0) {
       const acessarCaixaAberto = window.confirm(
         `Você possui um caixa aberto! 
-    Clique em OK para acessa-lo, ou Cancelar para abrir um novo.`
+Clique em OK para acessá-lo, ou Cancelar para abrir um novo.`
       );
       if (acessarCaixaAberto) {
 
-        //Esta função irá entrar no caixa aberto mais recente !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        // Classifica os caixas por ID em ordem decrescente
-        const caixasAbertosClassificados = caixasAbertosDesteUsuario.sort((a, b) => b.id_caixa - a.id_caixa)
-        // Retorna o primeiro caixa da lista (o caixa com o ID mais alto)
-        const caixaMaisRecente = caixasAbertosClassificados[0];
-        console.log(caixaMaisRecente)
         window.location.href = '/vendas';
       } else {
-
-        novoCaixa()
+        const objCaixaMaisRecente = caixaMaisRecente(caixasAbertosDesteUsuario).id_caixa
+        console.log('Id mais recente: ', objCaixaMaisRecente)
+        fechaCaixa(objCaixaMaisRecente)
+        // novoCaixa()
 
       }
     };
   }}
+
+  const caixaMaisRecente = (caixasAbertos) => {
+            //Esta função irá entrar no caixa aberto mais recente
+        // Classifica os caixas por ID em ordem decrescente
+        const caixasAbertosClassificados = caixasAbertos.sort((a, b) => b.id_caixa - a.id_caixa)
+        // Retorna o primeiro caixa da lista (o caixa com o ID mais alto)
+        return caixasAbertosClassificados[0];
+  }
+
   const novoCaixa = async () => {
     // Obtém a data e hora atuais
     const dataAtual = new Date().toISOString().substring(0, 10);
@@ -110,14 +158,14 @@ const AberturaCaixa = () => {
     id_usuario = usuario.id
     status_caixa = 'Aberto'
     
-    console.log(valorAbertura,
-      valorSangria,
-      dataHoraAbertura,
-      dataHoraFechamento,
-      id_compra,
-      id_festa,
-      id_usuario,
-      status_caixa)
+    // console.log(valorAbertura,
+    //   valorSangria,
+    //   dataHoraAbertura,
+    //   dataHoraFechamento,
+    //   id_compra,
+    //   id_festa,
+    //   id_usuario,
+    //   status_caixa)
 
     // Cria o novo caixa
     try {
