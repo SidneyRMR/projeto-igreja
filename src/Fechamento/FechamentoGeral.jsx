@@ -43,11 +43,13 @@ const FechamentoGeral = () => {
                          <th>Sangria</th>
                          <th>Data Abertura</th>
                          <th>Data Fechamento</th>
-                         <th>Debito</th>
+                         <th>Data Fechamento</th>
+                         <th>Hora da Compra?</th>
+                         {/* <th>Debito</th>
                          <th>Credito</th>
                          <th>Dinheiro</th>
                          <th>Pix</th>
-                         <th>Total de venda</th>
+                         <th>Total de venda</th> */}
                          <th>Status</th>
                          <th>Ações</th>
                      </tr>
@@ -60,14 +62,21 @@ const FechamentoGeral = () => {
                              <td>{caixa.valorSangria}</td>
                              <td>{caixa.dataHoraAbertura}</td>
                              <td>{caixa.dataHoraFechamento}</td>
-                             <td>{caixa.pgDebito}</td>
-                             <td>{caixa.pgCredito}</td>
-                             <td>{caixa.pgDinheiro}</td>
-                             <td>{caixa.pgPix}</td>
-                             {/* <td>{caixa.id_festa}</td> */}
-                             <td>{caixa.pgDebito+caixa.pgCredito+caixa.pgDinheiro+caixa.pgPix}</td>
-                             <td>{caixa.status}</td>
-                             <td><button onClick={() => window.location.href="/detalhe-caixa"}>Detalhes</button></td>
+                             {/* Preciso imporar este valores do tb_compras acessando pelo id_compra */} 
+
+                            {/* O ideal seria vazer uma view desta tabela vw_fechamento_caixa!!! */}
+
+                             <td>{caixa.id_compra}</td>{/* Poderia por hora da compra */}
+                             {/* <td>{tb_compras.pgDebito}</td>
+                             <td>{compras.pgCredito}</td>
+                             <td>{compras.pgDinheiro}</td>
+                             <td>{compras.pgPix}</td> */}
+                             {/* <td>{caixa.pgDebito+caixa.pgCredito+caixa.pgDinheiro+caixa.pgPix}</td> */}
+                             <td>{caixa.id_festa}</td>
+                             <td>{caixa.status_caixa}</td>
+                             
+                             {/* Passar param para que acesse o caixa selecionado */}
+                             <td><button onClick={() => window.location.href=`/detalhe-caixa/${caixa.id_caixa}`}>Detalhes</button></td>
                          </tr>
                          ))}
  

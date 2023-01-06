@@ -20,10 +20,15 @@ const App = () => {
   const [usuarioLogado, setUsuarioLogado] = useState(false)
 
   const efetuarLogin = () => {
+    console.log(usuarioLogado)
     setUsuarioLogado(true)
-  }
-  const verificarUsuarioLogado = () => {
-    if (!usuarioLogado) { 
+    }
+    
+    const verificarUsuarioLogado = () => {
+    // console.log(usuarioLogado)
+
+    // vou deixar como se usuario estiver false não retornar p /, pois ainda nao consegui fazer setar como true usando Login como acesso
+    if (usuarioLogado) { 
       return <Navigate to="/" />
     }
   }
@@ -31,10 +36,9 @@ const App = () => {
 
   return (
     <div className='App'>
-
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Login efetuarLogin={efetuarLogin}/> } />
+        <Route path="/" element={<Login efetuarLogin={efetuarLogin}/>} />
         <Route path="/vendas" element={verificarUsuarioLogado() || <Vendas />} />
         <Route path="/fechamento-geral" element={verificarUsuarioLogado() || <FechamentoGeral />} />
         <Route path="/fechamento-caixa" element={verificarUsuarioLogado() || <FechamentoCaixa />} />

@@ -57,7 +57,7 @@ const FechamentoCaixa = () => {
                             <td>{caixa.pgPix}</td>
                             {/* <td>{caixa.id_festa}</td> */}
                             <td>{caixa.pgDebito+caixa.pgCredito+caixa.pgDinheiro+caixa.pgPix}</td>
-                            <td>{caixa.status}</td>
+                            <td>{caixa.status_caixa}</td>
                         </tr>
                         ))}
 

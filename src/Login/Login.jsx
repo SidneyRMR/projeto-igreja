@@ -5,10 +5,8 @@ import { useEffect, useState } from 'react';
 import diocese from "../img/diocese.png"
 import { Container, Row, Col } from 'react-bootstrap'
 
-const Login = ({ props }) => {
-
+const Login = (props) => {
     const [usuarios, setUsuarios] = useState([])
-    // const [onEdit, setonEdit] = useState(null)
 
     const getusuarios = async () => {
         try{
@@ -28,9 +26,7 @@ const Login = ({ props }) => {
 
         if (usuarioEncontrado) {
             // Se o usuário e senha forem válidos, redireciona para a página de abertura de caixa
-            // if (props.efetuarLogin) {
-                props.efetuarLogin()
-            // }
+                console.log(props.efetuarLogin())
                 window.location.href = `/abertura-caixa`
                 sessionStorage.setItem('usuario', JSON.stringify(usuarioEncontrado));
 
@@ -56,7 +52,7 @@ const Login = ({ props }) => {
 
     return (
         <Container fluid='true'>
-            <form action='' method="get">
+            
 
            
             <Row>
@@ -98,7 +94,6 @@ const Login = ({ props }) => {
                     <img src={diocese} alt="" sizes="500x300" />
                 </Col>
             </Row>
-            </form>
         </Container>
 
     )
