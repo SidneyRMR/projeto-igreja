@@ -14,8 +14,8 @@ const AberturaCaixa = () => {
   let dataHoraFechamento = '';
   let id_compra = '';
   let id_festa = '';
-  const [id_usuario,setId_usuario] = useState('');
-  const [status_caixa, setStatus_caixa] = useState('');
+  let id_usuario = ''
+  let status_caixa = ''
 
   // Este trecho de codigo serve para verificar se os inputs possuem valores válidos
   const [caixaValorEntrada, setCaixaValorEntrada] = useState()
@@ -105,11 +105,19 @@ const AberturaCaixa = () => {
     valorSangria = 0
     dataHoraAbertura = dataHoraAtual
     dataHoraFechamento = null
-    id_compra = null
+    id_compra = 1
     id_festa = 1
-    setId_usuario(usuario.id)
-    setStatus_caixa('Aberto')
-    console.log(status_caixa)
+    id_usuario = usuario.id
+    status_caixa = 'Aberto'
+    
+    console.log(valorAbertura,
+      valorSangria,
+      dataHoraAbertura,
+      dataHoraFechamento,
+      id_compra,
+      id_festa,
+      id_usuario,
+      status_caixa)
 
     // Cria o novo caixa
     try {
