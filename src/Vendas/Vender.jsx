@@ -1,21 +1,32 @@
 import { useEffect, useState } from 'react';
 import { Container, Row, Col, Table, Modal } from 'react-bootstrap';
 import axios from 'axios';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import InfUsuario from '../InfUsuario'
 
 const Vender = () => {
 
-    const caixaNovo = JSON.parse(sessionStorage.getItem('caixa'));
+    // const caixa = JSON.parse(sessionStorage.getItem('caixa'));
+
+    let valorAbertura = '';
+    let valorSangria = '';
+    let dataHoraAbertura = '';
+    let dataHoraFechamento = '';
+    let id_caixa = '';
+    let id_compra = '';
+    let id_festa = '';
+    let id_usuario = ''
+    let status_caixa = ''
 
     const [isModalPgtoOpen, setIsModalPgtoOpen] = useState(false);
     const [isModalSangriaOpen, setIsModalSangriaOpen] = useState(false);
     const [precoTotal, setPrecoTotal] = useState(0)
     const [bebidas, setBebidas] = useState([])
     const [comidas, setComidas] = useState([])
-    
-    const [caixa, setCaixa] = useState(caixaNovo)
+
+    const [caixa, setCaixa] = useState(JSON.parse(sessionStorage.getItem('caixa')))
+    const [valorNovaSangria, setValorNovaSangria] = useState(caixa.valorSangria);
+    // const [descricaoSangria, setDescricaoSangria] = useState(caixa.descSangria);
+
 
     const [showPixInput, setShowPixInput] = useState(false);
     const [showDinheiroInput, setShowDinheiroInput] = useState(false);
@@ -35,56 +46,66 @@ const Vender = () => {
         setShowDebitoInput(event.target.value === 'Débito');
     }
 
-//  // Função que altera um caixa existente
-//  const alteraCaixa = async (id, status) => {
+    function handleSangriaValor(event) {
+        setValorNovaSangria(event.target.value);
+    }
+    // function handleSangriaDescrição(event) {
+    //     setShowDebitoInput(event.target.value);
+    // }
 
-//     try {
-//         const res = await axios.put(`http://localhost:8800/caixas/${id}`, {setCaixa//             id,
-//             status
-
-//         })
-//         toast.success(`${res.data} alterado com sucesso`, {
-//             position: toast.POSITION.TOP_CENTER,
-//         })
-//         return (res.data, (window.location.href = '/cadastros/caixas'))
-//     } catch (error) {
-//         toast.error(error)
-//     }
-// }
-
-    function salvaSangria() {
-        const valSangria = document.querySelector('.valSangria').value;
-        const descSangria = document.querySelector('.descSangria').value;
-        console.log(valSangria)
-        if ((valSangria > 0) && (valSangria < caixa)) {
-            setCaixa({
-                ...caixa,
-                valSangria: valSangria,
-                descSangria: descSangria
-            });
+    const salvaSangria = async () => {
+        console.log(valorNovaSangria)
+        if ((valorNovaSangria > 0) && (valorNovaSangria < caixa.valorAbertura)) {
+            // alterações 
+            
+            valorSangria = valorSangria + valorNovaSangria
+            // iguais
+            valorAbertura = caixa.valorAbertura
+            dataHoraFechamento = caixa.dataHoraFechamento
+            status_caixa = caixa.status_caixa
+            dataHoraAbertura = caixa.dataHoraAbertura
+            id_compra = caixa.id_compra
+            id_festa = caixa.id_festa
+            id_usuario = caixa.id_usuario
+            try {
+                const res = await axios.put(`http://localhost:8800/caixas/${id_caixa}`, {
+                    id_caixa,
+                    valorAbertura,
+                    valorSangria,
+                    dataHoraAbertura,
+                    dataHoraFechamento,
+                    id_compra,
+                    id_festa,
+                    id_usuario,
+                    status_caixa,
+                });
+                console.log(`Caixa ${id_caixa} atualizado para  ${status_caixa} as ${dataHoraFechamento}.'`);
+                sessionStorage.setItem('caixa', JSON.stringify(caixa));
+                return res.data;
+            } catch (error) {
+                console.error(error);
+            }
         } else {
-            toast.error('Digite um valor válido')
-            setIsModalSangriaOpen(true)
+            window.confirm('O valor deve ser menor do que o de saldo em dinheiro deste caixa.')
+
         }
     }
 
     // Este trecho busca os produtos no BD e seta os valores na const produtos
-
-
-        // Este trecho busca os produtos no BD e seta os valores na const produtos
-        const [produtos, setProdutos] = useState([])
-        const getProdutos = async () => {
-            try {
-                const res = await axios.get("http://localhost:8800/produtos")
-                setProdutos(res.data.sort((a, b) => (a.id > b.id ? 1 : -1)))
-            } catch (error) {
-                toast.error(error)
-            }
+    // Este trecho busca os produtos no BD e seta os valores na const produtos
+    const [produtos, setProdutos] = useState([])
+    const getProdutos = async () => {
+        try {
+            const res = await axios.get("http://localhost:8800/produtos")
+            setProdutos(res.data.sort((a, b) => (a.id > b.id ? 1 : -1)))
+        } catch (error) {
+            console.log(error)
         }
-        useEffect(() => {
-            getProdutos()
-        }, [setProdutos])
-        // fim do trecho 
+    }
+    useEffect(() => {
+        getProdutos()
+    }, [setProdutos])
+    // fim do trecho 
 
     // aqui eu preciso trabalhar com 2 objetos que irao conversar entre si,
     /*objeto caixa e objeto compras pedido,
@@ -212,19 +233,18 @@ const Vender = () => {
         //         id_compra: 1,
         //     });
         // }
-      
+
         //   console.log(`Lista de compras salva com sucesso`);
         // } catch (error) {
         //   console.log(error);
         // }
-      }
+    }
 
 
 
 
     return (
         <div>
-            <ToastContainer />
             {/* Informações de caixa no rodapé */}
             {InfUsuario()}
 
@@ -237,13 +257,14 @@ const Vender = () => {
                     <div style={{ position: 'fixed', top: '2.5px', left: '5px' }}>
                         <button onClick={() => setIsOpen(!isOpen)}>Menu</button>
                         <button style={{ position: 'fixed', top: '46px', left: '5px', width: '150px' }} onClick={() => { setIsModalSangriaOpen(true) }}>Sangria</button>
-                        <button style={{ position: 'fixed', top: '86px', left: '5px', width: '150px' }} onClick={() => { 
+                        <button style={{ position: 'fixed', top: '86px', left: '5px', width: '150px' }} onClick={() => {
                             // setCaixa
-                            window.location.href = "/fechamento-caixa" }}>Fechamento Caixa</button>
+                            window.location.href = "/fechamento-caixa"
+                        }}>Fechamento Caixa</button>
                         <button style={{ position: 'fixed', top: '126px', left: '5px', width: '150px' }} onClick={() => {
                             window.location.href = "/"
                             sessionStorage.removeItem('usuario');
-                            sessionStorage.removeItem('valEntrada');
+                            sessionStorage.removeItem('caixa');
                         }}>Sair</button>
                     </div>
                 )}
@@ -254,17 +275,17 @@ const Vender = () => {
 
             <Container fluid='true' >
                 <Row>
-                    <Col  sm={8}  xs={5}>
-                    {/* BOTÕES DE PRODUTOS */}
-                    <div>
+                    <Col sm={8} xs={5}>
+                        {/* BOTÕES DE PRODUTOS */}
+                        <div>
                             <div className='title'>Bebidas</div>
                             {bebidas && bebidas.map((produto, i) => {
                                 return (
                                     <button
                                         key={i}
                                         onClick={() => {
-                                        addProduto(produto.nome, produto.preco, produto.medida)
-                                    }}
+                                            addProduto(produto.nome, produto.preco, produto.medida)
+                                        }}
                                         className={produto.tipo === 'Comida' ? 'ehComida' : 'nEhComida'
                                         }>
                                         <div>
@@ -302,7 +323,7 @@ const Vender = () => {
                         {/* FIM BOTÕES DE PRODUTOS */}
                     </Col>
 
-                        {/* RESUMO DO PEDIDO */}
+                    {/* RESUMO DO PEDIDO */}
                     <Col sm={4} xs={5}>
                         <div className='title'>Resumo Pedido</div>
                         <Table className='tabela' bordered>
@@ -345,9 +366,9 @@ const Vender = () => {
                                     <td colSpan={6} >
                                         <button
                                             className="w-100"
-                                            onClick={() => { 
-                                                novaCompra() 
-                                                setIsModalPgtoOpen(true) 
+                                            onClick={() => {
+                                                novaCompra()
+                                                setIsModalPgtoOpen(true)
                                             }}>Pagamento
                                         </button>
                                     </td>
@@ -439,7 +460,7 @@ const Vender = () => {
                             </Row>
                             <Row>
                                 <Col>
-                                    <button className="w-100" onClick={() => 
+                                    <button className="w-100" onClick={() =>
                                         novaCompra()
                                     }>
                                         <div style={{ fontSize: '25px' }}>
@@ -464,7 +485,7 @@ const Vender = () => {
                             <div className="form-group">
                                 <div className="form-group">
                                     <label>Valor da sangria</label><br />
-                                    <input type="number" className="valSangria form-control" />
+                                    <input type="number" onChange={handleSangriaValor} value={valorNovaSangria} className="valSangria form-control" />
                                 </div>
                                 <br />
                                 <div className="form-group ">

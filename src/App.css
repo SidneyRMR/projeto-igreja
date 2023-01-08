@@ -18,12 +18,16 @@ button:hover {
 
 .ehComida {
   background-color: #D2691E;
-  width: 120px;
+  min-width: 120px;
+  max-width: 200px;
+  width:max-content;
 }
 
 .nEhComida {
   background-color: #FF6347;
-  width: 120px;
+  min-width: 120px;
+  max-width: 200px;
+  width:max-content;
 }
 .nEhComida:hover {
   background-color: #f04628;

@@ -1,11 +1,12 @@
 import { Container, Row, Col } from 'react-bootstrap';
-import React, { useState } from 'react';
-import { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 //falta passar os valores de entrada e nome do caixa para as proximas telas
 const AberturaCaixa = () => {
   // Recupera o valor do usuario da tela de login
+  // const usuario = sessionStorage.removeItem('usuario');
+  // const caixa = sessionStorage.removeItem('caixa');
   const usuario = JSON.parse(sessionStorage.getItem('usuario'));
 
   // const [caixas, setCaixas] = useState([])
@@ -78,6 +79,7 @@ const AberturaCaixa = () => {
       status_caixa = 'Fechado'
       dataHoraFechamento = dataHoraAtual()
     // iguais
+      valorAbertura = caixaParaFechar.valorAbertura
       valorSangria = caixaParaFechar.valorSangria
       dataHoraAbertura = caixaParaFechar.dataHoraAbertura
       id_compra = caixaParaFechar.id_compra
@@ -86,7 +88,7 @@ const AberturaCaixa = () => {
     try {
       const res = await axios.put(`http://localhost:8800/caixas/${id_caixa}`, {
         id_caixa, 
-        valorAbertura: valorAbertura, 
+        valorAbertura, 
         valorSangria, 
         dataHoraAbertura, 
         dataHoraFechamento, 
@@ -95,16 +97,18 @@ const AberturaCaixa = () => {
         id_usuario,
         status_caixa,
       });
-      console.log(`Caixa ${id_caixa} atualizado para  ${status_caixa} as ${dataHoraFechamento}.'`);
+      console.log(`Caixa ${id_caixa} atualizado para ${status_caixa}.`);
       return res.data;
     } catch (error) {
       console.error(error);
     }
   };
   
-
-
-
+  const acesarVendas = async () => {
+    window.location.href = '/vendas'
+  }
+  
+  
   const abrirCaixa = async () => {
     // Verifica se o valor de abertura foi digitado
     if (isNaN(caixaValorEntrada) || caixaValorEntrada <= 0) {
@@ -118,7 +122,7 @@ const AberturaCaixa = () => {
     
     if (caixasAbertosDesteUsuario.length === 0) {
       novoCaixa()
-      // window.location.href = '/vendas'
+      acesarVendas()
       
       
     } else if (caixasAbertosDesteUsuario.length > 0) {
@@ -131,11 +135,11 @@ Clique em OK para acessá-lo, ou Cancelar para abrir um novo.`
 
         const caixa = caixaMaisRecente(caixasAbertosDesteUsuario)
         sessionStorage.setItem('caixa', JSON.stringify(caixa));
-        console.log('caixa aberto', caixa)
-        // window.location.href = '/vendas'
+        console.log('caixa aberto', caixa.id_caixa)
+        acesarVendas()
       } else {
         novoCaixa()
-        // window.location.href = '/vendas'
+        acesarVendas()
       }
     };
   }}
@@ -191,8 +195,8 @@ Clique em OK para acessá-lo, ou Cancelar para abrir um novo.`
       const caixaParaFechar = caixasAbertosDesteUsuario[1]
       
       sessionStorage.setItem('caixa', JSON.stringify(caixa));
-      console.log('caixa novo',caixa)
-      console.log('caixa anterior',caixaParaFechar)
+      console.log('caixa novo',caixa.id_caixa)
+      console.log('caixa anterior',caixaParaFechar.id_caixa)
       fechaCaixa(caixaParaFechar.id_caixa, caixaParaFechar)
     } catch (error) {
       console.log(error);
