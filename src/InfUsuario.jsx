@@ -5,8 +5,7 @@ import Clock from './Clock'; // Importar o componente Clock
 
 // Recupera o valor do usuario da tela de login
 const usuario = JSON.parse(sessionStorage.getItem('usuario'));
-const valEntrada = JSON.parse(sessionStorage.getItem('valEntrada'));
-
+const caixaNovo = JSON.parse(sessionStorage.getItem('caixa'));
 function InfUsuario() {
 
     return(
@@ -22,7 +21,7 @@ function InfUsuario() {
                 {' | '}
                 Nome do caixa: {usuario.nome}
                 {' | '}
-                Saldo do caixa: {valEntrada}
+                Saldo do caixa: {caixaNovo.valorAbertura}
             </Col>
         </Row>
     </Container>

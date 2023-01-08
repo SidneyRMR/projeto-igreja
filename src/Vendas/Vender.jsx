@@ -7,6 +7,7 @@ import InfUsuario from '../InfUsuario'
 
 const Vender = () => {
 
+    const caixaNovo = JSON.parse(sessionStorage.getItem('caixa'));
 
     const [isModalPgtoOpen, setIsModalPgtoOpen] = useState(false);
     const [isModalSangriaOpen, setIsModalSangriaOpen] = useState(false);
@@ -14,7 +15,7 @@ const Vender = () => {
     const [bebidas, setBebidas] = useState([])
     const [comidas, setComidas] = useState([])
     
-    const [caixa, setCaixa] = useState([])
+    const [caixa, setCaixa] = useState(caixaNovo)
 
     const [showPixInput, setShowPixInput] = useState(false);
     const [showDinheiroInput, setShowDinheiroInput] = useState(false);
@@ -38,8 +39,7 @@ const Vender = () => {
 //  const alteraCaixa = async (id, status) => {
 
 //     try {
-//         const res = await axios.put(`http://localhost:8800/caixas/${id}`, {
-//             id,
+//         const res = await axios.put(`http://localhost:8800/caixas/${id}`, {setCaixa//             id,
 //             status
 
 //         })
@@ -56,7 +56,7 @@ const Vender = () => {
         const valSangria = document.querySelector('.valSangria').value;
         const descSangria = document.querySelector('.descSangria').value;
         console.log(valSangria)
-        if (valSangria > 0) {
+        if ((valSangria > 0) && (valSangria < caixa)) {
             setCaixa({
                 ...caixa,
                 valSangria: valSangria,
@@ -178,6 +178,49 @@ const Vender = () => {
     }, [produtos])
 
 
+    //  função que cria um novo pedido de compras 
+    // const novaCompra = async (id_produto, quantidade_produto, id_caixa) => {
+    //     if (!id_produto || !quantidade_produto || !id_caixa) {
+    //         console.error('Todos os campos devem estar preenchidos!')
+    //         return
+    //     }
+    //     try {
+    //         const res = await axios.post('http://localhost:8800/compras', {
+    //             id_produto,
+    //             quantidade_produto,
+    //             id_caixa,
+    //         })
+    //         console.log(`${res.data} salvo com sucesso`)
+    //         // return (res.data, (window.location.href = '/cadastros/produtos'))
+    //     } catch (error) {
+    //         console.log(error)
+    //     }
+    // }
+    // const novaCompra = async () => {
+    //     try {
+
+    //         const id_caixa = 
+    //         await axios.post('http://localhost:8800/compras', {
+    //             id_caixa: 
+    //     });
+    //     //   Loop pelos produtos da lista de compras
+    //       for (const produto of produtos) {
+    //         // Adiciona uma linha à tabela "tb_compras" para cada produto
+    //         await axios.post('http://localhost:8800/tb_compraprodutos', {
+    //             id_produto: produto.id,
+    //             quantidade_produto: produto.quantidade,
+    //             id_compra: 1,
+    //         });
+    //     }
+      
+    //       console.log(`Lista de compras salva com sucesso`);
+    //     } catch (error) {
+    //       console.log(error);
+    //     }
+    //   }
+
+
+
 
     return (
         <div>
@@ -205,6 +248,9 @@ const Vender = () => {
                     </div>
                 )}
             </div>
+
+
+
 
             <Container fluid='true' >
                 <Row>
@@ -299,7 +345,10 @@ const Vender = () => {
                                     <td colSpan={6} >
                                         <button
                                             className="w-100"
-                                            onClick={() => { setIsModalPgtoOpen(true) }}>Pagamento
+                                            onClick={() => { 
+                                                novaCompra() 
+                                                setIsModalPgtoOpen(true) 
+                                            }}>Pagamento
                                         </button>
                                     </td>
                                 </tr>
@@ -390,7 +439,9 @@ const Vender = () => {
                             </Row>
                             <Row>
                                 <Col>
-                                    <button className="w-100">
+                                    <button className="w-100" onClick={() => 
+                                        novaCompra()
+                                    }>
                                         <div style={{ fontSize: '25px' }}>
                                             Confirmar Pagamento
                                         </div>
