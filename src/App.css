@@ -60,18 +60,15 @@ button:hover, .botao:hover {
 }
 
 .subtitulo {
-  
   width: 100%;
   padding: 8px;
   background-color: #be6021;
   color: white;
 }
 .subtitulo .titulo {
-  
   /* border: 1px solid; */
   font-size: 18px;
 }
-
 
 .botaoTitle {
   font-size: 12px;
@@ -79,7 +76,6 @@ button:hover, .botao:hover {
 .containerProdutos {
   width: 100%;
 }
-
 
 thead,
 tfoot {
@@ -106,6 +102,13 @@ textarea {
   background-color:#aa541b;
   color: white;
   height: 40px;
+}
+
+.caixaAberto {
+  color: green;
+}
+.caixaFechado {
+  color: red;
 }
 
 /* circulo de loading */

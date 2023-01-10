@@ -53,7 +53,7 @@ const AberturaCaixa = () => {
       <br />
       <Row>
         <Col>
-        <FuncoesCaixa inputAbertura={inputAbertura}  />
+        <FuncoesCaixa inputAbertura={inputAbertura} valor='abrirCaixa' nomeBtn='Abrir Caixa' />
         <BotaoSair/>
         </Col>
       </Row>

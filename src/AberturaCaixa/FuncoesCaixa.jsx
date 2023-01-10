@@ -44,8 +44,8 @@ export default function FuncoesCaixa(props) {
                     if (acessarCaixaAberto) {
 
                         const caixa = await caixaMaisRecente(0)
-                        console.log('acessarCaixaAberto', caixa)
                         setCaixaLocal(caixa)
+                        console.log('acessarCaixaAberto', caixa)
                         // acessarVendas()
                     } else {
                         novoCaixa()
@@ -81,10 +81,11 @@ export default function FuncoesCaixa(props) {
             });
 
             const caixa = await caixaMaisRecente(0)
-            setCaixaLocal('Novo: ', caixa)
+            setCaixaLocal(caixa)
+            console.log('Novo: ', caixa)
 
             const caixaAfechar = await caixaMaisRecente(1)
-            setCaixaLocal('À fechar: ', caixaAfechar)
+            console.log('À fechar: ', caixaAfechar)
 
             fecharCaixa(caixaAfechar.id_caixa, caixaAfechar)
         } catch (error) {
@@ -94,8 +95,9 @@ export default function FuncoesCaixa(props) {
 
     //funcionando
     const fecharCaixa = async (id_caixa, objCaixa) => {
-        if (!id_caixa) {
-            console.error('Não tem este caixa no registro.');
+        if (objCaixa.status_caixa === 'Fechado') {
+            
+            alert('O Caixa já está fechado.');
             return;
         }
         // alterações 
@@ -169,8 +171,17 @@ export default function FuncoesCaixa(props) {
     }
 
     return (
+        // <>
+        //     <button className='botao' onClick={() => abrirCaixa()}>Abrir caixa</button>
+        // </>
+        // Componente FuncoesCaixa
         <>
-            <button className='botao' onClick={() => abrirCaixa()}>Abrir caixa</button>
+            {props.valor === "abrirCaixa" && 
+                <button className='botao' onClick={() => abrirCaixa()}>{props.nomeBtn}</button>
+            }
+            {props.valor === "fecharCaixa" && 
+                <button className='botao' onClick={() => fecharCaixa(props.id, props.caixa)}>{props.nomeBtn}</button>
+            }
         </>
     )
 }
