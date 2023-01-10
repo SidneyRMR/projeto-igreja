@@ -1,7 +1,8 @@
 import axios from 'axios';
+import { Table } from 'react-bootstrap';
+import { useEffect, useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useEffect, useState } from 'react';
 
 const Usuarios = () => {
 
@@ -11,7 +12,7 @@ const Usuarios = () => {
             const res = await axios.get("http://localhost:8800/usuarios")
             setUsuarios(res.data.sort((a, b) => (a.id > b.id ? 1 : -1)))
         } catch (error) {
-            toast.error(error)
+            console.error(error)
         }
     }
     useEffect(() => {
@@ -19,7 +20,7 @@ const Usuarios = () => {
     }, [setUsuarios])
 
     function alterar(usuario) {
-        window.location.href = `/cadastros/usuarios/cadusuario/?id=${usuario.id}&nome=${usuario.nome}&login=${usuario.login}&tipo=${usuario.tipo}`
+        window.location.href = `/cadastros/usuarios/cadusuario/?id=${usuario.id_usuario}&nome=${usuario.nome_usuario}&login=${usuario.login}&tipo=${usuario.tipo}`
     }
 
     const handleDelete = async (id, nome) => {
@@ -32,8 +33,8 @@ const Usuarios = () => {
               setUsuarios(newArray)
               toast.success(`${nome} excluído com sucesso`, {
                 position: toast.POSITION.TOP_CENTER
-              })})
-            .catch(({ data }) => toast.error(data))
+            })})
+            .catch(({ data }) => console.error(data))
         }
       }
 
@@ -45,9 +46,9 @@ const Usuarios = () => {
                     Lista de Usuários
                     <button className="botaoTitle" onClick={() => window.location.href = "/cadastros/usuarios/cadusuario"}>Novo</button>
                 </div>
-                <table className='tabela'>
+                <Table className='tabela'>
                     <thead>
-                        <tr>
+                        <tr >
                             {/* <th>Id</th> */}
                             <th>Nome</th>
                             <th>Login</th>
@@ -58,22 +59,22 @@ const Usuarios = () => {
                     <tbody>
                         {usuarios.map((usuario, i) => {
                             return (
-                                <tr key={usuario.id}
+                                <tr key={usuario.id_usuario}
                                     className={i % 2 === 0 ? 'Par' : 'Impar'}>
                                     {/* <td >{usuario.id}</td> */}
-                                    <td >{usuario.nome}</td>
+                                    <td >{usuario.nome_usuario}</td>
                                     <td>{usuario.login}</td>
                                     <td>{usuario.tipo}</td>
                                     <td>
                                         <button onClick={() => alterar(usuario)}>Alterar</button>
-                                        <button onClick={() => handleDelete(usuario.id, usuario.nome)}>Excluir</button>
+                                        <button onClick={() => handleDelete(usuario.id_usuario, usuario.nome_usuario)}>Excluir</button>
                                     </td>
                                 </tr>
                             )
                         })
                         }
                     </tbody>
-                </table>
+                </Table>
 
 
             </div>

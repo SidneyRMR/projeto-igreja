@@ -1,32 +1,36 @@
 .App {
   text-align: center;
-  
   font-size: 13px;
 }
 
-button {
-  padding: 8px;
+button, .botao {
+  padding: 12px;
+  display: inline-block;
   width: 100px;
   background-color: #C55A11;
   color: white;
   border: 1px solid;
-  border-radius: 20px;
+  border-radius: 10px;
+  text-decoration: none;
 }
-button:hover {
+button:hover, .botao:hover {
   background-color: #aa541b;
+  color: white;
+  
+  text-decoration: none;
 }
 
 .ehComida {
   background-color: #D2691E;
   min-width: 120px;
-  max-width: 200px;
-  width:max-content;
+  max-width: 400px;
+  width:fit-content;
 }
 
 .nEhComida {
   background-color: #FF6347;
   min-width: 120px;
-  max-width: 200px;
+  max-width: 400px;
   width:max-content;
 }
 .nEhComida:hover {
@@ -34,7 +38,7 @@ button:hover {
 }
 
 .tabela {
-  width: 100%;
+  width: 98%;
 }
 
 
@@ -54,6 +58,21 @@ button:hover {
   font-weight: 600;
   color: white;
 }
+
+.subtitulo {
+  
+  width: 100%;
+  padding: 8px;
+  background-color: #be6021;
+  color: white;
+}
+.subtitulo .titulo {
+  
+  /* border: 1px solid; */
+  font-size: 18px;
+}
+
+
 .botaoTitle {
   font-size: 12px;
 }
@@ -88,3 +107,21 @@ textarea {
   color: white;
   height: 40px;
 }
+
+/* circulo de loading */
+/* @keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+.carregando-pagina {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 5px solid #f90;
+  border-top-color: orange;
+  animation: spin 1s linear infinite;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+} */

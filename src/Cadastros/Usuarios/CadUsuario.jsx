@@ -37,8 +37,8 @@ const CadUsuario = () => {
     }
 
     // Função que cria um novo produto 
-    const novoUsuario = async (nome, login, senha, senha2, tipo) => {
-        if (!nome || !login || !senha || !senha2 || !tipo) {
+    const novoUsuario = async (nome_usuario, login, senha, senha2, tipo) => {
+        if (!nome_usuario || !login || !senha || !senha2 || !tipo) {
             toast.error('Todos os campos devem estar preenchidos!', {
                 position: toast.POSITION.TOP_CENTER,
             })
@@ -59,7 +59,7 @@ const CadUsuario = () => {
         }
         try {
             const res = await axios.post('http://localhost:8800/usuarios', {
-                nome,
+                nome_usuario,
                 login,
                 senha,
                 tipo,
@@ -74,17 +74,17 @@ const CadUsuario = () => {
     }
     // Função que altera o usuario 
     /// !!!! esta com algum problema no back ou no front
-    const alteraUsuario = async (id, nome, login, tipo) => {
-        if (!nome || !login || !tipo) {
+    const alteraUsuario = async (id_usuario, nome_usuario, login, tipo) => {
+        if (!nome_usuario || !login || !tipo) {
             toast.error('Todos os campos devem estar preenchidos!', {
                 position: toast.POSITION.TOP_CENTER,
             })
             return
         }
         try {
-            const res = await axios.put(`http://localhost:8800/usuarios/${id}`, {
-                id,
-                nome,
+            const res = await axios.put(`http://localhost:8800/usuarios/${id_usuario}`, {
+                id_usuario,
+                nome_usuario,
                 login,
                 tipo,
             })
@@ -93,7 +93,7 @@ const CadUsuario = () => {
             })
             return (res.data, (window.location.href = '/cadastros/usuarios'))
         } catch (error) {
-            toast.error(error)
+            console.error(error)
         }
     }
 

@@ -1,15 +1,15 @@
 
 import { Col, Container, Row } from "react-bootstrap"
 
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React /* { useState, useEffect  */ from 'react';
+// import axios from 'axios';
 import Clock from './Clock'; // Importar o componente Clock
 
 // Recupera o valor do usuario da tela de login
 const usuario = JSON.parse(sessionStorage.getItem('usuario'));
 const caixa = JSON.parse(sessionStorage.getItem('caixa'));
 
-function InfUsuario() {
+function InfCaixa() {
 
     // Este trecho busca os caixas no BD e seta os valores na const caixas
     
@@ -41,13 +41,13 @@ function InfUsuario() {
             color: 'white', padding: '1px', zIndex: 1
         }}>
             <Col className="w-100 ">
-                Nome do caixa: {usuario.nome}
+                Nome do caixa: {usuario.nome_usuario}
                 {' | '}
-                Saldo do caixa: {caixa.valorAbertura}
+                Saldo do caixa: {caixa.abertura}
                 {' | '}
-                Sangria: {caixa.valorSangria}
+                Sangria: {caixa.sangria}
                 {' | '}
-                Data abertura: {caixa.dataHoraAbertura.slice(0,-14)}
+                Data abertura: {caixa.data_abertura}
                 {' | '}
                 Status: {caixa.status_caixa}
                 {' | '}
@@ -57,4 +57,4 @@ function InfUsuario() {
     </Container>
     )
 }
-export default InfUsuario
+export default InfCaixa

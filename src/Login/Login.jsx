@@ -1,23 +1,24 @@
 import axios from 'axios';
-import { toast } from 'react-toastify';
+import { ToastContainer,toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useEffect, useState } from 'react';
 import diocese from "../img/diocese.png"
-import { Container, Row, Col } from 'react-bootstrap'
+import { Container, Row, Col, Button } from 'react-bootstrap'
 
-const Login = (props) => {
+const Login = () => {
+
     const [usuarios, setUsuarios] = useState([])
 
-    const getusuarios = async () => {
+    const getUsuarios = async () => {
         try{
             const res = await axios.get("http://localhost:8800/usuarios")
-            setUsuarios(res.data.sort((a,b) => (a.id > b.id ? 1 : -1)))
+            setUsuarios(res.data.sort((a,b) => (a.id_usuario > b.id_usuario ? 1 : -1)))
         } catch (error) {
             toast.error(error)
         }
     }
     useEffect(() => {
-        getusuarios()
+        getUsuarios()
     }, [setUsuarios])
 
     function testLogin(uss, pass) {
@@ -26,15 +27,17 @@ const Login = (props) => {
 
         if (usuarioEncontrado) {
             // Se o usuário e senha forem válidos, redireciona para a página de abertura de caixa
-                console.log(props.efetuarLogin())
-                window.location.href = `/abertura-caixa`
+            
                 sessionStorage.setItem('usuario', JSON.stringify(usuarioEncontrado));
-
+                console.log(usuarioEncontrado)
+                return window.location.href='/abertura-caixa'
         } else {
-            // Se o usuário e senha forem inválidos, exibe uma mensagem de erro
-            alert('Usuário ou senha inválidos')
+            return toast.error('Usuário ou senha inválidos!', {
+                position: toast.POSITION.TOP_CENTER,
+            })
         }
     }
+
 
     const [user, setUser] = useState()
     const [password, setPassword] = useState()
@@ -42,7 +45,6 @@ const Login = (props) => {
     const handleUserChange = (event) => {
         setUser(event.target.value)
     }
-
     const handlePasswordChange = (event) => {
         // Hash the password before storing it in the state
         setPassword(event.target.value)
@@ -52,9 +54,7 @@ const Login = (props) => {
 
     return (
         <Container fluid='true'>
-            
-
-           
+            <ToastContainer/>
             <Row>
                 <Col>
                     <div className="title">Paróquia Santa Cruz</div>
@@ -84,8 +84,10 @@ const Login = (props) => {
             </Row>
             <br />
             <Row>
-                <Col>
-                    <button onClick={() => testLogin(user, password)}>Entrar</button>
+                <Col >
+                    <button className='botao' onClick={() => testLogin(user, password)}
+                        >Fazer Login
+                    </button>
                 </Col>
             </Row>
             <br />

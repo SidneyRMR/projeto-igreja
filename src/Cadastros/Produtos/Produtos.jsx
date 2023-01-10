@@ -2,6 +2,7 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useEffect, useState } from 'react';
+import { Table } from 'react-bootstrap';
 
 const Produtos = () => {
 
@@ -47,7 +48,7 @@ const Produtos = () => {
                 Lista de Produtos
                 <button className="botaoTitle" onClick={() => window.location.href = `/cadastros/produtos/cadproduto`}>Novo</button>
             </div>
-            <table className='tabela p-100' >
+            <Table className='tabela p-100' >
                 <thead>
                     <tr >
                         {/* <th>Id</th> */}
@@ -75,7 +76,7 @@ const Produtos = () => {
             )
         })}
                 </tbody>
-            </table>
+            </Table>
 
         </div>
     )

@@ -1,16 +1,20 @@
 import { useEffect, useState } from 'react';
 import { Container, Row, Col, Table, Modal } from 'react-bootstrap';
 import axios from 'axios';
-import InfUsuario from '../InfUsuario'
+import InfCaixa from '../InfCaixa'
+// import BotaoSair from '../Botoes/BotaoSair';
+import BotaoMenu from '../Botoes/BotaoMenu';
 
 const Vender = () => {
 
-    // const caixa = JSON.parse(sessionStorage.getItem('caixa'));
+    const caixaStorange = JSON.parse(sessionStorage.getItem('caixa'));
+    // console.log(caixaStorange)
+    const [caixa, setCaixa] = useState(caixaStorange)
 
-    let valorAbertura = '';
-    let valorSangria = '';
-    let dataHoraAbertura = '';
-    let dataHoraFechamento = '';
+    let abertura = '';
+    let sangria = '';
+    let data_abertura = '';
+    let data_fechamento = '';
     let id_caixa = '';
     let id_compra = '';
     let id_festa = '';
@@ -23,8 +27,7 @@ const Vender = () => {
     const [bebidas, setBebidas] = useState([])
     const [comidas, setComidas] = useState([])
 
-    const [caixa, setCaixa] = useState(JSON.parse(sessionStorage.getItem('caixa')))
-    const [valorNovaSangria, setValorNovaSangria] = useState(caixa.valorSangria);
+    const [valorNovaSangria, setValorNovaSangria] = useState();
     // const [descricaoSangria, setDescricaoSangria] = useState(caixa.descSangria);
 
 
@@ -53,43 +56,43 @@ const Vender = () => {
     //     setShowDebitoInput(event.target.value);
     // }
 
-    const salvaSangria = async () => {
-        console.log(valorNovaSangria)
-        if ((valorNovaSangria > 0) && (valorNovaSangria < caixa.valorAbertura)) {
-            // alterações 
+    // const salvaSangria = async () => {
+    //     console.log(valorNovaSangria)
+    //     if ((valorNovaSangria > 0) && (valorNovaSangria < caixa.abertura)) {
+    //         // alterações 
             
-            valorSangria = valorSangria + valorNovaSangria
-            // iguais
-            valorAbertura = caixa.valorAbertura
-            dataHoraFechamento = caixa.dataHoraFechamento
-            status_caixa = caixa.status_caixa
-            dataHoraAbertura = caixa.dataHoraAbertura
-            id_compra = caixa.id_compra
-            id_festa = caixa.id_festa
-            id_usuario = caixa.id_usuario
-            try {
-                const res = await axios.put(`http://localhost:8800/caixas/${id_caixa}`, {
-                    id_caixa,
-                    valorAbertura,
-                    valorSangria,
-                    dataHoraAbertura,
-                    dataHoraFechamento,
-                    id_compra,
-                    id_festa,
-                    id_usuario,
-                    status_caixa,
-                });
-                console.log(`Caixa ${id_caixa} atualizado para  ${status_caixa} as ${dataHoraFechamento}.'`);
-                sessionStorage.setItem('caixa', JSON.stringify(caixa));
-                return res.data;
-            } catch (error) {
-                console.error(error);
-            }
-        } else {
-            window.confirm('O valor deve ser menor do que o de saldo em dinheiro deste caixa.')
+    //         // sangria = valorNovaSangria
+    //         // iguais
+    //         abertura = caixa.abertura
+    //         data_fechamento = caixa.data_fechamento
+    //         status_caixa = caixa.status_caixa
+    //         data_abertura = caixa.data_abertura
+    //         id_compra = caixa.id_compra
+    //         id_festa = caixa.id_festa
+    //         id_usuario = caixa.id_usuario
+    //         try {
+    //             const res = await axios.put(`http://localhost:8800/caixas/${id_caixa}`, {
+    //                 id_caixa,
+    //                 abertura,
+    //                 sangria,
+    //                 data_abertura,
+    //                 data_fechamento,
+    //                 id_compra,
+    //                 id_festa,
+    //                 id_usuario,
+    //                 status_caixa,
+    //             });
+    //             console.log(`Caixa ${id_caixa} atualizado para  ${status_caixa} as ${data_fechamento}.'`);
+    //             sessionStorage.setItem('caixa', JSON.stringify(caixa));
+    //             return res.data;
+    //         } catch (error) {
+    //             console.error(error);
+    //         }
+    //     } else {
+    //         window.confirm('O valor deve ser menor do que o de saldo em dinheiro deste caixa.')
 
-        }
-    }
+    //     }
+    // }
 
     // Este trecho busca os produtos no BD e seta os valores na const produtos
     // Este trecho busca os produtos no BD e seta os valores na const produtos
@@ -111,10 +114,10 @@ const Vender = () => {
     /*objeto caixa e objeto compras pedido,
         no objeto caixa tenho:
             id_caixa,
-            valorAbertura, 
+            abertura, 
             sangria(acumulativo), 
-            dataHoraAbertura,
-            dataHoraFechamento,
+            data_abertura,
+            data_fechamento,
             id_compras, que tera:
                 id_compra,
                 id_produto,
@@ -175,24 +178,6 @@ const Vender = () => {
     }, [resumoPedido]);
 
 
-    const [isOpen, setIsOpen] = useState(false);
-    // Adiciona um evento de clique fora do menu quando o componente é montado
-    useEffect(() => {
-        function handleClickOutside(event) {
-            // Verifica se o clique foi fora do menu e do botão
-            if (event.target.closest('.menu') || event.target.closest('button')) {
-                return
-            }// Fecha o menu
-            setIsOpen(false)
-        }
-        document.addEventListener('click', handleClickOutside);
-        // Remove o evento de clique quando o componente é desmontado
-        return () => {
-            document.removeEventListener('click', handleClickOutside);
-        }
-    }, [])
-
-
     useEffect(() => {
         setBebidas(produtos.filter((produto) => produto.tipo === 'Bebida'))
         setComidas(produtos.filter((produto) => produto.tipo === 'Comida'))
@@ -245,34 +230,8 @@ const Vender = () => {
 
     return (
         <div>
-            {/* Informações de caixa no rodapé */}
-            {InfUsuario()}
-
-            {/* MENU SUSPENSO */}
-            <div style={{ position: 'fixed', top: '2.5px', left: '5px', zIndex: 1 }}>
-                {/* Exibe o botão de menu */}
-                <button onClick={() => setIsOpen(!isOpen)}>Menu</button>
-                {/* Exibe o menu se o estado isOpen for verdadeiro */}
-                {isOpen && (
-                    <div style={{ position: 'fixed', top: '2.5px', left: '5px' }}>
-                        <button onClick={() => setIsOpen(!isOpen)}>Menu</button>
-                        <button style={{ position: 'fixed', top: '46px', left: '5px', width: '150px' }} onClick={() => { setIsModalSangriaOpen(true) }}>Sangria</button>
-                        <button style={{ position: 'fixed', top: '86px', left: '5px', width: '150px' }} onClick={() => {
-                            // setCaixa
-                            window.location.href = "/fechamento-caixa"
-                        }}>Fechamento Caixa</button>
-                        <button style={{ position: 'fixed', top: '126px', left: '5px', width: '150px' }} onClick={() => {
-                            window.location.href = "/"
-                            sessionStorage.removeItem('usuario');
-                            sessionStorage.removeItem('caixa');
-                        }}>Sair</button>
-                    </div>
-                )}
-            </div>
-
-
-
-
+            <InfCaixa/>
+            <BotaoMenu />
             <Container fluid='true' >
                 <Row>
                     <Col sm={8} xs={5}>
@@ -455,7 +414,7 @@ const Vender = () => {
                                     Troco
                                 </Col>
                                 <Col>
-                                    R$ {-precoTotal}
+                                    R$ 0,00
                                 </Col>
                             </Row>
                             <Row>
@@ -494,15 +453,7 @@ const Vender = () => {
                                 </div>
                                 <br />
                                 <button className="w-100 " onClick={() => {
-                                    const valor = document.querySelector('.valSangria').value;
-                                    // Verifica se o valor é válido
-                                    if (valor > 0) {
-                                        // Se o valor for válido, chama a função
-                                        salvaSangria()
-                                    } else {
-                                        // Se o valor não for válido, exibe uma mensagem de err
-                                        alert('Por favor, insira um valor válido.')
-                                    }
+                                        // salvaSangria(valorNovaSangria)
                                 }}>
                                     <div style={{ fontSize: '25px' }}>
                                         Efetura Sangria

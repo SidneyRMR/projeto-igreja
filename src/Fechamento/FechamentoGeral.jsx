@@ -29,10 +29,6 @@ const FechamentoGeral = () => {
                 
                 Fechamento Geral
                 <div>{' '}</div>
-            {/* <button className="botaoTitle " onClick={() => {
-                 window.location.href = "/"
-                 sessionStorage.removeItem('usuario');
-             }}>Fechar Cx</button> */}
             </div>
              <ToastContainer/>
              <Table className="tabela">
@@ -43,20 +39,21 @@ const FechamentoGeral = () => {
                          <th>Sangria</th>
                          <th>Data Abertura</th>
                          <th>Data Fechamento</th>
-                         <th>Data Fechamento</th>
-                         <th>Hora da Compra?</th>
+                         {/* <th>Data Fechamento</th> */}
+                         {/* <th>Hora da Compra?</th> */}
                          {/* <th>Debito</th>
                          <th>Credito</th>
                          <th>Dinheiro</th>
                          <th>Pix</th>
                          <th>Total de venda</th> */}
+                         <th>Festa</th>
                          <th>Status</th>
                          <th>Ações</th>
                      </tr>
                  </thead>
                  <tbody>
-                     {caixas.map(caixa => (
-                         <tr key={caixa.id_caixa}>
+                     {caixas.map((caixa, i) => (
+                         <tr key={caixa.id_caixa} className={i % 2 === 0 ? 'Par' : 'Impar'}>
                              <td>{caixa.id_usuario}</td>
                              <td>{caixa.valorAbertura}</td>
                              <td>{caixa.valorSangria}</td>
@@ -65,8 +62,6 @@ const FechamentoGeral = () => {
                              {/* Preciso imporar este valores do tb_compras acessando pelo id_compra */} 
 
                             {/* O ideal seria vazer uma view desta tabela vw_fechamento_caixa!!! */}
-
-                             <td>{caixa.id_compra}</td>{/* Poderia por hora da compra */}
                              {/* <td>{tb_compras.pgDebito}</td>
                              <td>{compras.pgCredito}</td>
                              <td>{compras.pgDinheiro}</td>
@@ -76,7 +71,7 @@ const FechamentoGeral = () => {
                              <td>{caixa.status_caixa}</td>
                              
                              {/* Passar param para que acesse o caixa selecionado */}
-                             <td><button onClick={() => window.location.href=`/detalhe-caixa/${caixa.id_caixa}`}>Detalhes</button></td>
+                             <td><button onClick={() => window.location.href=`/detalhe-caixa`}>Detalhes</button></td>
                          </tr>
                          ))}
  
