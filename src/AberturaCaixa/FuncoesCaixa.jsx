@@ -3,6 +3,8 @@ import axios from 'axios';
 
 export default function FuncoesCaixa(props) {
 
+    const { inputAbertura } = props
+
     // let id_caixa = '';
     let id_usuario = ''
     let id_festa = '';
@@ -12,11 +14,13 @@ export default function FuncoesCaixa(props) {
     let hora_abertura = '';
     let data_fechamento = '';
     let status_caixa = ''
-    
-    
+
     const usuario = JSON.parse(sessionStorage.getItem('usuario'));
     console.log(usuario)
-    const { inputAbertura } = props
+
+    function setCaixaLocal(salvaCaixa) {
+        sessionStorage.setItem('caixa', JSON.stringify(salvaCaixa))
+    }
 
     const abrirCaixa = async () => {
         // Verifica se o valor de abertura foi digitado
@@ -39,9 +43,9 @@ export default function FuncoesCaixa(props) {
                     );
                     if (acessarCaixaAberto) {
 
-                        const  caixa = await caixaMaisRecente(caixasAbertosDesteUsuario)
-                        sessionStorage.setItem('caixa', JSON.stringify(caixa));
+                        const caixa = await caixaMaisRecente(0)
                         console.log('acessarCaixaAberto', caixa)
+                        setCaixaLocal(caixa)
                         // acessarVendas()
                     } else {
                         novoCaixa()
@@ -76,38 +80,34 @@ export default function FuncoesCaixa(props) {
                 data_fechamento
             });
 
-            const caixa = await caixaMaisRecente()
-            console.log(caixa)
-            // sessionStorage.setItem('caixa', JSON.stringify(caixa));
+            const caixa = await caixaMaisRecente(0)
+            setCaixaLocal('Novo: ', caixa)
 
-            // const caixaParaFechar = caixasAbertosDesteUsuario[1]
+            const caixaAfechar = await caixaMaisRecente(1)
+            setCaixaLocal('À fechar: ', caixaAfechar)
 
-            // console.log('caixa  novo', caixa.id_caixa)
-            // console.log('caixa anterior', caixaParaFechar.id_caixa)
-            // fecharCaixa(caixaParaFechar.id_caixa, caixaParaFechar)
+            fecharCaixa(caixaAfechar.id_caixa, caixaAfechar)
         } catch (error) {
             console.log(error);
         }
     }
 
     //funcionando
-    const fecharCaixa = async (id_caixa, caixaParaFechar) => {
+    const fecharCaixa = async (id_caixa, objCaixa) => {
         if (!id_caixa) {
             console.error('Não tem este caixa no registro.');
             return;
         }
-        console.error('Função fecha caixa.');
         // alterações 
         status_caixa = 'Fechado'
         data_fechamento = await dataAtual()
         // iguais
-        abertura = caixaParaFechar.abertura
-        sangria = caixaParaFechar.sangria
-        data_abertura = caixaParaFechar.data_abertura
-        hora_abertura = caixaParaFechar.hora_abertura
-        id_festa = caixaParaFechar.id_festa
-        id_usuario = caixaParaFechar.id_usuario
-        .then()
+        abertura = objCaixa.abertura
+        sangria = objCaixa.sangria
+        data_abertura = objCaixa.data_abertura
+        hora_abertura = objCaixa.hora_abertura
+        id_festa = objCaixa.id_festa
+        id_usuario = objCaixa.id_usuario
         try {
             const res = await axios.put(`http://localhost:8800/caixas/${id_caixa}`, {
                 id_caixa,
@@ -143,11 +143,11 @@ export default function FuncoesCaixa(props) {
 
 
     // Funções auxiliares
-    const caixaMaisRecente  =  async () => {
+    const caixaMaisRecente = async (val) => {
         const res = await axios.get('http://localhost:8800/caixas');
         const caixasAbertosDesteUsuario = res.data.filter(caixa => caixa.status_caixa === 'Aberto' && caixa.id_usuario === usuario.id_usuario);
         const caixasAbertosClassificados = caixasAbertosDesteUsuario.sort((a, b) => b.id_caixa - a.id_caixa)
-        return caixasAbertosClassificados[0];
+        return caixasAbertosClassificados[val];
     }
 
     const dataAtual = () => {
@@ -155,12 +155,11 @@ export default function FuncoesCaixa(props) {
         let dataAtual = new Date().toISOString().substring(0, 10);
         return `${dataAtual}`
     }
-
     const horaAtual = () => {
         // Obtém a hora atual
         let horaAtual = new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
         if (horaAtual.charAt(0) === '0') {
-          horaAtual = horaAtual.replace('0', '00');
+            horaAtual = horaAtual.replace('0', '00');
         }
         return `${horaAtual}`
     }
