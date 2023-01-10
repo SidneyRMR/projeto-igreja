@@ -9,8 +9,10 @@ export default function FuncoesCaixa(props) {
     let abertura = '';
     let sangria = '';
     let data_abertura = '';
+    let hora_abertura = '';
     let data_fechamento = '';
     let status_caixa = ''
+    
     
     const usuario = JSON.parse(sessionStorage.getItem('usuario'));
     console.log(usuario)
@@ -37,7 +39,7 @@ export default function FuncoesCaixa(props) {
                     );
                     if (acessarCaixaAberto) {
 
-                        const caixa = caixaMaisRecente(caixasAbertosDesteUsuario)
+                        const  caixa = await caixaMaisRecente(caixasAbertosDesteUsuario)
                         sessionStorage.setItem('caixa', JSON.stringify(caixa));
                         console.log('acessarCaixaAberto', caixa)
                         // acessarVendas()
@@ -50,18 +52,15 @@ export default function FuncoesCaixa(props) {
         }
     }
 
-
-
     const novoCaixa = async () => {
-        let dataAtual = dataHoraAtual()
-        console.log(dataAtual)
         // Define os valores padrão para os parâmetros que faltam
         id_usuario = usuario.id_usuario
         id_festa = 1 // ajustar
         abertura = inputAbertura
         sangria = 0
         status_caixa = 'Aberto'
-        data_abertura = dataAtual
+        data_abertura = await dataAtual()
+        hora_abertura = await horaAtual()
         data_fechamento = 0
 
         // Cria o novo caixa
@@ -73,17 +72,16 @@ export default function FuncoesCaixa(props) {
                 sangria,
                 status_caixa,
                 data_abertura,
+                hora_abertura,
                 data_fechamento
             });
-            // const res = await axios.get('http://localhost:8800/caixas');
-            // const caixasAbertosDesteUsuario = res.data.filter(caixa => caixa.status_caixa === 'Aberto' && caixa.id_usuario === usuario.id_usuario);
-            // console.log(caixasAbertosDesteUsuario)
 
-            // const caixa = caixaMaisRecente(caixasAbertosDesteUsuario)
+            const caixa = await caixaMaisRecente()
+            console.log(caixa)
+            // sessionStorage.setItem('caixa', JSON.stringify(caixa));
 
             // const caixaParaFechar = caixasAbertosDesteUsuario[1]
 
-            // sessionStorage.setItem('caixa', JSON.stringify(caixa));
             // console.log('caixa  novo', caixa.id_caixa)
             // console.log('caixa anterior', caixaParaFechar.id_caixa)
             // fecharCaixa(caixaParaFechar.id_caixa, caixaParaFechar)
@@ -98,16 +96,18 @@ export default function FuncoesCaixa(props) {
             console.error('Não tem este caixa no registro.');
             return;
         }
-        console.error('função fecha caixa.');
+        console.error('Função fecha caixa.');
         // alterações 
         status_caixa = 'Fechado'
-        data_fechamento = dataHoraAtual()
+        data_fechamento = await dataAtual()
         // iguais
         abertura = caixaParaFechar.abertura
         sangria = caixaParaFechar.sangria
         data_abertura = caixaParaFechar.data_abertura
+        hora_abertura = caixaParaFechar.hora_abertura
         id_festa = caixaParaFechar.id_festa
         id_usuario = caixaParaFechar.id_usuario
+        .then()
         try {
             const res = await axios.put(`http://localhost:8800/caixas/${id_caixa}`, {
                 id_caixa,
@@ -117,6 +117,7 @@ export default function FuncoesCaixa(props) {
                 sangria,
                 status_caixa,
                 data_abertura,
+                hora_abertura,
                 data_fechamento,
             });
             console.log(`Caixa ${id_caixa} atualizado para ${status_caixa}.`);
@@ -142,21 +143,26 @@ export default function FuncoesCaixa(props) {
 
 
     // Funções auxiliares
-    const caixaMaisRecente = (caixasAbertos) => {
-        const caixasAbertosClassificados = caixasAbertos.sort((a, b) => b.id_caixa - a.id_caixa)
+    const caixaMaisRecente  =  async () => {
+        const res = await axios.get('http://localhost:8800/caixas');
+        const caixasAbertosDesteUsuario = res.data.filter(caixa => caixa.status_caixa === 'Aberto' && caixa.id_usuario === usuario.id_usuario);
+        const caixasAbertosClassificados = caixasAbertosDesteUsuario.sort((a, b) => b.id_caixa - a.id_caixa)
         return caixasAbertosClassificados[0];
     }
 
-    const dataHoraAtual = () => {
-        // Obtém a data e hora atuais
-        const dataAtual = new Date().toISOString().substring(0, 10);
-        // let horaAtual = new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-        // if (horaAtual.charAt(0) === '0') {
-        //   horaAtual = horaAtual.replace('0', '00');
-        // }
-        return `${dataAtual} 
-        `;
-        // ${horaAtual}
+    const dataAtual = () => {
+        // Obtém a data atual
+        let dataAtual = new Date().toISOString().substring(0, 10);
+        return `${dataAtual}`
+    }
+
+    const horaAtual = () => {
+        // Obtém a hora atual
+        let horaAtual = new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        if (horaAtual.charAt(0) === '0') {
+          horaAtual = horaAtual.replace('0', '00');
+        }
+        return `${horaAtual}`
     }
 
     const acessarVendas = async () => {
