@@ -1,7 +1,8 @@
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
+import ModalSangria from "../Vendas/ModalSangria";
 import BotaoSair from "./BotaoSair";
 
-export default function BotaoMenu() {
+export default function BotaoMenu(props) {
     const [isOpen, setIsOpen] = useState(false);
     // Adiciona um evento de clique fora do menu quando o componente é montado
     useEffect(() => {
@@ -19,26 +20,32 @@ export default function BotaoMenu() {
         }
     }, [])
 
-
+    const openModal = () => {
+        props.setIsModalSangriaOpen(true);
+      };
 
     return (
         <div>
 
             {/* MENU SUSPENSO */}
-            <div style={{ position: 'absolute', top: '1px', left: '5px', zIndex: 1, padding: '9px' }}>
-                {/* Exibe o botão de menu */}
-                <button className='botao' onClick={() => setIsOpen(!isOpen)}>Menu</button>
-                {/* Exibe o menu se o estado isOpen for verdadeiro */}
+            <div style={{ position: 'absolute', padding: '10px', width: '200px' }}>
+            {!isOpen && (
+                <button className='botao menu' onClick={() => setIsOpen(!isOpen)}>Menu</button>)}
                 {isOpen && (
-                    <div style={{ position: 'absolute', top: '1px', left: '5px', padding: '9px' }}>
-                        <button className='botao' onClick={() => setIsOpen(!isOpen)}>Menu</button>
-                        <button className='botao' style={{ position: 'absolute', top: '46px', left: '5px', width: '150px', padding: '9px' }} onClick={() => {
-                            setIsOpen(true)
-                        }}>Sangria</button>
-                        <button className='botao' style={{ position: 'absolute', top: '86px', left: '5px', width: '150px', padding: '9px' }} onClick={() => {
-                            window.location.href = "/fechamento-caixa"
-                        }}>Fechamento Caixa</button>
-                        <BotaoSair btbStyle={{ position: 'absolute', top: '126px', left: '5px', width: '150px', padding: '9px' }} />
+                    <div 
+                    style={{ position: 'absolute', padding: '10px', width: '200px' }}>
+                        <button className='botao menu' onClick={() => setIsOpen(!isOpen)}>Menu</button>
+
+                        <ModalSangria openModal={openModal}/>
+
+                        <div>
+                            <button className='botao' onClick={() => {window.location.href = "/fechamento-caixa"
+                                }}>Fechamento Caixa
+                            </button>
+
+                        </div>
+
+                        <BotaoSair/>
 
                     </div>
                 )}

@@ -47,7 +47,7 @@ function InfCaixa() {
                 {' | '}
                 Sangria: {caixa.sangria}
                 {' | '}
-                Data abertura: {caixa.data_abertura}
+                Data abertura: {caixa.data_abertura.slice(0, -14)}
                 {' | '}
                 Status: {caixa.status_caixa}
                 {' | '}

@@ -124,6 +124,7 @@ const CadUsuario = () => {
                         placeholder="Cadastre um login"
                         onChange={handleLoginChange}
                         value={login}
+                        autoComplete='off'
                     />
                 </Col>
             </Row>
@@ -139,6 +140,7 @@ const CadUsuario = () => {
                                 placeholder="Digite a senha"
                                 onChange={handleSenhaChange}
                                 value={senha}
+                                autoComplete={false}
                             />
                         </Col>
                     </Row>
@@ -172,24 +174,21 @@ const CadUsuario = () => {
             <br />
             <Row>
                 <Col>
-                    {!id && (
-                        <button onClick={() => {
+                    {(!id && (
+                        <button className='botao' onClick={() => {
                             novoUsuario(nome, login, senha, senha2, tipo)
                             // console.log('novo', id)
-                        }}>
-                            Salvar
+                        }}>Salvar
                         </button>
-                    )}
-                    {id && (
-                        <button onClick={() => {
+                    )) || (id && (
+                        <button className='botao' onClick={() => {
                             alteraUsuario(id, nome, login, tipo)
-                            console.log('editado', id, nome, login, tipo)
-                        }}>
-                            Salvar
+                            // console.log('editado', id, nome, login, tipo)
+                        }}>Salvar
                         </button>
-                    )}
+                    ))}
 
-                    <button onClick={() => window.location.href = "/cadastros/usuarios"}>Voltar</button>
+                    <button className='botao' onClick={() => window.location.href = "/cadastros/usuarios"}>Voltar</button>
                 </Col>
             </Row>
         </Container>

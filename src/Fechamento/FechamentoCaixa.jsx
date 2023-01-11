@@ -54,29 +54,34 @@ const FechamentoCaixa = () => {
     return (
         <div>
             <div className='title d-flex justify-content-between p-1'> 
-                <button className="botaoTitle" onClick={() => window.location.href = "/abertura-caixa"}>Voltar</button>
+                <button className="botao botaoTitle" onClick={() => window.location.href = "/abertura-caixa"}>Voltar</button>
                 
                 Fechamento de Caixa      
 
                 <button 
-                className="botaoTitle"
+                className="botao botaoTitle"
                 onClick={() => {
                     window.location.href = "/"
                     sessionStorage.removeItem('usuario');
                 }}>Fechar Cx</button>
             </div>
             <div className="subtitulo">
-                <Row className="subtitulo titulo">
+                {/* <Row className="subtitulo titulo">
                     <Col >Informações do Caixa</Col>
-                </Row>
+                </Row> */}
                 <Row>
-                    <Col>Nome do Usuário: {usuario.nome}</Col>
-                    <Col>Valor Abertura: {caixa.abertura}</Col>
-                    <Col>Total Sangria: {caixa.sangria}</Col>
-                </Row>
-                <Row>
-                    <Col>Data Abertura: {caixa.data_abertura}</Col>
-                    <Col>Festa: {caixa.id_festa}</Col>
+                    <Col>
+                       <label htmlFor="">Usuário: </label>  
+                            <input className="fechCaixa" type="text" value={usuario.nome_usuario}/> 
+                       <label htmlFor="">Valor Abertura: </label>  
+                            <input className="fechCaixa" type="text" value={caixa.abertura}/> 
+                        <label htmlFor="">Total Sangria: </label>  
+                            <input className="fechCaixa" type="text" value={caixa.sangria}/> 
+                        <label htmlFor="">Data Abertura: </label>  
+                            <input className="fechCaixa" type="text" value={caixa.data_abertura.slice(0,-14)}/> 
+                        <label htmlFor="">Festa: </label>  
+                            <input className="fechCaixa" type="text" value={caixa.id_festa}/> 
+                    </Col>
                 </Row>
             </div>
 

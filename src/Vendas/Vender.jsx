@@ -1,57 +1,36 @@
 import { useEffect, useState } from 'react';
-import { Container, Row, Col, Table, Modal } from 'react-bootstrap';
+import { Container, Row, Col, Table } from 'react-bootstrap';
 import axios from 'axios';
 import InfCaixa from '../InfCaixa'
 // import BotaoSair from '../Botoes/BotaoSair';
 import BotaoMenu from '../Botoes/BotaoMenu';
+import ModalPagamento from './ModalPagamento';
 
-const Vender = () => {
+const Vender = (props) => {
 
-    const caixaStorange = JSON.parse(sessionStorage.getItem('caixa'));
+    // const caixaStorange = JSON.parse(sessionStorage.getItem('caixa'));
     // console.log(caixaStorange)
-    const [caixa, setCaixa] = useState(caixaStorange)
+    // const [caixa, setCaixa] = useState(caixaStorange)
 
-    let abertura = '';
-    let sangria = '';
-    let data_abertura = '';
-    let data_fechamento = '';
-    let id_caixa = '';
-    let id_compra = '';
-    let id_festa = '';
-    let id_usuario = ''
-    let status_caixa = ''
+    // let abertura = '';
+    // let sangria = '';
+    // let data_abertura = '';
+    // let data_fechamento = '';
+    // let id_caixa = '';
+    // let id_compra = '';
+    // let id_festa = '';
+    // let id_usuario = ''
+    // let status_caixa = ''
 
-    const [isModalPgtoOpen, setIsModalPgtoOpen] = useState(false);
-    const [isModalSangriaOpen, setIsModalSangriaOpen] = useState(false);
+    
+
     const [precoTotal, setPrecoTotal] = useState(0)
     const [bebidas, setBebidas] = useState([])
     const [comidas, setComidas] = useState([])
 
-    const [valorNovaSangria, setValorNovaSangria] = useState();
     // const [descricaoSangria, setDescricaoSangria] = useState(caixa.descSangria);
 
 
-    const [showPixInput, setShowPixInput] = useState(false);
-    const [showDinheiroInput, setShowDinheiroInput] = useState(false);
-    const [showCreditoInput, setShowCreditoInput] = useState(false);
-    const [showDebitoInput, setShowDebitoInput] = useState(false);
-
-    function handlePaymentPix(event) {
-        setShowPixInput(event.target.value === 'Pix');
-    }
-    function handlePaymentDinheiro(event) {
-        setShowDinheiroInput(event.target.value === 'Dinheiro');
-    }
-    function handlePaymentCredito(event) {
-        setShowCreditoInput(event.target.value === 'Crédito');
-    }
-    function handlePaymentDebito(event) {
-        setShowDebitoInput(event.target.value === 'Débito');
-    }
-
-    function handleSangriaValor(event) {
-        setValorNovaSangria(event.target.value);
-    }
     // function handleSangriaDescrição(event) {
     //     setShowDebitoInput(event.target.value);
     // }
@@ -202,42 +181,29 @@ const Vender = () => {
     //         console.log(error)
     //     }
     // }
-    const novaCompra = async () => {
-        // try {
-
-        //     const id_caixa = 
-        //     await axios.post('http://localhost:8800/compras', {
-        //         id_caixa: 
-        // });
-        // //   Loop pelos produtos da lista de compras
-        //   for (const produto of produtos) {
-        //     // Adiciona uma linha à tabela "tb_compras" para cada produto
-        //     await axios.post('http://localhost:8800/tb_compraprodutos', {
-        //         id_produto: produto.id,
-        //         quantidade_produto: produto.quantidade,
-        //         id_compra: 1,
-        //     });
-        // }
-
-        //   console.log(`Lista de compras salva com sucesso`);
-        // } catch (error) {
-        //   console.log(error);
-        // }
-    }
 
 
+    // const [isModalPgtoOpen, setIsPgtoOpen] = useState(false);
+    const openModal = () => {
+        props.setIsModalPgtoOpen(true);
+      };
 
 
     return (
         <div>
             <InfCaixa/>
-            <BotaoMenu />
+            <BotaoMenu/>
             <Container fluid='true' >
                 <Row>
                     <Col sm={8} xs={5}>
                         {/* BOTÕES DE PRODUTOS */}
                         <div>
-                            <div className='title'>Bebidas</div>
+                            <div>
+                                <div className='title'>
+                                Bebidas
+                            </div>
+
+                            </div>
                             {bebidas && bebidas.map((produto, i) => {
                                 return (
                                     <button
@@ -307,7 +273,9 @@ const Vender = () => {
                                             <td>{
                                                 typeof produto.qnde === 'number'
                                                     ? (produto.qnde * produto.preco).toFixed(2).replace('.', ',') : ''}</td>
-                                            <td><button onClick={() => {
+                                            <td><button 
+                                                className='botao'
+                                                onClick={() => {
                                                 removeProduto(produto)
                                             }}>Excluir</button></td>
                                         </tr>))
@@ -323,13 +291,9 @@ const Vender = () => {
                                 </tr>
                                 <tr>
                                     <td colSpan={6} >
-                                        <button
-                                            className="w-100"
-                                            onClick={() => {
-                                                novaCompra()
-                                                setIsModalPgtoOpen(true)
-                                            }}>Pagamento
-                                        </button>
+                                    <div>
+                                        <ModalPagamento openModal={openModal} precoTotal={precoTotal}/>
+                                    </div>
                                     </td>
                                 </tr>
                             </tfoot>
@@ -338,132 +302,6 @@ const Vender = () => {
                     </Col>
                 </Row>
             </Container>
-
-            {/* Modal de pagamento */}
-            <Modal show={isModalPgtoOpen} onHide={() => setIsModalPgtoOpen(false)}>
-                <Modal.Header closeButton className="title">
-                    <Modal.Title className="title">Formas de pagamento</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <form >
-                        <div className="form-check">
-                            <input className="form-check-input" type="checkbox" name="payment" value="Pix"
-                                onChange={handlePaymentPix} />
-                            <label className="form-check-label" >
-                                Pix
-                            </label>
-                            {showPixInput && (
-                                <div className="form-group">
-                                    <label htmlFor="pixAmount">Valor em Pix</label>
-                                    <input type="text" className="form-control" />
-                                </div>
-                            )}
-                        </div>
-                        <div className="form-check">
-                            <input className="form-check-input" type="checkbox" name="payment" value="Dinheiro"
-                                onChange={handlePaymentDinheiro} />
-                            <label className="form-check-label" >
-                                Dinheiro
-                            </label>
-                            {showDinheiroInput && (
-                                <div className="form-group">
-                                    <label htmlFor="pixAmount">Valor em Dinheiro</label>
-                                    <input type="text" className="form-control" />
-                                </div>
-                            )}
-                        </div>
-                        <div className="form-check">
-                            <input className="form-check-input" type="checkbox" name="payment" value="Crédito"
-                                onChange={handlePaymentCredito} />
-                            <label className="form-check-label" >
-                                Crédito
-                            </label>
-                            {showCreditoInput && (
-                                <div className="form-group">
-                                    <label htmlFor="pixAmount">Valor em Crédito</label>
-                                    <input type="text" className="form-control" />
-                                </div>
-                            )}
-                        </div>
-                        <div className="form-check">
-                            <input className="form-check-input" type="checkbox" name="payment" value="Débito"
-                                onChange={handlePaymentDebito} />
-                            <label className="form-check-label">
-                                Débito
-                            </label>
-                            {showDebitoInput && (
-                                <div className="form-group">
-                                    <label htmlFor="pixAmount">Valor em Débito</label>
-                                    <input type="text" className="form-control" />
-                                </div>
-                            )}
-                        </div>
-
-                        <Container className='title text-center' style={{ fontSize: '20px', fontWeight: '400' }}>
-                            <Row >
-                                <Col>
-                                    Total à pagar
-                                </Col>
-                                <Col>
-                                    R$ {typeof precoTotal === 'number'
-                                        ? (precoTotal.toFixed(2).replace('.', ',')) : ''}
-                                </Col>
-                            </Row>
-                            <Row >
-                                <Col>
-                                    Troco
-                                </Col>
-                                <Col>
-                                    R$ 0,00
-                                </Col>
-                            </Row>
-                            <Row>
-                                <Col>
-                                    <button className="w-100" onClick={() =>
-                                        novaCompra()
-                                    }>
-                                        <div style={{ fontSize: '25px' }}>
-                                            Confirmar Pagamento
-                                        </div>
-                                    </button>
-                                </Col>
-                            </Row>
-                        </Container>
-                    </form>
-                </Modal.Body>
-            </Modal>
-
-            {/* Modal de sangria */}
-            <Modal show={isModalSangriaOpen} onHide={() => { setIsModalSangriaOpen(false) }}>
-                <Modal.Header closeButton className="title">
-                    <Modal.Title className="title">Sangria</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <form >
-                        <div>
-                            <div className="form-group">
-                                <div className="form-group">
-                                    <label>Valor da sangria</label><br />
-                                    <input type="number" onChange={handleSangriaValor} value={valorNovaSangria} className="valSangria form-control" />
-                                </div>
-                                <br />
-                                <div className="form-group ">
-                                    <label>Motivo da sangria</label><br />
-                                    <textarea type="text" className="descSangria form-control" />
-                                </div>
-                                <br />
-                                <button className="w-100 " onClick={() => {
-                                        // salvaSangria(valorNovaSangria)
-                                }}>
-                                    <div style={{ fontSize: '25px' }}>
-                                        Efetura Sangria
-                                    </div>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </Modal.Body>
-            </Modal>
         </div>
     )
 }

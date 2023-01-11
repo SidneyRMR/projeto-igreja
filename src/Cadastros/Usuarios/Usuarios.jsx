@@ -42,9 +42,9 @@ const Usuarios = () => {
             <div  >
                 <ToastContainer/>
                 <div className='title d-flex justify-content-between align-center p-1' >
-                    <button className='botaoTitle' onClick={() => window.location.href = "/abertura-caixa"}>Voltar</button>
+                    <button className='botao botaoTitle' onClick={() => window.location.href = "/abertura-caixa"}>Voltar</button>
                     Lista de Usuários
-                    <button className="botaoTitle" onClick={() => window.location.href = "/cadastros/usuarios/cadusuario"}>Novo</button>
+                    <button className="botao botaoTitle" onClick={() => window.location.href = "/cadastros/usuarios/cadusuario"}>Novo</button>
                 </div>
                 <Table className='tabela'>
                     <thead>
@@ -66,8 +66,8 @@ const Usuarios = () => {
                                     <td>{usuario.login}</td>
                                     <td>{usuario.tipo}</td>
                                     <td>
-                                        <button onClick={() => alterar(usuario)}>Alterar</button>
-                                        <button onClick={() => handleDelete(usuario.id_usuario, usuario.nome_usuario)}>Excluir</button>
+                                        <button className='botao' onClick={() => alterar(usuario)}>Alterar</button>
+                                        <button className='botao' onClick={() => handleDelete(usuario.id_usuario, usuario.nome_usuario)}>Excluir</button>
                                     </td>
                                 </tr>
                             )

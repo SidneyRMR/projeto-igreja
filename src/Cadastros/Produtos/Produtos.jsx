@@ -44,9 +44,9 @@ const Produtos = () => {
         <div  >
             <ToastContainer/>
             <div className='title d-flex justify-content-between p-1' >
-                <button className="botaoTitle" onClick={() => window.location.href = `/abertura-caixa`}>Voltar</button>
+                <button className="botao botaoTitle" onClick={() => window.location.href = `/abertura-caixa`}>Voltar</button>
                 Lista de Produtos
-                <button className="botaoTitle" onClick={() => window.location.href = `/cadastros/produtos/cadproduto`}>Novo</button>
+                <button className="botao botaoTitle" onClick={() => window.location.href = `/cadastros/produtos/cadproduto`}>Novo</button>
             </div>
             <Table className='tabela p-100' >
                 <thead>
@@ -69,8 +69,8 @@ const Produtos = () => {
                     <td>{produto.medida}</td>
                     <td>{produto.tipo}</td>
                     <td>
-                        <button onClick={() => alterar(produto)}>Alterar</button>
-                        <button onClick={() => handleDelete(produto.id, produto.nome)}>Excluir</button>
+                        <button className='botao' onClick={() => alterar(produto)}>Alterar</button>
+                        <button className='botao' onClick={() => handleDelete(produto.id, produto.nome)}>Excluir</button>
                     </td>
                 </tr>
             )

@@ -5,7 +5,7 @@
 
 button, .botao {
   padding: 12px;
-  display: inline-block;
+  /* display: inline-block; */
   width: 100px;
   background-color: #C55A11;
   color: white;
@@ -16,7 +16,6 @@ button, .botao {
 button:hover, .botao:hover {
   background-color: #aa541b;
   color: white;
-  
   text-decoration: none;
 }
 
@@ -31,7 +30,7 @@ button:hover, .botao:hover {
   background-color: #FF6347;
   min-width: 120px;
   max-width: 400px;
-  width:max-content;
+  width:fit-content;
 }
 .nEhComida:hover {
   background-color: #f04628;
@@ -40,7 +39,6 @@ button:hover, .botao:hover {
 .tabela {
   width: 98%;
 }
-
 
 .tabela .Impar {
   background-color: #F8D7CD;
@@ -52,7 +50,7 @@ button:hover, .botao:hover {
 
 .title {
   width: 100%;
-  padding: 1%;
+  padding: 1.5%;
   background-color: #aa541b;
   font-size: 22px;
   font-weight: 600;
@@ -61,13 +59,18 @@ button:hover, .botao:hover {
 
 .subtitulo {
   width: 100%;
-  padding: 8px;
+  padding: 15px;
   background-color: #be6021;
   color: white;
 }
-.subtitulo .titulo {
-  /* border: 1px solid; */
-  font-size: 18px;
+
+label {
+  padding: 6px;
+}
+
+.fechCaixa {
+  padding: 3px;
+  width: 150px;
 }
 
 .botaoTitle {

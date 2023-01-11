@@ -32,8 +32,7 @@ export default function FuncoesCaixa(props) {
 
             if (caixasAbertosDesteUsuario.length === 0) {
                 novoCaixa()
-                console.log('caixasAbertosDesteUsuario', caixasAbertosDesteUsuario)
-                // acessarVendas()
+                acessarVendas()
             } else
                 if (caixasAbertosDesteUsuario.length > 0) {
 
@@ -46,11 +45,11 @@ export default function FuncoesCaixa(props) {
                         const caixa = await caixaMaisRecente(0)
                         setCaixaLocal(caixa)
                         console.log('acessarCaixaAberto', caixa)
-                        // acessarVendas()
+                        acessarVendas()
                     } else {
                         novoCaixa()
-                        console.log('Novo caixa')
-                        // acessarVendas()
+                        console.log('Novo caixa criado!')
+                        acessarVendas()
                     }
                 };
         }
@@ -96,7 +95,7 @@ export default function FuncoesCaixa(props) {
     //funcionando
     const fecharCaixa = async (id_caixa, objCaixa) => {
         if (objCaixa.status_caixa === 'Fechado') {
-            
+
             alert('O Caixa já está fechado.');
             return;
         }
