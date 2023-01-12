@@ -170,9 +170,6 @@ export default function FuncoesCaixa(props) {
     }
 
     return (
-        // <>
-        //     <button className='botao' onClick={() => abrirCaixa()}>Abrir caixa</button>
-        // </>
         // Componente FuncoesCaixa
         <>
             {props.valor === "abrirCaixa" && 

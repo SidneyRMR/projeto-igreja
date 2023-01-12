@@ -28,8 +28,8 @@ const DetalheCaixa = () => {
                         <th>Descrição</th>
                         <th>Quantidade</th>
                         <th>Tipo</th>
-                        <th>Valor R$</th>
-                        <th>Total R$</th>
+                        <th>Valor</th>
+                        <th>Total</th>
                     </tr>
                 </thead>
                 <tbody>

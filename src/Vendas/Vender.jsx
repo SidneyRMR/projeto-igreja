@@ -2,9 +2,10 @@ import { useEffect, useState } from 'react';
 import { Container, Row, Col, Table } from 'react-bootstrap';
 import axios from 'axios';
 import InfCaixa from '../InfCaixa'
-// import BotaoSair from '../Botoes/BotaoSair';
 import BotaoMenu from '../Botoes/BotaoMenu';
 import ModalPagamento from './ModalPagamento';
+// import { ToastContainer, toast } from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
 
 const Vender = (props) => {
 
@@ -191,6 +192,7 @@ const Vender = (props) => {
 
     return (
         <div>
+            {/* <ToastContainer/> */}
             <InfCaixa/>
             <BotaoMenu/>
             <Container fluid='true' >
@@ -292,7 +294,7 @@ const Vender = (props) => {
                                 <tr>
                                     <td colSpan={6} >
                                     <div>
-                                        <ModalPagamento openModal={openModal} precoTotal={precoTotal}/>
+                                        <ModalPagamento openModal={openModal} precoTotal={precoTotal}/> 
                                     </div>
                                     </td>
                                 </tr>

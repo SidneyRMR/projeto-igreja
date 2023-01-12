@@ -1,6 +1,8 @@
-import { Row, Col, Table } from "react-bootstrap";
+import { Table } from "react-bootstrap";
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import BotaoSairPrograma from "../Botoes/BotaoSairPrograma";
+import InfoUsuario from "./InfoUsuario";
 
 const FechamentoCaixa = () => {
     // Recupera o valor do usuario da tela de login
@@ -10,7 +12,7 @@ const FechamentoCaixa = () => {
     const [vendasPgto, setVendasPgto] = useState([])
     const getVendasPgto = async () => {
         try {
-            const res = await axios.get("http://localhost:8800/vendasPgto")
+            const res = await axios.get("http://localhost:8800/vendapgto")
             setVendasPgto(res.data.sort((a, b) => (a.id_vendas_pgto > b.id_vendas_pgto ? 1 : -1)))
         } catch (error) {
             console.error(error)
@@ -54,36 +56,20 @@ const FechamentoCaixa = () => {
     return (
         <div>
             <div className='title d-flex justify-content-between p-1'> 
-                <button className="botao botaoTitle" onClick={() => window.location.href = "/abertura-caixa"}>Voltar</button>
+                <button className="botao botaoTitle" onClick={() => window.location.href = "/vendas"}>Voltar</button>
                 
                 Fechamento de Caixa      
 
-                <button 
+                <BotaoSairPrograma nomeBtn='Fechar Caixa' classNameProps="botao botaoTitle"/>
+                {/* <button 
                 className="botao botaoTitle"
                 onClick={() => {
                     window.location.href = "/"
                     sessionStorage.removeItem('usuario');
-                }}>Fechar Cx</button>
+                    sessionStorage.removeItem('usuario');
+                }}>Fechar Cx</button> */}
             </div>
-            <div className="subtitulo">
-                {/* <Row className="subtitulo titulo">
-                    <Col >Informações do Caixa</Col>
-                </Row> */}
-                <Row>
-                    <Col>
-                       <label htmlFor="">Usuário: </label>  
-                            <input className="fechCaixa" type="text" value={usuario.nome_usuario}/> 
-                       <label htmlFor="">Valor Abertura: </label>  
-                            <input className="fechCaixa" type="text" value={caixa.abertura}/> 
-                        <label htmlFor="">Total Sangria: </label>  
-                            <input className="fechCaixa" type="text" value={caixa.sangria}/> 
-                        <label htmlFor="">Data Abertura: </label>  
-                            <input className="fechCaixa" type="text" value={caixa.data_abertura.slice(0,-14)}/> 
-                        <label htmlFor="">Festa: </label>  
-                            <input className="fechCaixa" type="text" value={caixa.id_festa}/> 
-                    </Col>
-                </Row>
-            </div>
+                <InfoUsuario usuario={usuario} caixa={caixa}/>
 
 
 

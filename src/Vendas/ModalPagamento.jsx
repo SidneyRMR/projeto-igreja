@@ -1,10 +1,15 @@
 import { useState } from "react";
 import { Col, Container, Modal, Row } from "react-bootstrap";
 // import FuncoesVendas from "./FuncoesVendas";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function ModalPagamento(props) {
 
     const openModal = () => {
+        props.precoTotal === 0 ? 
+        toast.success(`Adicione um produto primeiro.`, 
+            {position: toast.POSITION.TOP_CENTER }) :
         setIsModalPgtoOpen(true);
       };
 
@@ -29,7 +34,11 @@ export default function ModalPagamento(props) {
     }
     return (
         <div>
-            <button className="botao w-100" onClick={openModal}>Pagamento</button>
+   
+            <ToastContainer/>
+            <button className="botao w-100" 
+                onClick={openModal
+                }>Pagamento</button>
             
             <Modal show={isModalPgtoOpen} onHide={() => setIsModalPgtoOpen(false)}>
             <Modal.Header closeButton className="title">
@@ -46,7 +55,7 @@ export default function ModalPagamento(props) {
                         {showPixInput && (
                             <div className="form-group">
                                 <label htmlFor="pixAmount">Valor em Pix</label>
-                                <input type="text" className="form-control" />
+                                <input type="number" className="form-control" />
                             </div>
                         )}
                     </div>
@@ -59,7 +68,7 @@ export default function ModalPagamento(props) {
                         {showDinheiroInput && (
                             <div className="form-group">
                                 <label htmlFor="pixAmount">Valor em Dinheiro</label>
-                                <input type="text" className="form-control" />
+                                <input type="number" className="form-control" />
                             </div>
                         )}
                     </div>
@@ -72,7 +81,7 @@ export default function ModalPagamento(props) {
                         {showCreditoInput && (
                             <div className="form-group">
                                 <label htmlFor="pixAmount">Valor em Crédito</label>
-                                <input type="text" className="form-control" />
+                                <input type="number" className="form-control" />
                             </div>
                         )}
                     </div>
@@ -85,7 +94,7 @@ export default function ModalPagamento(props) {
                         {showDebitoInput && (
                             <div className="form-group">
                                 <label htmlFor="pixAmount">Valor em Débito</label>
-                                <input type="text" className="form-control" />
+                                <input type="number" className="form-control" />
                             </div>
                         )}
                     </div>

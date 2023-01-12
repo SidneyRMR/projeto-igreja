@@ -1,6 +1,6 @@
 import { Container, Row, Col } from 'react-bootstrap';
 import React, { useState, useEffect } from 'react';
-import BotaoSair from '../Botoes/BotaoSair';
+import BotaoSairPrograma from '../Botoes/BotaoSairPrograma';
 import BotaoAdm from '../Botoes/BotaoAdm';
 import FuncoesCaixa from './FuncoesCaixa';
 
@@ -8,11 +8,8 @@ import FuncoesCaixa from './FuncoesCaixa';
 const AberturaCaixa = () => {
 
   const usuario = JSON.parse(sessionStorage.getItem('usuario'));
-  // const caixa = JSON.parse(sessionStorage.getItem('caixa'));
 
   const [inputAbertura, setInputAbertura] = useState()
-
-
 
   const handleInputAberturaChange = (event) => {
     setInputAbertura(event.target.value);
@@ -54,7 +51,7 @@ const AberturaCaixa = () => {
       <Row>
         <Col>
         <FuncoesCaixa inputAbertura={inputAbertura} valor='abrirCaixa' nomeBtn='Abrir Caixa' />
-        <BotaoSair/>
+        <BotaoSairPrograma/>
         </Col>
       </Row>
       <Row>
