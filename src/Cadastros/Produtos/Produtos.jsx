@@ -53,7 +53,7 @@ const Produtos = () => {
                     <tr >
                         {/* <th>Id</th> */}
                         <th>Descrição</th>
-                        <th>Preço R$</th>
+                        <th>Preço</th>
                         <th>Medida</th>
                         <th>Tipo</th>
                         <th width='20%'>Ação</th>

@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
-import { Col, Row } from "react-bootstrap";
 import axios from "axios";
+import { Col, Row } from "react-bootstrap";
+
 export default function InfoUsuario(props) {
 
     const [vendasPgto, setVendasPgto] = useState([])
+
     const [totalDeb, setTotalDeb] = useState(0)
     const [totalCred, setTotalCred] = useState(0)
     const [totalDin, setTotalDin] = useState(0)
@@ -50,45 +52,53 @@ export default function InfoUsuario(props) {
         <>
             <div className="subtitulo">
                 <Row>
+                    
+                    
                     <Col>
-                        <div htmlFor="">Usuário: </div>
-                        <input className="fechCaixa c-white" type="text" value={props.usuario.nome_usuario} />
+                        <div htmlFor="">Usuário</div>
+                        <input readOnly className="fechCaixa c-white" type="text" value={props.usuario.nome_usuario} />
 
-                        <div htmlFor="">Valor Abertura: </div>
-                        <input className="fechCaixa" type="text" value={props.caixa.abertura} />
+                        <div htmlFor="">Valor Abertura</div>
+                        <input readOnly className="fechCaixa" type="text" value={props.caixa.abertura} />
                     </Col>
                     <Col>
-                        <div htmlFor="">Data Abertura: </div>
-                        <input className="fechCaixa" type="text" value={props.caixa.data_abertura.slice(0, -14)} />
+                        <div htmlFor="">Data Abertura</div>
+                        <input readOnly className="fechCaixa" type="text" value={props.caixa.data_abertura.slice(0, -14)} />
 
-                        <div htmlFor="">Total Sangria: </div>
-                        <input className="fechCaixa" type="text" value={props.caixa.sangria} />
+                        <div htmlFor="">Total Sangria</div>
+                        <input readOnly className="fechCaixa" type="text" value={props.caixa.sangria} />
                     </Col>
 
                     <Col>
 
-                        <div htmlFor="">Debito: </div>
-                        <input className="fechCaixa" type="text" value={totalDeb} />
+                        <div htmlFor="">Debito</div>
+                        <input readOnly className="fechCaixa" type="text" value={totalDeb} />
 
-                        <div htmlFor="">Credito: </div>
-                        <input className="fechCaixa" type="text" value={totalCred} />
+                        <div htmlFor="">Credito</div>
+                        <input readOnly className="fechCaixa" type="text" value={totalCred} />
                     </Col>
                     <Col>
 
-                        <div htmlFor="">Dinheiro: </div>
-                        <input className="fechCaixa" type="text" value={totalDin} />
+                        <div htmlFor="">Dinheiro</div>
+                        <input readOnly className="fechCaixa" type="text" value={totalDin} />
 
-                        <div htmlFor="">Pix: </div>
-                        <input className="fechCaixa" type="text" value={totalPix} />
+                        <div htmlFor="">Pix</div>
+                        <input readOnly className="fechCaixa" type="text" value={totalPix} />
 
+                    </Col>
+                        
+                    </Row>
+                    <hr />
+                    <Row>
+                    <Col>
+                        <div>Total de vendas</div>
+                        <input readOnly className="fechCaixa totais" type="text" value={totalGeral} />
                     </Col>
                     <Col>
-                        <div>Total de vendas: </div>
-                        <input className="fechCaixa" type="text" value={totalGeral} />
-                        <div>Total em caixa: </div>
-                        <input className="fechCaixa" type="text" value={totalEmCaixa} />
+                        <div>Total em caixa</div>
+                        <input readOnly className="fechCaixa totais" type="text" value={totalEmCaixa} />
                     </Col>
-                    {/* <div htmlFor="">Festa: </div>
+                    {/* <div htmlFor="">Festa</div>
                 <input className="fechCaixa" type="text" value={props.caixa.id_festa} /> */}
 
                 </Row>

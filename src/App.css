@@ -69,8 +69,13 @@ label {
 }
 
 .fechCaixa {
+  text-align: center;
   padding: 3px;
   width: 150px;
+}
+.totais {
+  padding: 5px;
+  width: 300px;
 }
 
 .botaoTitle {
