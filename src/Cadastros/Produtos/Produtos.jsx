@@ -8,6 +8,7 @@ const Produtos = () => {
 
     // Este trecho busca os produtos no BD e seta os valores na const produtos
     const [produtos, setProdutos] = useState([])
+    console.log(produtos)
     const getProdutos = async () => {
         try{
             const res = await axios.get("http://localhost:8800/produtos")

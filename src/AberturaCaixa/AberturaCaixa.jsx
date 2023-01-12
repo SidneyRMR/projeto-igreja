@@ -9,7 +9,7 @@ const AberturaCaixa = () => {
 
   const usuario = JSON.parse(sessionStorage.getItem('usuario'));
 
-  const [inputAbertura, setInputAbertura] = useState()
+  const [inputAbertura, setInputAbertura] = useState(0)
 
   const handleInputAberturaChange = (event) => {
     setInputAbertura(event.target.value);

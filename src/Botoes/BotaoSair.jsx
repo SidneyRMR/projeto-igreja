@@ -1,11 +1,11 @@
 export default function BotaoSair(props) {
     return (
         
-        <button style={props.btbStyle} className='botao' onClick={() => {
+        <button style={props.btbStyle} className={props.classNameProps} onClick={() => {
             window.location.href = '/abertura-caixa'
             // sessionStorage.removeItem('usuario');
             sessionStorage.removeItem('caixa');
-          }}>Sair</button>
+          }}>{props.nomeBtn}</button>
         
     )
 }

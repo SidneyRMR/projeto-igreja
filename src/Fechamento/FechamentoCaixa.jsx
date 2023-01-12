@@ -1,4 +1,4 @@
-import BotaoSairPrograma from "../Botoes/BotaoSairPrograma";
+import BotaoSair from "../Botoes/BotaoSair";
 import InfoUsuario from "./InfoUsuario";
 import TabelaProdutosVendidos from "./TabelaProdutosVendidos";
 
@@ -12,7 +12,7 @@ const FechamentoCaixa = () => {
             <div className='title d-flex justify-content-between p-1'> 
                 <button className="botao botaoTitle" onClick={() => window.location.href = "/vendas"}>Voltar</button>
                 Fechamento de Caixa      
-                <BotaoSairPrograma nomeBtn='Fechar Caixa' classNameProps="botao botaoTitle"/>
+                <BotaoSair nomeBtn='Fechar Caixa' classNameProps="botao botaoTitle"/>
             </div>
             
             <InfoUsuario usuario={usuario} caixa={caixa}/>

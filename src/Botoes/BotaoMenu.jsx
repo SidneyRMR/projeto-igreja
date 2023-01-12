@@ -45,7 +45,7 @@ export default function BotaoMenu(props) {
 
                         </div>
 
-                        <BotaoSair/>
+                        <BotaoSair classNameProps='botao' nomeBtn='Sair'/>
 
                     </div>
                 )}

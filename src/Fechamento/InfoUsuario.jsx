@@ -4,49 +4,58 @@ import { Col, Row } from "react-bootstrap";
 
 export default function InfoUsuario(props) {
 
-    const [vendasPgto, setVendasPgto] = useState([])
+    const usuario = props.usuario
+    const caixa = props.caixa
 
-    const [totalDeb, setTotalDeb] = useState(0)
-    const [totalCred, setTotalCred] = useState(0)
-    const [totalDin, setTotalDin] = useState(0)
-    const [totalPix, setTotalPix] = useState(0)
+    const [vendas, setVendas] = useState([])
+
     const [totalGeral, setTotalGeral] = useState(0)
     const [totalEmCaixa, setTotalEmCaixa] = useState(0)
 
-    function sumIdForma(vendas, forma) {
-        let sum = 0;
-        sum = vendas
-            .filter(element => element.id_forma === forma)
-            .map(element => element.valor_pgto)
-            .reduce((acc, value) => acc + value, 0);
-        return sum;
+
+
+    const getVendas = async () => {
+        try {
+            const res = await axios.get("http://localhost:8800/vendas")
+            setVendas(res.data.sort((a,b) => (a.id > b.id ? 1 : -1)))
+        } catch (error) {
+            console.error(error)
+        }
+    };
+    useEffect(() => {
+        getVendas()
+    }, [setVendas])
+
+    const [totalParaCadaTipoPagamento, setTotalParaCadaTipoPagamento] = useState([])
+
+    function filtrarVendaPagamento(vendasArr) {
+        // array somente com este caixa
+        const newVendasArr = vendasArr.filter((venda) => venda.id_caixa === caixa.id_caixa)
+        console.log(newVendasArr)
+        
+        const resultado = newVendasArr.reduce((acc, venda) => {
+            acc.debito += venda.debito;
+            acc.credito += venda.credito;
+            acc.dinheiro += venda.dinheiro;
+            acc.pix += venda.pix;
+            return acc;
+        }, { debito: 0, credito: 0, dinheiro: 0, pix: 0 });
+        return resultado
+
     }
-
     useEffect(() => {
-        const getVendasPgto = async () => {
-            try {
-                const res = await axios.get("http://localhost:8800/vendapgto")
-                setVendasPgto(res.data)
-            } catch (error) {
-                console.error(error)
-            }
-        };
-        getVendasPgto();
-    }, []);
+        setTotalParaCadaTipoPagamento(filtrarVendaPagamento(vendas));
+        setTotalGeral(  filtrarVendaPagamento(vendas).debito + 
+                        filtrarVendaPagamento(vendas).credito + 
+                        filtrarVendaPagamento(vendas).dinheiro + 
+                        filtrarVendaPagamento(vendas).pix);
 
-    useEffect(() => {
-        setTotalDeb(sumIdForma(vendasPgto, 1));
-        setTotalCred(sumIdForma(vendasPgto, 2));
-        setTotalDin(sumIdForma(vendasPgto, 3));
-        setTotalPix(sumIdForma(vendasPgto, 4));
-
-        setTotalGeral(sumIdForma(vendasPgto, 1) +
-            sumIdForma(vendasPgto, 2) +
-            sumIdForma(vendasPgto, 3) +
-            sumIdForma(vendasPgto, 4));
-
-        setTotalEmCaixa(sumIdForma(vendasPgto, 3) + props.caixa.abertura);
-    }, [vendasPgto, props.caixa.abertura]);
+       if(props.caixa){
+   setTotalEmCaixa(props.caixa.abertura + filtrarVendaPagamento(vendas).dinheiro - props.caixa.sangria);
+}
+    }, [vendas])
+    
+    
 
     return (
         <>
@@ -56,34 +65,34 @@ export default function InfoUsuario(props) {
                     
                     <Col>
                         <div htmlFor="">Usuário</div>
-                        <input readOnly className="fechCaixa c-white" type="text" value={props.usuario.nome_usuario} />
+                        <input readOnly className="fechCaixa c-white" type="text" value={usuario.nome_usuario} />
 
                         <div htmlFor="">Valor Abertura</div>
-                        <input readOnly className="fechCaixa" type="text" value={props.caixa.abertura} />
+                        <input readOnly className="fechCaixa" type="text" value={caixa.abertura} />
                     </Col>
                     <Col>
                         <div htmlFor="">Data Abertura</div>
-                        <input readOnly className="fechCaixa" type="text" value={props.caixa.data_abertura.slice(0, -14)} />
+                        <input readOnly className="fechCaixa" type="text" value={caixa.data_abertura.slice(0, -14)} />
 
                         <div htmlFor="">Total Sangria</div>
-                        <input readOnly className="fechCaixa" type="text" value={props.caixa.sangria} />
+                        <input readOnly className="fechCaixa" type="text" value={caixa.sangria} />
                     </Col>
 
                     <Col>
 
                         <div htmlFor="">Debito</div>
-                        <input readOnly className="fechCaixa" type="text" value={totalDeb} />
+                        <input readOnly className="fechCaixa" type="text" value={totalParaCadaTipoPagamento.debito} />
 
                         <div htmlFor="">Credito</div>
-                        <input readOnly className="fechCaixa" type="text" value={totalCred} />
+                        <input readOnly className="fechCaixa" type="text" value={totalParaCadaTipoPagamento.credito} />
                     </Col>
                     <Col>
 
                         <div htmlFor="">Dinheiro</div>
-                        <input readOnly className="fechCaixa" type="text" value={totalDin} />
+                        <input readOnly className="fechCaixa" type="text" value={totalParaCadaTipoPagamento.dinheiro} />
 
                         <div htmlFor="">Pix</div>
-                        <input readOnly className="fechCaixa" type="text" value={totalPix} />
+                        <input readOnly className="fechCaixa" type="text" value={totalParaCadaTipoPagamento.pix} />
 
                     </Col>
                         
@@ -99,7 +108,7 @@ export default function InfoUsuario(props) {
                         <input readOnly className="fechCaixa totais" type="text" value={totalEmCaixa} />
                     </Col>
                     {/* <div htmlFor="">Festa</div>
-                <input className="fechCaixa" type="text" value={props.caixa.id_festa} /> */}
+                <input className="fechCaixa" type="text" value={caixa.id_festa} /> */}
 
                 </Row>
             </div>

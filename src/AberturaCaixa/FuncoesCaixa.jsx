@@ -18,8 +18,8 @@ export default function FuncoesCaixa(props) {
     const usuario = JSON.parse(sessionStorage.getItem('usuario'));
     console.log(usuario)
 
-    function setCaixaLocal(salvaCaixa) {
-        sessionStorage.setItem('caixa', JSON.stringify(salvaCaixa))
+    async function setCaixaLocal(salvaCaixa) {
+        await sessionStorage.setItem('caixa', JSON.stringify(salvaCaixa))
     }
 
     const abrirCaixa = async () => {

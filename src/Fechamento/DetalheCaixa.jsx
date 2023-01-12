@@ -22,6 +22,7 @@ const DetalheCaixa = () => {
 
     return (
         <div >
+            <div className='title'>Detalhes</div>
             <table className='tabela'>
                 <thead>
                     <tr>
