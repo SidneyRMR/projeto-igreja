@@ -119,16 +119,16 @@ export default function ModalPagamento(props) {
                         </Row>
                         <Row>
                             <Col>
-                                {/* <button className="w-100" onClick={() =>
-                                    novaCompra()
-                                    <div style={{ fontSize: '25px' }}>
-                                        Confirmar Pagamento
-                                    </div>
-                                        }>
-                                    </button> */}
+                                <button className="botao w-100" 
+                                    // onClick={() =>
+                                    // novaCompra()
+                                    // }
+                                    >
+                                            Confirmar Pagamento
+                                </button>
+                            </Col>
 
                                 {/* <FuncoesVendas valor='novaCompra' nomeBtn='Confirmar Pagamento'/> */}
-                            </Col>
                         </Row>
                     </Container>
                 </form>

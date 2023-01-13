@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Col, Row } from "react-bootstrap";
+import CompInfUsuario from "./CompInfUsuario";
 
 export default function InfoUsuario(props) {
 
@@ -53,46 +54,38 @@ export default function InfoUsuario(props) {
        if(props.caixa){
    setTotalEmCaixa(props.caixa.abertura + filtrarVendaPagamento(vendas).dinheiro - props.caixa.sangria);
 }
-    }, [vendas])
+    }, [vendas, props.caixa])
     
     
 
     return (
-        <>
+        <>{usuario && caixa && totalParaCadaTipoPagamento (
+
             <div className="subtitulo">
                 <Row>
                     
                     
                     <Col>
-                        <div htmlFor="">Usuário</div>
-                        <input readOnly className="fechCaixa c-white" type="text" value={usuario.nome_usuario} />
+                        <CompInfUsuario nome='Usuário:' styleProps={{fontSize:'22px'}} valor={usuario.nome_usuario}/>
+                        
+                        <CompInfUsuario nome='Valor Abertura:' styleProps={{fontSize:'22px'}} valor={(caixa.abertura).toFixed(2).replace('.',',')}/>
 
-                        <div htmlFor="">Valor Abertura</div>
-                        <input readOnly className="fechCaixa" type="text" value={caixa.abertura} />
                     </Col>
                     <Col>
-                        <div htmlFor="">Data Abertura</div>
-                        <input readOnly className="fechCaixa" type="text" value={caixa.data_abertura.slice(0, -14)} />
+                        <CompInfUsuario nome='Data Abertura:' styleProps={{fontSize:'22px'}} valor={(caixa.data_abertura.slice(0, -14))}/>
 
-                        <div htmlFor="">Total Sangria</div>
-                        <input readOnly className="fechCaixa" type="text" value={caixa.sangria} />
+                        <CompInfUsuario nome='Total Sangria:' styleProps={{fontSize:'22px'}} valor={(caixa.sangria).toFixed(2).replace('.',',')}/>
                     </Col>
 
                     <Col>
+                        <CompInfUsuario nome='Debito:' styleProps={{fontSize:'22px'}} valor={(totalParaCadaTipoPagamento.debito).toFixed(2).replace('.',',')}/>
 
-                        <div htmlFor="">Debito</div>
-                        <input readOnly className="fechCaixa" type="text" value={totalParaCadaTipoPagamento.debito} />
-
-                        <div htmlFor="">Credito</div>
-                        <input readOnly className="fechCaixa" type="text" value={totalParaCadaTipoPagamento.credito} />
+                        <CompInfUsuario nome='Credito:' styleProps={{fontSize:'22px'}} valor={(totalParaCadaTipoPagamento.credito).toFixed(2).replace('.',',')}/>
                     </Col>
                     <Col>
+                        <CompInfUsuario nome='Dinheiro:' styleProps={{fontSize:'22px'}} valor={(totalParaCadaTipoPagamento.dinheiro).toFixed(2).replace('.',',')}/>
 
-                        <div htmlFor="">Dinheiro</div>
-                        <input readOnly className="fechCaixa" type="text" value={totalParaCadaTipoPagamento.dinheiro} />
-
-                        <div htmlFor="">Pix</div>
-                        <input readOnly className="fechCaixa" type="text" value={totalParaCadaTipoPagamento.pix} />
+                        <CompInfUsuario nome='Pix:' styleProps={{fontSize:'22px'}} valor={(totalParaCadaTipoPagamento.pix).toFixed(2).replace('.',',')}/>
 
                     </Col>
                         
@@ -100,18 +93,21 @@ export default function InfoUsuario(props) {
                     <hr />
                     <Row>
                     <Col>
-                        <div>Total de vendas</div>
-                        <input readOnly className="fechCaixa totais" type="text" value={totalGeral} />
+                        <div className="bg-orange al-left ">Total de vendas:
+                        <span className="al-right totais" style={{fontSize:'25px'}}>{totalGeral.toFixed(2).replace('.',',')}</span>
+                        </div>
                     </Col>
                     <Col>
-                        <div>Total em caixa</div>
-                        <input readOnly className="fechCaixa totais" type="text" value={totalEmCaixa} />
+                        <div className="bg-orange al-left">Total em caixa:
+                        <span className="al-right totais" style={{fontSize:'25px'}}>{totalEmCaixa.toFixed(2).replace('.',',')}</span>
+                        </div>
                     </Col>
-                    {/* <div htmlFor="">Festa</div>
-                <input className="fechCaixa" type="text" value={caixa.id_festa} /> */}
+                    {/* <div className="bg-orange al-left">Festa</div>
+                <input className="al-right" type="text" value={caixa.id_festa} /> */}
 
                 </Row>
             </div>
+                )}
         </>
     )
 }

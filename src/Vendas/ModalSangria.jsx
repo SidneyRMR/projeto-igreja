@@ -5,10 +5,11 @@ export default function ModalSangria(props) {
 
     const openModal = () => {
         setIsModalSangriaOpen(true);
-      };
+      }
+
     const [isModalSangriaOpen, setIsModalSangriaOpen] = useState(false);
 
-    const [valorNovaSangria, setValorNovaSangria] = useState();
+    const [valorNovaSangria, setValorNovaSangria] = useState(0);
 
     function handleSangriaValor(event) {
         setValorNovaSangria(event.target.value);

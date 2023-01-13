@@ -13,24 +13,11 @@ const Vender = (props) => {
     // console.log(caixaStorange)
     // const [caixa, setCaixa] = useState(caixaStorange)
 
-    // let abertura = '';
-    // let sangria = '';
-    // let data_abertura = '';
-    // let data_fechamento = '';
-    // let id_caixa = '';
-    // let id_compra = '';
-    // let id_festa = '';
-    // let id_usuario = ''
-    // let status_caixa = ''
-
-    
-
     const [precoTotal, setPrecoTotal] = useState(0)
     const [bebidas, setBebidas] = useState([])
     const [comidas, setComidas] = useState([])
 
     // const [descricaoSangria, setDescricaoSangria] = useState(caixa.descSangria);
-
 
     // function handleSangriaDescrição(event) {
     //     setShowDebitoInput(event.target.value);
@@ -70,11 +57,9 @@ const Vender = (props) => {
     //         }
     //     } else {
     //         window.confirm('O valor deve ser menor do que o de saldo em dinheiro deste caixa.')
-
     //     }
     // }
 
-    // Este trecho busca os produtos no BD e seta os valores na const produtos
     // Este trecho busca os produtos no BD e seta os valores na const produtos
     const [produtos, setProdutos] = useState([])
     const getProdutos = async () => {
@@ -193,19 +178,23 @@ const Vender = (props) => {
     return (
         <div>
             {/* <ToastContainer/> */}
-            <InfCaixa/>
-            <BotaoMenu/>
+            <InfCaixa />
+            
             <Container fluid='true' >
                 <Row>
                     <Col sm={8} xs={5}>
                         {/* BOTÕES DE PRODUTOS */}
                         <div>
-                            <div>
+                            
+                                <div className='title subtitulo d-flex justify-content-between p-1'>
+                                    <BotaoMenu />
+                                    Vendas
+                                    <div width='20%'>{''}</div>
+                                </div>
                                 <div className='title'>
                                 Bebidas
-                            </div>
+                                </div>
 
-                            </div>
                             {bebidas && bebidas.map((produto, i) => {
                                 return (
                                     <button

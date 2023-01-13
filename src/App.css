@@ -69,13 +69,20 @@ label {
 }
 
 .fechCaixa {
-  text-align: center;
-  padding: 3px;
+  text-align: right;
+  padding: 8px;
   width: 150px;
 }
 .totais {
-  padding: 5px;
+  padding: 10px;
   width: 300px;
+}
+
+.al-left {
+  text-align: start;
+}
+.al-right {
+  text-align: end;
 }
 
 .botaoTitle {
@@ -106,7 +113,10 @@ textarea {
 
 /* estilo do valor total na tela de pagamento... a melhorar */
 .bg-orange {
-  align-items: center;
+  padding: 5px;
+  margin: 5px;
+  /* text-align: justify;
+  align-items: center; */
   background-color:#aa541b;
   color: white;
   height: 40px;
