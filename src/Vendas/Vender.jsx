@@ -123,28 +123,24 @@ const Vender = (props) => {
 
     const openModal = () => {
         props.setIsModalPgtoOpen(true);
-      };
+    };
 
 
     return (
         <div>
             {/* <ToastContainer/> */}
             <InfCaixa />
-            
+                                <BotaoMenu style={{position: 'fixed', }}/>
             <Container fluid='true' >
-                <Row>
-                    <Col sm={8} xs={5}>
+                <Row >
+                    <Col className='m-0 p-0' style={{borderRight: '2px solid #9e501c'}}  >
                         {/* BOTÕES DE PRODUTOS */}
-                        <div>
-                            
-                                <div className='title subtitulo d-flex justify-content-between p-1'>
-                                    <BotaoMenu />
-                                    Vendas
-                                    <div width='20%'>{''}</div>
-                                </div>
-                                <div className='title'>
+                        <div className=''>
+                            <div className='title'>
                                 Bebidas
+                                <div className='botao-menu'> 
                                 </div>
+                            </div>
 
                             {bebidas && bebidas.map((produto, i) => {
                                 return (
@@ -166,6 +162,10 @@ const Vender = (props) => {
                                     </button>
                                 )
                             })}
+                        </div>
+                        
+                        <div className='p-0 m-0'>
+
                             <div className='title'>Comidas</div>
                             {comidas && comidas.map((produto, i) => {
                                 return (
@@ -191,7 +191,7 @@ const Vender = (props) => {
                     </Col>
 
                     {/* RESUMO DO PEDIDO */}
-                    <Col sm={4} xs={5}>
+                    <Col sm={5} className='p-0 m-0'>
                         <div className='title'>Resumo Pedido</div>
                         <Table className='tabela' bordered>
                             <thead>
@@ -199,7 +199,7 @@ const Vender = (props) => {
                                     <th width="2%">Qnde</th>
                                     <th width="30%">Descrição</th>
                                     <th width="15%">Preço</th>
-                                    <th width="10%">Medida</th>
+                                    <th width="5%">Medida</th>
                                     <th width="15%">Total</th>
                                     <th width="15%">Ações</th>
                                 </tr>
@@ -211,15 +211,15 @@ const Vender = (props) => {
                                             <td>{produto.qnde}</td>
                                             <td>{produto.nome}</td>
                                             <td>{produto.preco}</td>
-                                            <td>{produto.medida}</td>
+                                            <td>{produto.medida === 'Unidade' ? 'UN' : 'KG'}</td>
                                             <td>{
                                                 typeof produto.qnde === 'number'
                                                     ? (produto.qnde * produto.preco).toFixed(2).replace('.', ',') : ''}</td>
-                                            <td><button 
+                                            <td><button
                                                 className='botao'
                                                 onClick={() => {
-                                                removeProduto(produto)
-                                            }}>Excluir</button></td>
+                                                    removeProduto(produto)
+                                                }}>Excluir</button></td>
                                         </tr>))
                                 }
                             </tbody>
@@ -233,9 +233,9 @@ const Vender = (props) => {
                                 </tr>
                                 <tr>
                                     <td colSpan={6} >
-                                    <div>
-                                        <ModalPagamento openModal={openModal} precoTotal={precoTotal}/> 
-                                    </div>
+                                        <div>
+                                            <ModalPagamento openModal={openModal} precoTotal={precoTotal} />
+                                        </div>
                                     </td>
                                 </tr>
                             </tfoot>

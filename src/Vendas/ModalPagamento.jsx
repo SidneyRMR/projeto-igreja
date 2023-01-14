@@ -1,5 +1,4 @@
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useRef, useState  } from "react";
 import { Col, Container, Modal, Row } from "react-bootstrap";
 import FuncoesVendas from "./FuncoesVendas";
 import { ToastContainer, toast } from 'react-toastify';
@@ -20,6 +19,14 @@ export default function ModalPagamento(props) {
     const [pgDinheiro, setPgDinheiro] = useState(0);
     const [pgPix, setPgPix] = useState(0);
     const [precoTotalAPagar, setPrecoTotalAPagar] = useState(0);
+    
+    // const [falta, setFalta] = useState(0);
+    // const [troca, setTroca] = useState(0);
+
+    const inputRefDebito = useRef()
+    const inputRefCredito = useRef()
+    const inputRefDinheiro = useRef()
+    const inputRefPix = useRef()
 
     // atualizar valores de pagamentos em cada input
     function handleInputDebito(event) {
@@ -47,18 +54,19 @@ export default function ModalPagamento(props) {
 
     function handleShowDebito(event) {
         setShowDebitoInput(event.target.checked)
-        setPgDebito(0)
+        setPgDebito(0);
     }
+    
     function handleShowCredito(event) {
-        setShowCreditoInput(event.target.checked);
+        setShowCreditoInput(event.target.checked)
         setPgCredito(0)
     }
     function handleShowDinheiro(event) {
-        setShowDinheiroInput(event.target.checked);
+        setShowDinheiroInput(event.target.checked)
         setPgDinheiro(0)
     }
     function handleShowPix(event) {
-        setShowPixInput(event.target.checked);
+        setShowPixInput(event.target.checked)
         setPgPix(0)
     }
     return (
@@ -75,54 +83,54 @@ export default function ModalPagamento(props) {
             </Modal.Header>
             <Modal.Body>
                 <form >
-                    <div className="form-check">
-          
-                    <input required className="form-check-input" type="checkbox" onChange={handleShowDebito} value="Debito" />
+                <div className="form-check">
+                <input className={`form-check-input`} type="checkbox" onChange={handleShowDebito} value="Debito" />
                     <label >
                             Debito 
                         </label>
                         {showDebitoInput && (
-                            <span className="form-group">
-                            <input type="number" className="form-control" onChange={handleInputDebito}/>
+                            <span className={`form-group ${showDebitoInput ? '' : 'd-none'}`} >
+                            <input type="number" className="form-control" onChange={handleInputDebito} ref={inputRefCredito}/>
                         </span>
                     )}
        
                     </div>
+
                     <div className="form-check">
           
-                    <input required className="form-check-input" type="checkbox" onChange={handleShowCredito} value="Credito" />
+                    <input className="form-check-input" type="checkbox" onChange={handleShowCredito} value="Credito" />
                     <label >
                             Credito 
                         </label>
                         {showCreditoInput && (
                             <span className="form-group">
-                            <input type="number" className="form-control" onChange={handleInputCredito}/>
+                            <input type="number" className="form-control" onChange={handleInputCredito} ref={inputRefCredito}/>
                         </span>
                     )}
        
                     </div>
                     <div className="form-check">
           
-                    <input required className="form-check-input" type="checkbox" onChange={handleShowDinheiro} value="Dinheiro" />
+                    <input className="form-check-input" type="checkbox" onChange={handleShowDinheiro} value="Dinheiro" />
                     <label >
                             Dinheiro 
                         </label>
                         {showDinheiroInput && (
                             <span className="form-group">
-                            <input type="number" className="form-control" onChange={handleInputDinheiro}/>
+                            <input type="number" className="form-control" onChange={handleInputDinheiro} ref={inputRefDinheiro}/>
                         </span>
                     )}
        
                     </div>
                     <div className="form-check">
           
-                    <input required className="form-check-input" type="checkbox" onChange={handleShowPix} value="Pix" />
+                    <input className="form-check-input" type="checkbox" onChange={handleShowPix} value="Pix" />
                     <label >
                             Pix 
                         </label>
                         {showPixInput && (
                             <span className="form-group">
-                            <input type="number" className="form-control" onChange={handleInputPix}/>
+                            <input type="number" className="form-control" onChange={handleInputPix} ref={inputRefPix}/>
                         </span>
                     )}
        
@@ -151,14 +159,16 @@ export default function ModalPagamento(props) {
                                 Falta
                             </Col>
                             <Col>
-                                <div>R$ {(precoTotalAPagar ?  ( precoTotalAPagar - props.precoTotal) > 0 ? 0 : precoTotalAPagar - props.precoTotal : 0).toFixed(2).replace('.', ',')}</div>
+                                {}
+                                <div>R$ {(precoTotalAPagar ?  ( precoTotalAPagar - props.precoTotal) > 0 ? 0 : 
+                                            precoTotalAPagar - props.precoTotal : 0).toFixed(2).replace('.', ',')}</div>
                             </Col>
                         </Row>
                         <Row>
                             <Col>
 
                                 {/* Criar componente da que tem as funções que irão tratar estes dado, fazer as verificações e salvar no BD */}
-                                <FuncoesVendas valor='novaVenda' nomeBtn='Confirmar Pagamento'/>
+                                <FuncoesVendas nomeBtn='Confirmar Pagamento' propsDebito={pgDebito} propsCredito={pgCredito} propsDinheiro={pgDinheiro} propsPix={pgPix}/>
 
                                 {/* <button className="botao w-100"  data-dismiss="false" >
                                     Confirmar Pagamento

@@ -62,46 +62,46 @@ export default function InfoUsuario() {
             <div className="subtitulo">
                 <Row>
                     <Col>
-                        <CompInfUsuario nomeProps='Usuário:' styleProps={{fontSize:'22px'}} valorProps={usuario.nome_usuario.split(' ').slice(0, 1).join(" ")}/>
+                        <CompInfUsuario nomeProps='Usuário:' styleProps={{fontSize:'19px'}} valorProps={usuario.nome_usuario.split(' ').slice(0, 1).join(" ")}/>
                     </Col>
                     <Col>
-                        <CompInfUsuario nomeProps='Valor Abertura:' styleProps={{fontSize:'22px'}} valorProps={(caixa.abertura).toFixed(2).replace('.',',')}/>
+                        <CompInfUsuario nomeProps='Valor Abertura:' styleProps={{fontSize:'19px'}} valorProps={(caixa.abertura).toFixed(2).replace('.',',')}/>
                     </Col>
                     <Col>
-                        <CompInfUsuario nomeProps='Data Abertura:' styleProps={{fontSize:'22px'}} valorProps={(caixa.data_abertura.slice(0 ,-14))}/>
+                        <CompInfUsuario nomeProps='Data Abertura:' styleProps={{fontSize:'19px'}} valorProps={(caixa.data_abertura.slice(0 ,-14))}/>
                     </Col>
                     <Col>
-                        <CompInfUsuario nomeProps='Total Sangria:' styleProps={{fontSize:'22px'}} valorProps={(caixa.sangria).toFixed(2).replace('.',',')}/>
+                        <CompInfUsuario nomeProps='Total Sangria:' styleProps={{fontSize:'19px'}} valorProps={(caixa.sangria).toFixed(2).replace('.',',')}/>
                     </Col>
                 </Row>
                 <hr  className="p-0 m-2"/>
                 <Row>
                     <Col>
-                        <CompInfUsuario nomeProps='Debito:' styleProps={{fontSize:'22px'}} valorProps={(debito).toFixed(2).replace('.',',')}/>
+                        <CompInfUsuario nomeProps='Debito:' styleProps={{fontSize:'19px'}} valorProps={(debito).toFixed(2).replace('.',',')}/>
 
                     </Col>
                     <Col>
-                        <CompInfUsuario nomeProps='Credito:' styleProps={{fontSize:'22px'}} valorProps={(credito).toFixed(2).replace('.',',')}/>
+                        <CompInfUsuario nomeProps='Credito:' styleProps={{fontSize:'19px'}} valorProps={(credito).toFixed(2).replace('.',',')}/>
                     </Col>
                     <Col>
-                        <CompInfUsuario nomeProps='Dinheiro:' styleProps={{fontSize:'22px'}} valorProps={(dinheiro).toFixed(2).replace('.',',')}/>
+                        <CompInfUsuario nomeProps='Dinheiro:' styleProps={{fontSize:'19px'}} valorProps={(dinheiro).toFixed(2).replace('.',',')}/>
                     </Col>
                     <Col>
 
-                        <CompInfUsuario nomeProps='Pix:' styleProps={{fontSize:'22px'}} valorProps={(pix).toFixed(2).replace('.',',')}/>
+                        <CompInfUsuario nomeProps='Pix:' styleProps={{fontSize:'19px'}} valorProps={(pix).toFixed(2).replace('.',',')}/>
                     </Col>
                         
                     </Row>
                         <hr className="p-0 m-2"/>
                     <Row>
                     <Col>
-                        <CompInfUsuario nomeProps='Festa:' styleProps={{fontSize:'25px'}} valorProps={('Mudar para nome (VW)',caixa.id_festa)}/>
+                        <CompInfUsuario nomeProps='Festa:' styleProps={{fontSize:'22px'}} valorProps={('Mudar para nome (VW)',caixa.id_festa)}/>
                     </Col>
                     <Col>
-                        <CompInfUsuario nomeProps='Total de vendas:' styleProps={{fontSize:'25px'}} valorProps={(totalGeral.toFixed(2).replace('.',','))}/>
+                        <CompInfUsuario nomeProps='Total de vendas:' styleProps={{fontSize:'22px'}} valorProps={(totalGeral.toFixed(2).replace('.',','))}/>
                     </Col>
                     <Col>
-                        <CompInfUsuario nomeProps='Total em caixa:' styleProps={{fontSize:'25px'}} valorProps={(totalEmCaixa.toFixed(2).replace('.',','))}/>
+                        <CompInfUsuario nomeProps='Total em caixa:' styleProps={{fontSize:'22px'}} valorProps={(totalEmCaixa.toFixed(2).replace('.',','))}/>
                     </Col>
 
                 </Row>

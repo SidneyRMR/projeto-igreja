@@ -3,6 +3,12 @@
   font-size: 13px;
 }
 
+.linha-guia {
+  border: 1px solid red;
+
+  background-color: #FCECE8; 
+}
+
 .botao {
   padding: 12px;
   /* display: inline-block; */
@@ -13,12 +19,19 @@
   border-radius: 10px;
   text-decoration: none;
 }
-button, #botaoMenu {
-  /* display: inline-block; */
-  width: 100px;
-  color: white;
-  border: 1px solid;
+
+.titleVendas {
+  display: flex;
+  align-items: center; /* centraliza verticalmente */
+  justify-content: center; /* centraliza horizontalmente */
+  text-align: center; /* centraliza o texto */
 }
+.botao-menu {
+  position: 'fixed';
+  float: left; /* flutua para a direita */
+}
+
+
 .botaoProdutos {
   padding: 12px;
   /* display: inline-block; */
