@@ -4,12 +4,10 @@ import React /* { useState, useEffect  */ from 'react';
 // import axios from 'axios';
 import Clock from './Clock'; // Importar o componente Clock
 
-// Recupera o valor do usuario da tela de login
-
-const usuario = JSON.parse(sessionStorage.getItem('usuario'));
-const caixa = JSON.parse(sessionStorage.getItem('caixa'));
 
 function InfCaixa() {
+    const usuario = JSON.parse(sessionStorage.getItem('usuario'));
+    const caixa = JSON.parse(sessionStorage.getItem('caixa'));
 
     return(
     <Container fluid='true'>
@@ -26,7 +24,7 @@ function InfCaixa() {
                 {' | '}
                 Sangria: {caixa.sangria}
                 {' | '}
-                Data abertura: {caixa.data_abertura}
+                Data abertura: {caixa.data_abertura.slice(0, -14)}
                 {' | '}
                 Status: {caixa.status_caixa}
                 {' | '}

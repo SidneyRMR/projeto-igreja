@@ -3,9 +3,6 @@ import InfoUsuario from "./InfoUsuario";
 import TabelaProdutosVendidos from "./TabelaProdutosVendidos";
 
 const FechamentoCaixa = () => {
-    // Recupera o valor do usuario da tela de login
-    const usuario = JSON.parse(sessionStorage.getItem('usuario'));
-    const caixa = JSON.parse(sessionStorage.getItem('caixa'));
 
     return (
         <div>
@@ -15,9 +12,9 @@ const FechamentoCaixa = () => {
                 <BotaoSair nomeBtn='Fechar Caixa' classNameProps="botao botaoTitle"/>
             </div>
             
-            <InfoUsuario usuario={usuario} caixa={caixa}/>
+            <InfoUsuario />
 
-            <TabelaProdutosVendidos caixa={caixa}/>
+            <TabelaProdutosVendidos />
 
         </div>
     )

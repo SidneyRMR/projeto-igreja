@@ -3,10 +3,26 @@
   font-size: 13px;
 }
 
-button, .botao {
+.botao {
   padding: 12px;
   /* display: inline-block; */
   width: 100px;
+  background-color: #C55A11;
+  color: white;
+  border: 1px solid;
+  border-radius: 10px;
+  text-decoration: none;
+}
+#botaoMenu {
+  /* display: inline-block; */
+  width: 150px;
+  color: white;
+  border: 1px solid;
+}
+.botaoProdutos {
+  padding: 12px;
+  /* display: inline-block; */
+  /* width: 150px; */
   background-color: #C55A11;
   color: white;
   border: 1px solid;

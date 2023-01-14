@@ -11,7 +11,10 @@ export default function BotaoMenu(props) {
       };
 
     return (
-            <DropdownButton title='Menu' variant="warning" size="lg">
+        <div className="ls-custom-select w-200">
+
+            <DropdownButton title='Menu' variant="warning" size="lg"
+              id="botaoMenu">
                 <Dropdown.Item >
                     <ModalSangria openModal={openModal}/>
                 </Dropdown.Item>
@@ -24,6 +27,7 @@ export default function BotaoMenu(props) {
                     <BotaoSair classNameProps='botao' nomeBtn='Sair'/>
                 </Dropdown.Item>
             </DropdownButton>
+        </div>
 
     )
 }

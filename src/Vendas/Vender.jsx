@@ -202,7 +202,7 @@ const Vender = (props) => {
                                         onClick={() => {
                                             addProduto(produto.nome, produto.preco, produto.medida)
                                         }}
-                                        className={produto.tipo === 'Comida' ? 'ehComida' : 'nEhComida'
+                                        className={produto.tipo === 'Comida' ? 'botaoProdutos ehComida' : 'botaoProdutos nEhComida'
                                         }>
                                         <div>
                                             <div style={{ fontSize: '12px' }}>
@@ -223,7 +223,7 @@ const Vender = (props) => {
                                         onClick={() => {
                                             addProduto(produto.nome, produto.preco, produto.medida)
                                         }}
-                                        className={produto.tipo === 'Comida' ? 'ehComida' : 'nEhComida'}>
+                                        className={produto.tipo === 'Comida' ? 'botaoProdutos ehComida' : 'botaoProdutos nEhComida'}>
                                         <div>
                                             <div style={{ fontSize: '12px' }}>
                                                 {produto.nome}
