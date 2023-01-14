@@ -165,7 +165,7 @@ export default function FuncoesCaixa(props) {
         return `${horaAtual}`
     }
 
-    const acessarVendas = async () => {
+    const acessarVendas = () => {
         window.location.href = '/vendas'
     }
 

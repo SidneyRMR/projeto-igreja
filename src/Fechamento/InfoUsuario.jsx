@@ -7,7 +7,7 @@ import CompInfUsuario from "./CompInfUsuario";
 export default function InfoUsuario() {
 
     const usuario = (JSON.parse(sessionStorage.getItem('usuario')))
-    const caixa =     (JSON.parse(sessionStorage.getItem('caixa')))
+    const caixa =  (JSON.parse(sessionStorage.getItem('caixa')))
     // const [vendas, setVendas] = useState([])
     const [debito, setDebito] = useState(0)
     const [credito, setCredito] = useState(0)

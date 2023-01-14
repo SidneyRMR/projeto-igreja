@@ -28,20 +28,6 @@ const Vender = (props) => {
     }, [setProdutos])
     // fim do trecho 
 
-    // aqui eu preciso trabalhar com 2 objetos que irao conversar entre si,
-    /*objeto caixa e objeto compras pedido,
-        no objeto caixa tenho:
-            id_caixa,
-            abertura, 
-            sangria(acumulativo), 
-            data_abertura,
-            data_fechamento,
-            id_compras, que tera:
-                id_compra,
-                id_produto,
-                quantidade,
-    */
-
     // Declare a list of objects and a state for the form input values
     const [resumoPedido, setResumoPedido] = useState([])
 
@@ -100,26 +86,6 @@ const Vender = (props) => {
         setBebidas(produtos.filter((produto) => produto.tipo === 'Bebida'))
         setComidas(produtos.filter((produto) => produto.tipo === 'Comida'))
     }, [produtos])
-
-
-    //  função que cria um novo pedido de compras 
-    // const novaCompra = async (id_produto, quantidade_produto, id_caixa) => {
-    //     if (!id_produto || !quantidade_produto || !id_caixa) {
-    //         console.error('Todos os campos devem estar preenchidos!')
-    //         return
-    //     }
-    //     try {
-    //         const res = await axios.post('http://localhost:8800/compras', {
-    //             id_produto,
-    //             quantidade_produto,
-    //             id_caixa,
-    //         })
-    //         console.log(`${res.data} salvo com sucesso`)
-    //         // return (res.data, (window.location.href = '/cadastros/produtos'))
-    //     } catch (error) {
-    //         console.log(error)
-    //     }
-    // }
 
     const openModal = () => {
         props.setIsModalPgtoOpen(true);
@@ -222,6 +188,7 @@ const Vender = (props) => {
                                                 }}>Excluir</button></td>
                                         </tr>))
                                 }
+                                {/* {console.log(resumoPedido)} */}
                             </tbody>
                             <tfoot>
                                 <tr>
@@ -234,7 +201,7 @@ const Vender = (props) => {
                                 <tr>
                                     <td colSpan={6} >
                                         <div>
-                                            <ModalPagamento openModal={openModal} precoTotal={precoTotal} />
+                                            <ModalPagamento openModal={openModal} precoTotalDosProdutos={precoTotal} resumoPedido={resumoPedido} />
                                         </div>
                                     </td>
                                 </tr>

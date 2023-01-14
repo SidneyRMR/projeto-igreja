@@ -7,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 export default function ModalPagamento(props) {
 
     const openModal = () => {
-        props.precoTotal === 0 ? 
+        props.precoTotalDosProdutos === 0 ? 
         toast.success(`Adicione um produto primeiro.`, 
             {position: toast.POSITION.TOP_CENTER }) :
         setIsModalPgtoOpen(true);
@@ -44,7 +44,7 @@ export default function ModalPagamento(props) {
 
     useEffect(() => {
         setPrecoTotalAPagar(+pgDebito + +pgCredito + +pgDinheiro + +pgPix)
-    },[pgDebito,pgCredito,pgDinheiro,pgPix])
+    },[pgDebito,pgCredito,pgDinheiro,pgPix,precoTotalAPagar])
 
     // mostrar inputs
     const [showDebitoInput, setShowDebitoInput] = useState(false);
@@ -90,7 +90,7 @@ export default function ModalPagamento(props) {
                         </label>
                         {showDebitoInput && (
                             <span className={`form-group ${showDebitoInput ? '' : 'd-none'}`} >
-                            <input type="number" className="form-control" onChange={handleInputDebito} ref={inputRefCredito}/>
+                            <input type="number" className="form-control" onChange={handleInputDebito} ref={inputRefDebito}/>
                         </span>
                     )}
        
@@ -142,8 +142,8 @@ export default function ModalPagamento(props) {
                                 Total à pagar
                             </Col>
                             <Col>
-                                R$ {typeof props.precoTotal === 'number'
-                                    ? (props.precoTotal.toFixed(2).replace('.', ',')) : ''}
+                                R$ {typeof props.precoTotalDosProdutos === 'number'
+                                    ? (props.precoTotalDosProdutos.toFixed(2).replace('.', ',')) : ''}
                             </Col>
                         </Row>
                         <Row >
@@ -151,7 +151,7 @@ export default function ModalPagamento(props) {
                                 Troco
                             </Col>
                             <Col>
-                                <div>R$ {(precoTotalAPagar ?  ( precoTotalAPagar - props.precoTotal) < 0 ? 0 : precoTotalAPagar - props.precoTotal : 0).toFixed(2).replace('.', ',')}</div>
+                                <div>R$ {(precoTotalAPagar ?  ( precoTotalAPagar - props.precoTotalDosProdutos) < 0 ? 0 : precoTotalAPagar - props.precoTotalDosProdutos : 0).toFixed(2).replace('.', ',')}</div>
                             </Col>
                         </Row>
                         <Row >
@@ -160,15 +160,15 @@ export default function ModalPagamento(props) {
                             </Col>
                             <Col>
                                 {}
-                                <div>R$ {(precoTotalAPagar ?  ( precoTotalAPagar - props.precoTotal) > 0 ? 0 : 
-                                            precoTotalAPagar - props.precoTotal : 0).toFixed(2).replace('.', ',')}</div>
+                                <div>R$ {(precoTotalAPagar ?  ( precoTotalAPagar - props.precoTotalDosProdutos) > 0 ? 0 : 
+                                            precoTotalAPagar - props.precoTotalDosProdutos : 0).toFixed(2).replace('.', ',')}</div>
                             </Col>
                         </Row>
                         <Row>
                             <Col>
 
                                 {/* Criar componente da que tem as funções que irão tratar estes dado, fazer as verificações e salvar no BD */}
-                                <FuncoesVendas nomeBtn='Confirmar Pagamento' propsDebito={pgDebito} propsCredito={pgCredito} propsDinheiro={pgDinheiro} propsPix={pgPix}/>
+                                <FuncoesVendas nomeBtn='Confirmar Pagamento' resumoPedido={props.resumoPedido} precoTotalDosProdutos={props.precoTotalDosProdutos} propsTotalAPagar={precoTotalAPagar} propsDebito={pgDebito} propsCredito={pgCredito} propsDinheiro={pgDinheiro} propsPix={pgPix}/>
 
                                 {/* <button className="botao w-100"  data-dismiss="false" >
                                     Confirmar Pagamento
