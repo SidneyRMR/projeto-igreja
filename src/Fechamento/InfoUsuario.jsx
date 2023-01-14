@@ -15,14 +15,14 @@ export default function InfoUsuario() {
     const [pix, setPix] = useState(0)
     const [totalGeral, setTotalGeral] = useState(0)
     const [totalEmCaixa, setTotalEmCaixa] = useState(0)
-    const [totalParaCadaTipoPagamento, setTotalParaCadaTipoPagamento] = useState([])
+    // const [totalParaCadaTipoPagamento, setTotalParaCadaTipoPagamento] = useState([])
 
     const getVendas = async () => {
         try {
             const res = await axios.get("http://localhost:8800/vendas")
             await res.data
             // fazer com que ao carregar data ja armazene o resultado da função em vendas
-            setTotalParaCadaTipoPagamento(filtrarVendaPagamento(res.data))
+            // setTotalParaCadaTipoPagamento(filtrarVendaPagamento(res.data))
             setDebito(filtrarVendaPagamento(res.data).debito)
             setCredito(filtrarVendaPagamento(res.data).credito)
             setDinheiro(filtrarVendaPagamento(res.data).dinheiro)
@@ -55,7 +55,7 @@ export default function InfoUsuario() {
         setTotalGeral(debito + credito + dinheiro + pix)
 
         setTotalEmCaixa(caixa.abertura + dinheiro - caixa.sangria)
-    }, [getVendas])
+    }, [ caixa, debito, credito, dinheiro, pix])
 
     return (
         <>
@@ -68,7 +68,7 @@ export default function InfoUsuario() {
                         <CompInfUsuario nomeProps='Valor Abertura:' styleProps={{fontSize:'22px'}} valorProps={(caixa.abertura).toFixed(2).replace('.',',')}/>
                     </Col>
                     <Col>
-                        <CompInfUsuario nomeProps='Data Abertura:' styleProps={{fontSize:'22px'}} valorProps={(caixa.data_abertura.slice(5 ,-14))}/>
+                        <CompInfUsuario nomeProps='Data Abertura:' styleProps={{fontSize:'22px'}} valorProps={(caixa.data_abertura.slice(0 ,-14))}/>
                     </Col>
                     <Col>
                         <CompInfUsuario nomeProps='Total Sangria:' styleProps={{fontSize:'22px'}} valorProps={(caixa.sangria).toFixed(2).replace('.',',')}/>

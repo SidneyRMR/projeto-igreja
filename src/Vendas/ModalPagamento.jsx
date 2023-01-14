@@ -1,6 +1,7 @@
+import { useEffect } from "react";
 import { useState } from "react";
 import { Col, Container, Modal, Row } from "react-bootstrap";
-// import FuncoesVendas from "./FuncoesVendas";
+import FuncoesVendas from "./FuncoesVendas";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -14,23 +15,51 @@ export default function ModalPagamento(props) {
       };
 
     const [isModalPgtoOpen, setIsModalPgtoOpen] = useState(false);
+    const [pgDebito, setPgDebito] = useState(0);
+    const [pgCredito, setPgCredito] = useState(0);
+    const [pgDinheiro, setPgDinheiro] = useState(0);
+    const [pgPix, setPgPix] = useState(0);
+    const [precoTotalAPagar, setPrecoTotalAPagar] = useState(0);
 
-    const [showPixInput, setShowPixInput] = useState(false);
-    const [showDinheiroInput, setShowDinheiroInput] = useState(false);
-    const [showCreditoInput, setShowCreditoInput] = useState(false);
+    // atualizar valores de pagamentos em cada input
+    function handleInputDebito(event) {
+        setPgDebito(event.target.value);
+    }
+    function handleInputCredito(event) {
+        setPgCredito(event.target.value);
+    }
+    function handleInputDinheiro(event) {
+        setPgDinheiro(event.target.value);
+    }
+    function handleInputPix(event) {
+        setPgPix(event.target.value);
+    }
+
+    useEffect(() => {
+        setPrecoTotalAPagar(+pgDebito + +pgCredito + +pgDinheiro + +pgPix)
+    },[pgDebito,pgCredito,pgDinheiro,pgPix])
+
+    // mostrar inputs
     const [showDebitoInput, setShowDebitoInput] = useState(false);
+    const [showCreditoInput, setShowCreditoInput] = useState(false);
+    const [showDinheiroInput, setShowDinheiroInput] = useState(false);
+    const [showPixInput, setShowPixInput] = useState(false);
 
-    function handlePaymentPix(event) {
-        setShowPixInput(event.target.value === 'Pix');
+    function handleShowDebito(event) {
+        setShowDebitoInput(event.target.checked)
+        setPgDebito(0)
     }
-    function handlePaymentDinheiro(event) {
-        setShowDinheiroInput(event.target.value === 'Dinheiro');
+    function handleShowCredito(event) {
+        setShowCreditoInput(event.target.checked);
+        setPgCredito(0)
     }
-    function handlePaymentCredito(event) {
-        setShowCreditoInput(event.target.value === 'Crédito');
+    function handleShowDinheiro(event) {
+        setShowDinheiroInput(event.target.checked);
+        setPgDinheiro(0)
     }
-    function handlePaymentDebito(event) {
-        setShowDebitoInput(event.target.value === 'Débito');
+    function handleShowPix(event) {
+        setShowPixInput(event.target.checked);
+        setPgPix(0)
     }
     return (
         <div>
@@ -47,56 +76,56 @@ export default function ModalPagamento(props) {
             <Modal.Body>
                 <form >
                     <div className="form-check">
-                        <input className="form-check-input" type="checkbox" name="payment" value="Pix"
-                            onChange={handlePaymentPix} />
-                        <label className="form-check-label" >
-                            Pix
-                        </label>
-                        {showPixInput && (
-                            <div className="form-group">
-                                <label htmlFor="pixAmount">Valor em Pix</label>
-                                <input type="number" className="form-control" />
-                            </div>
-                        )}
-                    </div>
-                    <div className="form-check">
-                        <input className="form-check-input" type="checkbox" name="payment" value="Dinheiro"
-                            onChange={handlePaymentDinheiro} />
-                        <label className="form-check-label" >
-                            Dinheiro
-                        </label>
-                        {showDinheiroInput && (
-                            <div className="form-group">
-                                <label htmlFor="pixAmount">Valor em Dinheiro</label>
-                                <input type="number" className="form-control" />
-                            </div>
-                        )}
-                    </div>
-                    <div className="form-check">
-                        <input className="form-check-input" type="checkbox" name="payment" value="Crédito"
-                            onChange={handlePaymentCredito} />
-                        <label className="form-check-label" >
-                            Crédito
-                        </label>
-                        {showCreditoInput && (
-                            <div className="form-group">
-                                <label htmlFor="pixAmount">Valor em Crédito</label>
-                                <input type="number" className="form-control" />
-                            </div>
-                        )}
-                    </div>
-                    <div className="form-check">
-                        <input className="form-check-input" type="checkbox" name="payment" value="Débito"
-                            onChange={handlePaymentDebito} />
-                        <label className="form-check-label">
-                            Débito
+          
+                    <input required className="form-check-input" type="checkbox" onChange={handleShowDebito} value="Debito" />
+                    <label >
+                            Debito 
                         </label>
                         {showDebitoInput && (
-                            <div className="form-group">
-                                <label htmlFor="pixAmount">Valor em Débito</label>
-                                <input type="number" className="form-control" />
-                            </div>
-                        )}
+                            <span className="form-group">
+                            <input type="number" className="form-control" onChange={handleInputDebito}/>
+                        </span>
+                    )}
+       
+                    </div>
+                    <div className="form-check">
+          
+                    <input required className="form-check-input" type="checkbox" onChange={handleShowCredito} value="Credito" />
+                    <label >
+                            Credito 
+                        </label>
+                        {showCreditoInput && (
+                            <span className="form-group">
+                            <input type="number" className="form-control" onChange={handleInputCredito}/>
+                        </span>
+                    )}
+       
+                    </div>
+                    <div className="form-check">
+          
+                    <input required className="form-check-input" type="checkbox" onChange={handleShowDinheiro} value="Dinheiro" />
+                    <label >
+                            Dinheiro 
+                        </label>
+                        {showDinheiroInput && (
+                            <span className="form-group">
+                            <input type="number" className="form-control" onChange={handleInputDinheiro}/>
+                        </span>
+                    )}
+       
+                    </div>
+                    <div className="form-check">
+          
+                    <input required className="form-check-input" type="checkbox" onChange={handleShowPix} value="Pix" />
+                    <label >
+                            Pix 
+                        </label>
+                        {showPixInput && (
+                            <span className="form-group">
+                            <input type="number" className="form-control" onChange={handleInputPix}/>
+                        </span>
+                    )}
+       
                     </div>
 
                     <Container className='title text-center' style={{ fontSize: '20px', fontWeight: '400' }}>
@@ -114,21 +143,29 @@ export default function ModalPagamento(props) {
                                 Troco
                             </Col>
                             <Col>
-                                R$ 0,00
+                                <div>R$ {(precoTotalAPagar ?  ( precoTotalAPagar - props.precoTotal) < 0 ? 0 : precoTotalAPagar - props.precoTotal : 0).toFixed(2).replace('.', ',')}</div>
+                            </Col>
+                        </Row>
+                        <Row >
+                            <Col>
+                                Falta
+                            </Col>
+                            <Col>
+                                <div>R$ {(precoTotalAPagar ?  ( precoTotalAPagar - props.precoTotal) > 0 ? 0 : precoTotalAPagar - props.precoTotal : 0).toFixed(2).replace('.', ',')}</div>
                             </Col>
                         </Row>
                         <Row>
                             <Col>
-                                <button className="botao w-100" 
-                                    // onClick={() =>
-                                    // novaCompra()
-                                    // }
-                                    >
-                                            Confirmar Pagamento
-                                </button>
-                            </Col>
 
-                                {/* <FuncoesVendas valor='novaCompra' nomeBtn='Confirmar Pagamento'/> */}
+                                {/* Criar componente da que tem as funções que irão tratar estes dado, fazer as verificações e salvar no BD */}
+                                <FuncoesVendas valor='novaVenda' nomeBtn='Confirmar Pagamento'/>
+
+                                {/* <button className="botao w-100"  data-dismiss="false" >
+                                    Confirmar Pagamento
+                                </button> */}
+
+                            
+                            </Col>
                         </Row>
                     </Container>
                 </form>

@@ -9,56 +9,9 @@ import ModalPagamento from './ModalPagamento';
 
 const Vender = (props) => {
 
-    // const caixaStorange = JSON.parse(sessionStorage.getItem('caixa'));
-    // console.log(caixaStorange)
-    // const [caixa, setCaixa] = useState(caixaStorange)
-
     const [precoTotal, setPrecoTotal] = useState(0)
     const [bebidas, setBebidas] = useState([])
     const [comidas, setComidas] = useState([])
-
-    // const [descricaoSangria, setDescricaoSangria] = useState(caixa.descSangria);
-
-    // function handleSangriaDescrição(event) {
-    //     setShowDebitoInput(event.target.value);
-    // }
-
-    // const salvaSangria = async () => {
-    //     console.log(valorNovaSangria)
-    //     if ((valorNovaSangria > 0) && (valorNovaSangria < caixa.abertura)) {
-    //         // alterações 
-            
-    //         // sangria = valorNovaSangria
-    //         // iguais
-    //         abertura = caixa.abertura
-    //         data_fechamento = caixa.data_fechamento
-    //         status_caixa = caixa.status_caixa
-    //         data_abertura = caixa.data_abertura
-    //         id_compra = caixa.id_compra
-    //         id_festa = caixa.id_festa
-    //         id_usuario = caixa.id_usuario
-    //         try {
-    //             const res = await axios.put(`http://localhost:8800/caixas/${id_caixa}`, {
-    //                 id_caixa,
-    //                 abertura,
-    //                 sangria,
-    //                 data_abertura,
-    //                 data_fechamento,
-    //                 id_compra,
-    //                 id_festa,
-    //                 id_usuario,
-    //                 status_caixa,
-    //             });
-    //             console.log(`Caixa ${id_caixa} atualizado para  ${status_caixa} as ${data_fechamento}.'`);
-    //             sessionStorage.setItem('caixa', JSON.stringify(caixa));
-    //             return res.data;
-    //         } catch (error) {
-    //             console.error(error);
-    //         }
-    //     } else {
-    //         window.confirm('O valor deve ser menor do que o de saldo em dinheiro deste caixa.')
-    //     }
-    // }
 
     // Este trecho busca os produtos no BD e seta os valores na const produtos
     const [produtos, setProdutos] = useState([])
@@ -168,8 +121,6 @@ const Vender = (props) => {
     //     }
     // }
 
-
-    // const [isModalPgtoOpen, setIsPgtoOpen] = useState(false);
     const openModal = () => {
         props.setIsModalPgtoOpen(true);
       };

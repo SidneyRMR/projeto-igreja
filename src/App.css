@@ -13,9 +13,9 @@
   border-radius: 10px;
   text-decoration: none;
 }
-#botaoMenu {
+button, #botaoMenu {
   /* display: inline-block; */
-  width: 150px;
+  width: 100px;
   color: white;
   border: 1px solid;
 }
@@ -138,7 +138,7 @@ textarea {
   height: 40px;
 }
 
-.caixaAberto {
+.caixaAberto, .pgtoAberto {
   color: green;
 }
 .caixaFechado {
@@ -162,3 +162,7 @@ textarea {
   left: 50%;
   transform: translate(-50%, -50%);
 } */
+.table-body-scroll {
+  max-height: 100px; /* altura máxima */
+  overflow: auto; /* habilita a barra de rolagem */
+}

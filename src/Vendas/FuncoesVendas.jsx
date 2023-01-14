@@ -1,6 +1,6 @@
-// export  function FuncoesVendas(props) {
+export default function FuncoesVendas(props) {
     
-   export const novaCompra = async () => {
+   const novaVenda = async () => {
         // try {
 
         //     const id_caixa = 
@@ -25,12 +25,12 @@
 
     
 //     return (
-//         <>
-//             {/* {props.valor === "novaCompra" && 
-//                 <button className='botao' 
-//                     onClick={() => novaCompra()}>{props.nomeBtn}
-//                 </button>
-//             } */}
-//         </>
+        <>
+            {props.valor === "novaVenda" &&
+                <button className='botao' 
+                    onClick={() => novaVenda()}>{props.nomeBtn}
+                </button>
+            }
+        </>
 //     )
-// }
+}

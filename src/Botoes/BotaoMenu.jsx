@@ -20,11 +20,11 @@ export default function BotaoMenu(props) {
                 </Dropdown.Item>
                 <Dropdown.Item  href="/fechamento-caixa"  >
                     <div className="botao">
-                        Fechamento Caixa
+                        Informações
                     </div>
                 </Dropdown.Item>
                 <Dropdown.Item >
-                    <BotaoSair classNameProps='botao' nomeBtn='Sair'/>
+                    <BotaoSair classNameProps='botao' nomeBtn='Fechar Cx'/>
                 </Dropdown.Item>
             </DropdownButton>
         </div>

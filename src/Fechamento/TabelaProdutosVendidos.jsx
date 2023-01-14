@@ -23,19 +23,27 @@ export default function TabelaProdutosVendidos() {
                 <thead>
                     <tr>
                         {/* Esta tabela deve mostrar a somatoria dos valores de cada pedido feito pelo caixa */}
-                        <th width='10%'>ID venda</th>
-                        <th>Produto</th>
-                        <th>Quantidade</th>
-                        <th width='10%'>Ações</th>
+                        <th width='10%'>Nº venda</th>
+                        <th>Produtos</th>
+                        <th>Pgto Debito</th>
+                        <th>Pgto Crédito</th>
+                        <th>Pgto Dinheiro</th>
+                        <th>Pgto Pix</th>
+                        <th>Valor total</th>
+                        {/* <th width='10%'>Ações</th> */}
                     </tr>
                 </thead>
-                <tbody>
-                {vendasProdutos.map((vendaPgto, i) => (
-                         <tr key={vendaPgto.id_venda_produto} className={i % 2 === 0 ? 'Par' : 'Impar'}>
-                            <td>{vendaPgto.id_venda} </td>
-                            <td>{vendaPgto.id_produto} - Criar VW para mostrar o nome a partir do id do produto</td>
-                            <td>{vendaPgto.qtde_venda_produto}</td>
-                            <td><button className="botao" onClick={() => window.location.href = "/detalhe-caixa"}>Detalhes</button></td>
+                <tbody className="table-body-scroll" >
+                {vendasProdutos.map((venda, i) => (
+                         <tr key={venda.id_venda_produto} className={i % 2 === 0 ? 'Par' : 'Impar'}>
+                            <td>contador</td>
+                            <td>{venda.id_produto} - Criar VW q mostre o array dos produtos</td>
+                            <td>{venda.qtde_venda_produto}</td>
+                            <td>{venda.qtde_venda_produto}</td>
+                            <td>{venda.qtde_venda_produto}</td>
+                            <td>{venda.qtde_venda_produto}</td>
+                            <td>{venda.qtde_venda_produto}</td>
+                            {/* <td><button className="botao" onClick={() => window.location.href = "/detalhe-caixa"}>Detalhes</button></td> */}
                         </tr>
                 ))}
                 </tbody>
