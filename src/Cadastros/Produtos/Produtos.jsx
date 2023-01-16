@@ -23,16 +23,16 @@ const Produtos = () => {
     // fim do trecho 
 
     function alterar(produto) {
-        window.location.href = `/cadastros/produtos/cadproduto/?id=${produto.id}&nome=${produto.nome}&preco=${produto.preco}&medida=${produto.medida}&tipo=${produto.tipo}`
+        window.location.href = `/cadastros/produtos/cadproduto/?id_produto=${produto.id_produto}&nome=${produto.nome}&preco=${produto.preco}&medida=${produto.medida}&tipo=${produto.tipo}`
     }
 
     // Esta funcionando
-    const handleDelete = async (id, nome) => {
+    const handleDelete = async (id_produto, nome) => {
         if (window.confirm('Tem certeza de que deseja excluir este item?')) {
           await axios
-            .delete('http://localhost:8800/produtos/' + id)
+            .delete('http://localhost:8800/produtos/' + id_produto)
             .then(({ data }) => {
-              const newArray = produtos.filter((produto) => produto.id !== id)
+              const newArray = produtos.filter((produto) => produto.id_produto !== id_produto)
               setProdutos(newArray)
               toast.success(`${nome} excluído com sucesso`, {
                 position: toast.POSITION.TOP_CENTER
@@ -44,12 +44,12 @@ const Produtos = () => {
     return (
         <div  >
             <ToastContainer/>
-            <div className='title d-flex justify-content-between p-1' >
+            <div className='title d-flex justify-content-between ' >
                 <button className="botao botaoTitle" onClick={() => window.location.href = `/abertura-caixa`}>Voltar</button>
                 Lista de Produtos
                 <button className="botao botaoTitle" onClick={() => window.location.href = `/cadastros/produtos/cadproduto`}>Novo</button>
             </div>
-            <Table className='tabela p-100' >
+            <Table className='tabela align-center' >
                 <thead>
                     <tr >
                         {/* <th>Id</th> */}
@@ -63,7 +63,7 @@ const Produtos = () => {
                 <tbody>
                     {produtos.map((produto, i) => {
             return (
-                <tr key={produto.id} className={i % 2 === 0 ? 'Par' : 'Impar'}>
+                <tr key={produto.id_produto} className={i % 2 === 0 ? 'Par' : 'Impar'}>
                     {/* <td >{produto.id}</td> */}
                     <td>{produto.nome}</td>
                     <td>R${(produto.preco).toFixed(2)}</td>
@@ -71,7 +71,7 @@ const Produtos = () => {
                     <td>{produto.tipo}</td>
                     <td>
                         <button className='botao' onClick={() => alterar(produto)}>Alterar</button>
-                        <button className='botao' onClick={() => handleDelete(produto.id, produto.nome)}>Excluir</button>
+                        <button className='botao' onClick={() => handleDelete(produto.id_produto, produto.nome)}>Excluir</button>
                     </td>
                 </tr>
             )

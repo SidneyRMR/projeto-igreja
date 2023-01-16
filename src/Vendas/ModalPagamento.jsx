@@ -7,11 +7,19 @@ import 'react-toastify/dist/ReactToastify.css';
 export default function ModalPagamento(props) {
 
     const openModal = () => {
-        props.precoTotalDosProdutos === 0 ? 
+        props.precoTotalDosProdutos === 0 ?
         toast.success(`Adicione um produto primeiro.`, 
-            {position: toast.POSITION.TOP_CENTER }) :
-        setIsModalPgtoOpen(true);
-      };
+            {position: toast.POSITION.TOP_CENTER }) : 
+        setIsModalPgtoOpen(true)
+        setPgDebito(0)
+        setPgCredito(0)
+        setPgDinheiro(0)
+        setPgPix(0)
+    }
+
+    const fechaModal = () => {
+        setIsModalPgtoOpen(false)
+    }
 
     const [isModalPgtoOpen, setIsModalPgtoOpen] = useState(false);
     const [pgDebito, setPgDebito] = useState(0);
@@ -23,22 +31,26 @@ export default function ModalPagamento(props) {
     // const [falta, setFalta] = useState(0);
     // const [troca, setTroca] = useState(0);
 
-    const inputRefDebito = useRef()
-    const inputRefCredito = useRef()
-    const inputRefDinheiro = useRef()
-    const inputRefPix = useRef()
+    const inputRefDebito = useRef(null)
+    const inputRefCredito = useRef(null)
+    const inputRefDinheiro = useRef(null)
+    const inputRefPix = useRef(null)
 
     // atualizar valores de pagamentos em cada input
     function handleInputDebito(event) {
+        setPgDebito(0);
         setPgDebito(event.target.value);
     }
     function handleInputCredito(event) {
+        setPgCredito(0);
         setPgCredito(event.target.value);
     }
     function handleInputDinheiro(event) {
+        setPgDinheiro(0);
         setPgDinheiro(event.target.value);
     }
     function handleInputPix(event) {
+        setPgPix(0);
         setPgPix(event.target.value);
     }
 
@@ -54,6 +66,7 @@ export default function ModalPagamento(props) {
 
     function handleShowDebito(event) {
         setShowDebitoInput(event.target.checked)
+        
         setPgDebito(0);
     }
     
@@ -84,15 +97,15 @@ export default function ModalPagamento(props) {
             <Modal.Body>
                 <form >
                 <div className="form-check">
-                <input className={`form-check-input`} type="checkbox" onChange={handleShowDebito} value="Debito" />
+                <input className={`form-check-input`} type="checkbox" onChange={handleShowDebito} value="Debito"/>
                     <label >
                             Debito 
                         </label>
                         {showDebitoInput && (
-                            <span className={`form-group ${showDebitoInput ? '' : 'd-none'}`} >
-                            <input type="number" className="form-control" onChange={handleInputDebito} ref={inputRefDebito}/>
+                            <span className={`form-group`} >
+                            <input type="number" className="form-control" ref={inputRefDebito} onChange={handleInputDebito} />
                         </span>
-                    )}
+                    )} 
        
                     </div>
 
@@ -166,15 +179,10 @@ export default function ModalPagamento(props) {
                         </Row>
                         <Row>
                             <Col>
-
-                                {/* Criar componente da que tem as funções que irão tratar estes dado, fazer as verificações e salvar no BD */}
-                                <FuncoesVendas nomeBtn='Confirmar Pagamento' resumoPedido={props.resumoPedido} precoTotalDosProdutos={props.precoTotalDosProdutos} propsTotalAPagar={precoTotalAPagar} propsDebito={pgDebito} propsCredito={pgCredito} propsDinheiro={pgDinheiro} propsPix={pgPix}/>
-
-                                {/* <button className="botao w-100"  data-dismiss="false" >
-                                    Confirmar Pagamento
-                                </button> */}
-
-                            
+                                <FuncoesVendas nomeBtn='Confirmar Pagamento' resumoPedido={props.resumoPedido} precoTotalDosProdutos={props.precoTotalDosProdutos} 
+                                        propsTotalAPagar={precoTotalAPagar} propsDebito={pgDebito} propsCredito={pgCredito} 
+                                        propsDinheiro={pgDinheiro} propsPix={pgPix}
+                                        fechaModal={fechaModal}/>
                             </Col>
                         </Row>
                     </Container>

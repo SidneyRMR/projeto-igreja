@@ -9,7 +9,6 @@ export default function FuncoesCaixa(props) {
     let id_usuario = ''
     let id_festa = '';
     let abertura = '';
-    let sangria = '';
     let data_abertura = '';
     let hora_abertura = '';
     let data_fechamento = '';
@@ -25,7 +24,7 @@ export default function FuncoesCaixa(props) {
     const abrirCaixa = async () => {
         // Verifica se o valor de abertura foi digitado
         if (isNaN(inputAbertura) || inputAbertura <= 0) {
-            window.confirm('Digite um valor para abrir o caixa.');
+            alert('Digite um valor para abrir o caixa.');
         } else {
             const res = await axios.get('http://localhost:8800/caixas');
             const caixasAbertosDesteUsuario = res.data.filter(caixa => caixa.status_caixa === 'Aberto' && caixa.id_usuario === usuario.id_usuario);
@@ -38,8 +37,7 @@ export default function FuncoesCaixa(props) {
 
                     const acessarCaixaAberto = window.confirm(
                         `Você possui um caixa aberto! 
-    Clique em OK para acessá-lo, ou Cancelar para abrir um novo.`
-                    );
+    Clique em OK para acessá-lo, ou Cancelar para abrir um novo.`);
                     if (acessarCaixaAberto) {
 
                         const caixa = await caixaMaisRecente(0)
@@ -60,7 +58,6 @@ export default function FuncoesCaixa(props) {
         id_usuario = usuario.id_usuario
         id_festa = 1 // ajustar
         abertura = inputAbertura
-        sangria = 0
         status_caixa = 'Aberto'
         data_abertura = await dataAtual()
         hora_abertura = await horaAtual()
@@ -72,7 +69,6 @@ export default function FuncoesCaixa(props) {
                 id_usuario,
                 id_festa,
                 abertura,
-                sangria,
                 status_caixa,
                 data_abertura,
                 hora_abertura,
@@ -104,7 +100,6 @@ export default function FuncoesCaixa(props) {
         data_fechamento = await dataAtual()
         // iguais
         abertura = objCaixa.abertura
-        sangria = objCaixa.sangria
         data_abertura = objCaixa.data_abertura
         hora_abertura = objCaixa.hora_abertura
         id_festa = objCaixa.id_festa
@@ -115,7 +110,6 @@ export default function FuncoesCaixa(props) {
                 id_usuario,
                 id_festa,
                 abertura,
-                sangria,
                 status_caixa,
                 data_abertura,
                 hora_abertura,

@@ -10,8 +10,7 @@
 }
 
 .botao {
-  padding: 12px;
-  /* display: inline-block; */
+  padding: 10px;
   width: 100px;
   background-color: #C55A11;
   color: white;
@@ -19,18 +18,6 @@
   border-radius: 10px;
   text-decoration: none;
 }
-
-.titleVendas {
-  display: flex;
-  align-items: center; /* centraliza verticalmente */
-  justify-content: center; /* centraliza horizontalmente */
-  text-align: center; /* centraliza o texto */
-}
-.botao-menu {
-  position: 'fixed';
-  float: left; /* flutua para a direita */
-}
-
 
 .botaoProdutos {
   padding: 12px;
@@ -66,7 +53,7 @@ button:hover, .botao:hover {
 }
 
 .tabela {
-  width: 98%;
+  width: 100%;
 }
 
 .tabela .Impar {
@@ -79,9 +66,17 @@ button:hover, .botao:hover {
 
 .title {
   width: 100%;
-  padding: 1.5%;
+  padding: 1%;
   background-color: #aa541b;
   font-size: 22px;
+  font-weight: 600;
+  color: white;
+}
+.titleVendas {
+  width: 100%;
+  padding: 1%;
+  background-color: #813c0e;
+  font-size: 25px;
   font-weight: 600;
   color: white;
 }
@@ -140,12 +135,9 @@ textarea {
   height: 100px;
 }
 
-/* estilo do valor total na tela de pagamento... a melhorar */
 .bg-orange {
   padding: 5px;
   margin: 5px;
-  /* text-align: justify;
-  align-items: center; */
   background-color:#aa541b;
   color: white;
   height: 40px;
@@ -158,24 +150,4 @@ textarea {
   color: red;
 }
 
-/* circulo de loading */
-/* @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-.carregando-pagina {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  border: 5px solid #f90;
-  border-top-color: orange;
-  animation: spin 1s linear infinite;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-} */
-.table-body-scroll {
-  max-height: 100px; /* altura máxima */
-  overflow: auto; /* habilita a barra de rolagem */
-}
+

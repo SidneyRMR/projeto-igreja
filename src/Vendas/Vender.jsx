@@ -8,6 +8,8 @@ import ModalPagamento from './ModalPagamento';
 // import 'react-toastify/dist/ReactToastify.css';
 
 const Vender = (props) => {
+    
+    const caixa = JSON.parse(sessionStorage.getItem('caixa'));
 
     const [precoTotal, setPrecoTotal] = useState(0)
     const [bebidas, setBebidas] = useState([])
@@ -27,6 +29,26 @@ const Vender = (props) => {
         getProdutos()
     }, [setProdutos])
     // fim do trecho 
+
+        // Este trecho busca os Sangria no BD e seta os valores na const Sangria
+        const [sangria, setSangria] = useState([]);
+
+        const getSangria = async () => {
+            try{
+                const res = await axios.get("http://localhost:8800/sangria")
+                const filteredData = res.data.filter(item => item.id_caixa === caixa.id_caixa).sort((a,b) => (a.id_sangria > b.id_sangria ? 1 : -1));
+                //calculate the total here
+                const total = filteredData.reduce((total, item) => total + item.valorSangria, 0);
+                setSangria({data: filteredData, total});
+            } catch (error) {
+                console.log(error)
+            }
+        }
+        useEffect(() => {
+            getSangria()
+        }, [sangria]);
+        // console.log(sangria)
+        // console.log(sangria.total)
 
     // Declare a list of objects and a state for the form input values
     const [resumoPedido, setResumoPedido] = useState([])
@@ -91,13 +113,16 @@ const Vender = (props) => {
         props.setIsModalPgtoOpen(true);
     };
 
-
     return (
         <div>
             {/* <ToastContainer/> */}
-            <InfCaixa />
-                                <BotaoMenu style={{position: 'fixed', }}/>
-            <Container fluid='true' >
+            <InfCaixa caixa={caixa} sangria={+sangria.total} />
+            <Container fluid='true p-0 m-0' >
+                <div className='titleVendas d-flex justify-content-between '>
+                    <BotaoMenu />
+                    <div>TELA DE VENDAS</div> 
+                    <div>{''}</div>
+                </div>
                 <Row >
                     <Col className='m-0 p-0' style={{borderRight: '2px solid #9e501c'}}  >
                         {/* BOTÕES DE PRODUTOS */}
@@ -190,7 +215,10 @@ const Vender = (props) => {
                                 }
                                 {/* {console.log(resumoPedido)} */}
                             </tbody>
-                            <tfoot>
+                            {/*  Colocar tfoot no rodapé da página */}
+                            <tfoot 
+                            // style={{position:'fixed', width:'100%'}}
+                            >
                                 <tr>
                                     <td style={{ fontSize: '18px' }} colSpan={3}>
                                         Total do Pedido:</td>

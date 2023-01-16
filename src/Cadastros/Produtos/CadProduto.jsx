@@ -7,17 +7,17 @@ import 'react-toastify/dist/ReactToastify.css';
 const CadProduto = () => {
 
     const urlParams = new URLSearchParams(window.location.search)
-    const id = urlParams.get('id')
+    const id_produto = urlParams.get('id_produto')
 
     const paramNome = urlParams.get('nome')
     const paramPreco = +urlParams.get('preco')
     const paramMedida = urlParams.get('medida')
     const paramTipo = urlParams.get('tipo')
 
-    const [nome, setNome] = useState(id ? paramNome : '');
-    const [preco, setPreco] = useState(id ? paramPreco.toFixed(2) : '');
-    const [medida, setMedida] = useState(id ? paramMedida : 'Unidade');
-    const [tipo, setTipo] = useState(id ? paramTipo : 'Comida');
+    const [nome, setNome] = useState(id_produto ? paramNome : '');
+    const [preco, setPreco] = useState(id_produto ? paramPreco.toFixed(2) : '');
+    const [medida, setMedida] = useState(id_produto ? paramMedida : 'Unidade');
+    const [tipo, setTipo] = useState(id_produto ? paramTipo : 'Comida');
 
     // Manipulador de evento para atualizar o estado da descrição quando o usuário alterar o valor do input
     const handleNomeChange = (event) => {
@@ -64,7 +64,7 @@ const CadProduto = () => {
     }
 
     // Função que altera um produto existente
-    const alteraProduto = async (id, nome, preco, medida, tipo) => {
+    const alteraProduto = async (id_produto, nome, preco, medida, tipo) => {
         if (!nome || !preco || !medida || !tipo) {
             toast.error('Todos os campos devem estar preenchidos!', {
                 position: toast.POSITION.TOP_CENTER,
@@ -78,8 +78,8 @@ const CadProduto = () => {
             return
         }
         try {
-            const res = await axios.put(`http://localhost:8800/produtos/${id}`, {
-                id,
+            const res = await axios.put(`http://localhost:8800/produtos/${id_produto}`, {
+                id_produto,
                 nome,
                 preco,
                 medida,
@@ -149,7 +149,7 @@ const CadProduto = () => {
             <br />
             <Row>
                 <Col>
-                    {!id && (
+                    {!id_produto && (
                         <button onClick={() => {
                             novoProduto(nome, preco, medida, tipo)
                             console.log('novo')
@@ -157,10 +157,10 @@ const CadProduto = () => {
                             Salvar
                         </button>
                     )}
-                    {id && (
+                    {id_produto && (
                         <button onClick={() => {
-                            alteraProduto(id, nome, preco, medida, tipo)
-                            console.log('editado',id, nome, preco, medida, tipo)
+                            alteraProduto(id_produto, nome, preco, medida, tipo)
+                            console.log('editado',id_produto, nome, preco, medida, tipo)
                         }}>
                             Salvar
                         </button>

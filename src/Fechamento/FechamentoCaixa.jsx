@@ -6,7 +6,7 @@ const FechamentoCaixa = () => {
 
     return (
         <div>
-            <div className='title d-flex justify-content-between p-1'> 
+            <div className='title d-flex justify-content-between'> 
                 <button className="botao botaoTitle" onClick={() => window.location.href = "/vendas"}>Voltar</button>
                 Informações sobre vendas do caixa     
 
@@ -14,7 +14,7 @@ const FechamentoCaixa = () => {
                 <BotaoSair nomeBtn='Fechar Caixa' classNameProps="botao botaoTitle"/>
             </div>
             
-            <InfoUsuario />
+            <InfoUsuario  />
 
             <TabelaProdutosVendidos />
 

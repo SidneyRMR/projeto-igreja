@@ -27,7 +27,7 @@ const FechamentoGeral = () => {
 
      return (
          <div>
-            <div className='title d-flex justify-content-between p-1'> 
+            <div className='title d-flex justify-content-between'> 
             <button className="botao botaoTitle " onClick={() => window.location.href = "/abertura-caixa"}>Voltar</button>
                 Fechamento Geral
                 <div>{''}</div>

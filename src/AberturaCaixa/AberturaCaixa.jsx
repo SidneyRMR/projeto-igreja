@@ -31,11 +31,12 @@ const AberturaCaixa = () => {
         </Col>
       </Row>
       <br />
+      <br />
       <Row>
         <Col>
-          <div>Nome do responsável:</div>
+          <div>Nome do usuário:</div>
 
-          <input className='caixaNome' readOnly={usuario.nome_usuario} type="text" value={usuario.nome_usuario} />
+          <label className='caixaNome' style={{fontSize: '15px'}}  >{usuario.nome_usuario}</label>
         </Col>
       </Row>
       <br />

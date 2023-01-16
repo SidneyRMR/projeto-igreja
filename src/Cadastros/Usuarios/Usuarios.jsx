@@ -41,7 +41,7 @@ const Usuarios = () => {
         return (
             <div  >
                 <ToastContainer/>
-                <div className='title d-flex justify-content-between align-center p-1' >
+                <div className='title d-flex justify-content-between align-center ' >
                     <button className='botao botaoTitle' onClick={() => window.location.href = "/abertura-caixa"}>Voltar</button>
                     Lista de Usuários
                     <button className="botao botaoTitle" onClick={() => window.location.href = "/cadastros/usuarios/cadusuario"}>Novo</button>
