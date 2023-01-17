@@ -8,7 +8,7 @@ import ModalPagamento from './ModalPagamento';
 // import 'react-toastify/dist/ReactToastify.css';
 
 const Vender = (props) => {
-    
+   
     const caixa = JSON.parse(sessionStorage.getItem('caixa'));
 
     const [precoTotal, setPrecoTotal] = useState(0)
@@ -36,7 +36,7 @@ const Vender = (props) => {
         const getSangria = async () => {
             try{
                 const res = await axios.get("http://localhost:8800/sangria")
-                const filteredData = res.data.filter(item => item.id_caixa === caixa.id_caixa).sort((a,b) => (a.id_sangria > b.id_sangria ? 1 : -1));
+                const filteredData = res.data.filter(item => item.id_caixa === caixa.id_caixa)
                 //calculate the total here
                 const total = filteredData.reduce((total, item) => total + item.valorSangria, 0);
                 setSangria({data: filteredData, total});
@@ -46,22 +46,23 @@ const Vender = (props) => {
         }
         useEffect(() => {
             getSangria()
-        }, [sangria]);
+        });
         // console.log(sangria)
         // console.log(sangria.total)
 
     // Declare a list of objects and a state for the form input values
     const [resumoPedido, setResumoPedido] = useState([])
 
-    const addProduto = (nomeProd, precoProd, medidaProd) => {
+    const addProduto = (idProd, nomeProd, precoProd, medidaProd) => {
         // Read the values of the button's attributes
+        const id_produto = idProd
         const nome = nomeProd
         const preco = precoProd
         const medida = medidaProd
 
         // Check if an object with the same values already exists in the list
         const existeProduto = resumoPedido.find((produto) => {
-            return produto.nome === nome && produto.preco === preco && produto.medida === medida
+            return produto.id_produto === id_produto 
         })
 
         if (existeProduto) {
@@ -78,6 +79,7 @@ const Vender = (props) => {
             // If the object does not exist, create a new one and add it to the list
             const novoProduto = {
                 qnde: 1,
+                id_produto: id_produto,
                 nome: nome,
                 preco: preco,
                 medida: medida
@@ -113,13 +115,18 @@ const Vender = (props) => {
         props.setIsModalPgtoOpen(true);
     };
 
+    let infoVendas = true
+
+    
+    
+   
     return (
         <div>
             {/* <ToastContainer/> */}
-            <InfCaixa caixa={caixa} sangria={+sangria.total} />
+            <InfCaixa infoVendas={infoVendas} caixa={caixa} sangria={+sangria.total} />
             <Container fluid='true p-0 m-0' >
                 <div className='titleVendas d-flex justify-content-between '>
-                    <BotaoMenu />
+                    <BotaoMenu sangria={sangria}/>
                     <div>TELA DE VENDAS</div> 
                     <div>{''}</div>
                 </div>
@@ -138,7 +145,7 @@ const Vender = (props) => {
                                     <button
                                         key={i}
                                         onClick={() => {
-                                            addProduto(produto.nome, produto.preco, produto.medida)
+                                            addProduto(produto.id_produto, produto.nome, produto.preco, produto.medida)
                                         }}
                                         className={produto.tipo === 'Comida' ? 'botaoProdutos ehComida' : 'botaoProdutos nEhComida'
                                         }>
@@ -163,7 +170,7 @@ const Vender = (props) => {
                                     <button
                                         key={i}
                                         onClick={() => {
-                                            addProduto(produto.nome, produto.preco, produto.medida)
+                                            addProduto(produto.id_produto, produto.nome, produto.preco, produto.medida)
                                         }}
                                         className={produto.tipo === 'Comida' ? 'botaoProdutos ehComida' : 'botaoProdutos nEhComida'}>
                                         <div>

@@ -4,27 +4,10 @@ import { Col, Row } from "react-bootstrap";
 import CompInfUsuario from "./CompInfUsuario";
 
 
-export default function InfoUsuario(props) {
+export default function InfoUsuario() {
 
-    const [sangria, setSangria] = useState([]);
     const usuario = (JSON.parse(sessionStorage.getItem('usuario')))
     const caixa =  (JSON.parse(sessionStorage.getItem('caixa')))
-
-    const getSangria = async () => {
-        try{
-            const res = await axios.get("http://localhost:8800/sangria")
-            const filteredData = res.data.filter(item => item.id_caixa === caixa.id_caixa).sort((a,b) => (a.id_sangria > b.id_sangria ? 1 : -1));
-            //calculate the total here
-            const total = filteredData.reduce((total, item) => total + item.valorSangria, 0);
-            setSangria({data: filteredData, total});
-        } catch (error) {
-            console.log(error)
-        }
-    }
-    useEffect(() => {
-        getSangria()
-    }, [sangria]);
-
     // const [vendas, setVendas] = useState([])
     const [debito, setDebito] = useState(0)
     const [credito, setCredito] = useState(0)
@@ -50,7 +33,7 @@ export default function InfoUsuario(props) {
     }
     useEffect(() => {
         getVendas()
-    }, [debito, credito, dinheiro, pix])
+    })
     
     // console.log('obj total de cada tipo pgto: ',totalParaCadaTipoPagamento)
     // console.log('valor total geral: ',totalGeral)
@@ -71,8 +54,26 @@ export default function InfoUsuario(props) {
     useEffect(() => {     
         setTotalGeral(debito + credito + dinheiro + pix)
 
-        setTotalEmCaixa(caixa.abertura + dinheiro - sangria)
+        setTotalEmCaixa(caixa.abertura + dinheiro /* - caixa.sangria */)
     }, [ caixa, debito, credito, dinheiro, pix])
+
+
+
+    // get sangria total
+    const [sangria, setSangria] = useState([]);
+    const getSangria = async () => {
+        try{
+            const res = await axios.get("http://localhost:8800/sangria")
+            setSangria(res.data.filter(item => item.id_caixa === caixa.id_caixa)
+                                .reduce((total, item) => total + item.valorSangria, 0)
+                                .toFixed(2).replace('.',','))
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    useEffect(() => {
+        getSangria()
+    })
 
     return (
         <>
@@ -88,7 +89,7 @@ export default function InfoUsuario(props) {
                         <CompInfUsuario nomeProps='Data Abertura:' styleProps={{fontSize:'19px'}} valorProps={(caixa.data_abertura.slice(0 ,-14))}/>
                     </Col>
                     <Col>
-                        <CompInfUsuario nomeProps='Total Sangria:' styleProps={{fontSize:'19px'}} valorProps={(sangria).toFixed(2).replace('.',',')}/>
+                        <CompInfUsuario nomeProps='Total Sangria:' styleProps={{fontSize:'19px'}} valorProps={(!sangria ? getSangria() : sangria)/* .toFixed(2).replace('.',',') */}/>
                     </Col>
                 </Row>
                 <hr  className="p-0 m-2"/>

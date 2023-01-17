@@ -4,18 +4,21 @@ import axios from "axios"
 
 export default function TabelaProdutosVendidos() {
 
-    const [vendasProdutos, setVendasProdutos] = useState([])
+    const caixa = (JSON.parse(sessionStorage.getItem('caixa')))
+    const [vendas, setVendas] = useState([])
     useEffect(() => {
-        const getVendasProdutos = async () => {
+        const getVendas = async () => {
             try {
-                const res = await axios.get("http://localhost:8800/vendasprodutos")
-                setVendasProdutos(res.data)
+                const res = await axios.get("http://localhost:8800/vendas")
+                setVendas(res.data.filter(item => item.id_caixa === caixa.id_caixa).sort((a, b) => (a.id > b.id ? 1 : -1)))
             } catch (error) {
                 console.error(error)
             }
         };
-        getVendasProdutos();
-    }, [vendasProdutos]);
+        getVendas();
+    });
+
+    
     
     return (
         <>
@@ -23,27 +26,30 @@ export default function TabelaProdutosVendidos() {
                 <thead>
                     <tr>
                         {/* Esta tabela deve mostrar a somatoria dos valores de cada pedido feito pelo caixa */}
-                        <th width='10%'>Nº venda</th>
+                        <th width='10%'>Id venda</th>
                         <th>Produtos</th>
                         <th>Pgto Debito</th>
                         <th>Pgto Crédito</th>
                         <th>Pgto Dinheiro</th>
                         <th>Pgto Pix</th>
                         <th>Valor total</th>
-                        {/* <th width='10%'>Ações</th> */}
+                        <th width='10%'>Ações</th>
                     </tr>
                 </thead>
                 <tbody className="table-body-scroll" >
-                {vendasProdutos.map((venda, i) => (
-                         <tr key={venda.id_venda_produto} className={i % 2 === 0 ? 'Par' : 'Impar'}>
-                            <td>contador</td>
-                            <td>{venda.id_produto} - Criar VW q mostre o array dos produtos</td>
-                            <td>{venda.qtde_venda_produto}</td>
-                            <td>{venda.qtde_venda_produto}</td>
-                            <td>{venda.qtde_venda_produto}</td>
-                            <td>{venda.qtde_venda_produto}</td>
-                            <td>{venda.qtde_venda_produto}</td>
-                            {/* <td><button className="botao" onClick={() => window.location.href = "/detalhe-caixa"}>Detalhes</button></td> */}
+                {vendas.map((venda, i) => (
+                         <tr key={venda.id_venda} className={i % 2 === 0 ? 'Par' : 'Impar'}>
+                            {/* <td>contador</td> */}
+                            <td>{venda.id_venda}</td>
+                            <td>{venda.hora_venda}</td>
+                            <td>{venda.debito}</td>
+                            <td>{venda.credito}</td>
+                            <td>{venda.dinheiro}</td>
+                            <td>{venda.pix}</td>
+
+                            <td>{venda.debito + venda.credito + venda.dinheiro + venda.pix }</td>
+                            {/* modal detalhes vendas */}
+                            <td><button className="botao">Detalhes</button></td>
                         </tr>
                 ))}
                 </tbody>

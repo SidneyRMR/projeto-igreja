@@ -7,7 +7,7 @@ export default function ModalSangria(props) {
     const caixa = JSON.parse(sessionStorage.getItem('caixa'));
     
     const [isModalSangriaOpen, setIsModalSangriaOpen] = useState(false)
-    const [valorSangria, setValorSangria] = useState(0)
+    const [valorSangria, setValorSangria] = useState('')
     const [descricao, setDescricao] = useState('')
     
     const openModal = () => {
@@ -22,7 +22,9 @@ export default function ModalSangria(props) {
         setDescricao(event.target.value);
     }
 
-    
+    const fechaModalSangria = () => {
+        setIsModalSangriaOpen(false)
+    }
 
   
     return (
@@ -47,7 +49,7 @@ export default function ModalSangria(props) {
                                 <textarea type="text" onChange={handleDescricao} value={descricao} className="descSangria form-control" />
                             </div>
                             <br />
-                                <FuncoesSangria caixa={caixa} valorSangria={+valorSangria} descricao={descricao} nomeBtn='Efetuar Sangria'/>
+                                <FuncoesSangria fechaModalSangria={fechaModalSangria} caixa={caixa} valorSangria={+valorSangria} descricao={descricao} nomeBtn='Efetuar Sangria'/>
                         </div>
                     </div>
                 </form>

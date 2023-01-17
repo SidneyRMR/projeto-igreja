@@ -18,8 +18,12 @@ const AberturaCaixa = () => {
   // este trecho so mostrará o botão adm caso o usuario tiver for administativo
   const [isAdmin, setIsAdmin] = useState(false)
   useEffect(() => {
-    usuario.tipo === 'Administrativo' ? setIsAdmin(true) : setIsAdmin(false);
-  }, [usuario.tipo]);
+    if(!usuario) {
+        window.location.href='/'
+    } else {
+        usuario.tipo === 'Administrativo' ? setIsAdmin(true) : setIsAdmin(false);
+    }
+  })
 
 
   return (

@@ -2,7 +2,7 @@ import BotaoSair from "../Botoes/BotaoSair";
 import InfoUsuario from "./InfoUsuario";
 import TabelaProdutosVendidos from "./TabelaProdutosVendidos";
 
-const FechamentoCaixa = () => {
+const FechamentoCaixa = (props) => {
 
     return (
         <div>

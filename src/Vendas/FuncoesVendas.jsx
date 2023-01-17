@@ -18,6 +18,8 @@ Devolva o troco de R$ ${totalPago - props.precoTotalDosProdutos}
             `)
             //Fechar modal
             props.fechaModal()
+
+            salvaProdutosBD()
             // chamar q salva produtos no vendas_produtos
             // mandar pedido para impressora
 
@@ -32,12 +34,29 @@ Por favor, conclua o pagamento antes de continuar.')
             novaVenda()
             alert('Pedido feito com sucesso!')
             // chamar função q salva produtos no vendas_produtos
+            salvaProdutosBD(props.resumoPedido)
             // mandar pedido para impressora
             
             //Fechar modal
             props.fechaModal()
         }
     }
+
+
+    const salvaProdutosBD = async (listaProdutos) => {
+        listaProdutos.map(async (produto) => {
+        try {
+        await axios.post('http://localhost:8800/vendasprodutos', {
+        id_produto: produto.id_produto,
+        qtde_venda_produto: produto.qtde_produto,
+        id_venda: produto.id_venda,
+        preco: produto.preco
+        });
+        } catch (error) {
+        console.log(error);
+        }
+        });
+        }
 
     const novaVenda = async () => {
         // Define os valores padrão para os parâmetros que faltam
@@ -74,6 +93,9 @@ Por favor, conclua o pagamento antes de continuar.')
         return `${horaAtual}`
     }
 
+
+
+    
     return (
         <>
                 <button type='button' className='botao w-100'

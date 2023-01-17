@@ -20,14 +20,14 @@ const Login = lazy(() => import('./Login/Login'))
 const App = () => {
   
   const [usuario, setUsuario] = useState({});
-  const [usuarioLogado, setUsuarioLogado] = useState(false)
+  // const [usuarioLogado, setUsuarioLogado] = useState(false)
 
 
 
-  function imprime() {
-    console.log(usuario.nome_usuario)
-    console.log(usuarioLogado)
-  }
+  // function imprime() {
+  //   console.log(usuario.nome_usuario)
+  //   console.log(usuarioLogado)
+  // }
 
   //   const verificarUsuarioLogado = () => {
   //   // console.log(usuarioLogado)
@@ -45,8 +45,7 @@ const App = () => {
     <BrowserRouter>
       <Suspense fallback={<div className='title'>Carregando...</div>}>
         <Routes>
-          <Route path="/" element={
-              <Login />} />
+          <Route path="/" element={<Login />} />
 
           <Route path="/vendas" element={/* verificarUsuarioLogado() || */ <Vendas />} />
           <Route path="/fechamento-geral" element={/* verificarUsuarioLogado() || */ <FechamentoGeral />} />
@@ -56,7 +55,7 @@ const App = () => {
           <Route path="/cadastros/usuarios/cadusuario" element={/* verificarUsuarioLogado() || */ <CadastroUsuario />} />
           <Route path="/cadastros/produtos" element={/* verificarUsuarioLogado() || */ <Produtos />} />
           <Route path="/cadastros/produtos/cadproduto" element={/* verificarUsuarioLogado() || */ <CadastroProduto />}/>
-          <Route path="/abertura-caixa" element={/* verificarUsuarioLogado() ? */ 
+          <Route path="/abertura-caixa" element={/* verificarUsuarioLogado() || */ 
               <AberturaCaixa usuario={usuario}/>}/>
           <Route path="/*" element={<Navigate replace to="/" />} />
           </Routes>

@@ -30,8 +30,9 @@ export default function FuncoesCaixa(props) {
             const caixasAbertosDesteUsuario = res.data.filter(caixa => caixa.status_caixa === 'Aberto' && caixa.id_usuario === usuario.id_usuario);
 
             if (caixasAbertosDesteUsuario.length === 0) {
-                novoCaixa()
-                acessarVendas()
+                //passei este parametro pois preciso verificar dentro da função se terá q fechar o caixa anterior
+                novoCaixa(caixasAbertosDesteUsuario.length)
+                await acessarVendas()
             } else
                 if (caixasAbertosDesteUsuario.length > 0) {
 
@@ -45,19 +46,19 @@ export default function FuncoesCaixa(props) {
                         console.log('acessarCaixaAberto', caixa)
                         acessarVendas()
                     } else {
-                        novoCaixa()
+                        novoCaixa(caixasAbertosDesteUsuario.length)
                         console.log('Novo caixa criado!')
-                        acessarVendas()
+                        await acessarVendas()
                     }
                 };
         }
     }
 
-    const novoCaixa = async () => {
+    const novoCaixa = async (temCaixaAberto) => {
         // Define os valores padrão para os parâmetros que faltam
         id_usuario = usuario.id_usuario
         id_festa = 1 // ajustar
-        abertura = inputAbertura
+        abertura = +inputAbertura
         status_caixa = 'Aberto'
         data_abertura = await dataAtual()
         hora_abertura = await horaAtual()
@@ -79,10 +80,14 @@ export default function FuncoesCaixa(props) {
             setCaixaLocal(caixa)
             console.log('Novo: ', caixa)
 
-            const caixaAfechar = await caixaMaisRecente(1)
-            console.log('À fechar: ', caixaAfechar)
-
-            fecharCaixa(caixaAfechar.id_caixa, caixaAfechar)
+            console.log('Qntos caixas abertos: ', temCaixaAberto)
+            // colocar um if para o caso de novo caixa sem caixa antigo
+            if (temCaixaAberto > 0) {
+                const caixaAfechar = await caixaMaisRecente(1)
+                console.log('À fechar: ', caixaAfechar)
+    
+                fecharCaixa(caixaAfechar.id_caixa, caixaAfechar)
+            }
         } catch (error) {
             console.log(error);
         }
