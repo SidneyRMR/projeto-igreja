@@ -7,7 +7,7 @@ import Clock from './Clock'; // Importar o componente Clock
 
 function InfCaixa(props) {
     const usuario = JSON.parse(sessionStorage.getItem('usuario'));
-    const caixa = JSON.parse(sessionStorage.getItem('caixa'));
+    const caixa = props.caixa
     const sangria = +props.sangria
 
 

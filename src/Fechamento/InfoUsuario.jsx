@@ -89,7 +89,7 @@ export default function InfoUsuario() {
                         <CompInfUsuario nomeProps='Data Abertura:' styleProps={{fontSize:'19px'}} valorProps={(caixa.data_abertura.slice(0 ,-14))}/>
                     </Col>
                     <Col>
-                        <CompInfUsuario nomeProps='Total Sangria:' styleProps={{fontSize:'19px'}} valorProps={(!sangria ? getSangria() : sangria)/* .toFixed(2).replace('.',',') */}/>
+                        <CompInfUsuario nomeProps='Total Sangria:' styleProps={{fontSize:'19px'}} valorProps={(!sangria ? 'Carregando' : sangria)/* .toFixed(2).replace('.',',') */}/>
                     </Col>
                 </Row>
                 <hr  className="p-0 m-2"/>

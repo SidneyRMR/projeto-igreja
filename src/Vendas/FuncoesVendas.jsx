@@ -5,22 +5,18 @@ export default function FuncoesVendas(props) {
     const caixa = (JSON.parse(sessionStorage.getItem('caixa')))
 
     const verificaValoresParaNovaVenda = async () => {
-        console.log(+props.propsDebito, +props.propsCredito, +props.propsDinheiro, +props.propsPix)
-        console.log('Resumo dos produtos', props.resumoPedido)
+        // console.log(+props.propsDebito, +props.propsCredito, +props.propsDinheiro, +props.propsPix)
+        // console.log('Resumo dos produtos', props.resumoPedido)
         const totalPago = (+props.propsDebito + +props.propsCredito + +props.propsDinheiro + +props.propsPix)
         // console.log('Preço dos produtos:', props.precoTotalDosProdutos)
         // console.log('Total pago pelo cliente ', totalPago)
 
         if (props.precoTotalDosProdutos < totalPago) {
-            novaVenda()
+            novaVenda(props.resumoPedido)
             alert(`Pedido feito com sucesso!
 Devolva o troco de R$ ${totalPago - props.precoTotalDosProdutos}
             `)
-            //Fechar modal
-            props.fechaModal()
-
-            salvaProdutosBD()
-            // chamar q salva produtos no vendas_produtos
+            
             // mandar pedido para impressora
 
         //caso valor pago for menor
@@ -31,58 +27,76 @@ Por favor, conclua o pagamento antes de continuar.')
             `) 
             
         } else if (totalPago === props.precoTotalDosProdutos) {
-            novaVenda()
+            novaVenda(props.resumoPedido)
             alert('Pedido feito com sucesso!')
-            // chamar função q salva produtos no vendas_produtos
-            salvaProdutosBD(props.resumoPedido)
+            // props.resumoPedido.map((produto) => {
+            //     console.log(produto.nome)
+            // })
+
             // mandar pedido para impressora
-            
-            //Fechar modal
-            props.fechaModal()
         }
     }
 
+    //função para buscar o id_venda criado e retornar para criar a lista de produtos
 
-    const salvaProdutosBD = async (listaProdutos) => {
-        listaProdutos.map(async (produto) => {
-        try {
-        await axios.post('http://localhost:8800/vendasprodutos', {
-        id_produto: produto.id_produto,
-        qtde_venda_produto: produto.qtde_produto,
-        id_venda: produto.id_venda,
-        preco: produto.preco
+    const salvaProdutosBD = async (produtos) => {
+        produtos.map(async (produto) => {
+            const id_produto = produto.id_produto
+            const nome = produto.nome
+            const medida = produto.medida
+            const id_venda = 1 //teste
+            const qtde_venda_produto = produto.qnde
+            const preco = produto.preco
+
+            console.log('id_prod:',id_produto,'| medida:',medida,'| nome:',nome,'| id_venda',id_venda,'| qtde:',qtde_venda_produto,'| preco:',preco)
+            try {
+                await axios.post('http://localhost:8800/vendasprodutos', {
+                    id_produto,
+                    nome,
+                    medida,
+                    id_venda,
+                    qtde_venda_produto,
+                    preco
+                });
+            } catch (error) {
+                console.log(error);
+            }
         });
-        } catch (error) {
-        console.log(error);
-        }
-        });
-        }
-
-    const novaVenda = async () => {
-        // Define os valores padrão para os parâmetros que faltam
-        const id_caixa = caixa.id_caixa
-        const hora_venda = await horaAtual()
-        const debito = +props.propsDebito
-        const credito = +props.propsCredito
-        const dinheiro = +props.propsDinheiro
-        const pix = +props.propsPix
-
-        console.log('ID:',id_caixa,'| hora',hora_venda,'| debito',debito,'| credito',credito,'| dinheiro',dinheiro,'| pix:',pix)
-
-        // Cria o nova venda no BD
-        try {
-            await axios.post('http://localhost:8800/vendas', {
-                id_caixa,
-                hora_venda,
-                debito,
-                credito,
-                dinheiro,
-                pix
-            });
-        } catch (error) {
-            console.log(error);
-        }
     }
+    
+
+        const novaVenda = async (listaProdutos) => {
+            // Define os valores padrão para os parâmetros que faltam
+            const id_caixa = caixa.id_caixa
+            const hora_venda = await horaAtual()
+            const debito = +props.propsDebito
+            const credito = +props.propsCredito
+            const dinheiro = +props.propsDinheiro
+            const pix = +props.propsPix
+        
+            // console.log('ID:',id_caixa,'| hora',hora_venda,'| debito',debito,'| credito',credito,'| dinheiro',dinheiro,'| pix:',pix)
+        
+            // Cria o nova venda no BD
+            try {
+                const { data } = await axios.post('http://localhost:8800/vendas', {
+                    id_caixa,
+                    hora_venda,
+                    debito,
+                    credito,
+                    dinheiro,
+                    pix
+                });
+        
+                // const id_venda = data.id_venda; // get the id_venda from the response object
+                console.log('idvenda', data.id_caixa)
+                // console.log('listaprodutosdentoNovaVenda',listaProdutos)
+                salvaProdutosBD(listaProdutos); // pass the id_venda to the salvaProdutosBD function
+                props.fechaModal()
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        
 
     const horaAtual = () => {
         // Obtém a hora atual

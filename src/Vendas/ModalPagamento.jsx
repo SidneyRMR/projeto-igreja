@@ -19,6 +19,11 @@ export default function ModalPagamento(props) {
 
     const fechaModal = () => {
         setIsModalPgtoOpen(false)
+        setPgDebito(0)
+        setPgCredito(0)
+        setPgDinheiro(0)
+        setPgPix(0)
+        props.limpaListaProdutos()
     }
 
     const [isModalPgtoOpen, setIsModalPgtoOpen] = useState(false);

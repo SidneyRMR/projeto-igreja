@@ -1,45 +1,64 @@
-import aDetalhes from '../data/caixas-detalhe';
+import { useState, useEffect } from "react"
+import { Modal, Table } from "react-bootstrap"
+import axios from "axios"
+export default function ModalSangria(props) {
+    
+    const [isModalDetalhesOpen, setIsModalDetalhesOpen] = useState(false)
+    
+    const openModal = () => {
+        setIsModalDetalhesOpen(true)
+      }
 
+      //esta certo, não esta aparecendo pois nao tem nada igual com o id venda  pois não esta salvando no banco de dados 
+    const [produtosVenda, setProdutosVenda] = useState([])
+    useEffect(() => {
+        const getProdutosVenda = async () => {
+            try {
+                const res = await axios.get("http://localhost:8800/vendasprodutos")
+                setProdutosVenda(res.data.filter(item => item.id_venda === props.idVenda).sort((a, b) => (a.id_venda_produto  > b.id_venda_produto  ? 1 : -1)))
+                // console.log(res.data.filter(item => item.id_venda === props.idVenda))
+                // console.log(props.idVenda)
+                
+            } catch (error) {
+                console.error(error)
+            }
+        };
+        getProdutosVenda();
+    });
 
-const DetalheCaixa = () => {
-
-    function getDetalhes() {
-        return aDetalhes.map((oDetalhe, i) => {
-            let valorVendaTotalProduto = oDetalhe.qde * oDetalhe.valUnitario
-            
-            return (
-                <tr key={i}
-                    className={i % 2 === 0 ? 'Par' : 'Impar'}>
-                    <td>{oDetalhe.descricao}</td>
-                    <td>{oDetalhe.qde}</td>
-                    <td>{oDetalhe.tipo}</td>
-                    <td>{oDetalhe.valUnitario.toFixed(2).replace('.',',')}</td>
-                    <td>{valorVendaTotalProduto.toFixed(2).replace('.',',')}</td>
-                </tr>
-            )
-        })
-    }
-
+  
     return (
-        <div >
-            <div className='title'>Detalhes</div>
-            <table className='tabela'>
+        <div>
+        <button className="botao" onClick={openModal}>Detalhes  </button>
+
+        <Modal show={isModalDetalhesOpen} onHide={() => { setIsModalDetalhesOpen(false) }}>
+            <Modal.Header closeButton className="title">
+                <Modal.Title className="title">Detalhes da compra</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+            <Table className="tabela" striped bordered hover>
                 <thead>
                     <tr>
-                        <th>Descrição</th>
-                        <th>Quantidade</th>
-                        <th>Tipo</th>
-                        <th>Valor</th>
-                        <th>Total</th>
+                        {/* Esta tabela deve mostrar a somatoria dos valores de cada pedido feito pelo caixa */}
+                        <th>Produto</th>
+                        <th>Medida</th>
+                        <th>Preço</th>
+                        <th>Qtde</th>
                     </tr>
                 </thead>
-                <tbody>
-                    {getDetalhes()}
+                <tbody className="table-body-scroll" >
+                {produtosVenda.map((produto, i) => (
+                         <tr key={produto.id_venda_produto } className={i % 2 === 0 ? 'Par' : 'Impar'}>
+                            <td>{produto.id_venda_produto}</td>
+                            <td>{produto.medida}</td>
+                            <td>{produto.preco}</td>
+                            <td>{produto.qtde_venda_produto}</td>
+                        </tr>
+                ))}
                 </tbody>
-            </table>
-            <button id='voltar' onClick={() => window.location.href="/fechamento-geral"}>Voltar</button>
-        </div>
+            </Table>
+            </Modal.Body>
+        </Modal>
+    </div>
     )
 }
-
-export default DetalheCaixa

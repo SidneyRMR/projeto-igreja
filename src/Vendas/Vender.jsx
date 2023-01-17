@@ -117,8 +117,13 @@ const Vender = (props) => {
 
     let infoVendas = true
 
-    
-    
+    const limpaListaProdutos = () => {
+        setResumoPedido([]);
+        };
+        
+        useEffect(() => {
+        limpaListaProdutos();
+        }, []);
    
     return (
         <div>
@@ -236,7 +241,7 @@ const Vender = (props) => {
                                 <tr>
                                     <td colSpan={6} >
                                         <div>
-                                            <ModalPagamento openModal={openModal} precoTotalDosProdutos={precoTotal} resumoPedido={resumoPedido} />
+                                            <ModalPagamento limpaListaProdutos={limpaListaProdutos} openModal={openModal} precoTotalDosProdutos={precoTotal} resumoPedido={resumoPedido} />
                                         </div>
                                     </td>
                                 </tr>

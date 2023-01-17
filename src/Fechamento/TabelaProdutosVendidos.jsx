@@ -1,6 +1,7 @@
 import { Table } from "react-bootstrap";
 import { useState, useEffect } from "react"
 import axios from "axios"
+import DetalheCaixa from './DetalheCaixa'
 
 export default function TabelaProdutosVendidos() {
 
@@ -48,8 +49,8 @@ export default function TabelaProdutosVendidos() {
                             <td>{venda.pix}</td>
 
                             <td>{venda.debito + venda.credito + venda.dinheiro + venda.pix }</td>
-                            {/* modal detalhes vendas */}
-                            <td><button className="botao">Detalhes</button></td>
+                            
+                            <td><DetalheCaixa idVenda={venda.id_venda}/></td>
                         </tr>
                 ))}
                 </tbody>
