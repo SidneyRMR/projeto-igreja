@@ -16,7 +16,7 @@ export default function BotaoMenu(props) {
             <DropdownButton title='Menu' variant="warning" size="lg"
               id="botaoMenu">
                 <Dropdown.Item >
-                    <ModalSangria openModal={openModal} />
+                    <ModalSangria openModal={openModal} saldoCaixa={props.saldoCaixa}/>
                 </Dropdown.Item>
                 <Dropdown.Item  href="/fechamento-caixa"  >
                     <div className="botao">

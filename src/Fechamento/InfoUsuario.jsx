@@ -15,6 +15,9 @@ export default function InfoUsuario() {
     const [pix, setPix] = useState(0)
     const [totalGeral, setTotalGeral] = useState(0)
     const [totalEmCaixa, setTotalEmCaixa] = useState(0)
+    
+    // get sangria total
+    const [sangria, setSangria] = useState(0);
     // const [totalParaCadaTipoPagamento, setTotalParaCadaTipoPagamento] = useState([])
 
     const getVendas = async () => {
@@ -54,19 +57,16 @@ export default function InfoUsuario() {
     useEffect(() => {     
         setTotalGeral(debito + credito + dinheiro + pix)
 
-        setTotalEmCaixa(caixa.abertura + dinheiro /* - caixa.sangria */)
+        setTotalEmCaixa(caixa.abertura + dinheiro - sangria)
     }, [ caixa, debito, credito, dinheiro, pix])
 
 
 
-    // get sangria total
-    const [sangria, setSangria] = useState([]);
     const getSangria = async () => {
         try{
             const res = await axios.get("http://localhost:8800/sangria")
             setSangria(res.data.filter(item => item.id_caixa === caixa.id_caixa)
-                                .reduce((total, item) => total + item.valorSangria, 0)
-                                .toFixed(2).replace('.',','))
+                                .reduce((total, item) => total + item.valorSangria, 0))
         } catch (error) {
             console.log(error)
         }
@@ -74,6 +74,7 @@ export default function InfoUsuario() {
     useEffect(() => {
         getSangria()
     })
+    
 
     return (
         <>
@@ -89,7 +90,7 @@ export default function InfoUsuario() {
                         <CompInfUsuario nomeProps='Data Abertura:' styleProps={{fontSize:'19px'}} valorProps={(caixa.data_abertura.slice(0 ,-14))}/>
                     </Col>
                     <Col>
-                        <CompInfUsuario nomeProps='Total Sangria:' styleProps={{fontSize:'19px'}} valorProps={(!sangria ? 'Carregando' : sangria)/* .toFixed(2).replace('.',',') */}/>
+                        <CompInfUsuario nomeProps='Total Sangria:' styleProps={{fontSize:'19px'}} valorProps={(!sangria ? 'Carregando' : sangria.toFixed(2).replace('.',','))/* .toFixed(2).replace('.',',') */}/>
                     </Col>
                 </Row>
                 <hr  className="p-0 m-2"/>

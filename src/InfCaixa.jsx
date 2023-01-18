@@ -1,17 +1,47 @@
 import { Col, Container, Row } from "react-bootstrap"
 
-import React /* { useState, useEffect  */ from 'react';
+import React, { useEffect, useState } /* { useState, useEffect  */ from 'react';
 // import axios from 'axios';
 import Clock from './Clock'; // Importar o componente Clock
+import axios from "axios";
 
 
 function InfCaixa(props) {
     const usuario = JSON.parse(sessionStorage.getItem('usuario'));
-    const caixa = props.caixa
+    let caixa = props.caixa
+    // props.caixa ? caixa = props.caixa : caixa = null
+    // console.log(caixa)
     const sangria = +props.sangria
+    
+    const [saldoCaixa, setSaldoCaixa] = useState(0)
+    const [dinheiro, setDinheiro] = useState(0)
+    const getVendasDinheiro = async () => {
+        try {
+            const res = await axios.get("http://localhost:8800/vendas")
+            await res.data
+            setDinheiro(filtrarVendaPagamento(res.data).dinheiro)
+        } catch (error) {
+            console.error(error)
+        }
+    }
+    useEffect(() => {
+        getVendasDinheiro()
+    },[dinheiro])
 
-
-    const saldoCaixa = caixa.abertura - sangria
+    function  filtrarVendaPagamento(vendasArr) {
+        // array somente com este caixa
+        const newVendasArr = vendasArr.filter((venda) => venda.id_caixa === caixa.id_caixa)
+        // console.log(newVendasArr) // array dos caixas filtrados
+        const resultado =  newVendasArr.reduce((acc, venda) => {
+            acc.dinheiro += venda.dinheiro;
+            return acc;
+        }, { dinheiro: 0 });
+        return resultado
+    }
+    useEffect(() => {
+        setSaldoCaixa(dinheiro + props.caixa.abertura - props.sangria);
+        props.onSaldoCaixa(saldoCaixa);
+      }, [props, dinheiro,saldoCaixa]);
 
 
 
@@ -28,14 +58,14 @@ function InfCaixa(props) {
                     <Col className="w-100 ">
                         Nome do caixa: {usuario.nome_usuario}
                         {' | '}
-                        Saldo do caixa em dinheiro: {isNaN(props.caixa.abertura) ? 'Carregando' : props.caixa.abertura}
+                        Saldo em dinheiro: {isNaN(saldoCaixa) ? 'Carregando' : saldoCaixa}
                         {' | '}
                         Sangria: {isNaN(sangria) ? 'Carregando' : sangria}
                         {' | '}
                         {/* Data abertura: {props.caixa.data_abertura.slice(0, -14)} */}
                         {/* {' | '} */}
-                        Status: {props.caixa.status_caixa}
-                        {' | '}
+                        {/* Status: {props.caixa.status_caixa}
+                        {' | '} */}
                         Hora: {Clock()}
                     </Col>
                 </Row>

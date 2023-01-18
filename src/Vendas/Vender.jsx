@@ -31,8 +31,7 @@ const Vender = (props) => {
     // fim do trecho 
 
         // Este trecho busca os Sangria no BD e seta os valores na const Sangria
-        const [sangria, setSangria] = useState([]);
-
+        const [sangria, setSangria] = useState([])
         const getSangria = async () => {
             try{
                 const res = await axios.get("http://localhost:8800/sangria")
@@ -46,8 +45,7 @@ const Vender = (props) => {
         }
         useEffect(() => {
             getSangria()
-        });
-        // console.log(sangria)
+        },[setSangria])
         // console.log(sangria.total)
 
     // Declare a list of objects and a state for the form input values
@@ -125,13 +123,17 @@ const Vender = (props) => {
         limpaListaProdutos();
         }, []);
    
+        const [saldoCaixa, setSaldoCaixa] = useState(0)
+        const handleSaldoCaixa = (value) => {
+            setSaldoCaixa(value);
+        }
     return (
         <div>
             {/* <ToastContainer/> */}
-            <InfCaixa infoVendas={infoVendas} caixa={caixa} sangria={+sangria.total} />
+            <InfCaixa infoVendas={infoVendas} caixa={caixa} sangria={+sangria.total} onSaldoCaixa={handleSaldoCaixa}/>
             <Container fluid='true p-0 m-0' >
                 <div className='titleVendas d-flex justify-content-between '>
-                    <BotaoMenu sangria={sangria}/>
+                    <BotaoMenu saldoCaixa={saldoCaixa} sangria={sangria}/>
                     <div>TELA DE VENDAS</div> 
                     <div>{''}</div>
                 </div>
@@ -241,7 +243,9 @@ const Vender = (props) => {
                                 <tr>
                                     <td colSpan={6} >
                                         <div>
-                                            <ModalPagamento limpaListaProdutos={limpaListaProdutos} openModal={openModal} precoTotalDosProdutos={precoTotal} resumoPedido={resumoPedido} />
+                                            <ModalPagamento limpaListaProdutos={limpaListaProdutos} 
+                                                    openModal={openModal} precoTotalDosProdutos={precoTotal}
+                                                    resumoPedido={resumoPedido} />
                                         </div>
                                     </td>
                                 </tr>
