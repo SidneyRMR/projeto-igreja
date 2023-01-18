@@ -32,20 +32,22 @@ const Vender = (props) => {
 
         // Este trecho busca os Sangria no BD e seta os valores na const Sangria
         const [sangria, setSangria] = useState([])
-        const getSangria = async () => {
-            try{
-                const res = await axios.get("http://localhost:8800/sangria")
-                const filteredData = res.data.filter(item => item.id_caixa === caixa.id_caixa)
-                //calculate the total here
-                const total = filteredData.reduce((total, item) => total + item.valorSangria, 0);
-                setSangria({data: filteredData, total});
-            } catch (error) {
-                console.log(error)
-            }
-        }
         useEffect(() => {
+            const getSangria = async () => {
+                try{
+                    const res = await axios.get("http://localhost:8800/sangria")
+                    const filteredData = res.data.filter(item => item.id_caixa === caixa.id_caixa)
+                    //calculate the total here
+                    const total = filteredData.reduce((total, item) => total + item.valorSangria, 0);
+                    setSangria({data: filteredData, total});
+                } catch (error) {
+                    console.log(error)
+                }
+            }
             getSangria()
-        },[setSangria])
+        },[caixa.id_caixa])
+        
+        
         // console.log(sangria.total)
 
     // Declare a list of objects and a state for the form input values

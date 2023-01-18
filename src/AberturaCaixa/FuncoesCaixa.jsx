@@ -1,18 +1,8 @@
-
-import axios from 'axios';
+import axios from 'axios'
 
 export default function FuncoesCaixa(props) {
 
     const { inputAbertura } = props
-
-    // let id_caixa = '';
-    let id_usuario = ''
-    let id_festa = '';
-    let abertura = '';
-    let data_abertura = '';
-    let hora_abertura = '';
-    let data_fechamento = '';
-    let status_caixa = ''
 
     const usuario = JSON.parse(sessionStorage.getItem('usuario'));
     // console.log(usuario)
@@ -56,13 +46,13 @@ export default function FuncoesCaixa(props) {
 
     const novoCaixa = async (temCaixaAberto) => {
         // Define os valores padrão para os parâmetros que faltam
-        id_usuario = usuario.id_usuario
-        id_festa = 1 // ajustar
-        abertura = +inputAbertura
-        status_caixa = 'Aberto'
-        data_abertura = await dataAtual()
-        hora_abertura = await horaAtual()
-        data_fechamento = 0
+        const id_usuario = usuario.id_usuario
+        const id_festa = 1 // ajustar
+        const abertura = +inputAbertura
+        const status_caixa = 'Aberto'
+        const data_abertura = await dataAtual()
+        const hora_abertura = await horaAtual()
+        const data_fechamento = 0
 
         // Cria o novo caixa
         try {
@@ -75,17 +65,19 @@ export default function FuncoesCaixa(props) {
                 hora_abertura,
                 data_fechamento
             }).then(() => {
-                const caixa = caixaMaisRecente(0)
+                const caixa = caixaMaisRecente(0).then(()=>{
                 salvaCaixaLocal(caixa)
-                console.log('Novo: ', caixa)
+                console.log('Novo: ', caixa)})
     
                 console.log('Qntos caixas abertos: ', temCaixaAberto)
                 // colocar um if para o caso de novo caixa sem caixa antigo
                 if (temCaixaAberto > 0) {
-                    const caixaAfechar = caixaMaisRecente(1)
-                    console.log('À fechar: ', caixaAfechar)
+                    const caixaAfechar = caixaMaisRecente(1).then(()=>{
+
+                        fecharCaixa(caixaAfechar.id_caixa, caixaAfechar)
+                        console.log('À fechar: ', caixaAfechar)
+                    })
         
-                    fecharCaixa(caixaAfechar.id_caixa, caixaAfechar)
                 }
 
             })
@@ -95,7 +87,6 @@ export default function FuncoesCaixa(props) {
         }
     }
 
-    //funcionando
     const fecharCaixa = async (id_caixa, objCaixa) => {
         if (objCaixa.status_caixa === 'Fechado') {
 
@@ -103,14 +94,14 @@ export default function FuncoesCaixa(props) {
             return;
         }
         // alterações 
-        status_caixa = 'Fechado'
-        data_fechamento = await dataAtual()
+        const status_caixa = 'Fechado'
+        const data_fechamento = await dataAtual()
         // iguais
-        abertura = objCaixa.abertura
-        data_abertura = objCaixa.data_abertura
-        hora_abertura = objCaixa.hora_abertura
-        id_festa = objCaixa.id_festa
-        id_usuario = objCaixa.id_usuario
+        const abertura = objCaixa.abertura
+        const data_abertura = objCaixa.data_abertura
+        const hora_abertura = objCaixa.hora_abertura
+        const id_festa = objCaixa.id_festa
+        const id_usuario = objCaixa.id_usuario
         try {
             const res = await axios.put(`http://localhost:8800/caixas/${id_caixa}`, {
                 id_caixa,
@@ -128,6 +119,39 @@ export default function FuncoesCaixa(props) {
             console.error(error);
         }
     }
+
+    const fecharParcial = async (id_caixa, objCaixa) => {
+        if (objCaixa.status_caixa === 'Fechado') {
+            alert('O Caixa já está fechado.');
+        } else if (objCaixa.status_caixa === 'Aberto') {
+            alert('O usuário do caixa precisa fazer o lançamento dos valores de fechamento.')
+        } else {
+        // alterações 
+        const status_caixa = 'Aguardando Fechamento'
+        const data_fechamento = await dataAtual()
+        // iguais
+        const abertura = objCaixa.abertura
+        const data_abertura = objCaixa.data_abertura
+        const hora_abertura = objCaixa.hora_abertura
+        const id_festa = objCaixa.id_festa
+        const id_usuario = objCaixa.id_usuario
+        try {
+            const res = await axios.put(`http://localhost:8800/caixas/${id_caixa}`, {
+                id_caixa,
+                id_usuario,
+                id_festa,
+                abertura,
+                status_caixa,
+                data_abertura,
+                hora_abertura,
+                data_fechamento,
+            });
+                console.log(`Caixa ${id_caixa} atualizado para ${status_caixa}.`);
+                return res.data;
+            } catch (error) {
+                console.error(error);
+            }
+    }   }
 
     // excluir caixa caso nao tiver nenhuma compra ainda
     // const excluiCaixa = async (id_caixa) => {
@@ -178,6 +202,9 @@ export default function FuncoesCaixa(props) {
             }
             {props.valor === "fecharCaixa" && 
                 <button className='botao' onClick={() => fecharCaixa(props.id, props.caixa)}>{props.nomeBtn}</button>
+            }
+            {props.valor === "fecharParcialCaixa" && 
+                <button className='botao' onClick={() => fecharParcial(props.id, props.caixa)}>{props.nomeBtn}</button>
             }
         </>
     )

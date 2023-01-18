@@ -58,7 +58,7 @@ export default function InfoUsuario() {
         setTotalGeral(debito + credito + dinheiro + pix)
 
         setTotalEmCaixa(caixa.abertura + dinheiro - sangria)
-    }, [ caixa, debito, credito, dinheiro, pix])
+    }, [ caixa, debito, credito, dinheiro, pix,sangria])
 
 
 
@@ -84,10 +84,10 @@ export default function InfoUsuario() {
                         <CompInfUsuario nomeProps='Usuário:' styleProps={{fontSize:'19px'}} valorProps={usuario.nome_usuario.split(' ').slice(0, 1).join(" ")}/>
                     </Col>
                     <Col>
-                        <CompInfUsuario nomeProps='Valor Abertura:' styleProps={{fontSize:'19px'}} valorProps={(caixa.abertura).toFixed(2).replace('.',',')}/>
+                        <CompInfUsuario nomeProps='Data Abertura:' styleProps={{fontSize:'19px'}} valorProps={(caixa.data_abertura.slice(0 ,-14))}/>
                     </Col>
                     <Col>
-                        <CompInfUsuario nomeProps='Data Abertura:' styleProps={{fontSize:'19px'}} valorProps={(caixa.data_abertura.slice(0 ,-14))}/>
+                        <CompInfUsuario nomeProps='Valor Abertura:' styleProps={{fontSize:'19px'}} valorProps={(caixa.abertura).toFixed(2).replace('.',',')}/>
                     </Col>
                     <Col>
                         <CompInfUsuario nomeProps='Total Sangria:' styleProps={{fontSize:'19px'}} valorProps={(!sangria ? 'Carregando' : sangria.toFixed(2).replace('.',','))/* .toFixed(2).replace('.',',') */}/>
