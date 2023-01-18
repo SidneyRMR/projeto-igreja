@@ -1,6 +1,6 @@
 import { Table } from "react-bootstrap";
 import { useState, useEffect } from "react"
-import axios from "axios"
+import { api } from "../services/api";
 import DetalheCaixa from './DetalheCaixa'
 
 export default function TabelaProdutosVendidos() {
@@ -10,7 +10,7 @@ export default function TabelaProdutosVendidos() {
     useEffect(() => {
         const getVendas = async () => {
             try {
-                const res = await axios.get("http://localhost:8800/vendas")
+                const res = await api.get("/vendas")
                 setVendas(res.data.filter(item => item.id_caixa === caixa.id_caixa).sort((a, b) => (a.id > b.id ? 1 : -1)))
             } catch (error) {
                 console.error(error)

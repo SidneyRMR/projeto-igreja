@@ -1,4 +1,4 @@
-import axios from "axios"
+import { api } from "../services/api";
 
 export default function FuncoesSangria(props) {
 
@@ -33,7 +33,7 @@ export default function FuncoesSangria(props) {
 
         // Cria o nova venda no BD
         try {
-            await axios.post('http://localhost:8800/sangria', {
+            await api.post('/sangria', {
                 id_caixa,
                 valorSangria,
                 descricao

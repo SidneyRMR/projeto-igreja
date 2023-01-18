@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Container, Row, Col, Table } from 'react-bootstrap';
-import axios from 'axios';
+import { api } from "../services/api";
 import InfCaixa from '../InfCaixa'
 import BotaoMenu from '../Botoes/BotaoMenu';
 import ModalPagamento from './ModalPagamento';
@@ -14,7 +14,7 @@ const Vender = (props) => {
     const [caixa, setCaixa] = useState({})
     useEffect(() => {
     const caixaMaisRecente = async () => {
-        const res = await axios.get('http://localhost:8800/caixas');
+        const res = await api.get('/caixas');
         const caixasAbertosDesteUsuario = res.data.filter(caixa => caixa.status_caixa === 'Aberto' && caixa.id_usuario === usuario.id_usuario);
         const caixasAbertosClassificados = caixasAbertosDesteUsuario.sort((a, b) => b.id_caixa - a.id_caixa)
         await setCaixa(caixasAbertosClassificados[0])
@@ -33,7 +33,7 @@ console.log(caixa)
     const [produtos, setProdutos] = useState([])
     const getProdutos = async () => {
         try {
-            const res = await axios.get("http://localhost:8800/produtos")
+            const res = await api.get("/produtos")
             setProdutos(res.data.sort((a, b) => (a.id > b.id ? 1 : -1)))
         } catch (error) {
             console.log(error)
@@ -49,7 +49,7 @@ console.log(caixa)
         useEffect(() => {
             const getSangria = async () => {
                 try{
-                    const res = await axios.get("http://localhost:8800/sangria")
+                    const res = await api.get("/sangria")
                     const filteredData = res.data.filter(item => item.id_caixa === caixa.id_caixa)
                     //calculate the total here
                     const total = filteredData.reduce((total, item) => total + item.valorSangria, 0);

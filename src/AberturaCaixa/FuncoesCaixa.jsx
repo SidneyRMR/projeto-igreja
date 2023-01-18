@@ -1,4 +1,4 @@
-import axios from 'axios'
+import { api } from "../services/api";
 
 export default function FuncoesCaixa(props) {
 
@@ -16,7 +16,7 @@ export default function FuncoesCaixa(props) {
         if (isNaN(inputAbertura) || inputAbertura <= 0) {
             alert('Digite um valor para abrir o caixa.');
         } else {
-            const res = await axios.get('http://localhost:8800/caixas');
+            const res = await api.get('/caixas');
             const caixasAbertosDesteUsuario = res.data.filter(caixa => caixa.status_caixa === 'Aberto' && caixa.id_usuario === usuario.id_usuario);
 
             if (caixasAbertosDesteUsuario.length === 0) {
@@ -56,7 +56,7 @@ export default function FuncoesCaixa(props) {
 
         // Cria o novo caixa
         try {
-            await axios.post('http://localhost:8800/caixas', {
+            await api.post('/caixas', {
                 id_usuario,
                 id_festa,
                 abertura,
@@ -104,7 +104,7 @@ export default function FuncoesCaixa(props) {
             const id_festa = objCaixa.id_festa
             const id_usuario = objCaixa.id_usuario
             try {
-                const res = await axios.put(`http://localhost:8800/caixas/${id_caixa}`, {
+                const res = await api.put(`/caixas/${id_caixa}`, {
                     id_caixa,
                     id_usuario,
                     id_festa,
@@ -137,7 +137,7 @@ export default function FuncoesCaixa(props) {
             const id_festa = objCaixa.id_festa
             const id_usuario = objCaixa.id_usuario
             try {
-                const res = await axios.put(`http://localhost:8800/caixas/${id_caixa}`, {
+                const res = await api.put(`/caixas/${id_caixa}`, {
                     id_caixa,
                     id_usuario,
                     id_festa,
@@ -160,7 +160,7 @@ export default function FuncoesCaixa(props) {
 
     // Funções auxiliares
     const caixaMaisRecente = async (val) => {
-        const res = await axios.get('http://localhost:8800/caixas');
+        const res = await api.get('/caixas');
         const caixasAbertosDesteUsuario = res.data.filter(caixa => caixa.status_caixa === 'Aberto' && caixa.id_usuario === usuario.id_usuario);
         const caixasAbertosClassificados = caixasAbertosDesteUsuario.sort((a, b) => b.id_caixa - a.id_caixa)
         return caixasAbertosClassificados[val];

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import { Modal, Table } from "react-bootstrap"
-import axios from "axios"
+import { api } from "../services/api";
 export default function ModalSangria(props) {
     
     const [isModalDetalhesOpen, setIsModalDetalhesOpen] = useState(false)
@@ -14,7 +14,7 @@ export default function ModalSangria(props) {
     useEffect(() => {
         const getProdutosVenda = async () => {
             try {
-                const res = await axios.get("http://localhost:8800/vendasprodutos")
+                const res = await api.get("/vendasprodutos")
                 setProdutosVenda(res.data.filter(item => item.id_venda === props.idVenda).sort((a, b) => (a.id_venda_produto  > b.id_venda_produto  ? 1 : -1)))
                 //filtra todos os pedidos deste id_venda
                 // console.log(res.data.filter(item => item.id_venda === props.idVenda))

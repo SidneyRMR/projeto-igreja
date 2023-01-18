@@ -1,4 +1,4 @@
-import axios from "axios"
+import { api } from "../services/api";
 
 export default function FuncoesVendas(props) {
 
@@ -41,7 +41,7 @@ Por favor, conclua o pagamento antes de continuar.')
     // const [ultimaVenda, setUltimaVenda] = useState(0)
     const getIdVenda = async () => {
         try {
-            const res = await axios.get("http://localhost:8800/vendas")
+            const res = await api.get("/vendas")
             return res.data.filter(venda => venda.id_caixa === caixa.id_caixa)
                                     .sort((a, b) => (a.id_venda < b.id_venda ? 1 : -1))
                                     [0].id_venda
@@ -63,7 +63,7 @@ Por favor, conclua o pagamento antes de continuar.')
 
             console.log('id_prod:',id_produto,'| medida:',medida,'| nome:',nome,'| id_venda',id_venda,'| qtde:',qtde_venda_produto,'| preco:',preco)
             try {
-                await axios.post('http://localhost:8800/vendasprodutos', {
+                await api.post('/vendasprodutos', {
                     id_produto,
                     nome,
                     medida,
@@ -91,7 +91,7 @@ Por favor, conclua o pagamento antes de continuar.')
         
             // Cria o nova venda no BD
             try {
-                const { data } = await axios.post('http://localhost:8800/vendas', {
+                const { data } = await api.post('/vendas', {
                     id_caixa,
                     hora_venda,
                     debito,

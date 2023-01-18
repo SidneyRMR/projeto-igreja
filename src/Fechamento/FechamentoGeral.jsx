@@ -1,5 +1,5 @@
 import { Table } from "react-bootstrap";
-import axios from 'axios';
+import { api } from "../services/api";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useEffect, useState } from 'react';
@@ -12,7 +12,7 @@ const FechamentoGeral = () => {
 
     const getCaixasUsuarios = async () => {
         try {
-          const res = await axios.get("http://localhost:8800/vw_caixas_usuarios");
+          const res = await api.get("/vw_caixas_usuarios");
           setCaixasUsuarios(res.data.sort((a, b) => (a.id_caixa < b.id_caixa ? 1 : -1)));
         } catch (error) {
           toast.error(error);

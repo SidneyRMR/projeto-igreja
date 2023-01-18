@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { Col, Container, Row } from "react-bootstrap"
-import axios from 'axios';
+import { api } from "../../services/api";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -48,7 +48,7 @@ const CadProduto = () => {
             return
         }
         try {
-            const res = await axios.post('http://localhost:8800/produtos', {
+            const res = await api.post('/produtos', {
                 nome,
                 preco,
                 medida,
@@ -78,7 +78,7 @@ const CadProduto = () => {
             return
         }
         try {
-            const res = await axios.put(`http://localhost:8800/produtos/${id_produto}`, {
+            const res = await api.put(`/produtos/${id_produto}`, {
                 id_produto,
                 nome,
                 preco,

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-import axios from 'axios';
+import { api } from "../../services/api";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -58,7 +58,7 @@ const CadUsuario = () => {
             return
         }
         try {
-            const res = await axios.post('http://localhost:8800/usuarios', {
+            const res = await api.post('/usuarios', {
                 nome_usuario,
                 login,
                 senha,
@@ -82,7 +82,7 @@ const CadUsuario = () => {
             return
         }
         try {
-            const res = await axios.put(`http://localhost:8800/usuarios/${id_usuario}`, {
+            const res = await api.put(`/usuarios/${id_usuario}`, {
                 id_usuario,
                 nome_usuario,
                 login,

@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { api } from "../../services/api";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useEffect, useState } from 'react';
@@ -11,7 +11,7 @@ const Produtos = () => {
     console.log(produtos)
     const getProdutos = async () => {
         try{
-            const res = await axios.get("http://localhost:8800/produtos")
+            const res = await api.get("/produtos")
             setProdutos(res.data.sort((a,b) => (a.id > b.id ? 1 : -1)))
         } catch (error) {
             toast.error(error)
@@ -29,8 +29,8 @@ const Produtos = () => {
     // Esta funcionando
     const handleDelete = async (id_produto, nome) => {
         if (window.confirm('Tem certeza de que deseja excluir este item?')) {
-          await axios
-            .delete('http://localhost:8800/produtos/' + id_produto)
+          await api
+            .delete('/produtos/' + id_produto)
             .then(({ data }) => {
               const newArray = produtos.filter((produto) => produto.id_produto !== id_produto)
               setProdutos(newArray)

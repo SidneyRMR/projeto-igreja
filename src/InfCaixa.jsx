@@ -1,9 +1,9 @@
 import { Col, Container, Row } from "react-bootstrap"
 
 import React, { useEffect, useState } /* { useState, useEffect  */ from 'react';
-// import axios from 'axios';
+// import { api } from "./services/api";
 import Clock from './Clock'; // Importar o componente Clock
-import axios from "axios";
+import { api } from "./services/api";
 
 
 function InfCaixa(props) {
@@ -18,7 +18,7 @@ function InfCaixa(props) {
     useEffect(() => {
         const getVendasDinheiro = async () => {
             try {
-                const res = await axios.get("http://localhost:8800/vendas")
+                const res = await api.get("/vendas")
                 await res.data
                 const filtrarVendaPagamento = (vendasArr) => {
                     // array somente com este caixa

@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { api } from "../../services/api";
 import { Table } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
@@ -9,7 +9,7 @@ const Usuarios = () => {
     const [usuarios, setUsuarios] = useState([])
     const getUsuarios = async () => {
         try {
-            const res = await axios.get("http://localhost:8800/usuarios")
+            const res = await api.get("/usuarios")
             setUsuarios(res.data.sort((a, b) => (a.id > b.id ? 1 : -1)))
         } catch (error) {
             console.error(error)
@@ -26,8 +26,8 @@ const Usuarios = () => {
     const handleDelete = async (id, nome) => {
         console.log(id,nome)
         if (window.confirm('Tem certeza de que deseja excluir este usuário?')) {
-          await axios
-            .delete('http://localhost:8800/usuarios/' + id)
+          await api
+            .delete('/usuarios/' + id)
             .then(({ data }) => {
                 const newArray = usuarios.filter((usuario) => usuario.id !== id)
               setUsuarios(newArray)

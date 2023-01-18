@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import { api } from "../services/api";
 import { Col, Row } from "react-bootstrap";
 import CompInfUsuario from "./CompInfUsuario";
 
@@ -22,7 +22,7 @@ export default function InfoUsuario() {
 
     const getVendas = async () => {
         try {
-            const res = await axios.get("http://localhost:8800/vendas")
+            const res = await api.get("/vendas")
             await res.data
             // fazer com que ao carregar data ja armazene o resultado da função em vendas
             // setTotalParaCadaTipoPagamento(filtrarVendaPagamento(res.data))
@@ -64,7 +64,7 @@ export default function InfoUsuario() {
 
     const getSangria = async () => {
         try{
-            const res = await axios.get("http://localhost:8800/sangria")
+            const res = await api.get("/sangria")
             setSangria(res.data.filter(item => item.id_caixa === caixa.id_caixa)
                                 .reduce((total, item) => total + item.valorSangria, 0))
         } catch (error) {
