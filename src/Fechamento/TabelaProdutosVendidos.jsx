@@ -28,7 +28,7 @@ export default function TabelaProdutosVendidos() {
                     <tr>
                         {/* Esta tabela deve mostrar a somatoria dos valores de cada pedido feito pelo caixa */}
                         <th width='10%'>Id venda</th>
-                        <th>Produtos</th>
+                        <th>Hora do Pedido</th>
                         <th>Pgto Debito</th>
                         <th>Pgto Crédito</th>
                         <th>Pgto Dinheiro</th>
@@ -38,7 +38,9 @@ export default function TabelaProdutosVendidos() {
                     </tr>
                 </thead>
                 <tbody className="table-body-scroll" >
-                {vendas.map((venda, i) => (
+                    
+                {vendas &&
+                vendas.map((venda, i) => (
                          <tr key={venda.id_venda} className={i % 2 === 0 ? 'Par' : 'Impar'}>
                             {/* <td>contador</td> */}
                             <td>{venda.id_venda}</td>

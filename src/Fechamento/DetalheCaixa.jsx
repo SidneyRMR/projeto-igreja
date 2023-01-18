@@ -16,8 +16,9 @@ export default function ModalSangria(props) {
             try {
                 const res = await axios.get("http://localhost:8800/vendasprodutos")
                 setProdutosVenda(res.data.filter(item => item.id_venda === props.idVenda).sort((a, b) => (a.id_venda_produto  > b.id_venda_produto  ? 1 : -1)))
+                //filtra todos os pedidos deste id_venda
                 // console.log(res.data.filter(item => item.id_venda === props.idVenda))
-                // console.log(props.idVenda)
+                // console.log(produtosVenda)
                 
             } catch (error) {
                 console.error(error)
@@ -49,9 +50,9 @@ export default function ModalSangria(props) {
                 <tbody className="table-body-scroll" >
                 {produtosVenda.map((produto, i) => (
                          <tr key={produto.id_venda_produto } className={i % 2 === 0 ? 'Par' : 'Impar'}>
-                            <td>{produto.id_venda_produto}</td>
+                            <td>{produto.nome}</td>
                             <td>{produto.medida}</td>
-                            <td>{produto.preco}</td>
+                            <td>{(produto.preco).toFixed(2).replace('.', ',')}</td>
                             <td>{produto.qtde_venda_produto}</td>
                         </tr>
                 ))}

@@ -1,4 +1,5 @@
 import axios from "axios"
+import { useState } from "react"
 
 export default function FuncoesVendas(props) {
 
@@ -38,15 +39,28 @@ Por favor, conclua o pagamento antes de continuar.')
     }
 
     //função para buscar o id_venda criado e retornar para criar a lista de produtos
+    // const [ultimaVenda, setUltimaVenda] = useState(0)
+    const getIdVenda = async () => {
+        try {
+            const res = await axios.get("http://localhost:8800/vendas")
+            return res.data.filter(venda => venda.id_caixa === caixa.id_caixa)
+                                    .sort((a, b) => (a.id_venda < b.id_venda ? 1 : -1))
+                                    [0].id_venda
+            } catch (error) {
+                console.log(error)
+            }
+        } 
+
+
 
     const salvaProdutosBD = async (produtos) => {
         produtos.map(async (produto) => {
             const id_produto = produto.id_produto
             const nome = produto.nome
             const medida = produto.medida
-            const id_venda = 1 //teste
-            const qtde_venda_produto = produto.qnde
             const preco = produto.preco
+            const qtde_venda_produto = produto.qnde
+            const id_venda = await getIdVenda() 
 
             console.log('id_prod:',id_produto,'| medida:',medida,'| nome:',nome,'| id_venda',id_venda,'| qtde:',qtde_venda_produto,'| preco:',preco)
             try {
@@ -54,9 +68,9 @@ Por favor, conclua o pagamento antes de continuar.')
                     id_produto,
                     nome,
                     medida,
-                    id_venda,
+                    preco,
                     qtde_venda_produto,
-                    preco
+                    id_venda,
                 });
             } catch (error) {
                 console.log(error);

@@ -17,7 +17,7 @@ export default function FuncoesCaixa(props) {
     const usuario = JSON.parse(sessionStorage.getItem('usuario'));
     // console.log(usuario)
 
-    async function setCaixaLocal(salvaCaixa) {
+    async function salvaCaixaLocal(salvaCaixa) {
         await sessionStorage.setItem('caixa', JSON.stringify(salvaCaixa))
     }
 
@@ -42,7 +42,7 @@ export default function FuncoesCaixa(props) {
                     if (acessarCaixaAberto) {
 
                         const caixa = await caixaMaisRecente(0)
-                        setCaixaLocal(caixa)
+                        salvaCaixaLocal(caixa)
                         console.log('acessarCaixaAberto', caixa)
                         acessarVendas()
                     } else {
@@ -74,20 +74,22 @@ export default function FuncoesCaixa(props) {
                 data_abertura,
                 hora_abertura,
                 data_fechamento
-            });
-
-            const caixa = await caixaMaisRecente(0)
-            setCaixaLocal(caixa)
-            console.log('Novo: ', caixa)
-
-            console.log('Qntos caixas abertos: ', temCaixaAberto)
-            // colocar um if para o caso de novo caixa sem caixa antigo
-            if (temCaixaAberto > 0) {
-                const caixaAfechar = await caixaMaisRecente(1)
-                console.log('À fechar: ', caixaAfechar)
+            }).then(() => {
+                const caixa = caixaMaisRecente(0)
+                salvaCaixaLocal(caixa)
+                console.log('Novo: ', caixa)
     
-                fecharCaixa(caixaAfechar.id_caixa, caixaAfechar)
-            }
+                console.log('Qntos caixas abertos: ', temCaixaAberto)
+                // colocar um if para o caso de novo caixa sem caixa antigo
+                if (temCaixaAberto > 0) {
+                    const caixaAfechar = caixaMaisRecente(1)
+                    console.log('À fechar: ', caixaAfechar)
+        
+                    fecharCaixa(caixaAfechar.id_caixa, caixaAfechar)
+                }
+
+            })
+
         } catch (error) {
             console.log(error);
         }
