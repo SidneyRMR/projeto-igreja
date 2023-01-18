@@ -3,7 +3,7 @@ import { ToastContainer,toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useEffect, useState } from 'react';
 import diocese from "../img/diocese.png"
-import { Container, Row, Col, Button } from 'react-bootstrap'
+import { Container, Row, Col } from 'react-bootstrap'
 
 const Login = () => {
 
@@ -27,8 +27,8 @@ const Login = () => {
 
         if (usuarioEncontrado) {
             // Se o usuário e senha forem válidos, redireciona para a página de abertura de caixa
-            
-                sessionStorage.setItem('usuario', JSON.stringify(usuarioEncontrado));
+                const {id_usuario, nome_usuario, tipo} = usuarioEncontrado;
+                sessionStorage.setItem('usuario', JSON.stringify({id_usuario, nome_usuario, tipo}));
                 console.log(usuarioEncontrado)
                 return window.location.href='/abertura-caixa'
         } else {

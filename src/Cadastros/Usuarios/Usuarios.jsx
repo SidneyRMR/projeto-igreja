@@ -53,7 +53,7 @@ const Usuarios = () => {
                             <th>Nome</th>
                             <th>Login</th>
                             <th>Tipo</th>
-                            <th width='20%'>Ações</th>
+                            <th width='25%'>Ações</th>
                         </tr>
                     </thead>
                     <tbody>

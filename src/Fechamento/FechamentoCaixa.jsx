@@ -1,9 +1,9 @@
-import BotaoSair from "../Botoes/BotaoSair";
+import FuncoesCaixa from "../AberturaCaixa/FuncoesCaixa";
 import InfoUsuario from "./InfoUsuario";
 import TabelaProdutosVendidos from "./TabelaProdutosVendidos";
 
-const FechamentoCaixa = (props) => {
-
+const FechamentoCaixa = () => {
+    const caixa = JSON.parse(sessionStorage.getItem('caixa'));
     return (
         <div>
             <div className='title d-flex justify-content-between'> 
@@ -11,7 +11,7 @@ const FechamentoCaixa = (props) => {
                 Informações sobre vendas do caixa     
 
                 {/* este botao deverá levar até a tela de fechamento do caixa, criar novo componente ou modal fecharCaixa */}
-                <BotaoSair nomeBtn='Fechar Caixa' classNameProps="botao botaoTitle"/>
+                <FuncoesCaixa classNameProps="botao botaoTitle" valor='fecharParcialCaixa' nomeBtn='Fechar' id={caixa.id_caixa} caixa={caixa}/>
             </div>
             
             <InfoUsuario  />

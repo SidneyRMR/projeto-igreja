@@ -13,14 +13,11 @@ const FechamentoGeral = () => {
     const getCaixasUsuarios = async () => {
         try {
           const res = await axios.get("http://localhost:8800/vw_caixas_usuarios");
-          setCaixasUsuarios(res.data.sort((a, b) => (a.id_caixas > b.id_caixas ? 1 : -1)));
+          setCaixasUsuarios(res.data.sort((a, b) => (a.id_caixa < b.id_caixa ? 1 : -1)));
         } catch (error) {
           toast.error(error);
         }
-      };
-      
-      
-      
+      }
       useEffect(() => {
         getCaixasUsuarios();
       }, [caixasUsuarios]);
@@ -43,8 +40,8 @@ const FechamentoGeral = () => {
                          <th>Data Abertura</th>
                          <th>Data Fechamento</th>
                          <th>Festa</th>
-                         <th>Status</th>
-                         <th width='20%'>Ações</th>
+                         <th width='12%'>Status</th>
+                         <th width='25%'>Ações</th>
                      </tr>
                  </thead>
 
@@ -53,23 +50,29 @@ const FechamentoGeral = () => {
                          <tr key={caixa.id_caixa} className={i % 2 === 0 ? 'Par' : 'Impar'}>
                              <td>{caixa.nome_usuario}</td>
                              <td>{caixa.abertura}</td>
-                             <td>{caixa.sangria}</td>
+                             <td>vw sangria</td>
                              <td>vw c/ total venda</td>
                              <td>{caixa.data_abertura.slice(0, -14)}</td>
                              <td>{caixa.data_fechamento.slice(0, -14)}</td>
                              <td>{caixa.id_festa}</td>
                              <td>
-                                <div className={caixa.status_caixa === 'Fechado' ? 'caixaFechado' : 'caixaAberto'}>
+                             <div className={caixa.status_caixa === 'Fechado' ? 'fechado' : caixa.status_caixa === 'Aberto' ? 'aberto' : 'parcial' }>
                                     {caixa.status_caixa}
                                 </div>
                             </td>
-                             
-                             {/* Passar param para que acesse o caixa selecionado */}
                              <td>
                                  <button className="botao" onClick={() => window.location.href=`/detalhe-caixa/?id=${caixa.id_caixa}`}>
                                     Detalhes
                                 </button>
-                                <FuncoesCaixa nomeBtn='Fechar Caixa' valor='fecharCaixa' id={caixa.id_caixa} caixa={caixa}/>
+                                {caixa.status_caixa === 'Aberto' &&
+                                    <FuncoesCaixa nomeBtn='Fechar Caixa' valor='fecharCaixa' id={caixa.id_caixa} caixa={caixa}/>
+                                }
+                                {caixa.status_caixa === 'Fechamento parcial' &&
+                                    <FuncoesCaixa nomeBtn='Fechar Caixa' valor='fecharCaixa' id={caixa.id_caixa} caixa={caixa}/>
+                                }
+                                {!caixa.status_caixa === 'Fechado' &&
+                                    <FuncoesCaixa nomeBtn='Fechar Caixa' valor='fecharCaixa' id={caixa.id_caixa} caixa={caixa}/>
+                                }
                             </td>
                          </tr>
                          ))}

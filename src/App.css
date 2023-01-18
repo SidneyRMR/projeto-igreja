@@ -145,11 +145,13 @@ textarea {
   height: 40px;
 }
 
-.caixaAberto, .pgtoAberto {
+.aberto, .pgtoAberto {
   color: green;
 }
-.caixaFechado {
+.fechado {
   color: red;
 }
-
+.parcial {
+  color: rgb(110, 110, 8);
+}
 

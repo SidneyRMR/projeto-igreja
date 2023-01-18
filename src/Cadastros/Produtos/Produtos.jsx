@@ -57,7 +57,7 @@ const Produtos = () => {
                         <th>Preço</th>
                         <th>Medida</th>
                         <th>Tipo</th>
-                        <th width='20%'>Ação</th>
+                        <th width='25%'>Ação</th>
                     </tr>
                 </thead>
                 <tbody>

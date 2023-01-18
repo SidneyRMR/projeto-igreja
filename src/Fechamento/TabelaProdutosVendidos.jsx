@@ -34,7 +34,7 @@ export default function TabelaProdutosVendidos() {
                         <th>Pgto Dinheiro</th>
                         <th>Pgto Pix</th>
                         <th>Valor total</th>
-                        <th width='10%'>Ações</th>
+                        <th width='20%'>Ações</th>
                     </tr>
                 </thead>
                 <tbody className="table-body-scroll" >

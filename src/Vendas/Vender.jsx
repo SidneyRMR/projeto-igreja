@@ -9,7 +9,21 @@ import ModalPagamento from './ModalPagamento';
 
 const Vender = (props) => {
    
-    const caixa = JSON.parse(sessionStorage.getItem('caixa'));
+    
+    const usuario = JSON.parse(sessionStorage.getItem('usuario'));
+    const [caixa, setCaixa] = useState({})
+    useEffect(() => {
+    const caixaMaisRecente = async () => {
+        const res = await axios.get('http://localhost:8800/caixas');
+        const caixasAbertosDesteUsuario = res.data.filter(caixa => caixa.status_caixa === 'Aberto' && caixa.id_usuario === usuario.id_usuario);
+        const caixasAbertosClassificados = caixasAbertosDesteUsuario.sort((a, b) => b.id_caixa - a.id_caixa)
+        await setCaixa(caixasAbertosClassificados[0])
+        
+        sessionStorage.setItem('caixa', JSON.stringify(caixasAbertosClassificados[0]))
+    }
+    caixaMaisRecente()
+    }, [usuario.id_usuario])
+console.log(caixa)
 
     const [precoTotal, setPrecoTotal] = useState(0)
     const [bebidas, setBebidas] = useState([])
@@ -135,7 +149,7 @@ const Vender = (props) => {
             <InfCaixa infoVendas={infoVendas} caixa={caixa} sangria={+sangria.total} onSaldoCaixa={handleSaldoCaixa}/>
             <Container fluid='true p-0 m-0' >
                 <div className='titleVendas d-flex justify-content-between '>
-                    <BotaoMenu saldoCaixa={saldoCaixa} sangria={sangria}/>
+                    <BotaoMenu saldoCaixa={saldoCaixa} sangria={sangria} id={caixa.id_caixa} caixa={caixa}/>
                     <div>TELA DE VENDAS</div> 
                     <div>{''}</div>
                 </div>

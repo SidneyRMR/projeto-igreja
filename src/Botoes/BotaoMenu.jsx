@@ -2,6 +2,7 @@ import ModalSangria from "../Vendas/ModalSangria";
 import BotaoSair from "./BotaoSair";
 
 import { Dropdown, DropdownButton } from 'react-bootstrap';
+import FuncoesCaixa from "../AberturaCaixa/FuncoesCaixa";
 
 export default function BotaoMenu(props) {
 
@@ -24,7 +25,11 @@ export default function BotaoMenu(props) {
                     </div>
                 </Dropdown.Item>
                 <Dropdown.Item >
-                    <BotaoSair classNameProps='botao' nomeBtn='Fechar Cx'/>
+                    {/* Temporario, preciso fazer uma novatela pro usuario lancar os valores reais em mãos */}
+                    <FuncoesCaixa valor='fecharParcialCaixa' classNameProps='botao' nomeBtn='Fechar' id={props.caixa.id_caixa} caixa={props.caixa}/>
+                </Dropdown.Item>
+                <Dropdown.Item >
+                    <BotaoSair classNameProps='botao' nomeBtn='Sair'/>
                 </Dropdown.Item>
             </DropdownButton>
         </div>

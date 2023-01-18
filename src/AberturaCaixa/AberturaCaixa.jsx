@@ -23,7 +23,7 @@ const AberturaCaixa = () => {
     } else {
         usuario.tipo === 'Administrativo' ? setIsAdmin(true) : setIsAdmin(false);
     }
-  })
+  },[usuario])
 
 
   return (
@@ -55,7 +55,7 @@ const AberturaCaixa = () => {
       <br />
       <Row>
         <Col>
-        <FuncoesCaixa inputAbertura={inputAbertura} valor='abrirCaixa' nomeBtn='Abrir Caixa' />
+        <FuncoesCaixa inputAbertura={inputAbertura} valor='abrirCaixa' nomeBtn='Abrir Caixa' usuario={usuario}/>
         <BotaoSairPrograma classNameProps='botao' nomeBtn='Sair'/>
         </Col>
       </Row>
