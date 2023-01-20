@@ -6,7 +6,7 @@ export default function FuncoesSangria(props) {
     console.log(saldoCaixa)
 
     const verificarSangria = () => {
-        if ((+props.valorSangria) && (props.descricao) && (saldoCaixa > props.valorSangria)) {
+        if ((+props.valorSangria) && (props.descricao) && (+saldoCaixa > +props.valorSangria)) {
             // console.log(props.caixa.id_caixa)
             console.log(saldoCaixa)
             // console.log(props.descricao)
@@ -18,11 +18,11 @@ export default function FuncoesSangria(props) {
             alert('Digite o motivo da sangria.')
         } else if (!props.valorSangria) {
             alert('Digite o valor da sangria.')
-        } else if ((saldoCaixa < 0) || (saldoCaixa < props.valorSangria)) {
+        } else if ((saldoCaixa < 0) || (+saldoCaixa < +props.valorSangria)) {
             alert('Desculpe, não é possível efetuar sangrias se o seu caixa estiver vazio ou o valor da sangria for maior do que o saldo em dinheiro.')
         } else {
-            alert('Algo deu errado! Por favor entre novamente no programa.')
-            window.location.href='/abertura-caixa'
+            alert('Algo deu errado! Por favor tente novamente.')
+            // window.location.href='/abertura-caixa'
         }
     }
 

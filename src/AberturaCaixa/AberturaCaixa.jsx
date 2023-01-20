@@ -55,6 +55,7 @@ const AberturaCaixa = () => {
       <br />
       <Row>
         <Col>
+        {/* se o retorno do arrayCaixa.length for 0 , o nome do botao deve ser Novo caixa, caso ja tiver algum caixa aberto, abrir caixa*/}
         <FuncoesCaixa inputAbertura={inputAbertura} valor='abrirCaixa' nomeBtn='Abrir Caixa' usuario={usuario}/>
         <BotaoSairPrograma classNameProps='botao' nomeBtn='Sair'/>
         </Col>

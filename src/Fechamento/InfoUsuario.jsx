@@ -4,10 +4,10 @@ import { Col, Row } from "react-bootstrap";
 import CompInfUsuario from "./CompInfUsuario";
 
 
-export default function InfoUsuario() {
+export default function InfoUsuario(props) {
 
     const usuario = (JSON.parse(sessionStorage.getItem('usuario')))
-    const caixa =  (JSON.parse(sessionStorage.getItem('caixa')))
+    const caixa =  (JSON.parse(sessionStorage.getItem('caixa'))) || props.caixa
     // const [vendas, setVendas] = useState([])
     const [debito, setDebito] = useState(0)
     const [credito, setCredito] = useState(0)

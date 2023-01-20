@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import { Modal, Table } from "react-bootstrap"
-import { api } from "../services/api";
+import { api } from "../services/api"
+
 export default function ModalSangria(props) {
     
     const [isModalDetalhesOpen, setIsModalDetalhesOpen] = useState(false)

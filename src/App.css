@@ -55,6 +55,7 @@ button:hover, .botao:hover {
 }
 
 .tabela {
+  margin: 0;
   width: 100%;
 }
 
