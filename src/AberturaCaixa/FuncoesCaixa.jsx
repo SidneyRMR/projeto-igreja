@@ -1,50 +1,46 @@
+import { useState } from "react";
+import { useEffect } from "react";
 import { api } from "../services/api";
 
 export default function FuncoesCaixa(props) {
 
     const { inputAbertura } = props
+    const [ nomeBTN, setNomeBTN ] = useState('') 
 
     const usuario = JSON.parse(sessionStorage.getItem('usuario'));
-    // console.log(usuario)
 
-    async function salvaCaixaLocal(salvaCaixa) {
-        // await sessionStorage.setItem('caixa', JSON.stringify(salvaCaixa))
-    }
+    const verificaCaixa = async() => {
+        try {
+          const res = await api.get('/caixas');
+          const caixasAbertosDesteUsuario = res.data.filter(caixa => caixa.status_caixa === 'Aberto' && caixa.id_usuario === usuario.id_usuario);
+          if (caixasAbertosDesteUsuario.length > 0) {
+            // existe um caixa aberto para este usuário
+            setNomeBTN('Abrir caixa')
+        } else {
+            // não existe caixa aberto para este usuário
+            setNomeBTN('Novo caixa')
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      }
+      
+      useEffect(() =>{
+        verificaCaixa()
+    })
+
 
     const abrirCaixa = async () => {
         // Verifica se o valor de abertura foi digitado
         if (isNaN(inputAbertura) || inputAbertura <= 0) {
             alert('Digite um valor para abrir o caixa.');
         } else {
-            const res = await api.get('/caixas');
-            const caixasAbertosDesteUsuario = res.data.filter(caixa => caixa.status_caixa === 'Aberto' && caixa.id_usuario === usuario.id_usuario);
-
-            if (caixasAbertosDesteUsuario.length === 0) {
-                //passei este parametro pois preciso verificar dentro da função se terá q fechar o caixa anterior
-                novoCaixa(caixasAbertosDesteUsuario.length)
-                await acessarVendas()
-            } else
-                if (caixasAbertosDesteUsuario.length > 0) {
-
-                    const acessarCaixaAberto = window.confirm(
-                        `Você possui um caixa aberto! 
-    Clique em OK para acessá-lo, ou Cancelar para abrir um novo.`);
-                    if (acessarCaixaAberto) {
-
-                        const caixa = await caixaMaisRecente(0)
-                        salvaCaixaLocal(caixa)
-                        console.log('acessarCaixaAberto', caixa)
-                        acessarVendas()
-                    } else {
-                        novoCaixa(caixasAbertosDesteUsuario.length)
-                        console.log('Novo caixa criado!')
-                        await acessarVendas()
-                    }
-                };
+            novoCaixa()
         }
     }
 
-    const novoCaixa = async (temCaixaAberto) => {
+
+    const novoCaixa = async () => {
         // Define os valores padrão para os parâmetros que faltam
         const id_usuario = usuario.id_usuario
         const id_festa = 1 // ajustar
@@ -53,7 +49,6 @@ export default function FuncoesCaixa(props) {
         const data_abertura = await dataAtual()
         const hora_abertura = await horaAtual()
         const data_fechamento = 0
-
         // Cria o novo caixa
         try {
             await api.post('/caixas', {
@@ -64,25 +59,8 @@ export default function FuncoesCaixa(props) {
                 data_abertura,
                 hora_abertura,
                 data_fechamento
-            }).then(() => {
-                const caixa = caixaMaisRecente(0).then(() => {
-                    salvaCaixaLocal(caixa)
-                    console.log('Novo: ', caixa)
-                    
-                    console.log('Qntos caixas abertos: ', temCaixaAberto)
-                    // colocar um if para o caso de novo caixa sem caixa antigo
-                    if (temCaixaAberto > 0) {
-                        const caixaAfechar = caixaMaisRecente(1).then(() => {
-                            
-                            fecharCaixa(caixaAfechar.id_caixa, caixaAfechar)
-                            console.log('À fechar: ', caixaAfechar)
-                        })
-                        
-                    }
-                })
-
             })
-
+            acessarVendas()
         } catch (error) {
             console.log(error);
         }
@@ -159,12 +137,12 @@ export default function FuncoesCaixa(props) {
     }
 
     // Funções auxiliares
-    const caixaMaisRecente = async (val) => {
-        const res = await api.get('/caixas');
-        const caixasAbertosDesteUsuario = res.data.filter(caixa => caixa.status_caixa === 'Aberto' && caixa.id_usuario === usuario.id_usuario);
-        const caixasAbertosClassificados = caixasAbertosDesteUsuario.sort((a, b) => b.id_caixa - a.id_caixa)
-        return caixasAbertosClassificados[val];
-    }
+    // const caixaMaisRecente = async (val) => {
+    //     const res = await api.get('/caixas');
+    //     const caixasAbertosDesteUsuario = res.data.filter(caixa => caixa.status_caixa === 'Aberto' && caixa.id_usuario === usuario.id_usuario);
+    //     const caixasAbertosClassificados = caixasAbertosDesteUsuario.sort((a, b) => b.id_caixa - a.id_caixa)
+    //     return caixasAbertosClassificados[val];
+    // }
 
     const dataAtual = () => {
         // Obtém a data atual
@@ -187,8 +165,11 @@ export default function FuncoesCaixa(props) {
     return (
         // Componente FuncoesCaixa
         <>
-            {props.valor === "abrirCaixa" &&
-            <button className='botao' onClick={() => abrirCaixa()}>{props.nomeBtn}</button>
+            {props.valor === "abrirCaixa" && nomeBTN ==='Abrir caixa' &&
+            <button className='botao' onClick={() => acessarVendas()}>{nomeBTN}</button>
+        }
+            {props.valor === "abrirCaixa" && nomeBTN ==='Novo caixa' &&
+            <button className='botao' onClick={() => abrirCaixa()}>{nomeBTN}</button>
         }
             {props.valor === "fecharCaixa" &&
             <button className='botao' onClick={() => fecharCaixa(props.id, props.caixa)}>{props.nomeBtn}</button>
@@ -196,7 +177,6 @@ export default function FuncoesCaixa(props) {
             {props.valor === "fecharParcialCaixa" &&
             <button className={props.classNameProps} onClick={() => fecharParcial(props.id, props.caixa)}>{props.nomeBtn}</button>
         }
-        
         </>
     )
 }

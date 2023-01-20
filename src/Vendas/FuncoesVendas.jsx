@@ -61,7 +61,7 @@ Por favor, conclua o pagamento antes de continuar.')
             const qtde_venda_produto = produto.qnde
             const id_venda = await getIdVenda() 
 
-            console.log('id_prod:',id_produto,'| medida:',medida,'| nome:',nome,'| id_venda',id_venda,'| qtde:',qtde_venda_produto,'| preco:',preco)
+            // console.log('id_prod:',id_produto,'| medida:',medida,'| nome:',nome,'| id_venda',id_venda,'| qtde:',qtde_venda_produto,'| preco:',preco)
             try {
                 await api.post('/vendasprodutos', {
                     id_produto,

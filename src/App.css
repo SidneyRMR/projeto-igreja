@@ -156,3 +156,9 @@ textarea {
   color: rgb(110, 110, 8);
 }
 
+tr, th, Table {
+
+  margin: 0px;
+  padding: 0px;
+}
+

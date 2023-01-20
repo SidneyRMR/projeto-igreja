@@ -6,7 +6,7 @@ export default function FuncoesSangria(props) {
     console.log(saldoCaixa)
 
     const verificarSangria = () => {
-        if ((+props.valorSangria) && (props.descricao) && (+saldoCaixa > +props.valorSangria)) {
+        if ((+props.valorSangria) && (props.descricao) && (+saldoCaixa >= +props.valorSangria)) {
             // console.log(props.caixa.id_caixa)
             console.log(saldoCaixa)
             // console.log(props.descricao)

@@ -23,7 +23,7 @@ const Vender = (props) => {
     }
     caixaMaisRecente()
     }, [usuario.id_usuario])
-console.log(caixa)
+// console.log(caixa)
 
     const [precoTotal, setPrecoTotal] = useState(0)
     const [bebidas, setBebidas] = useState([])
