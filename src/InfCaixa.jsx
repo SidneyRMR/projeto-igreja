@@ -36,12 +36,12 @@ function InfCaixa(props) {
             }
         }
         getVendasDinheiro()
-    },[caixa.id_caixa])
+    },[caixa.id_caixa, dinheiro])
     
     useEffect(() => {
         setSaldoCaixa(dinheiro + props.caixa.abertura - props.sangria);
         props.onSaldoCaixa(saldoCaixa);
-      }, [props, dinheiro,saldoCaixa]);
+      }, [props, dinheiro, saldoCaixa]);
 
 
 

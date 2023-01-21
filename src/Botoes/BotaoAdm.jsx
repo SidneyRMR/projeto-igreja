@@ -37,6 +37,7 @@ export default function BotaoMenu() {
               <button className='botao' onClick={() => window.location.href = `/cadastros/produtos`}>Produtos</button>
               <button className='botao' onClick={() => window.location.href = `/cadastros/usuarios`}>Usuários</button>
               <br />
+              <button className='botao' onClick={() => window.location.href = `/cadastros/festas`}>Festas</button>
               <button className='botao' onClick={() => window.location.href = `/fechamento-geral`}>Fech Geral</button>
             </div>
           )}

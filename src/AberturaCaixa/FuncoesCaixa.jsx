@@ -5,27 +5,27 @@ import { api } from "../services/api";
 export default function FuncoesCaixa(props) {
 
     const { inputAbertura } = props
-    const [ nomeBTN, setNomeBTN ] = useState('') 
+    const [nomeBTN, setNomeBTN] = useState('')
 
     const usuario = JSON.parse(sessionStorage.getItem('usuario'));
 
-    const verificaCaixa = async() => {
+    const verificaCaixa = async () => {
         try {
-          const res = await api.get('/caixas');
-          const caixasAbertosDesteUsuario = res.data.filter(caixa => caixa.status_caixa === 'Aberto' && caixa.id_usuario === usuario.id_usuario);
-          if (caixasAbertosDesteUsuario.length > 0) {
-            // existe um caixa aberto para este usuário
-            setNomeBTN('Abrir caixa')
-        } else {
-            // não existe caixa aberto para este usuário
-            setNomeBTN('Novo caixa')
-          }
+            const res = await api.get('/caixas');
+            const caixasAbertosDesteUsuario = res.data.filter(caixa => caixa.status_caixa === 'Aberto' && caixa.id_usuario === usuario.id_usuario);
+            if (caixasAbertosDesteUsuario.length > 0) {
+                // existe um caixa aberto para este usuário
+                setNomeBTN('Abrir caixa')
+            } else {
+                // não existe caixa aberto para este usuário
+                setNomeBTN('Novo caixa')
+            }
         } catch (error) {
-          console.log(error);
+            console.log(error);
         }
-      }
-      
-      useEffect(() =>{
+    }
+
+    useEffect(() => {
         verificaCaixa()
     })
 
@@ -72,68 +72,73 @@ export default function FuncoesCaixa(props) {
         } else if (objCaixa.status_caixa === 'Aberto') {
             alert('O usuário do caixa precisa fazer o lançamento dos valores de fechamento.')
         } else {
-            // alterações 
-            const status_caixa = 'Fechado'
-            const data_fechamento = await dataAtual()
-            // iguais
-            const abertura = objCaixa.abertura
-            const data_abertura = objCaixa.data_abertura
-            const hora_abertura = objCaixa.hora_abertura
-            const id_festa = objCaixa.id_festa
-            const id_usuario = objCaixa.id_usuario
-            try {
-                const res = await api.put(`/caixas/${id_caixa}`, {
-                    id_caixa,
-                    id_usuario,
-                    id_festa,
-                    abertura,
-                    status_caixa,
-                    data_abertura,
-                    hora_abertura,
-                    data_fechamento,
-                });
-                console.log(`Caixa ${id_caixa} atualizado para ${status_caixa}.`);
-                return res.data;
-            } catch (error) {
-                console.error(error);
+            if (window.confirm('Tem certeza que deseja fechar o caixa?')) {
+                // alterações 
+                // iguais
+                const id_caixa = id_caixa
+                const id_usuario = objCaixa.id_usuario
+                const id_festa = objCaixa.id_festa
+                const abertura = objCaixa.abertura
+                const status_caixa = 'Fechado'
+                const data_abertura = objCaixa.data_abertura
+                const hora_abertura = objCaixa.hora_abertura
+                const data_fechamento = await dataAtual()
+                try {
+                    const res = await api.put(`/caixas/${id_caixa}`, {
+                        id_caixa,
+                        id_usuario,
+                        id_festa,
+                        abertura,
+                        status_caixa,
+                        data_abertura,
+                        hora_abertura,
+                        data_fechamento,
+                    });
+                    console.log(`Caixa ${id_caixa} atualizado para ${status_caixa}.`);
+                    return res.data;
+                } catch (error) {
+                    console.error(error);
+                }
             }
-        }
-    }
+        }}
 
-    const fecharParcial = async (id_caixa, objCaixa) => {
-        if (objCaixa.status_caixa === 'Fechado') {
-            alert('O Caixa já está fechado.');
+        const fecharParcial = async (id_caixa, objCaixa) => {
+            if (objCaixa.status_caixa === 'Fechado') {
+                alert('O Caixa já está fechado.');
 
-        } else {
-            // alterações 
-            const status_caixa = 'Fechamento parcial'
-            const data_fechamento = await dataAtual()
-            // iguais
-            const abertura = objCaixa.abertura
-            const data_abertura = objCaixa.data_abertura
-            const hora_abertura = objCaixa.hora_abertura
-            const id_festa = objCaixa.id_festa
-            const id_usuario = objCaixa.id_usuario
-            try {
-                const res = await api.put(`/caixas/${id_caixa}`, {
-                    id_caixa,
-                    id_usuario,
-                    id_festa,
-                    abertura,
-                    status_caixa,
-                    data_abertura,
-                    hora_abertura,
-                    data_fechamento,
-                });
-                console.log(`Caixa ${id_caixa} atualizado para ${status_caixa}.`);
-                sessionStorage.removeItem('caixa');
-                alert('Caixa fechado com sucesso.')
-                window.location.href = '/abertura-caixa'
-                return res.data;
-            } catch (error) {
-                console.error(error);
+            } else {
+                if (window.confirm('Tem certeza que deseja fechar o caixa?')) {
+                    // alterações 
+                    const status_caixa = 'Fechamento parcial'
+                    const data_fechamento = 0/* await dataAtual() */
+                    // iguais
+                    const abertura = objCaixa.abertura
+                    const data_abertura = objCaixa.data_abertura
+                    const hora_abertura = objCaixa.hora_abertura
+                    const id_festa = objCaixa.id_festa
+                    const id_usuario = objCaixa.id_usuario
+                    try {
+                        const res = await api.put(`/caixas/${id_caixa}`, {
+                            id_caixa,
+                            id_usuario,
+                            id_festa,
+                            abertura,
+                            status_caixa,
+                            data_abertura,
+                            hora_abertura,
+                            data_fechamento,
+                        });
+                        console.log(`Caixa ${id_caixa} atualizado para ${status_caixa}.`);
+                        sessionStorage.removeItem('caixa');
+                        alert('Caixa fechado com sucesso.')
+                        window.location.href = '/abertura-caixa'
+                        return res.data;
+                    } catch (error) {
+                        console.error(error);
+                    }
+                }
             }
-        }
+        
     }
 
     // Funções auxiliares
@@ -165,18 +170,18 @@ export default function FuncoesCaixa(props) {
     return (
         // Componente FuncoesCaixa
         <>
-            {props.valor === "abrirCaixa" && nomeBTN ==='Abrir caixa' &&
-            <button className='botao' onClick={() => acessarVendas()}>{nomeBTN}</button>
-        }
-            {props.valor === "abrirCaixa" && nomeBTN ==='Novo caixa' &&
-            <button className='botao' onClick={() => abrirCaixa()}>{nomeBTN}</button>
-        }
+            {props.valor === "abrirCaixa" && nomeBTN === 'Abrir caixa' &&
+                <button className='botao' onClick={() => acessarVendas()}>{nomeBTN}</button>
+            }
+            {props.valor === "abrirCaixa" && nomeBTN === 'Novo caixa' &&
+                <button className='botao' onClick={() => abrirCaixa()}>{nomeBTN}</button>
+            }
             {props.valor === "fecharCaixa" &&
-            <button className='botao' onClick={() => fecharCaixa(props.id, props.caixa)}>{props.nomeBtn}</button>
-        }
+                <button className='botao' onClick={() => fecharCaixa(props.id, props.caixa)}>{props.nomeBtn}</button>
+            }
             {props.valor === "fecharParcialCaixa" &&
-            <button className={props.classNameProps} onClick={() => fecharParcial(props.id, props.caixa)}>{props.nomeBtn}</button>
-        }
+                <button className={props.classNameProps} onClick={() => fecharParcial(props.id, props.caixa)}>{props.nomeBtn}</button>
+            }
         </>
     )
 }

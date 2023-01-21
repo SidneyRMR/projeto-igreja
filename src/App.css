@@ -10,6 +10,10 @@
 
   background-color: #FCECE8; 
 }
+.borda-guia {
+  border: 1px solid #C55A11;
+  background-color: #FCECE8; 
+}
 
 .botao {
   padding: 10px;
