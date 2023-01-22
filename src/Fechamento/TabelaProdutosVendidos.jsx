@@ -17,7 +17,8 @@ export default function TabelaProdutosVendidos() {
             }
         };
         getVendas();
-    });
+    },[caixa.id_caixa]);
+
 
     
     

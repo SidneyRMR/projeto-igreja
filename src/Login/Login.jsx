@@ -31,8 +31,12 @@ const Login = () => {
                 sessionStorage.setItem('usuario', JSON.stringify({id_usuario, nome_usuario, tipo}));
                 console.log(usuarioEncontrado)
                 return window.location.href='/abertura-caixa'
-        } else {
+        } else if(!usuarioEncontrado) {
             return toast.error('Usuário ou senha inválidos!', {
+                position: toast.POSITION.TOP_CENTER,
+            })
+        } else {
+            return toast.error('Algo deu errado com a conexão!', {
                 position: toast.POSITION.TOP_CENTER,
             })
         }

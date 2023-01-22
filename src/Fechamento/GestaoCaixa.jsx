@@ -2,7 +2,7 @@ import FuncoesCaixa from "../AberturaCaixa/FuncoesCaixa";
 import InfoUsuario from "./InfoUsuario";
 import TabelaProdutosVendidos from "./TabelaProdutosVendidos";
 
-const FechamentoCaixa = () => {
+const GestaoCaixa = () => {
     const caixa = JSON.parse(sessionStorage.getItem('caixa'));
     return (
         <div>
@@ -22,4 +22,4 @@ const FechamentoCaixa = () => {
     )
 }
 
-export default FechamentoCaixa
+export default GestaoCaixa

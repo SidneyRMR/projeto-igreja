@@ -5,7 +5,7 @@ import { api } from "../services/api";
 export default function FuncoesCaixa(props) {
 
     const { inputAbertura } = props
-    const [nomeBTN, setNomeBTN] = useState('')
+    const [nomeBtn, setNomeBtn] = useState('')
 
     const usuario = JSON.parse(sessionStorage.getItem('usuario'));
 
@@ -15,10 +15,10 @@ export default function FuncoesCaixa(props) {
             const caixasAbertosDesteUsuario = res.data.filter(caixa => caixa.status_caixa === 'Aberto' && caixa.id_usuario === usuario.id_usuario);
             if (caixasAbertosDesteUsuario.length > 0) {
                 // existe um caixa aberto para este usuário
-                setNomeBTN('Abrir caixa')
+                setNomeBtn('Abrir caixa')
             } else {
                 // não existe caixa aberto para este usuário
-                setNomeBTN('Novo caixa')
+                setNomeBtn('Novo caixa')
             }
         } catch (error) {
             console.log(error);
@@ -75,13 +75,12 @@ export default function FuncoesCaixa(props) {
             if (window.confirm('Tem certeza que deseja fechar o caixa?')) {
                 // alterações 
                 // iguais
-                const id_caixa = id_caixa
                 const id_usuario = objCaixa.id_usuario
                 const id_festa = objCaixa.id_festa
                 const abertura = objCaixa.abertura
                 const status_caixa = 'Fechado'
                 const data_abertura = objCaixa.data_abertura
-                const hora_abertura = objCaixa.hora_abertura
+                const hora_abertura = objCaixa.hora_abertura    
                 const data_fechamento = await dataAtual()
                 try {
                     const res = await api.put(`/caixas/${id_caixa}`, {
@@ -170,11 +169,11 @@ export default function FuncoesCaixa(props) {
     return (
         // Componente FuncoesCaixa
         <>
-            {props.valor === "abrirCaixa" && nomeBTN === 'Abrir caixa' &&
-                <button className='botao' onClick={() => acessarVendas()}>{nomeBTN}</button>
+            {props.valor === "abrirCaixa" && nomeBtn === 'Abrir caixa' &&
+                <button className='botao' onClick={() => acessarVendas()}>{nomeBtn}</button>
             }
-            {props.valor === "abrirCaixa" && nomeBTN === 'Novo caixa' &&
-                <button className='botao' onClick={() => abrirCaixa()}>{nomeBTN}</button>
+            {props.valor === "abrirCaixa" && nomeBtn === 'Novo caixa' &&
+                <button className='botao' onClick={() => abrirCaixa()}>{nomeBtn}</button>
             }
             {props.valor === "fecharCaixa" &&
                 <button className='botao' onClick={() => fecharCaixa(props.id, props.caixa)}>{props.nomeBtn}</button>

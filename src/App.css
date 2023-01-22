@@ -5,6 +5,12 @@
   font-size: 13px;
 }
 
+.centered-element {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
 .linha-guia {
   border: 1px solid red;
 

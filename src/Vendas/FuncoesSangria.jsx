@@ -3,13 +3,9 @@ import { api } from "../services/api";
 export default function FuncoesSangria(props) {
 
     const saldoCaixa=props.saldoCaixa
-    console.log(saldoCaixa)
-
+console.log(saldoCaixa)
     const verificarSangria = () => {
         if ((+props.valorSangria) && (props.descricao) && (+saldoCaixa >= +props.valorSangria)) {
-            // console.log(props.caixa.id_caixa)
-            console.log(saldoCaixa)
-            // console.log(props.descricao)
             efetuarSangria()
             alert(`Sangria no valor de R$ ${props.valorSangria} efetuado com sucesso.`)
             props.fechaModalSangria()

@@ -10,7 +10,7 @@ import Produtos from './Cadastros/Produtos/Produtos'
 import CadastroProduto from './Cadastros/Produtos/CadProduto'
 import Usuarios from './Cadastros/Usuarios/Usuarios'
 import CadastroUsuario from './Cadastros/Usuarios/CadUsuario'
-import FechamentoCaixa from './Fechamento/FechamentoCaixa'
+import GestaoCaixa from './Fechamento/GestaoCaixa'
 import DetalheCaixa from './Fechamento/DetalheCaixa'
 import FechamentoGeral from './Fechamento/FechamentoGeral'
 // import Login from './Login/Login'
@@ -51,7 +51,7 @@ const App = () => {
 
           <Route path="/vendas" element={/* verificarUsuarioLogado() || */ <Vendas />} />
           <Route path="/fechamento-geral" element={/* verificarUsuarioLogado() || */ <FechamentoGeral />} />
-          <Route path="/fechamento-caixa" element={/* verificarUsuarioLogado() || */ <FechamentoCaixa />} />
+          <Route path="/gestao-caixa" element={/* verificarUsuarioLogado() || */ <GestaoCaixa />} />
           <Route path="/detalhe-caixa" element={/* verificarUsuarioLogado() || */ <DetalheCaixa />} />
           <Route path="/cadastros/usuarios" element={/* verificarUsuarioLogado() || */ <Usuarios />} />
           <Route path="/cadastros/usuarios/cadusuario" element={/* verificarUsuarioLogado() || */ <CadastroUsuario />} />

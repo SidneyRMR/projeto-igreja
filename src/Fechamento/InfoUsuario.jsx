@@ -61,7 +61,8 @@ export default function InfoUsuario(props) {
     }, [ caixa, debito, credito, dinheiro, pix,sangria])
 
 
-
+    
+    useEffect(() => {
     const getSangria = async () => {
         try{
             const res = await api.get("/sangria")
@@ -71,10 +72,25 @@ export default function InfoUsuario(props) {
             console.log(error)
         }
     }
-    useEffect(() => {
+
         getSangria()
-    },[<ModalPagamento />, <ModalSangria/>])
+    },[caixa.id_caixa])
     
+    
+    // //////////
+    const [festa, setFesta] = useState('')
+    useEffect(() => {
+    const getFesta = async () => {
+        try{
+            const res = await api.get("/festas")
+            setFesta(res.data.filter(item => item.id_festa === caixa.id_festa)[0])
+            console.log(festa.nome_festa)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    getFesta()
+},[caixa.id_festa, festa.nome_festa])
 
     return (
         <>
@@ -114,7 +130,7 @@ export default function InfoUsuario(props) {
                         <hr className="p-0 m-2"/>
                     <Row>
                     <Col>
-                        <CompInfUsuario nomeProps='Festa:' styleProps={{fontSize:'22px'}} valorProps={('Mudar para nome (VW)',caixa.id_festa)}/>
+                        <CompInfUsuario nomeProps='Festa:' styleProps={{fontSize:'22px'}} valorProps={(festa ? festa.nome_festa : 'Carregando')}/>
                     </Col>
                     <Col>
                         <CompInfUsuario nomeProps='Total de vendas:' styleProps={{fontSize:'22px'}} valorProps={(totalGeral.toFixed(2).replace('.',','))}/>

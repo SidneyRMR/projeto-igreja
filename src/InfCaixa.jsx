@@ -56,7 +56,7 @@ function InfCaixa(props) {
                     color: 'white', padding: '1px', zIndex: 1
                 }}>
                     <Col className="w-100 ">
-                        Nome do caixa: {usuario.nome_usuario}
+                        Nome do caixa: {usuario.nome_usuario.split(' ').slice(0, 1).join(" ")}
                         {' | '}
                         Saldo em dinheiro: {isNaN(saldoCaixa) ? 'Carregando' : saldoCaixa}
                         {' | '}

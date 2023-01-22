@@ -150,7 +150,9 @@ const Vender = (props) => {
             <Container fluid='true p-0 m-0' >
                 <div className='titleVendas d-flex justify-content-between '>
                     <BotaoMenu saldoCaixa={saldoCaixa} sangria={sangria} id={caixa.id_caixa} caixa={caixa}/>
-                    <div>TELA DE VENDAS</div> 
+                    <span className="centered-element">
+                        Gestão de Caixas
+                    </span> 
                     <div>{''}</div>
                 </div>
                 <Row >
