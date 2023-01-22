@@ -73,7 +73,7 @@ export default function InfoUsuario(props) {
     }
     useEffect(() => {
         getSangria()
-    })
+    },[<ModalPagamento />, <ModalSangria/>])
     
 
     return (
