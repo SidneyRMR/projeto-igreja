@@ -73,7 +73,8 @@ const CadProduto = () => {
 
     // Função que altera um produto existente
     const alteraProduto = async (id_produto, nome, preco, medida, tipo) => {
-        const produtoEncontrado = produtos.find(produto => produto.nome.toLowerCase() === nome.toLowerCase())
+        const produtoEncontrado = produtos.find(produto => produto.nome.toLowerCase() === nome.toLowerCase()
+            && produto.id_produto !== id_produto)
 
         if (produtoEncontrado) {
             toast.error('Já tem um item com este nome!', {
