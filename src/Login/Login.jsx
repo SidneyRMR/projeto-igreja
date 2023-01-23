@@ -25,13 +25,13 @@ const Login = () => {
         // Verifica se o usuário e senha digitados estão presentes na lista de usuários
         const usuarioEncontrado = usuarios.find(usuario => usuario.login === uss && usuario.senha === pass)
 
-        if (usuarioEncontrado) {
+        if (!usuarioEncontrado) {
             // Se o usuário e senha forem válidos, redireciona para a página de abertura de caixa
                 const {id_usuario, nome_usuario, tipo} = usuarioEncontrado;
                 sessionStorage.setItem('usuario', JSON.stringify({id_usuario, nome_usuario, tipo}));
-                console.log(usuarioEncontrado)
+                // console.log(usuarioEncontrado)
                 return window.location.href='/abertura-caixa'
-        } else if(!usuarioEncontrado) {
+        } else if(usuarioEncontrado) {
             return toast.error('Usuário ou senha inválidos!', {
                 position: toast.POSITION.TOP_CENTER,
             })
