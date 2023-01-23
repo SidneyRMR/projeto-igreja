@@ -38,6 +38,7 @@ const Login = () => {
                 throw new Error('Usuário ou senha inválidos!')
             }
         } catch (error) {
+            console.log(error)
             return toast.error(error.message, {
                 position: toast.POSITION.TOP_CENTER,
             });
