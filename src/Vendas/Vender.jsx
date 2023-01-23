@@ -4,6 +4,7 @@ import { api } from "../services/api";
 import InfCaixa from '../InfCaixa'
 import BotaoMenu from '../Botoes/BotaoMenu';
 import ModalPagamento from './ModalPagamento';
+import Clock from '../Clock';
 // import { ToastContainer, toast } from 'react-toastify';
 // import 'react-toastify/dist/ReactToastify.css';
 
@@ -22,7 +23,7 @@ const Vender = (props) => {
         sessionStorage.setItem('caixa', JSON.stringify(caixasAbertosClassificados[0]))
     }
     caixaMaisRecente()
-    }, [usuario])
+    }, [usuario.id_usuario])
 // console.log(caixa)
 
     const [precoTotal, setPrecoTotal] = useState(0)
@@ -151,9 +152,14 @@ const Vender = (props) => {
                 <div className='titleVendas d-flex justify-content-between '>
                     <BotaoMenu saldoCaixa={saldoCaixa} sangria={sangria} id={caixa.id_caixa} caixa={caixa}/>
                     <span className="centered-element">
-                        Gestão de Caixas
+                        Tela de vendas
                     </span> 
-                    <div>{''}</div>
+                    <div style={{fontSize: '13px'}}>
+
+                        <div className='d-flex justify-content-between ' >Horário: {Clock()}</div>
+                        <div className='d-flex justify-content-between '>Nome: {(usuario.nome_usuario).split(' ').slice(0, 2).join(" ")}</div>
+
+                    </div>
                 </div>
                 <Row >
                     <Col className='m-0 p-0' style={{borderRight: '2px solid #9e501c'}}  >

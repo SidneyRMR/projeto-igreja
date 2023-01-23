@@ -95,8 +95,8 @@ const FechamentoGeral = (props) => {
                 <td>
                   {festa ? festa.nome_festa : "Festa não encontrada"}
                 </td>
-                <td>{caixa.data_abertura.slice(0, -14)}</td>
-                <td>{caixa.data_fechamento.slice(0, -14)}</td>
+                <td>{caixa.data_abertura}</td>
+                <td>{caixa.data_fechamento}</td>
                 <td>
                   <div
                     className={

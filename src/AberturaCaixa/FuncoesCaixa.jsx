@@ -8,14 +8,16 @@ export default function FuncoesCaixa(props) {
 
   const usuario = JSON.parse(sessionStorage.getItem("usuario"));
 
+  useEffect(() => {
   const verificaCaixa = async () => {
     try {
       const res = await api.get("/caixas");
       const caixasAbertosDesteUsuario = res.data.filter(
-        (caixa) =>
+        caixa =>
           caixa.status_caixa === "Aberto" &&
           caixa.id_usuario === usuario.id_usuario
       );
+      console.log(caixasAbertosDesteUsuario.length)
       if (caixasAbertosDesteUsuario.length > 0) {
         // existe um caixa aberto para este usuário
         setNomeBtn("Abrir caixa");
@@ -24,19 +26,17 @@ export default function FuncoesCaixa(props) {
         setNomeBtn("Novo caixa");
       }
     } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
+      console.log(error)
+  }}
     verificaCaixa();
-  });
+  },[setNomeBtn,usuario.id_usuario])
 
   const abrirCaixa = async () => {
     // Verifica se o valor de abertura foi digitado
     if (isNaN(inputAbertura) || inputAbertura <= 0) {
       alert("Digite um valor para abrir o caixa.");
     } else {
+      console.log("Caixa aberto.");
       novoCaixa();
     }
   };
@@ -47,9 +47,10 @@ export default function FuncoesCaixa(props) {
     const id_festa = 1; // ajustar
     const abertura = +inputAbertura;
     const status_caixa = "Aberto";
-    const data_abertura = await dataAtual();
-    const hora_abertura = await horaAtual();
-    const data_fechamento = 0;
+    const data_abertura = await dataAtual()
+    const hora_abertura = await horaAtual()
+    const data_fechamento = '0000-00-00'
+    // console.log(data_fechamento,data_abertura,hora_abertura,id_festa,id_usuario,status_caixa,abertura);
     // Cria o novo caixa
     try {
       await api.post("/caixas", {
@@ -61,7 +62,8 @@ export default function FuncoesCaixa(props) {
         hora_abertura,
         data_fechamento,
       });
-      // acessarVendas();
+      // console.log(data_fechamento,data_abertura,hora_abertura,id_festa,id_usuario,status_caixa,abertura);
+      acessarVendas();
     } catch (error) {
       console.log(error);
     }
@@ -111,8 +113,8 @@ export default function FuncoesCaixa(props) {
     } else {
       if (window.confirm("Tem certeza que deseja fechar o caixa?")) {
         // alterações
-        const status_caixa = "Fechamento parcial";
-        const data_fechamento = 0; /* await dataAtual() */
+        const status_caixa = "Fechamento parcial";     
+        const data_fechamento = '0000-00-00'
         // iguais
         const abertura = objCaixa.abertura;
         const data_abertura = objCaixa.data_abertura;
@@ -153,7 +155,7 @@ export default function FuncoesCaixa(props) {
   const dataAtual = () => {
     // Obtém a data atual
     let dataAtual = new Date().toISOString().substring(0, 10);
-    return `${dataAtual}`;
+    return `${dataAtual.toString()}`;
   };
   const horaAtual = () => {
     // Obtém a hora atual
@@ -165,7 +167,7 @@ export default function FuncoesCaixa(props) {
     if (horaAtual.charAt(0) === "0") {
       horaAtual = horaAtual.replace("0", "00");
     }
-    return `${horaAtual}`;
+    return `${horaAtual.toString()}`;
   };
 
   const acessarVendas = () => {

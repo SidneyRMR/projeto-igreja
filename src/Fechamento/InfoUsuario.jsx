@@ -100,7 +100,7 @@ export default function InfoUsuario(props) {
                         <CompInfUsuario nomeProps='Usuário:' styleProps={{fontSize:'19px'}} valorProps={usuario.nome_usuario.split(' ').slice(0, 1).join(" ")}/>
                     </Col>
                     <Col>
-                        <CompInfUsuario nomeProps='Data Abertura:' styleProps={{fontSize:'19px'}} valorProps={(caixa.data_abertura.slice(0 ,-14))}/>
+                        <CompInfUsuario nomeProps='Data Abertura:' styleProps={{fontSize:'19px'}} valorProps={(caixa.data_abertura)}/>
                     </Col>
                     <Col>
                         <CompInfUsuario nomeProps='Valor Abertura:' styleProps={{fontSize:'19px'}} valorProps={(caixa.abertura).toFixed(2).replace('.',',')}/>
