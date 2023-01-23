@@ -21,25 +21,28 @@ const Login = () => {
         getUsuarios()
     }, [setUsuarios])
 
+    
+    
     function testLogin(uss, pass) {
         // Verifica se o usuário e senha digitados estão presentes na lista de usuários
         const usuarioEncontrado = usuarios.find(usuario => usuario.login === uss && usuario.senha === pass)
-
-        if (usuarioEncontrado) {
-            // Se o usuário e senha forem válidos, redireciona para a página de abertura de caixa
+    
+        try {
+            if (usuarioEncontrado) {
+                // Se o usuário e senha forem válidos, redireciona para a página de abertura de caixa
                 const {id_usuario, nome_usuario, tipo} = usuarioEncontrado;
                 sessionStorage.setItem('usuario', JSON.stringify({id_usuario, nome_usuario, tipo}));
                 // console.log(usuarioEncontrado)
                 return window.location.href='/abertura-caixa'
-        } else if(!usuarioEncontrado) {
-            return toast.error('Usuário ou senha inválidos!', {
+            } else {
+                throw new Error('Usuário ou senha inválidos!')
+            }
+        } catch (error) {
+            return toast.error(error.message, {
                 position: toast.POSITION.TOP_CENTER,
-            })
-        } else {
-            return toast.error('Algo deu errado com a conexão!', {
-                position: toast.POSITION.TOP_CENTER,
-            })
+            });
         }
+        
     }
 
 
