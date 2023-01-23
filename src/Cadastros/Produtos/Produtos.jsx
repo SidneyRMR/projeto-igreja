@@ -70,8 +70,8 @@ const Produtos = () => {
                     <td>{produto.medida}</td>
                     <td>{produto.tipo}</td>
                     <td>
-                        <button className='botao' onClick={() => alterar(produto)}>Alterar</button>
-                        <button className='botao' onClick={() => handleDelete(produto.id_produto, produto.nome)}>Excluir</button>
+                        <button className='botao ' onClick={() => alterar(produto)}>Alterar</button>
+                        <button className='botao ' onClick={() => handleDelete(produto.id_produto, produto.nome)}>Excluir</button>
                     </td>
                 </tr>
             )

@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { Col, Container, Row } from "react-bootstrap"
 import { api } from "../../services/api";
 import { ToastContainer, toast } from 'react-toastify';
@@ -35,6 +35,14 @@ const CadProduto = () => {
 
     // Função que cria um novo produto 
     const novoProduto = async (nome, preco, medida, tipo) => {
+        const produtoEncontrado = produtos.find(produto => produto.nome === nome)
+
+        if (produtoEncontrado) {
+            toast.error('Já tem um item com este nome!', {
+                position: toast.POSITION.TOP_CENTER,
+            })
+            return
+        }
         if (!nome || !preco || !medida || !tipo) {
             toast.error('Todos os campos devem estar preenchidos!', {
                 position: toast.POSITION.TOP_CENTER,
@@ -65,6 +73,14 @@ const CadProduto = () => {
 
     // Função que altera um produto existente
     const alteraProduto = async (id_produto, nome, preco, medida, tipo) => {
+        const produtoEncontrado = produtos.find(produto => produto.nome.toLowerCase() === nome.toLowerCase())
+
+        if (produtoEncontrado) {
+            toast.error('Já tem um item com este nome!', {
+                position: toast.POSITION.TOP_CENTER,
+            })
+            return
+        }
         if (!nome || !preco || !medida || !tipo) {
             toast.error('Todos os campos devem estar preenchidos!', {
                 position: toast.POSITION.TOP_CENTER,
@@ -93,6 +109,23 @@ const CadProduto = () => {
             toast.error(error)
         }
     }
+
+    // Este trecho busca os produtos no BD e seta os valores na const produtos
+    const [produtos, setProdutos] = useState([])
+    const getProdutos = async () => {
+        try{
+            const res = await api.get("/produtos")
+            setProdutos(res.data.sort((a,b) => (a.id > b.id ? 1 : -1)))
+            // console.log(produtos)
+        } catch (error) {
+            toast.error(error)
+        }
+    }
+    useEffect(() => {
+        getProdutos()
+    }, [setProdutos])
+    // fim do trecho 
+
 
     return (
         <Container fluid='true'>
@@ -150,23 +183,23 @@ const CadProduto = () => {
             <Row>
                 <Col>
                     {!id_produto && (
-                        <button onClick={() => {
+                        <button className="botao" onClick={() => {
                             novoProduto(nome, preco, medida, tipo)
-                            console.log('novo')
+                            // console.log('novo')
                         }}>
                             Salvar
                         </button>
                     )}
                     {id_produto && (
-                        <button onClick={() => {
+                        <button className="botao" onClick={() => {
                             alteraProduto(id_produto, nome, preco, medida, tipo)
-                            console.log('editado',id_produto, nome, preco, medida, tipo)
+                            // console.log('editado',id_produto, nome, preco, medida, tipo)
                         }}>
                             Salvar
                         </button>
                     )}
 
-                    <button onClick={() => window.location.href = "/cadastros/produtos"}>Voltar</button>
+                    <button className="botao" onClick={() => window.location.href = "/cadastros/produtos"}>Voltar</button>
                 </Col>
             </Row>
         </Container>

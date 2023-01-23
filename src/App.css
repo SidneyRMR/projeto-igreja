@@ -41,7 +41,7 @@
   border-radius: 10px;
   text-decoration: none;
 }
-button:hover, .botao:hover {
+.botao:hover {
   background-color: #aa541b;
   color: white;
   text-decoration: none;

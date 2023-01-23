@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { api } from "../../services/api";
 import { ToastContainer, toast } from 'react-toastify';
@@ -37,7 +37,16 @@ const CadUsuario = () => {
     }
 
     // Função que cria um novo produto 
-    const novoUsuario = async (nome_usuario, login, senha, senha2, tipo) => {
+    const novoUsuario = async (id_usuario, nome_usuario, login, senha, senha2, tipo) => {
+
+        const usuarioEncontrado = usuarios.find(usuario => usuario.nome_usuario.toLowerCase() === nome_usuario.toLowerCase() && usuario.id_usuario !== id_usuario)
+        if (usuarioEncontrado) {
+            toast.error('Já tem um item com este nome!', {
+                position: toast.POSITION.TOP_CENTER,
+            })
+            return
+        }
+
         if (!nome_usuario || !login || !senha || !senha2 || !tipo) {
             toast.error('Todos os campos devem estar preenchidos!', {
                 position: toast.POSITION.TOP_CENTER,
@@ -75,6 +84,14 @@ const CadUsuario = () => {
     // Função que altera o usuario 
     /// !!!! esta com algum problema no back ou no front
     const alteraUsuario = async (id_usuario, nome_usuario, login, tipo) => {
+        const usuarioEncontrado = usuarios.find(usuario => usuario.nome_usuario.toLowerCase() === nome_usuario.toLowerCase() 
+            && usuario.id_usuario !== id_usuario)
+        if (usuarioEncontrado) {
+            toast.error('Já tem um item com este nome!', {
+                position: toast.POSITION.TOP_CENTER,
+            })
+            return
+        }
         if (!nome_usuario || !login || !tipo) {
             toast.error('Todos os campos devem estar preenchidos!', {
                 position: toast.POSITION.TOP_CENTER,
@@ -96,6 +113,20 @@ const CadUsuario = () => {
             console.error(error)
         }
     }
+
+    const [usuarios, setUsuarios] = useState([])
+    const getUsuarios = async () => {
+        try{
+            const res = await api.get("/usuarios")
+            setUsuarios(res.data.sort((a,b) => (a.id > b.id ? 1 : -1)))
+            // console.log(usuarios)
+        } catch (error) {
+            toast.error(error)
+        }
+    }
+    useEffect(() => {
+        getUsuarios()
+    },[setUsuarios])
 
     return (
         <Container fluid='true'>
@@ -124,7 +155,6 @@ const CadUsuario = () => {
                         placeholder="Cadastre um login"
                         onChange={handleLoginChange}
                         value={login}
-                        autoComplete='off'
                     />
                 </Col>
             </Row>
@@ -140,7 +170,6 @@ const CadUsuario = () => {
                                 placeholder="Digite a senha"
                                 onChange={handleSenhaChange}
                                 value={senha}
-                                autoComplete={false}
                             />
                         </Col>
                     </Row>
@@ -176,7 +205,7 @@ const CadUsuario = () => {
                 <Col>
                     {(!id && (
                         <button className='botao' onClick={() => {
-                            novoUsuario(nome, login, senha, senha2, tipo)
+                            novoUsuario(id, nome, login, senha, senha2, tipo)
                             // console.log('novo', id)
                         }}>Salvar
                         </button>

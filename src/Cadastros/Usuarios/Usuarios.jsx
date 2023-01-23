@@ -15,9 +15,6 @@ const Usuarios = () => {
             console.error(error)
         }
     }
-    useEffect(() => {
-        getUsuarios()
-    }, [setUsuarios])
 
     function alterar(usuario) {
         window.location.href = `/cadastros/usuarios/cadusuario/?id=${usuario.id_usuario}&nome=${usuario.nome_usuario}&login=${usuario.login}&tipo=${usuario.tipo}`
@@ -26,17 +23,20 @@ const Usuarios = () => {
     const handleDelete = async (id, nome) => {
         console.log(id,nome)
         if (window.confirm('Tem certeza de que deseja excluir este usuário?')) {
-          await api
-            .delete('/usuarios/' + id)
+            await api.delete('/usuarios/' + id)
             .then(({ data }) => {
                 const newArray = usuarios.filter((usuario) => usuario.id !== id)
               setUsuarios(newArray)
               toast.success(`${nome} excluído com sucesso`, {
-                position: toast.POSITION.TOP_CENTER
-            })})
-            .catch(({ data }) => console.error(data))
+                  position: toast.POSITION.TOP_CENTER
+                })})
+                .catch(({ data }) => console.error(data))
+            }
         }
-      }
+        
+        useEffect(() => {
+            getUsuarios()
+        }, [setUsuarios,handleDelete])
 
         return (
             <div  >
