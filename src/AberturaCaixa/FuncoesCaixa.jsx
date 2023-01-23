@@ -61,7 +61,7 @@ export default function FuncoesCaixa(props) {
         hora_abertura,
         data_fechamento,
       });
-      acessarVendas();
+      // acessarVendas();
     } catch (error) {
       console.log(error);
     }
