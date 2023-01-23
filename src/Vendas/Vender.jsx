@@ -11,6 +11,7 @@ const Vender = (props) => {
    
     
     const usuario = JSON.parse(sessionStorage.getItem('usuario'));
+
     const [caixa, setCaixa] = useState({})
     useEffect(() => {
     const caixaMaisRecente = async () => {
@@ -19,7 +20,7 @@ const Vender = (props) => {
         const caixasAbertosClassificados = caixasAbertosDesteUsuario.sort((a, b) => b.id_caixa - a.id_caixa)
         await setCaixa(caixasAbertosClassificados[0])
         
-        sessionStorage.setItem('caixa', JSON.stringify(caixasAbertosClassificados[0]))
+        await sessionStorage.setItem('caixa', JSON.stringify(caixasAbertosClassificados[0]))
     }
     caixaMaisRecente()
     }, [usuario.id_usuario])
