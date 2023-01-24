@@ -23,7 +23,7 @@ export default function BotaoMenu(props) {
           <FuncoesCaixa
             valor="fecharParcialCaixa"
             classNameProps="botao"
-            nomeBtn="Fechar"
+            nomeBtn="Fechar caixa"
             id={props.caixa.id_caixa}
             caixa={props.caixa}
           />

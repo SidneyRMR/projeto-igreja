@@ -19,9 +19,6 @@ export default function TabelaProdutosVendidos() {
         getVendas();
     },[caixa.id_caixa]);
 
-
-    
-    
     return (
         <>
             <Table className="tabela" striped bordered hover>
@@ -35,7 +32,7 @@ export default function TabelaProdutosVendidos() {
                         <th>Pgto Dinheiro</th>
                         <th>Pgto Pix</th>
                         <th>Valor total</th>
-                        <th width='20%'>Ações</th>
+                        <th>Ações</th>
                     </tr>
                 </thead>
                 <tbody className="table-body-scroll" >

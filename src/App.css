@@ -47,6 +47,15 @@
   color: white;
   text-decoration: none;
 }
+.desabilitaBotao {
+  background-color: #5f5b59;
+  color: white;
+  text-decoration: none;
+}
+.desabilitaBotao:hover {
+  background-color: #5f5b59;
+
+}
 
 .ehComida {
   background-color: #D2691E;
@@ -66,6 +75,8 @@
 }
 
 .tabela {
+  
+  border-radius: 5px;
   padding: 0px;
   margin: 0;
   width: 100%;
@@ -151,7 +162,8 @@ textarea {
 }
 
 .bg-orange {
-  padding: 2px;
+  border-radius: 5px;
+  padding: 4px;
   margin: 2px;
   background-color:#aa541b;
   color: white;

@@ -44,7 +44,8 @@ export default function InfoUsuario(props) {
     function  filtrarVendaPagamento(vendasArr) {
         // array somente com este caixa
         const newVendasArr = vendasArr.filter((venda) => venda.id_caixa === caixa.id_caixa)
-        // console.log(newVendasArr) // array dos caixas filtrados
+        
+        console.log('renderização do função : filtrar vendas')
         const resultado =  newVendasArr.reduce((acc, venda) => {
             acc.debito += venda.debito;
             acc.credito += venda.credito;
@@ -56,7 +57,7 @@ export default function InfoUsuario(props) {
     }
     useEffect(() => {     
         setTotalGeral(debito + credito + dinheiro + pix)
-
+        console.log('renderização do função : filtrar vendas')
         setTotalEmCaixa(caixa.abertura + dinheiro - sangria)
     }, [ caixa, debito, credito, dinheiro, pix,sangria])
 
@@ -64,6 +65,8 @@ export default function InfoUsuario(props) {
     
     useEffect(() => {
     const getSangria = async () => {
+        
+        console.log('renderização do get: sangria')
         try{
             const res = await api.get("/sangria")
             setSangria(res.data.filter(item => item.id_caixa === caixa.id_caixa)
@@ -81,6 +84,7 @@ export default function InfoUsuario(props) {
     const [festa, setFesta] = useState('')
     useEffect(() => {
     const getFesta = async () => {
+        // console.log('renderização do get: festas')
         try{
             const res = await api.get("/festas")
             setFesta(res.data.filter(item => item.id_festa === caixa.id_festa)[0])
@@ -90,7 +94,7 @@ export default function InfoUsuario(props) {
         }
     }
     getFesta()
-},[caixa.id_festa, festa.nome_festa])
+},[setFesta,caixa.id_festa,festa.nome_festa])
 
     return (
         <>

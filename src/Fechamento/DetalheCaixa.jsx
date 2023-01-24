@@ -26,7 +26,7 @@ export default function ModalSangria(props) {
             }
         };
         getProdutosVenda();
-    });
+    },[setProdutosVenda,props.idVenda]);
 
   
     return (
@@ -35,7 +35,7 @@ export default function ModalSangria(props) {
 
         <Modal show={isModalDetalhesOpen} onHide={() => { setIsModalDetalhesOpen(false) }}>
             <Modal.Header closeButton className="title">
-                <Modal.Title className="title">Detalhes da compra</Modal.Title>
+                <Modal.Title className="title">Detalhes da venda</Modal.Title>
             </Modal.Header>
             <Modal.Body>
             <Table className="tabela" striped bordered hover>

@@ -12,6 +12,7 @@ function InfCaixa(props) {
     const [dinheiro, setDinheiro] = useState(0)
     useEffect(() => {
         const getVendasDinheiro = async () => {
+            // console.log('teste de renderização: infCaixa' )
             try {
                 const res = await api.get("/vendas")
                 await res.data
@@ -29,14 +30,12 @@ function InfCaixa(props) {
             }
         }
         getVendasDinheiro()
-    })
+    },[setDinheiro,caixa.id_caixa])
     
     useEffect(() => {
         setSaldoCaixa(dinheiro + props.caixa.abertura - props.sangria);
-        // props.onSaldoCaixa(saldoCaixa);
-      },[dinheiro, props, saldoCaixa]);
-
-
+        props.onSaldoCaixa(dinheiro + props.caixa.abertura - props.sangria);
+      },[dinheiro, props, setSaldoCaixa]);
 
     return (
         <span>
@@ -44,12 +43,12 @@ function InfCaixa(props) {
                 <Container fluid='true'>
                 <Row style={{
                     fontSize: '15px',
-                    fontWeight: '200', position: 'fixed',
+                    fontWeight: '100', position: 'fixed',
                     left: '0px', bottom: '0px', backgroundColor: '#aa541b',
-                    color: 'white', padding: '1px', zIndex: 1
+                    color: 'white', padding: '2px', zIndex: 1, borderRadius: '5px'
                 }}>
                     <Col className="w-100 ">
-                        Saldo em dinheiro: {isNaN(saldoCaixa) ? 'Carregando' : saldoCaixa}
+                        Dinheiro em espécie: {isNaN(saldoCaixa) ? 'Carregando' : saldoCaixa}
                     </Col>
                 </Row>
             </Container>

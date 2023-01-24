@@ -14,7 +14,7 @@ const Vender = (props) => {
     const usuario = JSON.parse(sessionStorage.getItem('usuario'));
     const [caixa, setCaixa] = useState({})
     useEffect(() => {
-        console.log('teste de renderizacoes: caixa')
+        // console.log('teste de renderizacoes: caixa')
     const caixaMaisRecente = async () => {
         const res = await api.get('/caixas');
         const caixasAbertosDesteUsuario = res.data.filter(caixa => caixa.status_caixa === 'Aberto' && caixa.id_usuario === usuario.id_usuario);
@@ -52,18 +52,18 @@ const Vender = (props) => {
             const getSangria = async () => {
                 try{
                     
-                console.log('teste de renderizacoes: sangria')
+                // console.log('teste de renderizacoes: sangria')
                     const res = await api.get("/sangria")
                     const filteredData = res.data.filter(item => item.id_caixa === caixa.id_caixa)
                     //calculate the total here
                     const total = filteredData.reduce((total, item) => total + item.valorSangria, 0);
-                    setSangria({data: filteredData, total});
+                    setSangria({data: filteredData, total});    
                 } catch (error) {
                     console.log(error)
                 }
             }
             getSangria()
-        },[caixa.id_caixa])
+        },[caixa.id_caixa, sangria])
         
         
         // console.log(sangria.total)
@@ -147,6 +147,7 @@ const Vender = (props) => {
         const handleSaldoCaixa = (value) => {
             setSaldoCaixa(value);
         }
+
     return (
         <div>
             {/* <ToastContainer/> */}
@@ -157,10 +158,11 @@ const Vender = (props) => {
                     <span className="centered-element">
                         Tela de vendas
                     </span> 
-                    <div style={{fontSize: '13px'}}>
+                    <div style={{fontSize: '13px'}} >
 
-                        <div className='d-flex justify-content-between ' >Horário: {Clock()}</div>
-                        <div className='d-flex justify-content-between '>Nome: {(usuario.nome_usuario).split(' ').slice(0, 2).join(" ")}</div>
+                        <div className='d-flex justify-content-between p-0 m-0'>Nome:     {(usuario.nome_usuario).split(' ').slice(0, 2).join(" ")}</div>
+                        <div className='d-flex justify-content-between p-0 m-0'>Caixa:    <span>00{caixa.id_caixa}</span></div>
+                        <div className='d-flex justify-content-between p-0 m-0' >Horário: {Clock()}</div>
 
                     </div>
                 </div>
