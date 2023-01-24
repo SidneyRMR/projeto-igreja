@@ -9,7 +9,7 @@ export default function FuncoesSangria(props) {
       alert(
         `Sangria no valor de R$ ${props.valorSangria} efetuado com sucesso.`
       );
-      // props.fechaModalSangria()
+      props.fechaModalSangria()
     } else if (!props.valorSangria) {
       alert("Digite o valor da sangria.");
     } else if (+saldoCaixa <= 0 || +saldoCaixa < +props.valorSangria) {

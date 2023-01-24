@@ -12,12 +12,12 @@
 }
 
 .linha-guia {
-  border: 1px solid red;
+  /* border: 1px solid red; */
 
   background-color: #FCECE8; 
 }
 .borda-guia {
-  border: 1px solid #C55A11;
+  border: 1px solid #3D4886;
   background-color: #FCECE8; 
 }
 
@@ -25,7 +25,7 @@
   margin: 0;
   padding: 7px;
   width: 100px;
-  background-color: #C55A11;
+  background-color: #3D4886;
   color: white;
   border: 1px solid;
   border-radius: 10px;
@@ -36,42 +36,42 @@
   padding: 12px;
   /* display: inline-block; */
   /* width: 150px; */
-  background-color: #C55A11;
-  color: white;
+  background-color: #3D4886;
+  color: #3D4886;
   border: 1px solid;
   border-radius: 10px;
   text-decoration: none;
 }
 .botao:hover {
-  background-color: #aa541b;
-  color: white;
+  background-color: #F0F4FF;
+  color: #3D4886;
   text-decoration: none;
 }
 .desabilitaBotao {
-  background-color: #5f5b59;
-  color: white;
+  background-color: #F0F4FF;
+  color: #3D4886;
   text-decoration: none;
 }
 .desabilitaBotao:hover {
-  background-color: #5f5b59;
+  background-color: #F0F4FF;
 
 }
 
 .ehComida {
-  background-color: #D2691E;
+  background-color: #ffffff;
   min-width: 120px;
   max-width: 400px;
   width:fit-content;
 }
 
 .nEhComida {
-  background-color: #FF6347;
+  background-color: #ffffff;
   min-width: 120px;
   max-width: 400px;
   width:fit-content;
 }
-.nEhComida:hover {
-  background-color: #f04628;
+.nEhComida:hover, .ehComida:hover{
+  background-color: #F0F4FF;
 }
 
 .tabela {
@@ -83,35 +83,35 @@
 }
 
 .tabela .Impar {
-  background-color: #F8D7CD;
+  background-color: #F0F4FF;
 }
 
 .tabela .Par {
-  background-color: #FCECE8;
+  background-color: #ffffff;
 }
 
 .title {
   width: 100%;
   padding: 1%;
-  background-color: #aa541b;
+  background-color: #F0F4FF;
   font-size: 22px;
   font-weight: 600;
-  color: white;
+  color: #3D4886;
 }
 .titleVendas {
   width: 100%;
   padding: 1%;
-  background-color: #813c0e;
+  background-color: #D6E7FB;
   font-size: 25px;
   font-weight: 600;
-  color: white;
+  color: #3D4886;
 }
 
 .subtitulo {
   width: 100%;
-  padding: 15px;
-  background-color: #be6021;
-  color: white;
+  padding: 5px;
+  background-color: #ffffff;
+  color: #3D4886;
 }
 
 label {
@@ -144,10 +144,10 @@ label {
 
 thead,
 tfoot {
-  background-color: #813c0e;
+  background-color: #D6E7FB;
   width: 100px;
   height: 50px;
-  color: white;
+  color: #3D4886;
 }
 
 input,
@@ -163,10 +163,10 @@ textarea {
 
 .bg-orange {
   border-radius: 5px;
-  padding: 4px;
+  padding: 6px;
   margin: 2px;
-  background-color:#aa541b;
-  color: white;
+  background-color:#F0F4FF;
+  color: #3D4886;
   /* height: 40px; */
 }
 

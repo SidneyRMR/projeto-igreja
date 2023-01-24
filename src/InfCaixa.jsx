@@ -44,8 +44,8 @@ function InfCaixa(props) {
                 <Row style={{
                     fontSize: '15px',
                     fontWeight: '100', position: 'fixed',
-                    left: '0px', bottom: '0px', backgroundColor: '#aa541b',
-                    color: 'white', padding: '2px', zIndex: 1, borderRadius: '5px'
+                    left: '0px', bottom: '0px', backgroundColor: '#F0F4FF',
+                    color: '#3D4886', padding: '2px', zIndex: 1, borderRadius: '5px'
                 }}>
                     <Col className="w-100 ">
                         Dinheiro em espécie: {isNaN(saldoCaixa) ? 'Carregando' : saldoCaixa}

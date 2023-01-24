@@ -101,30 +101,30 @@ export default function InfoUsuario(props) {
             <div className="subtitulo">
                 <Row>
                     <Col>
-                        <CompInfUsuario nomeProps='Festa:' styleProps={{fontSize:'15px'}} valorProps={(festa ? festa.nome_festa : 'Carregando')}/>
+                        <CompInfUsuario nomeProps='Festa:' styleProps={{fontSize:'17px'}} valorProps={(festa ? festa.nome_festa : 'Carregando')}/>
                     </Col>
                     <Col>
-                        <CompInfUsuario nomeProps='Usuário:' styleProps={{fontSize:'15px'}} valorProps={usuario.nome_usuario.split(' ').slice(0, 1).join(" ")}/>
+                        <CompInfUsuario nomeProps='Usuário:' styleProps={{fontSize:'17px'}} valorProps={usuario.nome_usuario.split(' ').slice(0, 1).join(" ")}/>
                     </Col>
                     <Col>
-                        <CompInfUsuario nomeProps='Data Abertura:' styleProps={{fontSize:'15px'}} valorProps={(caixa.data_abertura)}/>
+                        <CompInfUsuario nomeProps='Data Abertura:' styleProps={{fontSize:'17px'}} valorProps={(caixa.data_abertura)}/>
                     </Col>
                 </Row>
                 <hr  className="p-0 m-2"/>
                 <Row>
                     <Col>
-                        <CompInfUsuario nomeProps='Debito:' styleProps={{fontSize:'15px'}} valorProps={(debito).toFixed(2).replace('.',',')}/>
+                        <CompInfUsuario nomeProps='Debito:' styleProps={{fontSize:'17px'}} valorProps={(debito).toFixed(2).replace('.',',')}/>
 
                     </Col>
                     <Col>
-                        <CompInfUsuario nomeProps='Credito:' styleProps={{fontSize:'15px'}} valorProps={(credito).toFixed(2).replace('.',',')}/>
+                        <CompInfUsuario nomeProps='Credito:' styleProps={{fontSize:'17px'}} valorProps={(credito).toFixed(2).replace('.',',')}/>
                     </Col>
                     <Col>
-                        <CompInfUsuario nomeProps='Dinheiro:' styleProps={{fontSize:'15px'}} valorProps={(dinheiro).toFixed(2).replace('.',',')}/>
+                        <CompInfUsuario nomeProps='Dinheiro:' styleProps={{fontSize:'17px'}} valorProps={(dinheiro).toFixed(2).replace('.',',')}/>
                     </Col>
                     <Col>
 
-                        <CompInfUsuario nomeProps='Pix:' styleProps={{fontSize:'15px'}} valorProps={(pix).toFixed(2).replace('.',',')}/>
+                        <CompInfUsuario nomeProps='Pix:' styleProps={{fontSize:'17px'}} valorProps={(pix).toFixed(2).replace('.',',')}/>
                     </Col>
                         
                     </Row>

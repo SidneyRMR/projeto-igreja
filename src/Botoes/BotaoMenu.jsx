@@ -11,7 +11,7 @@ export default function BotaoMenu(props) {
 
   return (
     <div className="ls-custom-select w-200">
-      <DropdownButton title="Menu" variant="warning" size="lg" id="botaoMenu">
+      <DropdownButton title="Menu" variant="primary" size="lg" id="botaoMenu">
         <Dropdown.Item>
           <ModalSangria openModal={openModal} saldoCaixa={props.saldoCaixa} />
         </Dropdown.Item>

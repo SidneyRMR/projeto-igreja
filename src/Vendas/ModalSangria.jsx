@@ -7,12 +7,12 @@ export default function ModalSangria(props) {
   const caixa = JSON.parse(sessionStorage.getItem("caixa"));
 
   const [isModalSangriaOpen, setIsModalSangriaOpen] = useState(false);
-  const [valorSangria, setValorSangria] = useState("");
+  const [valorSangria, setValorSangria] = useState();
   const [descricao, setDescricao] = useState("");
 
   const openModal = () => {
     setIsModalSangriaOpen(true);
-    setValorSangria("");
+    setValorSangria();
     setDescricao("");
   };
 
