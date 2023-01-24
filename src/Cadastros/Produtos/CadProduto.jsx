@@ -12,13 +12,11 @@ const CadProduto = () => {
   const paramPreco = +urlParams.get("preco");
   const paramMedida = urlParams.get("medida");
   const paramTipo = urlParams.get("tipo");
-  const paramFesta = urlParams.get("festa");
 
   const [nome, setNome] = useState(id_produto ? paramNome : "");
-  const [preco, setPreco] = useState(id_produto ? paramPreco.toFixed(2) : "");
+  const [preco, setPreco] = useState(id_produto ? paramPreco.toFixed(2) : 0);
   const [medida, setMedida] = useState(id_produto ? paramMedida : "Unidade");
   const [tipo, setTipo] = useState(id_produto ? paramTipo : "Comida");
-  const [festa, setFesta] = useState(id_produto ? paramFesta : "");
 
   // Manipulador de evento para atualizar o estado da descrição quando o usuário alterar o valor do input
   const handleNomeChange = (event) => {
@@ -33,16 +31,12 @@ const CadProduto = () => {
   const handleTipoChange = (event) => {
     setTipo(event.target.value)
   };
-  const handleFestaChange = (event) => {
-    setFesta(event.target.value)
-  };
-console.log(festa)
   // Função que cria um novo produto
   const novoProduto = async (nome, preco, medida, tipo) => {
+    console.log(nome, preco, medida, tipo)
     const produtoEncontrado = produtos.find(
         (produto) =>
-          produto.nome.toLowerCase() === nome.toLowerCase() &&
-          produto.id_produto !== id_produto
+          produto.nome.toLowerCase() === nome.toLowerCase()
       );
 
     if (produtoEncontrado) {
@@ -57,8 +51,8 @@ console.log(festa)
       });
       return;
     }
-    if (isNaN(preco)) {
-      toast.error("O preço deve ser um número!", {
+    if (isNaN(preco) && (preco > 0)) {
+      toast.error("O preço deve ser um número maior que 0!", {
         position: toast.POSITION.TOP_CENTER,
       });
       return;
@@ -69,12 +63,11 @@ console.log(festa)
         preco,
         medida,
         tipo,
-        festa,
       });
       toast.success(`${res.data} salvo com sucesso`, {
         position: toast.POSITION.TOP_CENTER,
       });
-      return res.data (window.location.href = "/cadastros/produtos");
+      // return res.data (window.location.href = "/cadastros/produtos");
     } catch (error) {
       toast.error(error);
     }
@@ -87,7 +80,6 @@ console.log(festa)
     preco,
     medida,
     tipo,
-    festa
   ) => {
     const produtoEncontrado = produtos.find(
       (produto) =>
@@ -119,13 +111,12 @@ console.log(festa)
         nome,
         preco,
         medida,
-        tipo,
-        festa:1,
+        tipo
       });
-      toast.success(`${res.data} alterado com sucesso`, {
+      toast.success(`${nome} alterado com sucesso`, {
         position: toast.POSITION.TOP_CENTER,
       });
-      return res.data (window.location.href = "/cadastros/produtos");
+      // return res.data (window.location.href = "/cadastros/produtos");
     } catch (error) {
       toast.error(error);
     }
@@ -149,20 +140,6 @@ console.log(festa)
   }, [setProdutos]);
   // fim do trecho
 
-  const [festas, setFestas] = useState([]);
-  const getFesta = async () => {
-    try {
-      const res = await api.get("/festas");
-      setFestas(res.data.sort((a, b) => (a.id_festa > b.id_festa ? 1 : -1)));
-    } catch (error) {
-      toast.error(error);
-    }
-  };
-//   console.log(festas);
-  useEffect(() => {
-    getFesta();
-  }, [setFestas]);
-  //fazer map
 
   return (
     <Container fluid="true">
@@ -227,20 +204,6 @@ console.log(festa)
       <br />
       <Row>
         <Col>
-          <div>Selecione a festa:</div>
-          <select onChange={handleFestaChange} value={festa}>
-            {festas &&
-              festas.map((festa, i) => (
-                 <option key={festa.id_festa} value={festa.id_festa}>
-                  {festa.nome_festa}
-                </option>
-              ))}
-          </select>
-        </Col>
-      </Row>
-      <br />
-      <Row>
-        <Col>
           {!id_produto && (
             <button
               className="botao"
@@ -257,7 +220,7 @@ console.log(festa)
               className="botao"
               onClick={() => {
                 alteraProduto(id_produto, nome, preco, medida, tipo);
-                // console.log('editado',id_produto, nome, preco, medida, tipo)
+                console.log('editado',id_produto, nome, preco, medida, tipo)
               }}
             >
               Salvar
