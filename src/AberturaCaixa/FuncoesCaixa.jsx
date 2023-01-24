@@ -17,7 +17,7 @@ export default function FuncoesCaixa(props) {
           caixa.status_caixa === "Aberto" &&
           caixa.id_usuario === usuario.id_usuario
       );
-      console.log(caixasAbertosDesteUsuario.length)
+      // console.log(caixasAbertosDesteUsuario.length)
       if (caixasAbertosDesteUsuario.length > 0) {
         // existe um caixa aberto para este usuário
         setNomeBtn("Abrir caixa");
@@ -98,6 +98,7 @@ export default function FuncoesCaixa(props) {
             hora_abertura,
             data_fechamento,
           });
+          props.atualizar()
           console.log(`Caixa ${id_caixa} atualizado para ${status_caixa}.`);
           return res.data;
         } catch (error) {

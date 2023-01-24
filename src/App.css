@@ -22,7 +22,8 @@
 }
 
 .botao {
-  padding: 10px;
+  margin: 0;
+  padding: 7px;
   width: 100px;
   background-color: #C55A11;
   color: white;
@@ -65,6 +66,7 @@
 }
 
 .tabela {
+  padding: 0px;
   margin: 0;
   width: 100%;
 }
@@ -149,11 +151,11 @@ textarea {
 }
 
 .bg-orange {
-  padding: 5px;
-  margin: 5px;
+  padding: 2px;
+  margin: 2px;
   background-color:#aa541b;
   color: white;
-  height: 40px;
+  /* height: 40px; */
 }
 
 .aberto, .pgtoAberto {

@@ -22,7 +22,7 @@ export default function FuncoesVendas(props) {
 
       // mandar pedido para impressora
       props.resumoPedido.map((produto) => {
-        return console.log(produto.nome)
+        return console.log('Ficha: ',produto.nome)
     })
 
       //caso valor pago for menor
@@ -66,15 +66,17 @@ Por favor, conclua o pagamento antes de continuar.')
     const credito = +props.propsCredito
     /// verific
     const dinheiro = totaldoTrocoo >= 0 ? +props.propsDinheiro - totaldoTrocoo : -props.propsDinheiro
-    console.log(dinheiro)
+    // console.log(dinheiro)
     const pix = +props.propsPix;
     // console.log('ID:',id_caixa,'| hora',hora_venda,'| debito',debito,'| credito',credito,'| dinheiro',dinheiro,'| pix:',pix)
     // Cria o nova venda no BD
-    if(temTrocoo) {
+    if(temTrocoo && !debito && !credito && !pix) {
+      props.fechaModal();
         alert(`Pedido feito com sucesso!
         Devolva o troco de R$ ${totalPagoo - props.precoTotalDosProdutos}`)
       } else if(!temTrocoo) {
         alert(`Pedido feito com sucesso!`)
+        props.fechaModal();
       }
     try {
       await api.post("/vendas", {
@@ -89,7 +91,7 @@ Por favor, conclua o pagamento antes de continuar.')
 
 
 
-      props.fechaModal();
+      
     } catch (error) {
       console.log(error);
     }

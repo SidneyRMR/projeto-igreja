@@ -84,7 +84,7 @@ export default function ModalDetalheCaixa(props) {
                             <CompInfUsuario nomeProps='Valor de abertura:' styleProps={{ fontSize: '15px' }} valorProps={(caixa.abertura).toFixed(2).replace('.', ',')} />
                         </Col>
                         <Col>
-                            <CompInfUsuario nomeProps='Total de sangria:' styleProps={{ fontSize: '15px' }} valorProps={(!sangria ? 'Carregando' : sangria.toFixed(2).replace('.', ','))/* .toFixed(2).replace('.',',') */} />
+                            <CompInfUsuario nomeProps='Total de sangria:' styleProps={{ fontSize: '15px' }} valorProps={(!sangria ? 0 : sangria.toFixed(2).replace('.', ','))/* .toFixed(2).replace('.',',') */} />
                         </Col>
                     </Row>
                     <Col><div className="p-1">Totais dos tipos de pagamento</div></Col>

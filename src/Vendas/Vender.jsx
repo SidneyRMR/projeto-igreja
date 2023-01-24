@@ -14,6 +14,7 @@ const Vender = (props) => {
     const usuario = JSON.parse(sessionStorage.getItem('usuario'));
     const [caixa, setCaixa] = useState({})
     useEffect(() => {
+        console.log('teste de renderizacoes: caixa')
     const caixaMaisRecente = async () => {
         const res = await api.get('/caixas');
         const caixasAbertosDesteUsuario = res.data.filter(caixa => caixa.status_caixa === 'Aberto' && caixa.id_usuario === usuario.id_usuario);
@@ -50,6 +51,8 @@ const Vender = (props) => {
         useEffect(() => {
             const getSangria = async () => {
                 try{
+                    
+                console.log('teste de renderizacoes: sangria')
                     const res = await api.get("/sangria")
                     const filteredData = res.data.filter(item => item.id_caixa === caixa.id_caixa)
                     //calculate the total here
@@ -138,7 +141,7 @@ const Vender = (props) => {
         
         useEffect(() => {
         limpaListaProdutos();
-        }, []);
+        }, [setResumoPedido]);
    
         const [saldoCaixa, setSaldoCaixa] = useState(0)
         const handleSaldoCaixa = (value) => {

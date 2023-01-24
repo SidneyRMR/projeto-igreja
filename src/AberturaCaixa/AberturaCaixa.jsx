@@ -20,9 +20,10 @@ const AberturaCaixa = () => {
     if (!usuario) {
       window.location.href = "/";
     } else {
+      console.log('teste de qnde de renderizações: usuario')
       usuario.tipo === "Administrativo" ? setIsAdmin(true) : setIsAdmin(false);
     }
-  }, [usuario]);
+  }, [setIsAdmin, usuario]);
 
   return (
     <Container fluid="true">

@@ -13,8 +13,11 @@ const FechamentoGeral = (props) => {
   const getCaixasUsuarios = async () => {
     try {
       const res = await api.get("/caixas");
+      
+      console.log('recarregando no bd: caixas')
       setCaixasUsuarios(
-        res.data.sort((a, b) => (a.id_caixa < b.id_caixa ? 1 : -1))
+        res.data.sort((a, b) => (a.status_caixa < b.status_caixa ? 1 : -1))
+        
       );
     } catch (error) {
       toast.error(error);
@@ -22,7 +25,7 @@ const FechamentoGeral = (props) => {
   };
   useEffect(() => {
     getCaixasUsuarios();
-  }, [caixasUsuarios]);
+  }, [setCaixasUsuarios]);
 
   const openModal = () => {
     props.setIsModalOpen(true);
@@ -35,9 +38,10 @@ const FechamentoGeral = (props) => {
     const fetchData = async () => {
       const response = await api.get("/usuarios");
       setUsuarios(response.data);
+      console.log('recarregando no bd: usuarios')
     };
     fetchData();
-  }, []);
+  }, [setUsuarios]);
 
   const [festas, setFestas] = useState([]);
 
@@ -45,9 +49,11 @@ const FechamentoGeral = (props) => {
     const fetchData = async () => {
       const response = await api.get("/festas");
       setFestas(response.data);
+      
+      console.log('recarregando no bd: festas')
     };
     fetchData();
-  }, []);
+  }, [setFestas]);
   return (
     <div>
       <div className="title d-flex justify-content-between">
@@ -71,8 +77,8 @@ const FechamentoGeral = (props) => {
             <th>Festa</th>
             <th>Data Abertura</th>
             <th>Data Fechamento</th>
-            <th width="12%">Status</th>
-            <th width="25%">Ações</th>
+            <th width="18%">Status</th>
+            <th colSpan={2} width="20%">Ações</th>
           </tr>
         </thead>
 
@@ -112,30 +118,33 @@ const FechamentoGeral = (props) => {
                 </td>
                 <td>
                   <ModalDetalheCaixa openModal={openModal} caixa={caixa} />
-                  {caixa.status_caixa === "Aberto" && (
+                  {/* {caixa.status_caixa === "Aberto" && (
                     <FuncoesCaixa
-                      nomeBtn="Fechar Caixa"
-                      valor="fecharCaixa"
-                      id={caixa.id_caixa}
-                      caixa={caixa}
+                    nomeBtn="Fechar Caixa"
+                    valor="fecharCaixa"
+                    id={caixa.id_caixa}
+                    caixa={caixa}
                     />
-                  )}
+                  )} */}
+                </td>
+                <td>
                   {caixa.status_caixa === "Fechamento parcial" && (
                     <FuncoesCaixa
                       nomeBtn="Fechar Caixa"
                       valor="fecharCaixa"
                       id={caixa.id_caixa}
                       caixa={caixa}
+                      atualizar={getCaixasUsuarios}
                     />
                   )}
-                  {!caixa.status_caixa === "Fechado" && (
+                  {/* {!caixa.status_caixa === "Fechado" && (
                     <FuncoesCaixa
                       nomeBtn="Fechar Caixa"
                       valor="fecharCaixa"
                       id={caixa.id_caixa}
                       caixa={caixa}
                     />
-                  )}
+                  )} */}
                 </td>
               </tr>
             );
