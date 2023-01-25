@@ -38,7 +38,6 @@ const CadUsuario = () => {
 
     // Função que cria um novo produto 
     const novoUsuario = async (id_usuario, nome_usuario, login, senha, senha2, tipo) => {
-
         const usuarioEncontrado = usuarios.find(usuario => usuario.nome_usuario.toLowerCase() === nome_usuario.toLowerCase() && usuario.id_usuario !== id_usuario)
         if (usuarioEncontrado) {
             toast.error('Já tem um item com este nome!', {
@@ -105,7 +104,7 @@ const CadUsuario = () => {
                 login,
                 tipo,
             })
-            toast.success(`${res.data} alterado com sucesso`, {
+            toast.success(`${nome_usuario} alterado com sucesso`, {
                 position: toast.POSITION.TOP_CENTER,
             })
             return (res.data, (window.location.href = '/cadastros/usuarios'))
@@ -118,7 +117,7 @@ const CadUsuario = () => {
     const getUsuarios = async () => {
         try{
             const res = await api.get("/usuarios")
-            setUsuarios(res.data.sort((a,b) => (a.id > b.id ? 1 : -1)))
+            setUsuarios(res.data.sort((a,b) => (a.id_usuario > b.id_usuario ? 1 : -1)))
             // console.log(usuarios)
         } catch (error) {
             toast.error(error)

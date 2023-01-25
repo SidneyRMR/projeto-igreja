@@ -76,6 +76,7 @@ const FechamentoGeral = (props) => {
             <th>Usuário</th>
             <th>Festa</th>
             <th>Data Abertura</th>
+            <th>Hora Abertura</th>
             <th>Data Fechamento</th>
             <th width="18%">Status</th>
             <th colSpan={2} width="20%">Ações</th>
@@ -102,6 +103,7 @@ const FechamentoGeral = (props) => {
                   {festa ? festa.nome_festa : "Festa não encontrada"}
                 </td>
                 <td>{caixa.data_abertura}</td>
+                <td>{caixa.hora_abertura}</td>
                 <td>{caixa.data_fechamento}</td>
                 <td>
                   <div

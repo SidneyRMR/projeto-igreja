@@ -14,7 +14,7 @@ const CadProduto = () => {
   const paramTipo = urlParams.get("tipo");
 
   const [nome, setNome] = useState(id_produto ? paramNome : "");
-  const [preco, setPreco] = useState(id_produto ? paramPreco.toFixed(2) : 0);
+  const [preco, setPreco] = useState(id_produto ? paramPreco : 0);
   const [medida, setMedida] = useState(id_produto ? paramMedida : "Unidade");
   const [tipo, setTipo] = useState(id_produto ? paramTipo : "Comida");
 
@@ -35,9 +35,9 @@ const CadProduto = () => {
   const novoProduto = async (nome, preco, medida, tipo) => {
     console.log(nome, preco, medida, tipo)
     const produtoEncontrado = produtos.find(
-        (produto) =>
-          produto.nome.toLowerCase() === nome.toLowerCase()
-      );
+        produto =>
+          produto.nome === nome
+      )
 
     if (produtoEncontrado) {
       toast.error("Já tem um item com este nome!", {
@@ -82,7 +82,7 @@ const CadProduto = () => {
     tipo,
   ) => {
     const produtoEncontrado = produtos.find(
-      (produto) =>
+      produto =>
         produto.nome.toLowerCase() === nome.toLowerCase() &&
         produto.id_produto !== id_produto
     );
@@ -111,8 +111,13 @@ const CadProduto = () => {
         nome,
         preco,
         medida,
-        tipo
-      });
+        tipo,
+      })
+      console.log(      id_produto,
+        nome,
+        preco,
+        medida,
+        tipo)
       toast.success(`${nome} alterado com sucesso`, {
         position: toast.POSITION.TOP_CENTER,
       });
@@ -128,7 +133,7 @@ const CadProduto = () => {
     try {
       const res = await api.get("/produtos");
       setProdutos(
-        res.data.sort((a, b) => (a.id_produtos > b.id_produtos ? 1 : -1))
+        res.data.sort((a, b) => (a.id_produto > b.id_produto ? 1 : -1))
       );
       // console.log(produtos)
     } catch (error) {
