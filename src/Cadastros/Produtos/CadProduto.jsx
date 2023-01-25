@@ -112,7 +112,7 @@ const CadProduto = () => {
         preco,
         medida,
         tipo,
-      })
+      });
       console.log(      id_produto,
         nome,
         preco,
@@ -121,7 +121,7 @@ const CadProduto = () => {
       toast.success(`${nome} alterado com sucesso`, {
         position: toast.POSITION.TOP_CENTER,
       });
-      // return res.data (window.location.href = "/cadastros/produtos");
+      return res.data (window.location.href = "/cadastros/produtos");
     } catch (error) {
       toast.error(error);
     }
