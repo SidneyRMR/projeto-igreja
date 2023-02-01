@@ -11,6 +11,10 @@ export default function ModalPagamento(props) {
           position: toast.POSITION.TOP_CENTER,
         })
       : setIsModalPgtoOpen(true);
+      setShowDebitoInput(false)
+      setShowCreditoInput(false)
+      setShowDinheiroInput(false)
+      setShowPixInput(false)
     setPgDebito(0);
     setPgCredito(0);
     setPgDinheiro(0);
@@ -68,19 +72,37 @@ export default function ModalPagamento(props) {
 
   function handleShowDebito(event) {
     setShowDebitoInput(event.target.checked);
-    setPgDebito(0);
+    setPgDebito(event.target.checked ? props.precoTotalDosProdutos : 0);
+    if(showCreditoInput) {
+      setShowCreditoInput(false);
+    }
+    if(showPixInput) {
+      setShowPixInput(false);
+    }
   }
   function handleShowCredito(event) {
     setShowCreditoInput(event.target.checked);
-    setPgCredito(0);
+    setPgCredito(event.target.checked ? props.precoTotalDosProdutos : 0);
+    if(showDebitoInput) {
+      setShowDebitoInput(false);
+    }
+    if(showPixInput) {
+      setShowPixInput(false);
+    }
   }
   function handleShowDinheiro(event) {
     setShowDinheiroInput(event.target.checked);
-    setPgDinheiro(0);
+    setPgDinheiro(event.target.checked ? props.precoTotalDosProdutos : 0);
   }
   function handleShowPix(event) {
     setShowPixInput(event.target.checked);
-    setPgPix(0);
+    setPgPix(event.target.checked ? props.precoTotalDosProdutos : 0);
+    if(showDebitoInput) {
+      setShowDebitoInput(false);
+    }
+    if(showCreditoInput) {
+      setShowCreditoInput(false);
+    }
   }
 
     useEffect(() => {
@@ -107,6 +129,17 @@ export default function ModalPagamento(props) {
         }
     }, [showPixInput]); 
 
+//     function retornaTotal(){
+//     return (precoTotalAPagar
+//       ? precoTotalAPagar - props.precoTotalDosProdutos > 0
+//         ? 0
+//         : precoTotalAPagar - props.precoTotalDosProdutos
+//       : 0
+//     )
+//       .toFixed(2)
+//       .replace(".", ",")
+//     }
+// console.log (retornaTotal())
   return (
     <div>
       <ToastContainer />
@@ -135,6 +168,7 @@ export default function ModalPagamento(props) {
                     className="form-control"
                     ref={inputRefDebito}
                     onChange={handleInputDebito}
+                    value={props.precoTotalDosProdutos}
                   />
                 </span>
               )}
@@ -155,6 +189,7 @@ export default function ModalPagamento(props) {
                     className="form-control"
                     onChange={handleInputCredito}
                     ref={inputRefCredito}
+                    value={props.precoTotalDosProdutos}
                   />
                 </span>
               )}
@@ -193,6 +228,7 @@ export default function ModalPagamento(props) {
                     className="form-control"
                     onChange={handleInputPix}
                     ref={inputRefPix}
+                    value={props.precoTotalDosProdutos}
                   />
                 </span>
               )}

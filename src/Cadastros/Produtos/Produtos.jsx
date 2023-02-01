@@ -1,18 +1,24 @@
 import { api } from "../../services/api";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Table } from "react-bootstrap";
 
 const Produtos = () => {
+  
+  const filtraInput = useRef(null);
   // Este trecho busca os produtos no BD e seta os valores na const produtos
   const [produtos, setProdutos] = useState([]);
+  const [allProdutos, setAllProdutos] = useState([]);
   console.log(produtos);
   const getProdutos = async () => {
     try {
       const res = await api.get("/produtos");
       setProdutos(
-        res.data.sort((a, b) => (a.id_produto > b.id_produto ? 1 : -1))
+        res.data.sort((a, b) => ((a.nome.toLowerCase() < b.nome.toLowerCase() ? 1 : -1) && (a.ativo === 0) ? 1 : -1))
+      );
+      setAllProdutos(
+        res.data.sort((a, b) => ((a.nome.toLowerCase() < b.nome.toLowerCase() ? 1 : -1) && (a.ativo === 0) ? 1 : -1))
       );
     } catch (error) {
       toast.error(error);
@@ -23,29 +29,62 @@ const Produtos = () => {
   }, [setProdutos]);
   // fim do trecho
 
+  useEffect(() => {
+    filtraInput.current.focus();
+  }, []);
+  // Função que altera um produto existente
+  const desativarProduto = async (prod) => {
+    try {
+      await api.put(`/produtos/${prod.id_produto}`, {
+        id_produto: prod.id_produto,
+        nome: prod.nome,
+        preco: prod.preco,
+        medida: prod.medida,
+        tipo: prod.tipo,
+        ativo: 0,
+      });
+      toast.success("Produto desativado com sucesso!",{
+        position: toast.POSITION.TOP_CENTER,
+      });
+      getProdutos();
+    } catch (error) {
+      toast.error(error);
+      console.log(error);
+    }
+  }
+  const ativarProduto = async (prod) => {
+    try {
+      await api.put(`/produtos/${prod.id_produto}`, {
+        id_produto: prod.id_produto,
+        nome: prod.nome,
+        preco: prod.preco,
+        medida: prod.medida,
+        tipo: prod.tipo,
+        ativo: 1,
+      });
+      toast.success("Produto reativado com sucesso!",{
+        position: toast.POSITION.TOP_CENTER,
+      });
+      getProdutos();
+    } catch (error) {
+      toast.error(error);
+      console.log(error);
+    }
+  }
+  function handleFiltroProdutos(event) {
+    const inputValue = event.target.value;
+    setProdutos(
+      allProdutos.filter(produto => produto.nome.toLowerCase().includes(inputValue.toLowerCase())).sort((a, b) => ((a.ativo === 0) ? 1 : -1))
+    );
+  }
+  
+  
+  
+  
+
   function alterar(produto) {
     window.location.href = `/cadastros/produtos/cadproduto/?id_produto=${produto.id_produto}&nome=${produto.nome}&preco=${produto.preco}&medida=${produto.medida}&tipo=${produto.tipo}`;
-  }
-
-  // Esta funcionando
-  const handleDelete = async (id_produto, nome) => {
-    if (window.confirm("Tem certeza de que deseja excluir este item?")) {
-      await api
-        .delete("/produtos/" + id_produto)
-        .then(({ data }) => {
-          const newArray = produtos.filter(
-            (produto) => produto.id_produto !== id_produto
-          );
-          setProdutos(newArray);
-          toast.success(`${nome} excluído com sucesso`, {
-            position: toast.POSITION.TOP_CENTER,
-          });
-        })
-        .catch(({ data }) => toast.error(data));
-    }
-  };
-
-  return (
+    }  return (
     <div>
       <ToastContainer />
       <div className="title d-flex justify-content-between ">
@@ -65,6 +104,11 @@ const Produtos = () => {
           Novo
         </button>
       </div>
+      {/* Buscar produtos */}
+      <div >
+        <span>Digite o nome do produto: </span>
+        <input type="text" onChange={handleFiltroProdutos} className="" ref={filtraInput}/>
+      </div>
       <Table className="tabela align-center">
         <thead>
           <tr>
@@ -72,37 +116,53 @@ const Produtos = () => {
             <th>Preço</th>
             <th>Medida</th>
             <th>Tipo</th>
+            {/* <th>Ativo</th> */}
             <th width="25%">Ação</th>
           </tr>
         </thead>
         <tbody>
-          {produtos.map((produto, i) => {
-            return (
-              <tr
-                key={produto.id_produto}
-                className={i % 2 === 0 ? "Par" : "Impar"}
+  {produtos.map((produto, i) => {
+ 
+      return (
+        <tr
+          key={produto.id_produto}
+          className={i % 2 === 0 ? "Par" : "Impar"}
+        >
+          <td>{produto.nome}</td>
+          <td>R${produto.preco.toFixed(2)}</td>
+          <td>{produto.medida}</td>
+          <td>{produto.tipo}</td>
+          {/* <td>{produto.ativo }</td> */}
+          <td>
+            {produto.ativo === 1 ? (
+              <>
+                <button
+                  className="botao"
+                  onClick={() => alterar(produto)}
+                >
+                  Alterar
+                </button>
+                <button
+                  className="botao"
+                  onClick={() => desativarProduto(produto)}
+                >
+                  Desativar
+                </button>
+              </>
+            ) : (
+              <button
+                className="botao"
+                onClick={() => ativarProduto(produto)}
               >
-                <td>{produto.nome}</td>
-                <td>R${produto.preco.toFixed(2)}</td>
-                <td>{produto.medida}</td>
-                <td>{produto.tipo}</td>
-                <td>
-                  <button className="botao " onClick={() => alterar(produto)}>
-                    Alterar
-                  </button>
-                  <button
-                    className="botao "
-                    onClick={() =>
-                      handleDelete(produto.id_produto, produto.nome)
-                    }
-                  >
-                    Excluir
-                  </button>
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
+                Ativar
+              </button>
+            )}
+          </td>
+        </tr>
+      );
+  })}
+</tbody>
+
       </Table>
     </div>
   );

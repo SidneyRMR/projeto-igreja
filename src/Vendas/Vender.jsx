@@ -36,7 +36,9 @@ const Vender = (props) => {
     const getProdutos = async () => {
         try {
             const res = await api.get("/produtos")
-            setProdutos(res.data.sort((a, b) => (a.id > b.id ? 1 : -1)))
+            const filtraAtivos = res.data.filter(prod => prod.ativo === 1)
+
+            setProdutos(filtraAtivos.sort((a, b) => ((a.id > b.id)  ? 1 : -1)))
         } catch (error) {
             console.log(error)
         }

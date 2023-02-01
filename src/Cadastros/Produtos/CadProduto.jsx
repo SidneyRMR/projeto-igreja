@@ -63,6 +63,7 @@ const CadProduto = () => {
         preco,
         medida,
         tipo,
+        ativo: true,
       });
       toast.success(`${res.data} salvo com sucesso`, {
         position: toast.POSITION.TOP_CENTER,
@@ -84,7 +85,7 @@ const CadProduto = () => {
     const produtoEncontrado = produtos.find(
       produto =>
         produto.nome.toLowerCase() === nome.toLowerCase() &&
-        produto.id_produto !== id_produto
+        produto.id_produto === id_produto
     );
 
     if (produtoEncontrado) {
@@ -106,18 +107,22 @@ const CadProduto = () => {
       return;
     }
     try {
+      const ativo = 1
+      console.log(      id_produto,
+        nome,
+        preco,
+        medida,
+        tipo,
+        ativo)
       const res = await api.put(`/produtos/${id_produto}`, {
         id_produto,
         nome,
         preco,
         medida,
         tipo,
+        ativo,
       });
-      console.log(      id_produto,
-        nome,
-        preco,
-        medida,
-        tipo)
+
       toast.success(`${nome} alterado com sucesso`, {
         position: toast.POSITION.TOP_CENTER,
       });

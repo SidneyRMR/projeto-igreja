@@ -36,7 +36,7 @@ const Usuarios = () => {
         
         useEffect(() => {
             getUsuarios()
-        }, [setUsuarios,handleDelete])
+        }, [setUsuarios])
 
         return (
             <div  >
