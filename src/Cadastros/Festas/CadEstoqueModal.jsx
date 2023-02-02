@@ -6,7 +6,7 @@ const CadEstoqueModal = (props) => {
   const alteraEstoqueInput = useRef(null);
   const [isModalFestaOpen, setIsModalFestaOpen] = useState();
 
-  const [alteraEstoque, setAlteraEstoque] = useState("");
+  const [alteraEstoque, setAlteraEstoque] = useState(props.estoqueFestaAtual?props.estoqueFestaAtual:'');
 
   // Manipulador de evento para atualizar o estado da descrição quando o usuário alterar o valor do input
   const handlealteraEstoqueChange = (event) => {
@@ -17,10 +17,14 @@ const CadEstoqueModal = (props) => {
     setIsModalFestaOpen(true);
     setAlteraEstoque("");
   };
-  console.log("id_festa:", props.id_festa);
-  console.log("id_produto:", props.id_produto);
-  console.log("estoqueFestaAtual:", props.estoqueFestaAtual);
-  console.log("alteraEstoqueInput:", alteraEstoque);
+//   console.log("id_festa:", props.id_festa);
+//   console.log("id_produto:", props.id_produto);
+//   console.log("estoqueFestaAtual:", props.estoqueFestaAtual);
+//   console.log("alteraEstoqueInput:", alteraEstoque);
+//   console.log("todas as festas:", props.festas);
+//   console.log("todos os produtos:", props.produtos);
+
+
   return (
     <div>
       <button className="botao botaoTitle" onClick={openModal}>
@@ -63,6 +67,8 @@ const CadEstoqueModal = (props) => {
                 id_produto={props.id_produto}
                 estoqueFestaAtual={props.estoqueFestaAtual}
                 alteraEstoque={alteraEstoque}
+                festas={props.festas}
+                produtos={props.produtos}
                 nomeBtn="Alterar estoque"
               ></BotaoAlteraEstoque>
             </Col>

@@ -1,10 +1,13 @@
 import { api } from "../../services/api";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useEffect, useState } from "react";
 
 export default function BotaoAlteraEstoque(props) {
   // console.log(props.alteraEstoque)
+
+  // const verificaParaAlterar = () => {
+  //   if (props.id_festa !== )
+  // }
   const novoEstoque = async () => {
     try {
       const res = await api.post("/estoque", {
@@ -52,7 +55,7 @@ export default function BotaoAlteraEstoque(props) {
         ${  props.alteraEstoque <= 0
           ? 'desabilitaBotao' 
           : ''}`}
-        onClick={() => (props.estoqueFesta.qtde_estoque === null ? novoEstoque() : alteraEstoque())}
+        onClick={() => (!props.estoqueFestaAtual ? novoEstoque() : alteraEstoque())}
       >
         {props.nomeBtn}
       </button>
