@@ -68,7 +68,7 @@ const CadProduto = () => {
       toast.success(`${res.data} salvo com sucesso`, {
         position: toast.POSITION.TOP_CENTER,
       });
-      // return res.data (window.location.href = "/cadastros/produtos");
+      return res.data (window.location.href = "/cadastros/produtos");
     } catch (error) {
       toast.error(error);
     }

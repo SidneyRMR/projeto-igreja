@@ -74,14 +74,10 @@ const Produtos = () => {
   function handleFiltroProdutos(event) {
     const inputValue = event.target.value;
     setProdutos(
-      allProdutos.filter(produto => produto.nome.toLowerCase().includes(inputValue.toLowerCase())).sort((a, b) => ((a.ativo === 0) ? 1 : -1))
+      allProdutos.filter(produto => produto.nome.toLowerCase().includes(inputValue.toLowerCase())).sort((a, b) => ((a.nome.toLowerCase() < b.nome.toLowerCase() ? 1 : -1) && (a.ativo === 0) ? 1 : -1))
     );
   }
   
-  
-  
-  
-
   function alterar(produto) {
     window.location.href = `/cadastros/produtos/cadproduto/?id_produto=${produto.id_produto}&nome=${produto.nome}&preco=${produto.preco}&medida=${produto.medida}&tipo=${produto.tipo}`;
     }  return (

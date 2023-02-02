@@ -9,11 +9,11 @@ const Festas = (props) => {
   // const [isModalFestaOpen, setIsModalFestaOpen] = useState(false)
   // Este trecho busca os Festas no BD e seta os valores na const Festas
   const [festas, setFestas] = useState([]);
-  console.log(festas);
+  // console.log(festas);
   const getFestas = async () => {
     try {
       const res = await api.get("/festas");
-      setFestas(res.data.sort((a, b) => (a.id_festa > b.id_festa ? 1 : -1)));
+      setFestas(res.data.sort((a, b) => (+a.data_termino.slice(8, 10) !== 0 ? +1 : -1))) 
     } catch (error) {
       toast.error(error);
     }
@@ -77,6 +77,10 @@ const Festas = (props) => {
     props.setIsModalFestaOpen(true);
   };
 
+  function verEstoque(id, nome) {
+    window.location.href = `/cadastros/festas/estoque/?id=${id}&nome=${nome}`;
+    }
+
   return (
     <div>
       <ToastContainer />
@@ -113,7 +117,7 @@ const Festas = (props) => {
                 <td>{festa.nome_festa}</td>
                 <td>{festa.data_inicio.slice(0, 10)}</td>
                 <td>
-                  {festa.data_termino.slice(8, 10) !== 0
+                  {+festa.data_termino.slice(8, 10) !== 0
                     ? festa.data_termino.slice(0, 10)
                     : "-"}
                 </td>
@@ -130,8 +134,18 @@ const Festas = (props) => {
                 </td>
                 <td>
                   {+festa.data_termino.slice(8, 10) === 0 ? (
+                    <>
                     <button
-                      className="botao w-100"
+                      className="botao"
+                      onClick={() =>
+                        verEstoque(festa.id_festa, festa.nome_festa
+                        )
+                      }
+                    >
+                      Estoque
+                    </button>
+                    <button
+                      className="botao "
                       onClick={() =>
                         alteraFesta(
                           festa.id_festa,
@@ -143,6 +157,7 @@ const Festas = (props) => {
                     >
                       Encerrar Festa
                     </button>
+                      </>
                   ) : (
                     "Nenhuma ação disponível"
                   )}

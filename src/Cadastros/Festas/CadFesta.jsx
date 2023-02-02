@@ -36,7 +36,7 @@ const CadFesta = (props) => {
                         <Col>
                             <div>Digite o nome da festa:</div>
 
-                            <input className="nomeFesta w-100" type="text"
+                            <input className="nomeFesta w-100 form-control" type="text"
                                 placeholder="Nome da festa"
                                 onChange={handleNomeFestaChange}
                                 value={nomeFesta}

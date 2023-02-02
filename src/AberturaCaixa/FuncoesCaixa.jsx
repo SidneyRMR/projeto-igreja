@@ -136,7 +136,7 @@ export default function FuncoesCaixa(props) {
           console.log(`Caixa ${id_caixa} atualizado para ${status_caixa}.`);
           sessionStorage.removeItem("caixa");
           alert("Caixa fechado com sucesso.");
-          window.location.href = "/abertura-caixa";
+          window.location.href = "/gerenciamento";
           return res.data;
         } catch (error) {
           console.error(error);

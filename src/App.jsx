@@ -10,11 +10,12 @@ import Produtos from './Cadastros/Produtos/Produtos'
 import CadastroProduto from './Cadastros/Produtos/CadProduto'
 import Usuarios from './Cadastros/Usuarios/Usuarios'
 import CadastroUsuario from './Cadastros/Usuarios/CadUsuario'
-import GestaoCaixa from './Fechamento/GestaoCaixa'
-import DetalheCaixa from './Fechamento/DetalheCaixa'
-import FechamentoGeral from './Fechamento/FechamentoGeral'
+import GestaoCaixa from './Gerenciamento/GestaoCaixa'
+import DetalheCaixa from './Gerenciamento/DetalheCaixa'
+import Gerenciamento from './Gerenciamento/Gerenciamento'
 // import Login from './Login/Login'
 import Vendas from './Vendas/Vender'
+import Estoque from './Cadastros/Festas/Estoque'
 
 const AberturaCaixa = lazy(() => import('./AberturaCaixa/AberturaCaixa'))
 const Login = lazy(() => import('./Login/Login'))
@@ -50,7 +51,7 @@ const App = () => {
           <Route path="/" element={<Login />} />
 
           <Route path="/vendas" element={/* verificarUsuarioLogado() || */ <Vendas />} />
-          <Route path="/fechamento-geral" element={/* verificarUsuarioLogado() || */ <FechamentoGeral />} />
+          <Route path="/gerenciamento" element={/* verificarUsuarioLogado() || */ <Gerenciamento />} />
           <Route path="/gestao-caixa" element={/* verificarUsuarioLogado() || */ <GestaoCaixa />} />
           <Route path="/detalhe-caixa" element={/* verificarUsuarioLogado() || */ <DetalheCaixa />} />
           <Route path="/cadastros/usuarios" element={/* verificarUsuarioLogado() || */ <Usuarios />} />
@@ -58,6 +59,7 @@ const App = () => {
           <Route path="/cadastros/produtos" element={/* verificarUsuarioLogado() || */ <Produtos />} />
           <Route path="/cadastros/produtos/cadproduto" element={/* verificarUsuarioLogado() || */ <CadastroProduto />}/>
           <Route path="/cadastros/festas" element={/* verificarUsuarioLogado() || */ <Festas />} />
+          <Route path="/cadastros/festas/estoque" element={/* verificarUsuarioLogado() || */ <Estoque />} />
           <Route path="/cadastros/festas/cadfesta" element={/* verificarUsuarioLogado() || */ <CadastroFesta />}/>
           <Route path="/abertura-caixa" element={/* verificarUsuarioLogado() || */ 
               <AberturaCaixa /* usuario={usuario} *//>}/>

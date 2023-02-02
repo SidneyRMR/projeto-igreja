@@ -16,7 +16,7 @@ const FechamentoGeral = (props) => {
       
       console.log('recarregando no bd: caixas')
       setCaixasUsuarios(
-        res.data.sort((a, b) => (a.status_caixa < b.status_caixa ? 1 : -1))
+        res.data.sort((a,b) => ((a.status_caixa === 'Aberto' ? 1 : -1)  &&  (b.status_caixa === 'Fechamento parcial'? 2 : -1)))
         
       );
     } catch (error) {
@@ -104,7 +104,11 @@ const FechamentoGeral = (props) => {
                 </td>
                 <td>{caixa.data_abertura}</td>
                 <td>{caixa.hora_abertura}</td>
-                <td>{caixa.data_fechamento}</td>
+                <td>
+                    {+caixa.data_fechamento.slice(8, 10) !== 0
+                    ? caixa.data_fechamento.slice(0, 10)
+                    : "-"}
+                </td>
                 <td>
                   <div
                     className={
