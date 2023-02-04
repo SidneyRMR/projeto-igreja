@@ -170,6 +170,12 @@ textarea {
   /* height: 40px; */
 }
 
+.estoqueVendas{
+  font-size: 10px;
+  color: green;
+  margin-left: 15px;
+}
+
 .aberto, .pgtoAberto {
   color: green;
 }

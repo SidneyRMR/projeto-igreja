@@ -292,6 +292,7 @@ export default function ModalPagamento(props) {
                     propsDinheiro={pgDinheiro}
                     propsPix={pgPix}
                     fechaModal={fechaModal}
+                    id_festa={props.id_festa}
                   />
                 </Col>
               </Row>

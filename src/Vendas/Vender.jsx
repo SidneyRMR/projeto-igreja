@@ -35,18 +35,27 @@ const Vender = (props) => {
     const [produtos, setProdutos] = useState([])
     const getProdutos = async () => {
         try {
-            const res = await api.get("/produtos")
-            const filtraAtivos = res.data.filter(prod => prod.ativo === 1 /* && prod.id_festa === usuario.id_festa */)
-
-            setProdutos(filtraAtivos.sort((a, b) => ((a.id > b.id)  ? 1 : -1)))
+            const res = await api.get("/produtos-estoque")
+            const filtraAtivos = res.data.filter(prod => prod.id_festa === usuario.id_festa )
+            // console.log(usuario.id_festa, res.data)
+            setProdutos(filtraAtivos.sort((a, b) => {
+                if (a.nome.toLowerCase() < b.nome.toLowerCase()) {
+                  return -1;
+                } else if (a.nome.toLowerCase() > b.nome.toLowerCase()) {
+                  return 1;
+                }
+                return 0;
+              }))
+              
         } catch (error) {
             console.log(error)
         }
     }
     useEffect(() => {
         getProdutos()
-    }, [setProdutos])
+    },[setProdutos])
     // fim do trecho 
+// console.log(produtos)
 
         // Este trecho busca os Sangria no BD e seta os valores na const Sangria
         const [sangria, setSangria] = useState([])
@@ -207,7 +216,8 @@ const Vender = (props) => {
                                                 {produto.nome}
                                             </div>
                                             <div style={{ fontSize: '18px' }}>
-                                                {produto.preco.toFixed(2).replace('.', ',')}
+                                                R${produto.preco.toFixed(2).replace('.', ',')}
+                                                <span className='estoqueVendas'>Est.{+produto.qtde_estoque - +produto.qtde_vendida}</span>
                                             </div>
                                         </div>
                                     </button>
@@ -230,8 +240,9 @@ const Vender = (props) => {
                                             <div style={{ fontSize: '12px' }}>
                                                 {produto.nome}
                                             </div>
-                                            <div style={{ fontSize: '20px' }}>
-                                                {produto.preco.toFixed(2).replace('.', ',')}
+                                            <div style={{ fontSize: '18px' }}>
+                                                R${produto.preco.toFixed(2).replace('.', ',')}
+                                                <span className='estoqueVendas'>Est.{+produto.qtde_estoque - +produto.qtde_vendida}</span>
                                             </div>
                                         </div>
                                     </button>
@@ -291,7 +302,7 @@ const Vender = (props) => {
                                         <div>
                                             <ModalPagamento limpaListaProdutos={limpaListaProdutos} 
                                                     openModal={openModal} precoTotalDosProdutos={precoTotal}
-                                                    resumoPedido={resumoPedido} />
+                                                    resumoPedido={resumoPedido} id_festa={usuario.id_festa}/>
                                         </div>
                                     </td>
                                 </tr>

@@ -116,6 +116,7 @@ Devolva o troco de R$ ${totalPagoo - props.precoTotalDosProdutos}`);
 
     produtos.map(async (produto) => {
       const id_produto = produto.id_produto;
+      const id_festa = props.id_festa;
       const nome = produto.nome;
       const medida = produto.medida;
       const preco = produto.preco;
@@ -125,6 +126,7 @@ Devolva o troco de R$ ${totalPagoo - props.precoTotalDosProdutos}`);
       try {
         await api.post("/vendasprodutos", {
           id_produto,
+          id_festa,
           nome,
           medida,
           preco,
