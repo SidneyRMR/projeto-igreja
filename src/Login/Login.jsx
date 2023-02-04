@@ -30,8 +30,8 @@ const Login = () => {
         try {
             if (usuarioEncontrado) {
                 // Se o usuário e senha forem válidos, redireciona para a página de abertura de caixa
-                const {id_usuario, nome_usuario, tipo} = usuarioEncontrado;
-                sessionStorage.setItem('usuario', JSON.stringify({id_usuario, nome_usuario, tipo}));
+                const {id_usuario, nome_usuario, id_festa, tipo} = usuarioEncontrado;
+                sessionStorage.setItem('usuario', JSON.stringify({id_usuario, nome_usuario, id_festa, tipo}));
                 // console.log(usuarioEncontrado)
                 return window.location.href='/abertura-caixa'
             } else {

@@ -78,8 +78,10 @@ const Festas = (props) => {
   };
 
   function verEstoque(id, nome) {
+    if (id && nome) {
     window.location.href = `/cadastros/festas/estoque/?id=${id}&nome=${nome}`;
     }
+  }
 
   return (
     <div>

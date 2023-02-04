@@ -17,7 +17,7 @@ const Usuarios = () => {
     }
 
     function alterar(usuario) {
-        window.location.href = `/cadastros/usuarios/cadusuario/?id=${usuario.id_usuario}&nome=${usuario.nome_usuario}&login=${usuario.login}&tipo=${usuario.tipo}`
+        window.location.href = `/cadastros/usuarios/cadusuario/?id=${usuario.id_usuario}&nome=${usuario.nome_usuario}&login=${usuario.login}&idfesta=${usuario.id_festa}&tipo=${usuario.tipo}`
     }
 
     const handleDelete = async (id, nome) => {
@@ -38,6 +38,21 @@ const Usuarios = () => {
             getUsuarios()
         }, [setUsuarios])
 
+        const [festas, setFestas] = useState([]);
+        // console.log(festas);
+        const getFestas = async () => {
+          try {
+            const res = await api.get("/festas");
+            setFestas(res.data.filter(festa => +festa.data_termino.slice(8, 10) === 0)) 
+          } catch (error) {
+            toast.error(error);
+          }
+        };
+        useEffect(() => {
+          getFestas();
+        }, [setFestas]);
+        // fim do trecho
+
         return (
             <div  >
                 <ToastContainer/>
@@ -53,6 +68,7 @@ const Usuarios = () => {
                             <th>Nome</th>
                             <th>Login</th>
                             <th>Tipo</th>
+                            <th>Festa</th>
                             <th width='25%'>Ações</th>
                         </tr>
                     </thead>
@@ -65,6 +81,11 @@ const Usuarios = () => {
                                     <td >{usuario.nome_usuario}</td>
                                     <td>{usuario.login}</td>
                                     <td>{usuario.tipo}</td>
+                                    <td>{
+                                    // console.log(festas.find(festa => festa.id_festa === usuario.id_festa).id_festa)
+                                    festas ? (festas.find(festa => +festa.id_festa === +usuario.id_festa)?.nome_festa) : 'Carregando...'
+
+                                    }</td>
                                     <td>
                                         <button className='botao' onClick={() => alterar(usuario)}>Alterar</button>
                                         <button className='botao' onClick={() => handleDelete(usuario.id_usuario, usuario.nome_usuario)}>Excluir</button>

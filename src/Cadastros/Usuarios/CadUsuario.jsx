@@ -11,10 +11,12 @@ const CadUsuario = () => {
 
     const paramNome = urlParams.get('nome')
     const paramLogin = urlParams.get('login')
+    const paramIdFesta = urlParams.get('idfesta')
     const paramTipo = urlParams.get('tipo')
 
     const [nome, setNome] = useState(id ? paramNome : '');
     const [login, setLogin] = useState(id ? paramLogin : '');
+    const [idFesta, setIdFesta] = useState(id ? paramIdFesta : '');
     const [senha, setSenha] = useState('');
     const [senha2, setSenha2] = useState('');
     const [tipo, setTipo] = useState(id ? paramTipo : 'Caixa');
@@ -32,12 +34,15 @@ const CadUsuario = () => {
     const handleSenha2Change = (event) => {
         setSenha2(event.target.value);
     }
+    const handleIdFestaChange = (event) => {
+        setIdFesta(event.target.value);
+    }
     const handleTipoChange = (event) => {
         setTipo(event.target.value);
     }
 
     // Função que cria um novo produto 
-    const novoUsuario = async (id_usuario, nome_usuario, login, senha, senha2, tipo) => {
+    const novoUsuario = async (id_usuario, nome_usuario, login, senha, senha2, id_festa, tipo) => {
         const usuarioEncontrado = usuarios.find(usuario => usuario.nome_usuario.toLowerCase() === nome_usuario.toLowerCase() && usuario.id_usuario !== id_usuario)
         if (usuarioEncontrado) {
             toast.error('Já tem um item com este nome!', {
@@ -46,7 +51,7 @@ const CadUsuario = () => {
             return
         }
 
-        if (!nome_usuario || !login || !senha || !senha2 || !tipo) {
+        if (!nome_usuario || !login || !senha || !senha2 || !tipo || !id_festa) {
             toast.error('Todos os campos devem estar preenchidos!', {
                 position: toast.POSITION.TOP_CENTER,
             })
@@ -70,6 +75,7 @@ const CadUsuario = () => {
                 nome_usuario,
                 login,
                 senha,
+                id_festa,
                 tipo,
             })
             toast.success(`${res.data} salvo com sucesso`, {
@@ -82,7 +88,7 @@ const CadUsuario = () => {
     }
     // Função que altera o usuario 
     /// !!!! esta com algum problema no back ou no front
-    const alteraUsuario = async (id_usuario, nome_usuario, login, tipo) => {
+    const alteraUsuario = async (id_usuario, nome_usuario, login, id_festa, tipo) => {
         const usuarioEncontrado = usuarios.find(usuario => usuario.nome_usuario.toLowerCase() === nome_usuario.toLowerCase() 
             && usuario.id_usuario !== id_usuario)
         if (usuarioEncontrado) {
@@ -102,6 +108,7 @@ const CadUsuario = () => {
                 id_usuario,
                 nome_usuario,
                 login,
+                id_festa,
                 tipo,
             })
             toast.success(`${nome_usuario} alterado com sucesso`, {
@@ -126,6 +133,21 @@ const CadUsuario = () => {
     useEffect(() => {
         getUsuarios()
     },[setUsuarios])
+
+    const [festas, setFestas] = useState([]);
+    // console.log(festas);
+    const getFestas = async () => {
+      try {
+        const res = await api.get("/festas");
+        setFestas(res.data.filter(festa => +festa.data_termino.slice(8, 10) === 0)) 
+      } catch (error) {
+        toast.error(error);
+      }
+    };
+    useEffect(() => {
+      getFestas();
+    }, [setFestas]);
+    // fim do trecho
 
     return (
         <Container fluid='true'>
@@ -191,6 +213,20 @@ const CadUsuario = () => {
 
             <Row>
                 <Col>
+                    <div>Selecione a festa:</div>
+
+                    <select onChange={handleIdFestaChange} value={idFesta}>
+                        {festas.map((festa, i) => {
+                            return (
+                                <option key={i} value={festa.id_festa}>{festa.nome_festa}</option>
+                            )
+                        })}
+                    </select>
+                </Col>
+            </Row>
+            <br/>
+            <Row>
+                <Col>
                     <div>Selecione o tipo de usuário:</div>
 
                     <select onChange={handleTipoChange} value={tipo}>
@@ -204,13 +240,13 @@ const CadUsuario = () => {
                 <Col>
                     {(!id && (
                         <button className='botao' onClick={() => {
-                            novoUsuario(id, nome, login, senha, senha2, tipo)
+                            novoUsuario(id, nome, login, senha, senha2, idFesta, tipo)
                             // console.log('novo', id)
                         }}>Salvar
                         </button>
                     )) || (id && (
                         <button className='botao' onClick={() => {
-                            alteraUsuario(id, nome, login, tipo)
+                            alteraUsuario(id, nome, login, idFesta, tipo)
                             // console.log('editado', id, nome, login, tipo)
                         }}>Salvar
                         </button>

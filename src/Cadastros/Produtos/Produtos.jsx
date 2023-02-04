@@ -15,11 +15,57 @@ const Produtos = () => {
     try {
       const res = await api.get("/produtos");
       setProdutos(
-        res.data.sort((a, b) => ((a.nome.toLowerCase() < b.nome.toLowerCase() ? 1 : -1) && (a.ativo === 0) ? 1 : -1))
+        res.data
+          .filter(produto => produto.ativo === 1)
+          .sort((a, b) => {
+            if (a.nome.toLowerCase() < b.nome.toLowerCase()) {
+              return -1;
+            } else if (a.nome.toLowerCase() > b.nome.toLowerCase()) {
+              return 1;
+            }
+            return 0;
+          })
+          .concat(
+            res.data
+              .filter(produto => produto.ativo === 0)
+              .sort((a, b) => {
+                if (a.nome.toLowerCase() < b.nome.toLowerCase()) {
+                  return -1;
+                } else if (a.nome.toLowerCase() > b.nome.toLowerCase()) {
+                  return 1;
+                }
+                return 0;
+              })
+          )
       );
+      
+      
       setAllProdutos(
-        res.data.sort((a, b) => ((a.nome.toLowerCase() < b.nome.toLowerCase() ? 1 : -1) && (a.ativo === 0) ? 1 : -1))
+        res.data
+          .filter(produto => produto.ativo === 1)
+          .sort((a, b) => {
+            if (a.nome.toLowerCase() < b.nome.toLowerCase()) {
+              return -1;
+            } else if (a.nome.toLowerCase() > b.nome.toLowerCase()) {
+              return 1;
+            }
+            return 0;
+          })
+          .concat(
+            res.data
+              .filter(produto => produto.ativo === 0)
+              .sort((a, b) => {
+                if (a.nome.toLowerCase() < b.nome.toLowerCase()) {
+                  return -1;
+                } else if (a.nome.toLowerCase() > b.nome.toLowerCase()) {
+                  return 1;
+                }
+                return 0;
+              })
+          )
       );
+      
+      
     } catch (error) {
       toast.error(error);
     }
@@ -74,8 +120,23 @@ const Produtos = () => {
   function handleFiltroProdutos(event) {
     const inputValue = event.target.value;
     setProdutos(
-      allProdutos.filter(produto => produto.nome.toLowerCase().includes(inputValue.toLowerCase())).sort((a, b) => ((a.nome.toLowerCase() < b.nome.toLowerCase() ? 1 : -1) && (a.ativo === 0) ? 1 : -1))
+      allProdutos
+        .filter(produto =>
+          produto.nome.toLowerCase().includes(inputValue.toLowerCase())
+        )
+        .sort((a, b) => {
+          if (a.nome.toLowerCase() < b.nome.toLowerCase()) {
+            return -1;
+          } else if (a.nome.toLowerCase() > b.nome.toLowerCase()) {
+            return 1;
+          }
+          if (a.ativo === 0) {
+            return -1;
+          }
+          return -1;
+        })
     );
+    
   }
   
   function alterar(produto) {
@@ -121,7 +182,7 @@ const Produtos = () => {
  
       return (
         <tr
-          key={produto.id_produto}
+          key={i}
           className={i % 2 === 0 ? "Par" : "Impar"}
         >
           <td>{produto.nome}</td>
