@@ -36,7 +36,7 @@ const Vender = (props) => {
     const getProdutos = async () => {
         try {
             const res = await api.get("/produtos")
-            const filtraAtivos = res.data.filter(prod => prod.ativo === 1)
+            const filtraAtivos = res.data.filter(prod => prod.ativo === 1 /* && prod.id_festa === usuario.id_festa */)
 
             setProdutos(filtraAtivos.sort((a, b) => ((a.id > b.id)  ? 1 : -1)))
         } catch (error) {
@@ -150,6 +150,21 @@ const Vender = (props) => {
             setSaldoCaixa(value);
         }
 
+        const [festas, setFestas] = useState([]);
+        // console.log(festas);
+        const getFestas = async () => {
+          try {
+            const res = await api.get("/festas");
+            setFestas(res.data.filter(festa => +festa.data_termino.slice(8, 10) === 0)) 
+          } catch (error) {
+            console.error(error);
+          }
+        };
+        useEffect(() => {
+          getFestas();
+        }, [setFestas]);
+        // fim do trecho
+
     return (
         <div>
             {/* <ToastContainer/> */}
@@ -158,7 +173,7 @@ const Vender = (props) => {
                 <div className='titleVendas d-flex justify-content-between '>
                     <BotaoMenu saldoCaixa={saldoCaixa} sangria={sangria} id={caixa.id_caixa} caixa={caixa}/>
                     <span className="centered-element">
-                        Tela de vendas
+                        Tela de vendas - Festa: <span className='aberto'>{festas ? (festas.find(festa => +festa.id_festa === +usuario.id_festa)?.nome_festa) : 'Carregando...'}</span>
                     </span> 
                     <div style={{fontSize: '13px'}} >
 
