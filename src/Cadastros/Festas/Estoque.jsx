@@ -13,7 +13,7 @@ export default function TabelaProdutosVendidos() {
   const nome_festa = urlParams.get("nome");
   
   const [estoqueFesta, setEstoqueFesta] = useState([]);
-  const getEstoqueFesta = async (id_festa) => {
+  const getEstoqueFesta = async () => {
     try {
       const res = await api.get("/estoque");
       setEstoqueFesta(
@@ -90,6 +90,22 @@ export default function TabelaProdutosVendidos() {
   useEffect(() => {
     filtraInput.current.focus();
   }, []);
+
+  const [produtosVenda, setProdutosVenda] = useState([])
+  useEffect(() => {
+      const getProdutosVenda = async () => {
+          try {
+              const res = await api.get("/vendasprodutos")
+              setProdutosVenda(res.data.filter(item => +item.id_festa === +id_festa))
+              console.log(res.data.filter(item => +item.id_festa === +id_festa))
+              
+          } catch (error) {
+              console.error(error)
+          }
+      };
+      getProdutosVenda();
+  },[produtosVenda]);
+
   return (
     <>
       <div className="title d-flex justify-content-between ">
@@ -128,21 +144,22 @@ export default function TabelaProdutosVendidos() {
         <tbody className="table-body-scroll">
           {produtos &&
             produtos.map((produto, i) => {
-
+              const totalQtdeVendaProduto = produtosVenda.filter((prod) => prod.id_produto === produto.id_produto).reduce((total, produto) => total + produto.qtde_venda_produto, 0);
+// console.log(totalQtdeVendaProduto)
               const quantidades = estoqueFesta.find(
                 (estoqueVendido) =>
                   +estoqueVendido.id_produto === +produto.id_produto &&
                   +estoqueVendido.id_festa === +id_festa
               );
-              console.log('quantidades: ',quantidades)
+              // console.log('quantidades: ',quantidades)
               // console.log('Estoquefesta: ',estoqueFesta)
               return (
                 <tr key={i} className={i % 2 === 0 ? "Par" : "Impar"}>
                   {/* <td>contador</td> */}
                   <td>{produto.nome}</td>
                   {/* <td>{quantidades ? quantidades.id_estoque : "nada ainda"}</td> */}
-                  <td>{quantidades ? quantidades.qtde_vendida : "Sem vendas ainda"}</td>
-                  <td>{quantidades ? quantidades.qtde_estoque : "Sem estoque ainda"}</td>
+                  <td>{totalQtdeVendaProduto ? totalQtdeVendaProduto : "Sem vendas ainda"}</td>
+                  <td>{quantidades ? +quantidades.qtde_estoque- +totalQtdeVendaProduto : "Sem estoque ainda"}</td>
                   <td>
                     <CadEstoqueModal
                       id_estoque={quantidades ? quantidades.id_estoque : ""}
