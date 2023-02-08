@@ -54,7 +54,7 @@ const Vender = (props) => {
     useEffect(() => {
         getProdutos()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[setProdutos])
+    },[setProdutos, usuario.id_festa])
     // fim do trecho 
 // console.log(produtos)
 
@@ -174,7 +174,16 @@ const Vender = (props) => {
           getFestas();
         }, [setFestas]);
         // fim do trecho
-
+        
+        const [nomeFesta, setNomeFesta] = useState('')
+        useEffect(() => {
+            const getNomeFesta = async () => {
+            const nome = festas.find(festa => +festa.id_festa === +usuario.id_festa)?.nome_festa
+            setNomeFesta(nome)
+        }
+        getNomeFesta()
+        },[setNomeFesta,usuario.id_festa,festas]);
+        
         const [produtosVenda, setProdutosVenda] = useState([])
         useEffect(() => {
             const getProdutosVenda = async () => {
@@ -188,7 +197,7 @@ const Vender = (props) => {
                 }
             };
             getProdutosVenda();
-        });
+        },[setProdutosVenda,usuario.id_festa]);
         // console.log(produtosVenda.filter(item => item.id_produto === usuario.id_produto))
     return (
         <div>
@@ -198,13 +207,13 @@ const Vender = (props) => {
                 <div className='titleVendas d-flex justify-content-between '>
                     <BotaoMenu saldoCaixa={saldoCaixa} sangria={sangria} id={caixa.id_caixa} caixa={caixa}/>
                     <span className="centered-element">
-                        Tela de vendas - Festa: <span className='aberto'>{festas ? (festas.find(festa => +festa.id_festa === +usuario.id_festa)?.nome_festa) : 'Carregando...'}</span>
+                        Tela de vendas - Festa: <span className='aberto'>{nomeFesta/* ( festas? (festas.find(festa => +festa.id_festa === +usuario.id_festa)?.nome_festa ): '') */}</span>
                     </span> 
                     <div style={{fontSize: '13px'}} >
 
                         <div className='d-flex justify-content-between p-0 m-0'>Nome:     {(usuario.nome_usuario).split(' ').slice(0, 2).join(" ")}</div>
                         <div className='d-flex justify-content-between p-0 m-0'>Caixa:    <span>00{caixa.id_caixa}</span></div>
-                        <div className='d-flex justify-content-between p-0 m-0' >Horário: {Clock()}</div>
+                        <div className='d-flex justify-content-between p-0 m-0'>Horário: {Clock()}</div>
 
                     </div>
                 </div>
@@ -320,7 +329,9 @@ const Vender = (props) => {
                                         <div>
                                             <ModalPagamento limpaListaProdutos={limpaListaProdutos} 
                                                     openModal={openModal} precoTotalDosProdutos={precoTotal}
-                                                    resumoPedido={resumoPedido} id_festa={usuario.id_festa}/>
+                                                    resumoPedido={resumoPedido} id_festa={usuario.id_festa} 
+                                                    nomeFesta={nomeFesta}
+                                            />
                                         </div>
                                     </td>
                                 </tr>

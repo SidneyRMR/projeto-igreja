@@ -64,7 +64,7 @@ export default function ModalDetalheCaixa(props) {
     }
     useEffect(() => {
         getSangria()
-    })
+    },[setSangria])
 
 
     return (
