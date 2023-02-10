@@ -34,8 +34,8 @@ function InfCaixa(props) {
     
     useEffect(() => {
         setSaldoCaixa(dinheiro + props.caixa.abertura - props.sangria);
-        props.onSaldoCaixa(dinheiro + props.caixa.abertura - props.sangria);
-      },[dinheiro, props, setSaldoCaixa]);
+        // props.onSaldoCaixa(dinheiro + props.caixa.abertura - props.sangria); 
+      },[dinheiro, props.caixa.abertura, props.sangria, setSaldoCaixa]);
 
     return (
         <span>

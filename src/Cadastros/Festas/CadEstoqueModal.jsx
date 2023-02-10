@@ -17,9 +17,6 @@ const CadEstoqueModal = (props) => {
     setIsModalFestaOpen(true);
     setAlteraEstoque("");
   };
-
-  
-
   
   return (
     <div>

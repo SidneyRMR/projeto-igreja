@@ -229,6 +229,7 @@ const Vender = (props) => {
 
                             {bebidas && bebidas.map((produto, i) => {
                                 const totalQtdeVendaProduto = produtosVenda.filter((prod) => prod.id_produto === produto.id_produto).reduce((total, produto) => total + produto.qtde_venda_produto, 0);
+                                const saldoEstoque = +produto.qtde_estoque - +totalQtdeVendaProduto
                                 return (
                                     <button
                                         key={i}
@@ -243,7 +244,7 @@ const Vender = (props) => {
                                             </div>
                                             <div style={{ fontSize: '18px' }}>
                                                 R${produto.preco.toFixed(2).replace('.', ',')}
-                                                <span className='estoqueVendas'>Est.{+produto.qtde_estoque - +totalQtdeVendaProduto}</span>
+                                                <span className={saldoEstoque > 0 ? 'estoqueVendas' : 'negativo'}>Est.{(saldoEstoque)}</span>
                                             </div>
                                         </div>
                                     </button>
@@ -256,6 +257,7 @@ const Vender = (props) => {
                             <div className='title'>Comidas</div>
                             {comidas &&  comidas.map((produto, i) => {
                                 const totalQtdeVendaProduto = produtosVenda.filter((prod) => prod.id_produto === produto.id_produto).reduce((total, produto) => total + produto.qtde_venda_produto, 0);
+                                const saldoEstoque = +produto.qtde_estoque - +totalQtdeVendaProduto
                                 return (
                                     <button
                                         key={i}
@@ -269,7 +271,7 @@ const Vender = (props) => {
                                             </div>
                                             <div style={{ fontSize: '18px' }}>
                                                 R${produto.preco.toFixed(2).replace('.', ',')}
-                                                <span className='estoqueVendas'>Est.{+produto.qtde_estoque - +totalQtdeVendaProduto}</span>
+                                                <span className={saldoEstoque > 0 ? 'estoqueVendas' : 'negativo'}>Est.{(saldoEstoque)}</span>
                                             </div>
                                         </div>
                                     </button>

@@ -1,8 +1,9 @@
 import { api } from "../services/api";
 
 export default function FuncoesSangria(props) {
-  const saldoCaixa = props.saldoCaixa - props.valorSangria;
-  // console.log(saldoCaixa)
+  const saldoCaixa = props.saldoCaixa ;
+
+  console.log(saldoCaixa)
   const verificarSangria = () => {
     if (+props.valorSangria && +saldoCaixa >= +props.valorSangria) {
       efetuarSangria();
@@ -12,7 +13,7 @@ export default function FuncoesSangria(props) {
       props.fechaModalSangria()
     } else if (!props.valorSangria) {
       alert("Digite o valor da sangria.");
-    } else if (+saldoCaixa <= 0 || +saldoCaixa < +props.valorSangria) {
+    } else if (+saldoCaixa <= 0 || +saldoCaixa <= +props.valorSangria) {
       // console.log('saldo caixa:',saldoCaixa)
       alert(
         "Desculpe, não é possível efetuar sangrias se o seu caixa estiver vazio ou o valor da sangria for maior do que o saldo em dinheiro."

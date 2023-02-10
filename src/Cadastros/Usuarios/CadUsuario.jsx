@@ -208,8 +208,7 @@ const CadUsuario = () => {
                         </Col>
                     </Row>
                     <br />
-                </>
-            )}
+
 
             <Row>
                 <Col>
@@ -255,6 +254,8 @@ const CadUsuario = () => {
                     <button className='botao' onClick={() => window.location.href = "/cadastros/usuarios"}>Voltar</button>
                 </Col>
             </Row>
+            </>
+            )}
         </Container>
     )
 }

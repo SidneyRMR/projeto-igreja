@@ -175,6 +175,11 @@ textarea {
   color: green;
   margin-left: 10px;
 }
+.negativo{
+  font-size: 10px;
+  color: red;
+  margin-left: 10px;
+}
 
 .aberto, .pgtoAberto {
   color: green;

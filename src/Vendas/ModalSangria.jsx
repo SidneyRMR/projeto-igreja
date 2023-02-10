@@ -19,7 +19,7 @@ export default function ModalSangria(props) {
   const [isValid, setIsValid] = useState(false);
   function handleSangriaValor(event) {
     setValorSangria(event.target.value);
-    if (event.target.value < props.saldoCaixa || event.target.value <= 0) {
+    if (event.target.value <= props.saldoCaixa || event.target.value <= 0) {
       // console.log('é valido clicar')
       setIsValid(true);
     } else {
@@ -34,13 +34,14 @@ export default function ModalSangria(props) {
   const fechaModalSangria = () => {
     setIsModalSangriaOpen(false);
   };
+  console.log('saldoCaixa',props.saldoCaixa)
 
   return (
     <div>
       <button className="botao" onClick={openModal}>
         Sangria
       </button>
-
+cp
       <Modal
         show={isModalSangriaOpen}
         onHide={() => {
