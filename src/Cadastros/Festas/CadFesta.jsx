@@ -29,7 +29,7 @@ const CadFesta = (props) => {
 
             <Modal show={isModalFestaOpen} onHide={() => { setIsModalFestaOpen(false) }} onEntered={() => nomeFestaInput.current.focus()}>
                 <Modal.Header closeButton className="title">
-                    <Modal.Title className="title">Sangria</Modal.Title>
+                    <Modal.Title className="title">Cadastro de festa</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Row>

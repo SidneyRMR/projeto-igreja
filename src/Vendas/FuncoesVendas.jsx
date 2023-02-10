@@ -185,6 +185,7 @@ const imprimirPedido = () => {
             <div class='padrao'>${props.nomeFesta ? props.nomeFesta.toUpperCase() : ''}</div> <span class='padrao'>Ped: ${idVenda}</span>
             <span class='padrao'>Data: ${dataAtual()}</span >   <span class='padrao'>Hora: ${horaAtual()}</span>
             <div class='nome-produto'>${produto.nome ? produto.nome.toUpperCase() : ''}</div>
+            <div class='nome-produto'>${produto.preco ? produto.preco.toUpperCase() : ''}</div>
             <div class='padrao'>PARÓQUIA SANTA CRUZ</div>
           </div>
         <style>

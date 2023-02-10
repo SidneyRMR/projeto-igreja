@@ -42,7 +42,7 @@ const CadEstoqueModal = (props) => {
             <Col>
               <div>
                 Digite o quantidade de{" "}
-                <span className="aberto">{props.nomeFesta}</span> em estoque:
+                <span className="aberto">{props.nome_produto}</span> em estoque:
               </div>
 
               <input

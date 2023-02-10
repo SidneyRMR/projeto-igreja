@@ -34,8 +34,10 @@ const Login = () => {
                 sessionStorage.setItem('usuario', JSON.stringify({id_usuario, nome_usuario, id_festa, tipo}));
                 // console.log(usuarioEncontrado)
                 return window.location.href='/abertura-caixa'
-            } else {
+            } else if (!usuarioEncontrado) {
                 throw new Error('Usuário ou senha inválidos!')
+            } else {
+                throw new Error('Verifique sua conexão!')
             }
         } catch (error) {
             console.log(error)
