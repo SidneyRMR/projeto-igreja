@@ -4,6 +4,7 @@ import { api } from "../services/api";
 
 export default function FuncoesVendas(props) {
   const caixa = JSON.parse(sessionStorage.getItem("caixa"));
+  const usuario = JSON.parse(sessionStorage.getItem("usuario"));
 
   const pCredito = +props.propsCredito;
   const pDebito = +props.propsDebito;
@@ -175,37 +176,64 @@ const dataAtual = () => {
 
 
 const imprimirPedido = () => {
-  const janelaImpressao = window.open('', '', 'left=0,top=0,width=400,height=800,toolbar=1,scrollbars=1 ,status=1')
   
+  const janelaImpressao = window.open('', '', 'left=0,top=0,width=400,height=800,toolbar=1,scrollbars=1 ,status=1')
   props.resumoPedido.forEach((produto) => {
     for (let i = 0; i < produto.qnde; i++) {
     janelaImpressao.document.write(`
     <html>
           <div >
-            <div class='padrao'>${props.nomeFesta ? props.nomeFesta.toUpperCase() : ''}</div> <span class='padrao'>Ped: ${idVenda}</span>
-            <span class='padrao'>Data: ${dataAtual()}</span >   <span class='padrao'>Hora: ${horaAtual()}</span>
+          <hr class='margens-hr'/>
+            <div class='padrao'>${props.nomeFesta ? props.nomeFesta.toUpperCase() : ''}</div> 
+
+            <span class='padrao'>Ped: ${idVenda}</span>
+              <span class='padrao'>Caixa: ${usuario.nome_usuario.split(' ').slice(0, 2).join(" ")}</span >
+            <br/>
+            <span class='padrao'>Data: ${dataAtual()}</span >   
+              <span class='padrao'>Hora: ${horaAtual()}</span>
+
             <div class='nome-produto'>${produto.nome ? produto.nome.toUpperCase() : ''}</div>
-            <div class='padrao'>PARÓQUIA SANTA CRUZ</div>
+            <div class='preco-produto'>R$ ${produto.preco ? produto.preco.toFixed(2) : ''}</div>
+
+            <div class='padrao flex'>PARÓQUIA SANTA CRUZ</div>
+            <hr class='margens-hr'/>
           </div>
         <style>
           .padrao{
-            font-size: 10px;
+            font-size: 12px;
             padding: 7px
         }
           .nome-produto{
-            font-size: 20px;
-            padding: 7px
+            font-size: 22px;
+            padding-left: 7px
+            padding-bottom: 0px;
+            text-align: left;
         }
+          .preco-produto{
+            font-size: 15px;
+            padding-right: 5px;
+            padding-bottom: 0px;
+            padding-down: 0px;
+            text-align: right;
+        }
+          .flex {
+            font-size: 12px;
+            padding: 0px
+            display: flex;
+          }
+          .margens-hr {
+            padding: 0px
+          }
         </style>
         </html>
-      `)
-      
-    }
-    janelaImpressao.document.close();
-    janelaImpressao.focus();
-    janelaImpressao.print();
-    janelaImpressao.close();
+        `)
+        
+      }
+      janelaImpressao.print();
   })
+  janelaImpressao.document.close();
+  janelaImpressao.focus();
+  janelaImpressao.close();
 }
 
 

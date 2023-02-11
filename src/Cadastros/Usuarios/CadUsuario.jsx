@@ -43,15 +43,16 @@ const CadUsuario = () => {
 
     // Função que cria um novo produto 
     const novoUsuario = async (id_usuario, nome_usuario, login, senha, senha2, id_festa, tipo) => {
+        console.log('idfesta',id_festa)
         const usuarioEncontrado = usuarios.find(usuario => usuario.nome_usuario.toLowerCase() === nome_usuario.toLowerCase() && usuario.id_usuario !== id_usuario)
         if (usuarioEncontrado) {
-            toast.error('Já tem um item com este nome!', {
+            toast.error('Já tem um usuário com este nome!', {
                 position: toast.POSITION.TOP_CENTER,
             })
             return
         }
 
-        if (!nome_usuario || !login || !senha || !senha2 || !tipo || !id_festa) {
+        if (!nome_usuario || !login || !senha || !senha2 || !tipo || id_festa) {
             toast.error('Todos os campos devem estar preenchidos!', {
                 position: toast.POSITION.TOP_CENTER,
             })
@@ -209,7 +210,8 @@ const CadUsuario = () => {
                     </Row>
                     <br />
 
-
+                    </>
+            )}
             <Row>
                 <Col>
                     <div>Selecione a festa:</div>
@@ -254,8 +256,7 @@ const CadUsuario = () => {
                     <button className='botao' onClick={() => window.location.href = "/cadastros/usuarios"}>Voltar</button>
                 </Col>
             </Row>
-            </>
-            )}
+
         </Container>
     )
 }
