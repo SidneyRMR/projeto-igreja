@@ -173,8 +173,6 @@ const dataAtual = () => {
   return `${dataAtual}`;
 };
 
-
-
 const imprimirPedido = () => {
   
   const janelaImpressao = window.open('', '', 'left=0,top=0,width=400,height=800,toolbar=1,scrollbars=1 ,status=1')
