@@ -107,12 +107,10 @@ Por favor, conclua o pagamento antes de continuar.
     // Cria o nova venda no BD
     if (temTrocoo) {
       props.fechaModal();
-      alert(`Pedido feito com sucesso! 
-Devolva o troco de R$ ${totalPagoo - props.precoTotalDosProdutos}
-Imprimindo pedido...`);
-    } else if (!temTrocoo) {
       alert(`Pedido feito com sucesso!
-Imprimindo pedido...`);
+Devolva o troco de R$ ${totalPagoo - props.precoTotalDosProdutos}`);
+    } else if (!temTrocoo) {
+      alert(`Pedido feito com sucesso!`);
       props.fechaModal();
     }
     try {
@@ -183,7 +181,7 @@ const dataAtual = () => {
 
 const imprimirPedido = () => {
   
-  const janelaImpressao = window.open('', '', 'left=0,top=0,width=400,height=800,toolbar=1,scrollbars=1 ,status=1');
+  const janelaImpressao = window.open('', '', 'left=0,top=0,width=400,height=800,toolbar=1,scrollbars=1 ,status=1')
   props.resumoPedido.forEach((produto) => {
     for (let i = 0; i < produto.qnde; i++) {
     janelaImpressao.document.write(`
@@ -234,11 +232,11 @@ const imprimirPedido = () => {
         </html>
         `)
       }
+      janelaImpressao.print();
       // janelaImpressao.write(cut);
-    })
-    janelaImpressao.document.close();
-    janelaImpressao.focus();
-    janelaImpressao.print();
+  })
+  janelaImpressao.document.close();
+  janelaImpressao.focus();
   janelaImpressao.close();
 }
 

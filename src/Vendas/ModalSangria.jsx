@@ -41,7 +41,7 @@ export default function ModalSangria(props) {
       <button className="botao" onClick={openModal}>
         Sangria
       </button>
-
+cp
       <Modal
         show={isModalSangriaOpen}
         onHide={() => {

@@ -37,26 +37,26 @@ export default function BotaoMenu() {
           <div className="p-1"></div>
           <button
             className="botao"
-            onClick={() => (window.location.href = `/igreja/cadastros/produtos`)}
+            onClick={() => (window.location.href = `/cadastros/produtos`)}
           >
             Produtos
           </button>
           <button
             className="botao"
-            onClick={() => (window.location.href = `/igreja/cadastros/usuarios`)}
+            onClick={() => (window.location.href = `/cadastros/usuarios`)}
           >
             Usuários
           </button>
           <br />
           <button
             className="botao"
-            onClick={() => (window.location.href = `/igreja/cadastros/festas`)}
+            onClick={() => (window.location.href = `/cadastros/festas`)}
           >
             Festas
           </button>
           <button
             className="botao"
-            onClick={() => (window.location.href = `/igreja/gerenciamento`)}
+            onClick={() => (window.location.href = `/gerenciamento`)}
           >
             Caixas
           </button>

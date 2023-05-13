@@ -36,7 +36,7 @@ const Vender = (props) => {
     const getProdutos = async () => {
         try {
             const res = await api.get("/produtos-estoque")
-            const filtraAtivos = res.data && res.data.filter(prod => prod.id_festa === usuario.id_festa )
+            const filtraAtivos = res.data.filter(prod => prod.id_festa === usuario.id_festa )
             // console.log(usuario.id_festa, res.data)
             setProdutos(filtraAtivos.sort((a, b) => {
                 if (a.nome.toLowerCase() < b.nome.toLowerCase()) {
@@ -184,20 +184,20 @@ const Vender = (props) => {
         getNomeFesta()
         },[setNomeFesta,usuario.id_festa,festas]);
         
-        // const [produtosVenda, setProdutosVenda] = useState([])
-        // useEffect(() => {
-        //     const getProdutosVenda = async () => {
-        //         try {
-        //             const res = await api.get("/vendasprodutos")
-        //             setProdutosVenda(res.data.filter(item => +item.id_festa === +usuario.id_festa))
-        //             // console.log(res.data.filter(item => item.id_festa === usuario.id_festa))
+        const [produtosVenda, setProdutosVenda] = useState([])
+        useEffect(() => {
+            const getProdutosVenda = async () => {
+                try {
+                    const res = await api.get("/vendasprodutos")
+                    setProdutosVenda(res.data.filter(item => +item.id_festa === +usuario.id_festa))
+                    // console.log(res.data.filter(item => item.id_festa === usuario.id_festa))
                     
-        //         } catch (error) {
-        //             console.error(error)
-        //         }
-        //     };
-        //     getProdutosVenda();
-        // },[setProdutosVenda,usuario.id_festa]);
+                } catch (error) {
+                    console.error(error)
+                }
+            };
+            getProdutosVenda();
+        },[setProdutosVenda,usuario.id_festa]);
         // console.log(produtosVenda.filter(item => item.id_produto === usuario.id_produto))
     return (
         <div>
@@ -228,8 +228,8 @@ const Vender = (props) => {
                             </div>
 
                             {bebidas && bebidas.map((produto, i) => {
-                                // const totalQtdeVendaProduto = produtosVenda.filter((prod) => prod.id_produto === produto.id_produto).reduce((total, produto) => total + produto.qtde_venda_produto, 0);
-                                // const saldoEstoque = +produto.qtde_estoque - +totalQtdeVendaProduto
+                                const totalQtdeVendaProduto = produtosVenda.filter((prod) => prod.id_produto === produto.id_produto).reduce((total, produto) => total + produto.qtde_venda_produto, 0);
+                                const saldoEstoque = +produto.qtde_estoque - +totalQtdeVendaProduto
                                 return (
                                     <button
                                         key={i}
@@ -244,7 +244,7 @@ const Vender = (props) => {
                                             </div>
                                             <div style={{ fontSize: '18px' }}>
                                                 R${produto.preco.toFixed(2).replace('.', ',')}
-                                                {/* <span className={saldoEstoque > 0 ? 'estoqueVendas' : 'negativo'}>Est.{(saldoEstoque)}</span> */}
+                                                <span className={saldoEstoque > 0 ? 'estoqueVendas' : 'negativo'}>Est.{(saldoEstoque)}</span>
                                             </div>
                                         </div>
                                     </button>
@@ -256,8 +256,8 @@ const Vender = (props) => {
 
                             <div className='title'>Comidas</div>
                             {comidas &&  comidas.map((produto, i) => {
-                                // const totalQtdeVendaProduto = produtosVenda.filter((prod) => prod.id_produto === produto.id_produto).reduce((total, produto) => total + produto.qtde_venda_produto, 0);
-                                // const saldoEstoque = +produto.qtde_estoque - +totalQtdeVendaProduto
+                                const totalQtdeVendaProduto = produtosVenda.filter((prod) => prod.id_produto === produto.id_produto).reduce((total, produto) => total + produto.qtde_venda_produto, 0);
+                                const saldoEstoque = +produto.qtde_estoque - +totalQtdeVendaProduto
                                 return (
                                     <button
                                         key={i}
@@ -271,7 +271,7 @@ const Vender = (props) => {
                                             </div>
                                             <div style={{ fontSize: '18px' }}>
                                                 R${produto.preco.toFixed(2).replace('.', ',')}
-                                                {/* <span className={saldoEstoque > 0 ? 'estoqueVendas' : 'negativo'}>Est.{(saldoEstoque)}</span> */}
+                                                <span className={saldoEstoque > 0 ? 'estoqueVendas' : 'negativo'}>Est.{(saldoEstoque)}</span>
                                             </div>
                                         </div>
                                     </button>

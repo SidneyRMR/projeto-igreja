@@ -147,7 +147,7 @@ const Produtos = () => {
       <div className="title d-flex justify-content-between ">
         <button
           className="botao botaoTitle"
-          onClick={() => (window.location.href = `/igreja/abertura-caixa`)}
+          onClick={() => (window.location.href = `/abertura-caixa`)}
         >
           Voltar
         </button>
@@ -155,7 +155,7 @@ const Produtos = () => {
         <button
           className="botao botaoTitle"
           onClick={() =>
-            (window.location.href = `/igreja/cadastros/produtos/cadproduto`)
+            (window.location.href = `/cadastros/produtos/cadproduto`)
           }
         >
           Novo

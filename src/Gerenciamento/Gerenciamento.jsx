@@ -59,7 +59,7 @@ const FechamentoGeral = (props) => {
       <div className="title d-flex justify-content-between">
         <button
           className="botao botaoTitle "
-          onClick={() => (window.location.href = "/igreja/abertura-caixa")}
+          onClick={() => (window.location.href = "/abertura-caixa")}
         >
           Voltar
         </button>        

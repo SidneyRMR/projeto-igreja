@@ -15,7 +15,7 @@ export default function BotaoMenu(props) {
         <Dropdown.Item>
           <ModalSangria openModal={openModal} saldoCaixa={props.saldoCaixa} />
         </Dropdown.Item>
-        <Dropdown.Item href="/igreja/gestao-caixa">
+        <Dropdown.Item href="/gestao-caixa">
           <div className="botao">Informações</div>
         </Dropdown.Item>
         <Dropdown.Item>

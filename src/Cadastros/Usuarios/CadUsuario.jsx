@@ -82,7 +82,7 @@ const CadUsuario = () => {
             toast.success(`${res.data} salvo com sucesso`, {
                 position: toast.POSITION.TOP_CENTER,
             })
-            return (res.data, (window.location.href = '/igreja/cadastros/usuarios'))
+            return (res.data, (window.location.href = '/cadastros/usuarios'))
         } catch (error) {
             toast.error(error)
         }
@@ -115,7 +115,7 @@ const CadUsuario = () => {
             toast.success(`${nome_usuario} alterado com sucesso`, {
                 position: toast.POSITION.TOP_CENTER,
             })
-            return (res.data, (window.location.href = '/igreja/cadastros/usuarios'))
+            return (res.data, (window.location.href = '/cadastros/usuarios'))
         } catch (error) {
             console.error(error)
         }
@@ -253,7 +253,7 @@ const CadUsuario = () => {
                         </button>
                     ))}
 
-                    <button className='botao' onClick={() => window.location.href = "/igreja/cadastros/usuarios"}>Voltar</button>
+                    <button className='botao' onClick={() => window.location.href = "/cadastros/usuarios"}>Voltar</button>
                 </Col>
             </Row>
 

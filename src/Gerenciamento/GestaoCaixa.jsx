@@ -7,7 +7,7 @@ const GestaoCaixa = () => {
     return (
         <div>
             <div className='title d-flex justify-content-between'> 
-                <button className="botao botaoTitle" onClick={() => window.location.href = "/igreja/vendas"}>Voltar</button>
+                <button className="botao botaoTitle" onClick={() => window.location.href = "/vendas"}>Voltar</button>
                 Informações sobre Vendas
 
                 {/* este botao deverá levar até a tela de fechamento do caixa, criar novo componente ou modal fecharCaixa */}
