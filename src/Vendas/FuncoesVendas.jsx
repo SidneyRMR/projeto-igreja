@@ -1,12 +1,8 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import { api } from "../services/api";
-// import escpos from 'escpos-encoder';
 
 export default function FuncoesVendas(props) {
-  // const cut = escpos.cuts.partialCut();
-
-
   const caixa = JSON.parse(sessionStorage.getItem("caixa"));
   const usuario = JSON.parse(sessionStorage.getItem("usuario"));
 
@@ -231,9 +227,9 @@ const imprimirPedido = () => {
         </style>
         </html>
         `)
+        
       }
       janelaImpressao.print();
-      // janelaImpressao.write(cut);
   })
   janelaImpressao.document.close();
   janelaImpressao.focus();
