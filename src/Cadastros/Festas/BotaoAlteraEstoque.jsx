@@ -20,7 +20,7 @@ export default function BotaoAlteraEstoque(props) {
       toast.success(`${res.data} salvo com sucesso.`, {
         position: toast.POSITION.TOP_CENTER,
       });
-      return res.data((window.location.href = `/cadastros/festas/estoque/?id=${props.id_festa}&nome=${props.nomeFesta}`));
+      return res.data((window.location.href = `/igreja/cadastros/festas/estoque/?id=${props.id_festa}&nome=${props.nomeFesta}`));
     } catch (error) {
       toast.error(error);
     }
@@ -37,7 +37,7 @@ export default function BotaoAlteraEstoque(props) {
       toast.success(`${res.data} salvo com sucesso.`, {
         position: toast.POSITION.TOP_CENTER,
       });
-      return res.data((window.location.href = `/cadastros/festas/estoque/?id=${props.id_festa}&nome=${props.nomeFesta}`));
+      return res.data((window.location.href = `/igreja/cadastros/festas/estoque/?id=${props.id_festa}&nome=${props.nomeFesta}`));
     } catch (error) {
       toast.error(error);
     }

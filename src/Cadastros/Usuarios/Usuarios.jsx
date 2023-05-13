@@ -17,7 +17,7 @@ const Usuarios = () => {
     }
 
     function alterar(usuario) {
-        window.location.href = `/cadastros/usuarios/cadusuario/?id=${usuario.id_usuario}&nome=${usuario.nome_usuario}&login=${usuario.login}&idfesta=${usuario.id_festa}&tipo=${usuario.tipo}`
+        window.location.href = `/igreja/cadastros/usuarios/cadusuario/?id=${usuario.id_usuario}&nome=${usuario.nome_usuario}&login=${usuario.login}&idfesta=${usuario.id_festa}&tipo=${usuario.tipo}`
     }
 
     const handleDelete = async (id, nome) => {
@@ -57,9 +57,9 @@ const Usuarios = () => {
             <div  >
                 <ToastContainer/>
                 <div className='title d-flex justify-content-between align-center ' >
-                    <button className='botao botaoTitle' onClick={() => window.location.href = "/abertura-caixa"}>Voltar</button>
+                    <button className='botao botaoTitle' onClick={() => window.location.href = "/igreja/abertura-caixa"}>Voltar</button>
                     Lista de Usuários
-                    <button className="botao botaoTitle" onClick={() => window.location.href = "/cadastros/usuarios/cadusuario"}>Novo</button>
+                    <button className="botao botaoTitle" onClick={() => window.location.href = "/igreja/cadastros/usuarios/cadusuario"}>Novo</button>
                 </div>
                 <Table className='tabela'>
                     <thead>

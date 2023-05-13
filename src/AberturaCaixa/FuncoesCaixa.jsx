@@ -136,7 +136,7 @@ export default function FuncoesCaixa(props) {
           console.log(`Caixa ${id_caixa} atualizado para ${status_caixa}.`);
           sessionStorage.removeItem("caixa");
           alert("Caixa fechado com sucesso.");
-          window.location.href = "/gerenciamento";
+          window.location.href = "/igreja/gerenciamento";
           return res.data;
         } catch (error) {
           console.error(error);
@@ -172,7 +172,7 @@ export default function FuncoesCaixa(props) {
   };
 
   const acessarVendas = () => {
-    window.location.href = "/vendas";
+    window.location.href = "/igreja/vendas";
   };
 
   return (

@@ -33,7 +33,7 @@ const Login = () => {
                 const {id_usuario, nome_usuario, id_festa, tipo} = usuarioEncontrado;
                 sessionStorage.setItem('usuario', JSON.stringify({id_usuario, nome_usuario, id_festa, tipo}));
                 // console.log(usuarioEncontrado)
-                return window.location.href='/abertura-caixa'
+                return window.location.href='/igreja/abertura-caixa'
             } else if (!usuarioEncontrado) {
                 throw new Error('Usuário ou senha inválidos!')
             } else {

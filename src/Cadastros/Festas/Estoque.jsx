@@ -111,7 +111,7 @@ export default function TabelaProdutosVendidos() {
       <div className="title d-flex justify-content-between ">
         <button
           className="botao botaoTitle"
-          onClick={() => (window.location.href = `/cadastros/festas`)}
+          onClick={() => (window.location.href = `/igreja/cadastros/festas`)}
         >
           Voltar
         </button>

@@ -46,7 +46,7 @@ const Festas = (props) => {
         toast.success(`${res.data} alterado com sucesso`, {
           position: toast.POSITION.TOP_CENTER,
         });
-        return res.data (window.location.href = "/cadastros/festas");
+        return res.data (window.location.href = "/igreja/cadastros/festas");
       } catch (error) {
         toast.error(error);
       }
@@ -79,7 +79,7 @@ const Festas = (props) => {
 
   function verEstoque(id, nome) {
     if (id && nome) {
-    window.location.href = `/cadastros/festas/estoque/?id=${id}&nome=${nome}`;
+    window.location.href = `/igreja/cadastros/festas/estoque/?id=${id}&nome=${nome}`;
     }
   }
 
@@ -89,7 +89,7 @@ const Festas = (props) => {
       <div className="title d-flex justify-content-between ">
         <button
           className="botao botaoTitle"
-          onClick={() => (window.location.href = `/abertura-caixa`)}
+          onClick={() => (window.location.href = `/igreja/abertura-caixa`)}
         >
           Voltar
         </button>

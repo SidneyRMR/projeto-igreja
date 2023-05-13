@@ -50,20 +50,20 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Login />} />
 
-          <Route path="/vendas" element={/* verificarUsuarioLogado() || */ <Vendas />} />
-          <Route path="/gerenciamento" element={/* verificarUsuarioLogado() || */ <Gerenciamento />} />
-          <Route path="/gestao-caixa" element={/* verificarUsuarioLogado() || */ <GestaoCaixa />} />
-          <Route path="/detalhe-caixa" element={/* verificarUsuarioLogado() || */ <DetalheCaixa />} />
-          <Route path="/cadastros/usuarios" element={/* verificarUsuarioLogado() || */ <Usuarios />} />
-          <Route path="/cadastros/usuarios/cadusuario" element={/* verificarUsuarioLogado() || */ <CadastroUsuario />} />
-          <Route path="/cadastros/produtos" element={/* verificarUsuarioLogado() || */ <Produtos />} />
-          <Route path="/cadastros/produtos/cadproduto" element={/* verificarUsuarioLogado() || */ <CadastroProduto />}/>
-          <Route path="/cadastros/festas" element={/* verificarUsuarioLogado() || */ <Festas />} />
-          <Route path="/cadastros/festas/estoque" element={/* verificarUsuarioLogado() || */ <Estoque />} />
-          <Route path="/cadastros/festas/cadfesta" element={/* verificarUsuarioLogado() || */ <CadastroFesta />}/>
-          <Route path="/abertura-caixa" element={/* verificarUsuarioLogado() || */ 
+          <Route path="/igreja/vendas" element={/* verificarUsuarioLogado() || */ <Vendas />} />
+          <Route path="/igreja/gerenciamento" element={/* verificarUsuarioLogado() || */ <Gerenciamento />} />
+          <Route path="/igreja/gestao-caixa" element={/* verificarUsuarioLogado() || */ <GestaoCaixa />} />
+          <Route path="/igreja/detalhe-caixa" element={/* verificarUsuarioLogado() || */ <DetalheCaixa />} />
+          <Route path="/igreja/cadastros/usuarios" element={/* verificarUsuarioLogado() || */ <Usuarios />} />
+          <Route path="/igreja/cadastros/usuarios/cadusuario" element={/* verificarUsuarioLogado() || */ <CadastroUsuario />} />
+          <Route path="/igreja/cadastros/produtos" element={/* verificarUsuarioLogado() || */ <Produtos />} />
+          <Route path="/igreja/cadastros/produtos/cadproduto" element={/* verificarUsuarioLogado() || */ <CadastroProduto />}/>
+          <Route path="/igreja/cadastros/festas" element={/* verificarUsuarioLogado() || */ <Festas />} />
+          <Route path="/igreja/cadastros/festas/estoque" element={/* verificarUsuarioLogado() || */ <Estoque />} />
+          <Route path="/igreja/cadastros/festas/cadfesta" element={/* verificarUsuarioLogado() || */ <CadastroFesta />}/>
+          <Route path="/igreja/abertura-caixa" element={/* verificarUsuarioLogado() || */ 
               <AberturaCaixa /* usuario={usuario} *//>}/>
-          <Route path="/*" element={<Navigate replace to="/" />} />
+          <Route path="igreja/*" element={<Navigate replace to="/" />} />
           </Routes>
         </Suspense>
       </BrowserRouter>

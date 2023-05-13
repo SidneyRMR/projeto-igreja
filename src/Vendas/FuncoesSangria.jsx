@@ -20,7 +20,7 @@ export default function FuncoesSangria(props) {
       );
     } else {
       alert("Algo deu errado! Por favor tente novamente.");
-      // window.location.href='/abertura-caixa'
+      // window.location.href='/igreja/abertura-caixa'
     }
   };
 

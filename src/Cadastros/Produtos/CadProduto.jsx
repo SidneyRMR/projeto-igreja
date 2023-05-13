@@ -68,7 +68,7 @@ const CadProduto = () => {
       toast.success(`${res.data} salvo com sucesso`, {
         position: toast.POSITION.TOP_CENTER,
       });
-      return res.data (window.location.href = "/cadastros/produtos");
+      return res.data (window.location.href = "/igreja/cadastros/produtos");
     } catch (error) {
       toast.error(error);
     }
@@ -126,7 +126,7 @@ const CadProduto = () => {
       toast.success(`${nome} alterado com sucesso`, {
         position: toast.POSITION.TOP_CENTER,
       });
-      return res.data (window.location.href = "/cadastros/produtos");
+      return res.data (window.location.href = "/igreja/cadastros/produtos");
     } catch (error) {
       toast.error(error);
     }
@@ -239,7 +239,7 @@ const CadProduto = () => {
 
           <button
             className="botao"
-            onClick={() => (window.location.href = "/cadastros/produtos")}
+            onClick={() => (window.location.href = "/igreja/cadastros/produtos")}
           >
             Voltar
           </button>
