@@ -229,9 +229,9 @@ const imprimirPedido = () => {
         `)
         
       }
-      janelaImpressao.print();
-  })
-  janelaImpressao.document.close();
+    })
+    janelaImpressao.document.close();
+    janelaImpressao.print();
   janelaImpressao.focus();
   janelaImpressao.close();
 }
