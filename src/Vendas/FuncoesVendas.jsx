@@ -232,7 +232,7 @@ const imprimirPedido = () => {
     janelaImpressao.focus();
     janelaImpressao.print();
     janelaImpressao.close();
-}
+} 
 
 
   return (
